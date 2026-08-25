@@ -175,6 +175,80 @@ in [`docs/local/environment.md`](docs/local/environment.md), along with the
 note on why production Auth URL config is edited in the Supabase dashboard
 rather than pushed with `supabase config push`.
 
+## Traps that do not announce themselves
+
+None of these produces an error. Each has cost this project real time. They
+live here rather than in `STATUS.md` because they are properties of the system
+rather than things anyone is about to fix — `STATUS.md` section 10 tracks only
+what is still open, with an owner against it.
+
+**Two sessions, one branch.** The worktree above separates branches, not
+agents.
+
+- **Commit by path. Never `git add -A`.** A session committing to `main`
+  mid-task sweeps up whatever else is in the tree. `8839d38` is titled for a
+  `deploy:check` fix and also carries another session's `CLAUDE.md` edits,
+  committed by a session that had not written them.
+- **Commit or stash before anyone renormalises line endings.** Adding
+  `.gitattributes` in `f0563c2` rewrote tracked files from the index and
+  silently discarded another session's uncommitted work — no error, no
+  conflict, the files simply reverted to their committed state.
+- **Read `git status` before committing.** Another session's work may be
+  sitting in the tree, and it will not be labelled.
+
+**Line endings** are normalised on commit by `.gitattributes` (`* text=auto
+eol=lf`). The old rule — remember `newline="\n"` when writing from Windows —
+is retired. It was easy to forget, and wrong when a file already had CRLF:
+forcing LF then rewrote every line.
+
+**Shared files are not Operation files.** `app/globals.css`, `lib/skins.ts` and
+the engine render *every* activity, including whatever is already live. A
+change made for one Operation changes the others. Operation branches should
+carry content; shared-file edits are platform tasks.
+
+**Skin tokens stay namespaced `--skin-*`.** `app/layout.tsx` binds
+`--font-display` and `--font-body` on `<html>`, which sits above every
+`[data-skin]` block. An un-namespaced token therefore loses silently, and
+inherited prose wears the wrong face while headings look fine.
+
+**A fixed-height child in a flex parent with default `align-items` stretches
+the parent**, and the surplus renders as chrome. One such bug showed 167px of
+extra bezel at a 873px window and nothing at all below ~746px, which is why it
+survived review — the element itself was byte-identical and measured correctly.
+
+**Schema and data.**
+
+- New tables need an explicit `service_role` grant, or reads fail as a
+  permission error that reads like a missing row.
+- Entitlement changes need **code first**; schema changes need **migration
+  first**. Getting it backwards fails silently.
+- Static answers are numeric-only, so alphanumeric IDs need a prefix
+  workaround until the engine handles them properly.
+
+**A green check asserts less than it appears to.** `doctor` reads secret
+*shape*, never identity: `sb_secret_… len 41` is byte-identical before and
+after a key rotation. It catches empty, truncated and `[SENSITIVE]` keys, and
+nothing beyond that. Know what a check actually claims before citing it as
+evidence that something is done.
+
+**Image generation:** `--aspect` is ignored when `--ref` is passed, so the
+output silently takes the reference image's dimensions.
+
+**`npm run docs:sync` publishes to a public repo.** `STATUS.md`, `CLAUDE.md`
+and `docs/` go; `docs/local/` never does. Assume anything written in those
+three places is world-readable, because it is.
+
+What `docs/local/` holds — project refs, deployment names, machine paths — is
+kept back on a decision taken 2026-08-25. None of it is a credential; the
+Supabase project ref already ships to every browser in
+`NEXT_PUBLIC_SUPABASE_URL`. The test applied was not "is this safe to publish"
+but **"does publishing it help"**, and it does not: a chat session sequencing
+work never needs a project ref, and public git history is permanent.
+
+It is held back by *not being copied*, never by redaction. A redaction step
+that silently stopped matching its pattern would keep reporting success while
+publishing the thing it was added to remove. Keep `docs:sync` a pure copy.
+
 ## Where things live
 
 | | |
