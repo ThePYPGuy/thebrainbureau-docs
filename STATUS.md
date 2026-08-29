@@ -14,8 +14,13 @@ checked; if this file and the repo disagree, **the repo wins.**
 
 **Provenance.** §2–6 rest on commands run 2026-08-25: `doctor`, `deploy:check`
 (local and `--prod`), `git log`/`status`/`worktree list`, `package.json` read
-directly. Stage progress, §7's measurements and the key rotation come from the
-sessions' own reports — attribution, not verification.
+directly. Stage progress and the key rotation come from the sessions’ own
+reports — attribution, not verification.
+
+§7’s font findings are the exception: measured in a running browser this session,
+not reported. Rendered DOM width against a deliberately nonexistent family —
+the only method that gave a true answer, and the reason §10 now says every
+cheaper check is wrong.
 
 ## 1. Sessions
 
@@ -63,26 +68,21 @@ does not import itself.** Both manual parts fail silently.
 14 migrations applied, both activities published, three training banks, 70
 skills and 14 curriculum tags. **This database matches the repo.**
 
-Getting there took two steps. `8839d38` fixed the check, which had printed
-"checking PRODUCTION" while reading content from localhost. The first honest
-run then returned five `?` — the rows predated content hashes, so nothing could
-confirm them. A re-import against production stamped the hashes; the second run
-came back clean. Content was byte-identical to `origin/main` beforehand, so
-this changed fingerprints rather than content, and the in-place importer left
-student progress intact.
+`8839d38` fixed the check; the first honest run returned five `?` because the
+rows predated content hashes; a re-import stamped them and the second run was
+clean. **Re-run after every publish.** `?` is not `DRIFT` — it means
+unconfirmable, and the answer is usually a re-import.
 
-Re-run it after every publish. `?` is not `DRIFT`: it means unconfirmable, and
-the answer is usually a re-import.
+**Deployed twice on 2026-08-25.** `d446fb4..eb46bfc` carried the Case File
+skin, the `deploy:check` fix and the docs work; the second push carried the
+self-hosted faces and the importer guards. Re-verified after landing: public
+pages 200, `/dashboard` 307, **zero** `fonts.googleapis.com` requests in the
+served HTML, `--prod` green on all four sections.
 
-**Deployed 2026-08-25.** `d446fb4..eb46bfc`, 13 commits — the Case File skin,
-the `deploy:check` fix, `.gitattributes` and the documentation work. The Stage 2
-hold was released early because the skin's regressions were verified in a
-browser first.
-
-**Neither manual step was needed**, checked rather than assumed: the range
-touched no `supabase/migrations/` and no `content/`. Before any future push,
-run `git diff --stat origin/main..main -- supabase/migrations/ content/` — both
-of those fail silently when missed.
+**Neither manual step was needed in either range**, checked rather than
+assumed — no `supabase/migrations/`, no `content/`. Before any push, run
+`git diff --stat origin/main..main -- supabase/migrations/ content/`; both fail
+silently when missed.
 
 ## 5. Environment
 
@@ -121,42 +121,39 @@ the README.
 Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
+- `a50672b` — **the skin faces were never loading**; the terminal had drawn in bare monospace, ~⅓ oversized, since sizes are tuned to VT323's narrowness. All four now self-host via `next/font`. `--fd-scale` re-verified at 0.6671 against rendered widths — the 0.667 guess held to four decimals, and could not have been checked before. Method in `CLAUDE.md`. *(WI)*
+- `fc6cffb` — importers refuse to write blind: no localhost default, and a confirmation before any remote write. *(WI)*
 - **13 commits deployed** (`d446fb4..eb46bfc`) — first push since the Case File work began; no migrations or content in the range, so nothing manual followed.
 - **Zero Hour checked in a browser** — both `31db28f` regressions confirmed fixed: the monitor frame holds 686px at 720/900/1100px windows, and task prose keeps the skin's face.
 - **Production re-imported and verified clean** — first confirmed match between the deployed database and the repo.
 - `b0ead55`–`5eff8d6` — `STATUS.md` into the repo, the allowlisted public docs mirror, and machine-specific values split into `docs/local/`.
 - `f0563c2` — `.gitattributes`; line endings normalised on commit. *(WI)*
 - `8839d38` — `deploy:check --prod` no longer queries localhost and calls it production. *(WI)*
-- Supabase `service_role` key rotated after transcript exposure. *(WI, reported)*
 - `31db28f` — skin font tokens namespaced; monitor stretch fixed. *(WI)*
 - `735c6bb` — Case File skin, Stage 1 of 5: type tokenised, two contrast failures fixed.
 - `b53ddf2` — Prime Directive: 7 phases, 7 answer keys, 6 hints. On its branch.
 
 ## 8. Next up
 
-1. **Fix the importers' target resolution.** `scripts/import-activity.ts` and
-   `import-training.ts` still read `SUPABASE_URL ?? localhost` — the exact
-   pattern `deploy:check` was repaired for in `8839d38`. `npm run import` with
-   no variables set writes to the local database and says nothing.
-   *(Website Infrastructure.)*
-2. **Settle whether VT323 actually loads** **[verify]**. Skin faces come from a
-   network `@import` (`app/globals.css:7`); Bureau faces use `next/font/google`,
-   which self-hosts. A failed request falls back to bare `monospace` silently,
-   and sizes tuned to VT323's narrowness then render oversized. Reported by eye.
-   *(Website Infrastructure.)*
-3. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
+1. **Narrow `confirmRemoteWrite`'s `CI` exemption** (§10) — one line; the guard
+   is otherwise sound. *(Website Infrastructure.)*
+2. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
    matters), persistent panel, two correctness fixes.
-4. **Look at each activity in a browser before the next push.** Measuring
+3. **Look at each activity in a browser before the next push.** Measuring
    computed styles missed the bezel bug entirely; measuring *rendered geometry*
    across window heights catches it, and a person catches what neither does.
-5. **Merge `main` into `operation-prime-directive`** before judging how Prime
+4. **Merge `main` into `operation-prime-directive`** before judging how Prime
    Directive looks — it has no skin yet (§3).
-6. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
+5. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
    confirmed against `content/curriculum/`: no skill for *factors, multiples
    and primes* (nearest is a Y3 unit-fractions entry) and no *order of
    operations* at all. Both are UK Y6 blocks it builds locks on.
-7. Visual regression check — screenshot each activity, fail on change.
-8. Lint rule on hex colours and `font-family` outside a token block; make
+6. Visual regression check — screenshot each activity, fail on change.
+   **Include a rendered-width assertion per skin**: measure a known string in
+   the skin's display face against a deliberately nonexistent family and fail
+   if they match. That is the only check that would have caught the fonts —
+   see §10.
+7. Lint rule on hex colours and `font-family` outside a token block; make
    `"import"` a glob rather than a hardcoded list.
 
 ## 9. Open decisions — waiting on Maciej
@@ -188,8 +185,9 @@ session hit the documented apostrophe trap two commits after documenting it.
 |---|---|---|
 | A session commits to `main` mid-task | Another session's uncommitted files land in a commit that does not describe them | Website Infrastructure — candidate `doctor` warning on a dirty tree |
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
-| Skin fonts load by network `@import`, Bureau fonts by `next/font` | A failed request falls back to bare `monospace`; looks plausible in a terminal skin, and sizes tuned to VT323 render oversized | **[verify] §8.2** · Website Infrastructure |
-| `getComputedStyle().fontFamily` reports the *specified* family | Says `VT323` whether or not the face ever loaded — use `document.fonts.check()` | none — cost this session a wrong all-clear |
+| A safeguard whose exemption covers the case it was written for | `confirmRemoteWrite` correctly refuses a non-TTY run, then returns early on `process.env.CI` — set automatically by every CI, which is exactly where no human reads the warning | **§8.1** · Website Infrastructure |
+| **A webfont that never loads** | Text renders in fallback at the wrong width; in a monospace skin it looks plausible, and sizes tuned to a narrow face come out about a third oversized | **fixed `a50672b`** by self-hosting — but see the row below for why it went unseen for so long |
+| **Every cheap way of checking a font is wrong** | `getComputedStyle().fontFamily` returns what CSS *asked for*, so it said `VT323` regardless. `document.fonts.check('16px "VT323"')` returned **`true`** for a family not in the registry at all — it answers "would this be used", assuming system availability. `canvas.measureText` reported every family, real or invented, as an identical width. | **no check** · Website Infrastructure — the only honest test is rendered DOM width against a bogus family; candidate for §8.6 |
 | Importers default to localhost when `SUPABASE_URL` is unset | `npm run import` writes to the laptop while appearing to publish | **§8.1** · Website Infrastructure |
 | `npm run skins` reads the DB, not content files | Reports a stale count | Website Infrastructure |
 | A branch lacking the skin its activity needs | Renders unstyled; reads as a CSS bug | candidate `doctor` check |

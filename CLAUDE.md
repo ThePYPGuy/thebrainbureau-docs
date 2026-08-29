@@ -231,6 +231,24 @@ after a key rotation. It catches empty, truncated and `[SENSITIVE]` keys, and
 nothing beyond that. Know what a check actually claims before citing it as
 evidence that something is done.
 
+**Verifying a webfont loaded needs a rendered-width measurement.** Every cheap
+check is wrong, and all three were believed here while the terminal rendered a
+third oversized in a fallback face:
+
+- `getComputedStyle().fontFamily` returns what the CSS *asked for*. It said
+  `VT323` for a face that had never loaded.
+- `document.fonts.check('16px "VT323"')` returned **true** for a family absent
+  from the registry — it answers "would this be used", assuming system
+  availability, not "did this load".
+- `canvas.measureText` reported every family, real or invented, at an identical
+  width.
+
+The only honest test: render a known string in the target family and in a
+deliberately nonexistent family, via the DOM, and compare widths. Equal means
+the face is not loading. All faces now come through `next/font/google`, which
+self-hosts — no render-time third-party request, and nothing for a school
+network to block. Keep it that way rather than adding an `@import`.
+
 **Image generation:** `--aspect` is ignored when `--ref` is passed, so the
 output silently takes the reference image's dimensions.
 
