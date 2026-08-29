@@ -60,19 +60,21 @@ Live collisions only; standing hazards are in `CLAUDE.md`.
 Pushing to `main` deploys the app. **Migrations do not run themselves. Content
 does not import itself.** Both manual parts fail silently.
 
-**`deploy:check -- --prod` is fixed** (`8839d38`). It used to print "checking
-PRODUCTION", compare migrations against the real project, then read all content
-from localhost and report a match — half the report true, which is what made it
-convincing. Verified by running it: with no credentials it now **exits** rather
-than checking something else. **Production content state is unverified**, but
-honestly so rather than falsely green.
+**Production is verified** — 2026-08-25, for the first time.
+`deploy:check -- --prod` queried the real host and reported every section `ok`:
+14 migrations applied, both activities published, three training banks, 70
+skills and 14 curriculum tags. **This database matches the repo.**
 
-`npm run deploy:check` (local) — 2026-08-25, after the fix:
+Getting there took two steps. `8839d38` fixed the check, which had printed
+"checking PRODUCTION" while reading content from localhost. The first honest
+run then returned five `?` — the rows predated content hashes, so nothing could
+confirm them. A re-import against production stamped the hashes; the second run
+came back clean. Content was byte-identical to `origin/main` beforehand, so
+this changed fingerprints rather than content, and the in-place importer left
+student progress intact.
 
-```
-14 migrations · global-intel-cards, operation-zero-hour · syntax-vault,
-figurative-frequencies, multiplication-firewall · 70 skills, 14 tags — matches
-```
+Re-run it after every publish. `?` is not `DRIFT`: it means unconfirmable, and
+the answer is usually a re-import.
 
 **Unpushed:** `main` is deliberately ahead of `origin/main` — Case File is
 held until Stage 2 lands. No count here; every revision that gave one was stale
@@ -117,6 +119,7 @@ the reference now goes to the README.
 Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
+- **Production re-imported and verified clean** — first confirmed match between the deployed database and the repo.
 - `5eff8d6`, `1050219` — `docs:sync` separates a clean tree from a published one, and reports links that will not resolve in the mirror.
 - `3b3ff44` — machine-specific values split into `docs/local/`, held out of the mirror.
 - `f0563c2` — `.gitattributes`; line endings normalised on commit. *(WI)*
@@ -130,8 +133,11 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Run `deploy:check -- --prod` with credentials** and re-import on drift.
-   The tool is trustworthy now; the answer is still unknown.
+1. **Fix the importers' target resolution.** `scripts/import-activity.ts` and
+   `import-training.ts` still read `SUPABASE_URL ?? localhost` — the exact
+   pattern `deploy:check` was repaired for in `8839d38`. `npm run import` with
+   no variables set writes to the local database and says nothing.
+   *(Website Infrastructure.)*
 2. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
    matters), persistent panel, two correctness fixes.
 3. **Push `main` once Stage 2 lands** — look at Zero Hour in a browser first;
@@ -172,6 +178,7 @@ documenting it.
 |---|---|---|
 | A session commits to `main` mid-task | Another session's uncommitted files land in a commit that does not describe them | Website Infrastructure — candidate `doctor` warning on a dirty tree |
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
+| Importers default to localhost when `SUPABASE_URL` is unset | `npm run import` writes to the laptop while appearing to publish | **§8.1** · Website Infrastructure |
 | `npm run skins` reads the DB, not content files | Reports a stale count | Website Infrastructure |
 | A branch lacking the skin its activity needs | Renders unstyled; reads as a CSS bug | candidate `doctor` check |
 | Shared CSS changed for one skin | Another activity's look shifts, unnoticed | §8.6 |
