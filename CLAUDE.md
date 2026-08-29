@@ -203,8 +203,14 @@ forcing LF then rewrote every line.
 
 **Shared files are not Operation files.** `app/globals.css`, `lib/skins.ts` and
 the engine render *every* activity, including whatever is already live. A
-change made for one Operation changes the others. Operation branches should
-carry content; shared-file edits are platform tasks.
+change made for one Operation changes the others.
+
+The test is **what a rule can reach, not which file it sits in.** A block
+scoped under `[data-skin="case-file"]` cannot affect Zero Hour, so it belongs
+to whoever owns Case File even though it lives in the shared stylesheet.
+Unscoped chrome — `.crtViewport`, `.plainViewport`, the token defaults — can
+reach a live activity, so it is a platform change whoever writes it. Ask what
+the selector matches, then decide.
 
 **Skin tokens stay namespaced `--skin-*`.** `app/layout.tsx` binds
 `--font-display` and `--font-body` on `<html>`, which sits above every

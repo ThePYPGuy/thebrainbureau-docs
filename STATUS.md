@@ -5,8 +5,8 @@ chat conversations used for project management. It records what is moving
 *now*; permanent traps and conventions are in `CLAUDE.md`.
 
 **Not a record of environment or deployment state** — that rots silently. Every
-claim below names the command that produces it. **[verify]** means nobody has
-checked; if this file and the repo disagree, **the repo wins.**
+claim names the command producing it; **[verify]** means nobody has checked. If
+this file and the repo disagree, **the repo wins.**
 
 **Public**, mirrored to
 [thebrainbureau-docs](https://github.com/ThePYPGuy/thebrainbureau-docs) by
@@ -129,7 +129,6 @@ own account of its own work, not re-measured here.
 - `b0ead55`–`5eff8d6` — `STATUS.md` into the repo, the allowlisted public docs mirror, and machine-specific values split into `docs/local/`.
 - `f0563c2` — `.gitattributes`; line endings normalised on commit. *(WI)*
 - `8839d38` — `deploy:check --prod` no longer queries localhost and calls it production. *(WI)*
-- `31db28f` — skin font tokens namespaced; monitor stretch fixed. *(WI)*
 - `735c6bb` — Case File skin, Stage 1 of 5: type tokenised, two contrast failures fixed.
 - `b53ddf2` — Prime Directive: 7 phases, 7 answer keys, 6 hints. On its branch.
 
@@ -137,23 +136,32 @@ own account of its own work, not re-measured here.
 
 1. **Narrow `confirmRemoteWrite`'s `CI` exemption** (§10) — one line; the guard
    is otherwise sound. *(Website Infrastructure.)*
-2. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
+2. **Centre both viewports** — settled on measurement, not taste: at 1000px
+   `flex-start` gives 30/284, `center` gives 157/157; at 660px, where the
+   monitor overflows, all options behave alike with the top reachable, because
+   `.crtViewport` uses `min-height` and grows. The clipping objection does not
+   apply. Op Builder takes both halves, having done the measuring.
+3. **Zero Hour's measure runs to 87 characters** — flagged by Op Builder, owned
+   by Website Infrastructure: Field Terminal, live, and a readability change for
+   Y6 readers rather than the alignment question asked. Case File's equivalent
+   is Op Builder's, in Stage 2.
+4. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
    matters), persistent panel, two correctness fixes.
-3. **Look at each activity in a browser before the next push.** Measuring
-   computed styles missed the bezel bug entirely; measuring *rendered geometry*
-   across window heights catches it, and a person catches what neither does.
-4. **Merge `main` into `operation-prime-directive`** before judging how Prime
+5. **Look at each activity in a browser before the next push.** Computed styles
+   missed the bezel bug; rendered geometry catches it; a person catches what
+   neither does — the fonts were found by eye after three checks said fine.
+6. **Merge `main` into `operation-prime-directive`** before judging how Prime
    Directive looks — it has no skin yet (§3).
-5. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
-   confirmed against `content/curriculum/`: no skill for *factors, multiples
-   and primes* (nearest is a Y3 unit-fractions entry) and no *order of
-   operations* at all. Both are UK Y6 blocks it builds locks on.
-6. Visual regression check — screenshot each activity, fail on change.
+7. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
+   confirmed against `content/curriculum/`: no *factors, multiples and primes*
+   (nearest is a Y3 unit-fractions entry) and no *order of operations*. Both
+   are UK Y6 blocks it builds locks on.
+8. Visual regression check — screenshot each activity, fail on change.
    **Include a rendered-width assertion per skin**: measure a known string in
    the skin's display face against a deliberately nonexistent family and fail
    if they match. That is the only check that would have caught the fonts —
    see §10.
-7. Lint rule on hex colours and `font-family` outside a token block; make
+9. Lint rule on hex colours and `font-family` outside a token block; make
    `"import"` a glob rather than a hardcoded list.
 
 ## 9. Open decisions — waiting on Maciej
@@ -167,10 +175,6 @@ own account of its own work, not re-measured here.
   beside a `_superseded/` folder of 7 older ones under near-identical names.
   Stage 3 copies the 6, not the directory: a superseded image renders
   perfectly, so nothing reports the mistake.
-- **Centre the monitor rather than top-align it?** `align-items: flex-start`
-  correctly stopped the stretch, but a tall window now leaves ~200px dead below
-  the monitor; `center` would stop it too and split the surplus. Not a defect —
-  a look. Operation Builder owns the skin.
 - **Case File is `designed: true` with Stage 2 of 5 to come**
   (`lib/skins.ts:46`). Does the flag mean "drawn enough to ship" or "finished"?
 - **Merge `operation-prime-directive` now, or wait for evidence capability?**
