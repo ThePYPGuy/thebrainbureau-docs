@@ -69,15 +69,15 @@ does not import itself.** Both manual parts fail silently.
 skills and 14 curriculum tags. **This database matches the repo.**
 
 `8839d38` fixed the check; the first honest run returned five `?` because the
-rows predated content hashes; a re-import stamped them and the second run was
-clean. **Re-run after every publish.** `?` is not `DRIFT` — it means
-unconfirmable, and the answer is usually a re-import.
+rows predated content hashes, and a re-import stamped them. **Re-run after
+every publish.** `?` is not `DRIFT` — it means unconfirmable, usually a
+re-import.
 
 **Deployed twice on 2026-08-25.** `d446fb4..eb46bfc` carried the Case File
-skin, the `deploy:check` fix and the docs work; the second push carried the
-self-hosted faces and the importer guards. Re-verified after landing: public
-pages 200, `/dashboard` 307, **zero** `fonts.googleapis.com` requests in the
-served HTML, `--prod` green on all four sections.
+skin, the `deploy:check` fix and the docs work; the second carried the
+self-hosted faces and the importer guards. Re-verified after landing: pages
+200, `/dashboard` 307, **zero** `fonts.googleapis.com` requests served,
+`--prod` green throughout.
 
 **Neither manual step was needed in either range**, checked rather than
 assumed — no `supabase/migrations/`, no `content/`. Before any push, run
