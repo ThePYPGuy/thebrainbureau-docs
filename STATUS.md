@@ -4,19 +4,18 @@ The coordination layer between parallel Claude Code sessions and the Claude
 chat conversations used for project management. It records what is moving
 *now*; permanent traps and conventions are in `CLAUDE.md`.
 
-**It is not a record of environment or deployment state** — that rots silently.
-Every claim below names the command that produces it. **[verify]** means nobody
-has checked, and **if this file and the repo disagree, the repo wins.**
+**Not a record of environment or deployment state** — that rots silently. Every
+claim below names the command that produces it. **[verify]** means nobody has
+checked; if this file and the repo disagree, **the repo wins.**
 
 **Public**, mirrored to
 [thebrainbureau-docs](https://github.com/ThePYPGuy/thebrainbureau-docs) by
 `npm run docs:sync` — a mirror, never a second source of truth.
 
-**Provenance.** §2–6 rest on commands run 2026-08-25: `doctor`,
-`deploy:check` (local and `--prod`), `git log`/`status`/`worktree list`, and
-`package.json` read directly. Stage progress, every measurement in §7, and the
-key rotation come from the sessions' own reports — attribution, not
-verification.
+**Provenance.** §2–6 rest on commands run 2026-08-25: `doctor`, `deploy:check`
+(local and `--prod`), `git log`/`status`/`worktree list`, `package.json` read
+directly. Stage progress, §7's measurements and the key rotation come from the
+sessions' own reports — attribution, not verification.
 
 ## 1. Sessions
 
@@ -36,7 +35,7 @@ last losing work. Mechanics in `CLAUDE.md`.
 | Case File skin | main worktree | `main` | none | Stage 1 of 5 done |
 | Prime Directive | PD worktree | `operation-prime-directive` | none | pushed, in sync, **not merged** |
 | Website Infrastructure | main worktree | `main` | none — committed | `--prod` fix landed |
-| Doc Manager | main worktree | `main` | `STATUS.md`, `CLAUDE.md` | this change |
+| Doc Manager | main worktree | `main` | `STATUS.md` | this change |
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -51,9 +50,8 @@ Live collisions only; standing hazards are in `CLAUDE.md`.
 - **`package.json` `"import"` is a hardcoded list, not a glob.** Every new
   activity conflicts on merge; resolution is always "keep both sides". The
   `import:curriculum` conflict was already resolved by merge `46d7037`.
-- **`bb49a62` duplicates `5fda3d3`** — same commit message on the branch and on
-  `main`. The duplicate is verified; that it is cherry-pick residue is
-  inference. Likely to conflict on merge.
+- **`bb49a62` duplicates `5fda3d3`** — same message on both. The duplicate is
+  verified; cherry-pick residue is inference. Likely to conflict on merge.
 
 ## 4. Publish state
 
@@ -76,15 +74,20 @@ student progress intact.
 Re-run it after every publish. `?` is not `DRIFT`: it means unconfirmable, and
 the answer is usually a re-import.
 
-**Unpushed:** `main` is deliberately ahead of `origin/main` — Case File is
-held until Stage 2 lands. No count here; every revision that gave one was stale
-within the hour. Run `git rev-list --count origin/main..main`.
+**Deployed 2026-08-25.** `d446fb4..eb46bfc`, 13 commits — the Case File skin,
+the `deploy:check` fix, `.gitattributes` and the documentation work. The Stage 2
+hold was released early because the skin's regressions were verified in a
+browser first.
+
+**Neither manual step was needed**, checked rather than assumed: the range
+touched no `supabase/migrations/` and no `content/`. Before any future push,
+run `git diff --stat origin/main..main -- supabase/migrations/ content/` — both
+of those fail silently when missed.
 
 ## 5. Environment
 
 `npm run doctor` — 2026-08-25: **no failures, 2 warnings** (`uv` not on PATH,
-`tools/google-image-gen` absent). Both expected; the image pipeline lives
-outside the repo.
+`tools/google-image-gen` absent). Both expected — that pipeline is not in the repo.
 
 Paths, worktrees, project refs and Maciej's folders are in
 `docs/local/environment.md`; `git worktree list` and `doctor` outrank it.
@@ -103,32 +106,30 @@ Verified against `package.json` directly, not against a summary of it.
 | Publish drift, prod | `deploy:check -- --prod` | **fixed** (`8839d38`) — exits rather than checking the wrong database |
 | Line endings | `.gitattributes` | built (`f0563c2`) |
 | Skin variety | `npm run skins` | built — reads the DB, not content files (§10) |
-| Unit tests | `npm run test` | vitest |
-| E2E / answer leak | `npm run e2e` | 6 scripts |
+| Tests | `npm run test`, `npm run e2e` | vitest suite; 6 e2e scripts, incl. answer leak |
 | Importer safety | `npm run test:reimport` | built |
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
 | Docs mirror | `npm run docs:sync` | built — `--dry-run`, `--no-push` |
 
 **Activity schema is locked at 0.4** — both shipped activities declare it;
 earlier revisions said 0.3 and were wrong. `CLAUDE.md` pointed at
-`activity-schema-v0.4.md`, which exists nowhere and **has never been written**;
-the reference now goes to the README.
+`activity-schema-v0.4.md`, which **has never been written**; it now points at
+the README.
 
 ## 7. Recently completed
 
 Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
+- **13 commits deployed** (`d446fb4..eb46bfc`) — first push since the Case File work began; no migrations or content in the range, so nothing manual followed.
+- **Zero Hour checked in a browser** — both `31db28f` regressions confirmed fixed: the monitor frame holds 686px at 720/900/1100px windows, and task prose keeps the skin's face.
 - **Production re-imported and verified clean** — first confirmed match between the deployed database and the repo.
-- `5eff8d6`, `1050219` — `docs:sync` separates a clean tree from a published one, and reports links that will not resolve in the mirror.
-- `3b3ff44` — machine-specific values split into `docs/local/`, held out of the mirror.
+- `b0ead55`–`5eff8d6` — `STATUS.md` into the repo, the allowlisted public docs mirror, and machine-specific values split into `docs/local/`.
 - `f0563c2` — `.gitattributes`; line endings normalised on commit. *(WI)*
 - `8839d38` — `deploy:check --prod` no longer queries localhost and calls it production. *(WI)*
-- `b0ead55` — `STATUS.md` into the repo, plus an allowlisted `docs:sync`.
 - Supabase `service_role` key rotated after transcript exposure. *(WI, reported)*
 - `31db28f` — skin font tokens namespaced; monitor stretch fixed. *(WI)*
 - `735c6bb` — Case File skin, Stage 1 of 5: type tokenised, two contrast failures fixed.
-- `d446fb4` — doctor. `1c06de1` — image styles into the repo. *(WI)*
 - `b53ddf2` — Prime Directive: 7 phases, 7 answer keys, 6 hints. On its branch.
 
 ## 8. Next up
@@ -138,18 +139,24 @@ own account of its own work, not re-measured here.
    pattern `deploy:check` was repaired for in `8839d38`. `npm run import` with
    no variables set writes to the local database and says nothing.
    *(Website Infrastructure.)*
-2. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
+2. **Settle whether VT323 actually loads** **[verify]**. Skin faces come from a
+   network `@import` (`app/globals.css:7`); Bureau faces use `next/font/google`,
+   which self-hosts. A failed request falls back to bare `monospace` silently,
+   and sizes tuned to VT323's narrowness then render oversized. Reported by eye.
+   *(Website Infrastructure.)*
+3. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
    matters), persistent panel, two correctness fixes.
-3. **Push `main` once Stage 2 lands** — look at Zero Hour in a browser first;
-   `735c6bb` was verified by measuring computed styles, not by eye.
-4. **Merge `main` into `operation-prime-directive`** before judging how Prime
+4. **Look at each activity in a browser before the next push.** Measuring
+   computed styles missed the bezel bug entirely; measuring *rendered geometry*
+   across window heights catches it, and a person catches what neither does.
+5. **Merge `main` into `operation-prime-directive`** before judging how Prime
    Directive looks — it has no skin yet (§3).
-5. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
+6. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
    confirmed against `content/curriculum/`: no skill for *factors, multiples
    and primes* (nearest is a Y3 unit-fractions entry) and no *order of
    operations* at all. Both are UK Y6 blocks it builds locks on.
-6. Visual regression check — screenshot each activity, fail on change.
-7. Lint rule on hex colours and `font-family` outside a token block; make
+7. Visual regression check — screenshot each activity, fail on change.
+8. Lint rule on hex colours and `font-family` outside a token block; make
    `"import"` a glob rather than a hardcoded list.
 
 ## 9. Open decisions — waiting on Maciej
@@ -163,21 +170,26 @@ own account of its own work, not re-measured here.
   beside a `_superseded/` folder of 7 older ones under near-identical names.
   Stage 3 copies the 6, not the directory: a superseded image renders
   perfectly, so nothing reports the mistake.
+- **Centre the monitor rather than top-align it?** `align-items: flex-start`
+  correctly stopped the stretch, but a tall window now leaves ~200px dead below
+  the monitor; `center` would stop it too and split the surplus. Not a defect —
+  a look. Operation Builder owns the skin.
 - **Case File is `designed: true` with Stage 2 of 5 to come**
   (`lib/skins.ts:46`). Does the flag mean "drawn enough to ship" or "finished"?
 - **Merge `operation-prime-directive` now, or wait for evidence capability?**
 
 ## 10. Known silent failures
 
-Open items only, each with an owner. Failures already caught by a check, and
-standing traps, are in `CLAUDE.md`. **Documentation does not fire at 11pm** —
-proved when a session hit the documented apostrophe trap two commits after
-documenting it.
+Open items only, each with an owner; failures already caught by a check, and
+standing traps, are in `CLAUDE.md`. **Documentation does not fire at 11pm** — a
+session hit the documented apostrophe trap two commits after documenting it.
 
 | Failure | Symptom | Owner |
 |---|---|---|
 | A session commits to `main` mid-task | Another session's uncommitted files land in a commit that does not describe them | Website Infrastructure — candidate `doctor` warning on a dirty tree |
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
+| Skin fonts load by network `@import`, Bureau fonts by `next/font` | A failed request falls back to bare `monospace`; looks plausible in a terminal skin, and sizes tuned to VT323 render oversized | **[verify] §8.2** · Website Infrastructure |
+| `getComputedStyle().fontFamily` reports the *specified* family | Says `VT323` whether or not the face ever loaded — use `document.fonts.check()` | none — cost this session a wrong all-clear |
 | Importers default to localhost when `SUPABASE_URL` is unset | `npm run import` writes to the laptop while appearing to publish | **§8.1** · Website Infrastructure |
 | `npm run skins` reads the DB, not content files | Reports a stale count | Website Infrastructure |
 | A branch lacking the skin its activity needs | Renders unstyled; reads as a CSS bug | candidate `doctor` check |
