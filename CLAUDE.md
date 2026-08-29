@@ -237,6 +237,12 @@ after a key rotation. It catches empty, truncated and `[SENSITIVE]` keys, and
 nothing beyond that. Know what a check actually claims before citing it as
 evidence that something is done.
 
+**Look at each activity in a browser before pushing.** Three levels, and each
+catches what the one before misses: computed styles missed the bezel bug
+entirely, rendered geometry across window heights catches it, and a person
+catches what neither does — the fallback fonts were spotted by eye after three
+programmatic checks had all reported fine.
+
 **Verifying a webfont loaded needs a rendered-width measurement.** Every cheap
 check is wrong, and all three were believed here while the terminal rendered a
 third oversized in a fallback face:

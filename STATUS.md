@@ -147,21 +147,18 @@ own account of its own work, not re-measured here.
    is Op Builder's, in Stage 2.
 4. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
    matters), persistent panel, two correctness fixes.
-5. **Look at each activity in a browser before the next push.** Computed styles
-   missed the bezel bug; rendered geometry catches it; a person catches what
-   neither does — the fonts were found by eye after three checks said fine.
-6. **Merge `main` into `operation-prime-directive`** before judging how Prime
+5. **Merge `main` into `operation-prime-directive`** before judging how Prime
    Directive looks — it has no skin yet (§3).
-7. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
+6. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
    confirmed against `content/curriculum/`: no *factors, multiples and primes*
    (nearest is a Y3 unit-fractions entry) and no *order of operations*. Both
    are UK Y6 blocks it builds locks on.
-8. Visual regression check — screenshot each activity, fail on change.
+7. Visual regression check — screenshot each activity, fail on change.
    **Include a rendered-width assertion per skin**: measure a known string in
    the skin's display face against a deliberately nonexistent family and fail
    if they match. That is the only check that would have caught the fonts —
    see §10.
-9. Lint rule on hex colours and `font-family` outside a token block; make
+8. Lint rule on hex colours and `font-family` outside a token block; make
    `"import"` a glob rather than a hardcoded list.
 
 ## 9. Open decisions — waiting on Maciej
