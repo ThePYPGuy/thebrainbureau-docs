@@ -178,8 +178,6 @@ from `git log`; descriptions are each session's account of its own work.
 - **The Drive "Accounts" doc holds live credentials in plain text** — a
   database password and a mail-provider key; one `service_role` key has
   already been rotated this week after a transcript leak.
-- **Duplicate style templates** in Maciej's image folder; `content/styles/`
-  is authoritative. Unresolved across three revisions.
 
 ## 10. Known silent failures
 
