@@ -28,7 +28,7 @@ cheaper check is wrong.
 |---|---|---|---|
 | **Operation Builder** | Prime Directive + the Case File skin | main | no — Stage 2 next |
 | **Website Infrastructure** | Platform, engine, scripts, checks | main | no — `914d97b`, `48a23b3` committed |
-| **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` | main — **should be its own, §8.1** | yes, this change |
+| **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` | own, on `docs` | n/a — never in main's tree |
 
 **Before your first write, run `git status --porcelain`.**
 
@@ -49,7 +49,7 @@ Say so when you commit, so a waiting session knows. Four collisions on
 | Case File skin | `main` | none | Stage 1 done; Stage 2 next |
 | Prime Directive | `operation-prime-directive` | none | merged to `2bf4df5`, already 4 behind |
 | Platform | `main` | none | measure and CI exemption landed |
-| Docs | `main` | `STATUS.md`, `CLAUDE.md` | this change |
+| Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -124,6 +124,7 @@ Verified against `package.json` directly, not against a summary of it.
 Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
+- **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
 - `48a23b3`, `914d97b` — Field Terminal given a 72-character measure; `CI` no longer exempts a production write. *(WI)*
 - `f04c924` — both viewports centred; Case File given a measure and a monochrome padlock. Settled by measurement at 1000px and 660px; the clipping objection does not apply because `.crtViewport` uses `min-height`. **Zero Hour confirmed centred by eye**; Case File's half not yet looked at. *(Op Builder.)*
 - `a50672b` — **the skin faces were never loading**; the terminal had drawn in bare monospace, ~⅓ oversized, since sizes are tuned to VT323's narrowness. All four now self-host via `next/font`. `--fd-scale` re-verified at 0.6671 against rendered widths — the 0.667 guess held to four decimals, and could not have been checked before. Method in `CLAUDE.md`. *(WI)*
@@ -136,25 +137,20 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Give Doc Manager its own worktree** — `git worktree add ../tbb-docs docs`.
-   It is the session that holds uncommitted work across other sessions' turns,
-   and it lost that work twice. Merge `main` in before writing, merge back to
-   publish; nobody else touches those files, so it stays a fast-forward.
-   Reasoning in `CLAUDE.md`.
-2. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
+1. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
    matters), persistent panel, two correctness fixes.
-3. **Re-merge `main` into `operation-prime-directive`** before judging how it
+2. **Re-merge `main` into `operation-prime-directive`** before judging how it
    looks — 4 behind again (§3).
-4. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
+3. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
    confirmed against `content/curriculum/`: no *factors, multiples and primes*
    (nearest is a Y3 unit-fractions entry) and no *order of operations*. Both
    are UK Y6 blocks it builds locks on.
-5. Visual regression check — screenshot each activity, fail on change. It must
+4. Visual regression check — screenshot each activity, fail on change. It must
    freeze or mock the clock (**the HUD timer never lets the page go idle**, so
    capture fails), and carry a **rendered-width assertion per skin**: a known
    string in the display face against a nonexistent family, failing if they
    match. That is the only check that would have caught the fonts.
-6. Lint rule on hex colours and `font-family` outside a token block; make
+5. Lint rule on hex colours and `font-family` outside a token block; make
    `"import"` a glob rather than a hardcoded list.
 
 ## 9. Open decisions — waiting on Maciej

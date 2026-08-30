@@ -219,8 +219,30 @@ destroys someone's work.
 
 **A session that holds uncommitted work across another session's turn wants
 its own worktree, not more care.** Git refuses the same branch in two
-worktrees, so give it a branch: `git worktree add ../tbb-docs docs`, merge
-`main` in before writing, merge back to publish.
+worktrees, so such a session needs a branch of its own.
+
+Doc Manager has one: `/home/maciej/tbb-doc-manager` on branch `docs`. It never
+appears in `main`'s working tree, so nothing it holds can be swept into another
+session's commit or reverted by a renormalise. Its cycle:
+
+```bash
+git -C ~/tbb-doc-manager merge main      # take main's history first
+# edit STATUS.md / CLAUDE.md / docs/, commit there
+git -C ~/thebrainbureau merge --ff-only docs
+```
+
+**`--ff-only` is the guard.** Only Doc Manager touches those three paths, so
+publishing is always a fast-forward — it moves the ref and rewrites nothing
+anyone else could be holding. If it ever refuses, the assumption has broken and
+someone else has edited the docs; stop and look rather than forcing it. That
+also makes publishing safe while another session is mid-task, which a plain
+merge would not be.
+
+Note the name. The mirror clone lives at `tbb-docs-mirror`, and a worktree
+called `tbb-docs` beside it would differ by a suffix while being a completely
+different thing — one the authoritative private repo, the other a disposable
+clone of a *public* one. Committing in the wrong directory there fails
+silently, so the worktree is `tbb-doc-manager` instead.
 
 **Line endings** are normalised on commit by `.gitattributes` (`* text=auto
 eol=lf`). The old rule — remember `newline="\n"` when writing from Windows —
