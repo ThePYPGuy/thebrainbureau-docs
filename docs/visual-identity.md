@@ -126,12 +126,44 @@ rather than letting a one-off slug slip in unnoticed.
 | `skin` | Name | Feel | Suits |
 |---|---|---|---|
 | `field-terminal` | **Field Terminal** *(built)* | CRT green, scanlines, monospace | Hacking, codes, systems, Agent Training |
-| `case-file` | **Case File** | Manila, typewriter, redaction bars, paperclips, photographs | Cases. Prints beautifully, which the Case dossier needs anyway |
+| `case-file` | **Case File** | Manila folder holding *typed sheets*; redaction bars, paperclips, photographs | Cases. Prints beautifully, which the Case dossier needs anyway |
 | `archive` | **The Archive** | Artefact cards, museum labels, glass, aged paper | Objects and characters, history, cross-curricular |
 | `situation-room` | **Situation Room** | Wall maps, pins and string, briefing boards | Case openings, geography, anything spatial |
 | `surveillance-feed` | **Surveillance Feed** | Camera grid, timestamps, overlays, thermal | Observation, data, statistics |
 | `field-notebook` | **Field Notebook** | Handwriting, sketches, tape, pressed specimens | Field Ops, science, outdoors |
 | `lab-bench` | **Lab Bench** | Specimen trays, instruments, clean light | Science investigations |
+
+### Case File: paper on the folder, never on it
+
+**Decided 2026-08-25.** Nothing is written directly on the manila. The folder
+is the container; the reading matter sits on **sheets laid on it** — a typed
+page with its own edge, shadow and slight rotation, as though someone put it
+there. Prose, exhibit transcripts and lock text all belong on paper. The folder
+carries only what a folder carries: the tab, the case number, the texture.
+
+The distinction is the whole archetype. Text on manila reads as a website
+wearing a colour; text on a sheet reads as a document someone handled.
+
+**Evidence photographs reveal their detail on hover** — the print is a print
+until you lean in.
+
+> **This needs a non-hover path, and it is not optional.** Hover does not
+> exist on a tablet or an interactive whiteboard, which is where a good share
+> of these students will meet it. Hover is the *enhancement*; tap-to-reveal, or
+> simply showing the detail, is the behaviour. An affordance only reachable by
+> mouse is the same class of failure as the `prefix` that was typed and never
+> drawn — present in the design, absent for the child.
+
+**Typeface: TT2020.** A typewriter face with real irregularity, which is what
+separates a typed sheet from a monospaced web page.
+
+> **TT2020 is not on Google Fonts** — verified, every variant returns 400. It
+> cannot arrive through `next/font/google` like the other four faces. It is SIL
+> OFL licensed, so the files can live in the repo and load through
+> `next/font/local`. Adding the name to a token without the files would fall
+> back to a generic serif and look approximately right, which is exactly how
+> VT323 went unnoticed for four commits. Verify by rendered width against a
+> nonexistent family, per `CLAUDE.md`.
 
 ### Keeping them varied
 
