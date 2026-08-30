@@ -138,25 +138,23 @@ own account of its own work, not re-measured here.
 - **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
 - **Prime Directive played end to end** as a fresh agent — the first time anyone has solved all seven locks rather than inspected them. All keys accepted, wrong answers refused with their own feedback, Intel 150/75/25 as designed (1,375 total, promoted), hints on 01–06 and none on 07, `completion` `{}` at 0/7 and 6/7 and released at 7/7, certificate unlocked. Two defects no check could see (§10) — but knowing the answers hid a third: the activity is unplayable. *(Op Builder.)*
 - `14a726f`, `4d268bd`, merged in `3e30eac` — **`completion` released only once every phase is done**, with a check proved by reverting the gate: 4 assertions go red. Built against a fixture whose debrief names its own answer, since asserting on Zero Hour would pass for the reason the bug hid. Also checks it releases *whole* (`unlocksCertificate` rides along) and *per agent*. *(WI.)*
-- `9405d9c` — **Stage 3 content.** Seven phases onto `config.evidence` + `_evidenceDesign`; `column` went private with them — it reads as a routing hint but names the Suspect Log column each lock filters on, and five of seven blocks held it. Seven images copied by name, byte-identical, no `_superseded/` shadows. *(Op Builder.)*
 
 ## 8. Next up
 
-1. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
-   pass, but their leak checks cover Zero Hour and Global Intel Cards only.
-   This activity's served state was verified by hand, and it is the one that
-   already shipped an answer in a caption. *(WI.)*
-2. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
-   short-circuit inherits the Value Vault. *(Website Infrastructure.)*
-3. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
-   it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
-   *(Website Infrastructure.)*
-4. Visual regression check — screenshot each activity, fail on change.
+1. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
+   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE", so a Case File
+   short-circuit inherits the Value Vault. *(WI.)*
+2. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot
+   describe a proportional face; Archivo Narrow measured 0.786–1.002 across six
+   strings. Seventeen declarations shared with Field Terminal, so platform.
+   *(WI.)*
+3. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
-   never lets the page idle (Op Builder proved this out). Carry a
-   **rendered-width assertion per skin**: a known string in the display face
-   against a nonexistent family, failing if they match.
-5. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+   never lets the page idle. Carry a **rendered-width assertion per skin**: a
+   known string in the display face against a nonexistent family, failing if
+   they match — with a discriminating string, since a 10px gap proves nothing.
+4. Lint rule on hex colours and `font-family` outside token blocks; make
+   `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -183,6 +181,7 @@ table once. **Documentation does not fire at 11pm.**
 
 | Failure | Symptom | Owner |
 |---|---|---|
+| Short numeric answers are not leak-checked, and cannot be | `test-answer-leak.ts` derives forbidden values from each activity's own `answer` fields, `_`-prefixed subtrees and `completion` — but with two floors that **are** its coverage. `PROSE_FLOOR` 12 chars, below which a secret string is usually an identifier: `_evidenceDesign.column` is "colour", public by design, and forbidding it would fail on correct content. `DIGITS_FLOOR` 3, below which a figure cannot be told from any other on the page — Lock 06's answer is 2 and appears inside its own exhibit, correctly, because it is the sum. Lock 07 is covered only because its `prefix` makes the typed value `C-09` | **stated, not fixable** — written out in the script so it is never cited for more than it does |
 | A guard that closed the only recovery path | `alreadyDone` skipped `settleCompletion` whenever the task was already correct — protecting against a double-award the callee already refused, and in doing so shutting the door a stranded child would push on. **Fixed**, and the state is now repaired on load | **self-healing, not closed** — the two writes are still not atomic and cannot be made so from the client; it needs a Postgres function, and `check.ts` says so where it happens |
 | A repair that reads as a loss | The reconcile awards Intel, but `loadStudentState` had already read the agent row — so the phase opened with the old total beside it and the award looked like it had gone missing. Caught in testing; the agent is re-read only when something was repaired | **fixed** — a silent repair still has to be visible where it lands |
 | A failed import leaves rows it created | Positions are restored and creations are not — no transaction, because the Supabase client cannot open one; it would take a Postgres function. Bites only if the file is reverted after a failed import | **stated, unfixed** · Website Infrastructure |
