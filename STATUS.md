@@ -120,7 +120,7 @@ Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
 - **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
-- **Prime Directive played end to end** as a fresh agent — the first time anyone has solved all seven locks rather than inspected them. All keys accepted, wrong answers refused with their own feedback, Intel 150/75/25 as designed (1,375 total, promoted), hints on 01–06 and none on 07, `completion` `{}` at 0/7 and 6/7 and released at 7/7, certificate unlocked. Two defects found that no check could see — see §10. *(Op Builder.)*
+- **Prime Directive played end to end** as a fresh agent — the first time anyone has solved all seven locks rather than inspected them. All keys accepted, wrong answers refused with their own feedback, Intel 150/75/25 as designed (1,375 total, promoted), hints on 01–06 and none on 07, `completion` `{}` at 0/7 and 6/7 and released at 7/7, certificate unlocked. Two defects no check could see (§10) — but knowing the answers hid a third: the activity is unplayable. *(Op Builder.)*
 - `14a726f`, `4d268bd`, merged in `3e30eac` — **`completion` released only once every phase is done**, with a check proved by reverting the gate: 4 assertions go red. Built against a fixture whose debrief names its own answer, since asserting on Zero Hour would pass for the reason the bug hid. Also checks it releases *whole* (`unlocksCertificate` rides along) and *per agent*. *(WI.)*
 - `9405d9c` — **Stage 3 content.** Seven phases onto `config.evidence` + `_evidenceDesign`; `column` went private with them — it reads as a routing hint but names the Suspect Log column each lock filters on, and five of seven blocks held it. Seven images copied by name, byte-identical, no `_superseded/` shadows. *(Op Builder.)*
 - `01182fd` — **Case File is designed** — drawn enough to ship, not finished. The test's expectation moved rather than the flag, so the next archetype meets the question rather than the answer. Five remain undrawn. *(WI.)*
@@ -138,9 +138,12 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Prime Directive can publish** — the gate landed, so nothing blocks it.
-   Merge to `main`, tag its curriculum skills, import against production, flip
-   `draft`. Every one of those fails silently if skipped; `--prod` is the check.
+1. **Prime Directive cannot be played, and must not publish.** Its mechanic is
+   elimination (`_design.eliminationTrace`: `10-7-5-4-3-2-1`) and **the ten
+   suspects exist nowhere a student can reach** — not in content, not as a task
+   type, not as a panel. The columns each lock filters on live only in
+   `_evidenceDesign`, private by design. **The Suspect Log is Stage 3's real
+   remainder** and needs a decision first: on screen, printable, or both.
 2. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
    primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
    (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
@@ -182,18 +185,14 @@ session hit the documented apostrophe trap two commits after documenting it.
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
 | Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
-| `completion` always serialised | `state.ts:215` sends every activity's ending on first load. **Prime Directive's ending is its answer** — COGSWORTH and `C-09` readable at 0 of 7 phases; Zero Hour survives only because its ending does not contain its answer | **§8.2, blocks publication** · Website Infrastructure |
-| `Mission.tsx` hardcodes one activity's fiction for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE" — the Value Vault is Zero Hour's story, inherited by a workshop short-circuit case | **unfixed** · Website Infrastructure; the content half went with `9405d9c` |
+| An activity verified end to end that cannot be played | Every lock accepted its key, Intel and hints behaved, the gate held — and the deduction is impossible, because the suspects are not rendered anywhere. A session that knows the answers cannot detect a missing affordance | **§8.1** — playthroughs must be by someone who does not know the answer |
+| The briefing is a collapsed `<details>` | `Mission.tsx:219` puts the whole back story behind a summary line that reads as a heading. Prime Directive's briefing exists and is good; nobody sees it | **unfixed** · Website Infrastructure — shared chrome |
+| Evidence images cannot be enlarged | Exhibits carry figures a child must read — a batch sheet, a power log — rendered at fixed width and `pixelated`, with no zoom | **unfixed** · Website Infrastructure |
 | A public field carrying something secret | `config.evidence.caption` read "C-09 COGSWORTH", publishing Lock 07's answer at 0 of 7 phases. The boundary held, the gate worked, `e2e` passed — the field is *meant* to be public, so no structural check can see this. **Found by playing** | **fixed** — read what public fields say, not just where they sit |
 | `prefix` typed but never rendered | `Tasks.tsx` destructures it and draws nothing, so a Suspect Log of C-01…C-10 offers a numeric box that refuses `C-09`. Live: Global Intel Cards declares `"$"` | **§8.3** · Website Infrastructure |
 | `.completeBox` unscoped black on a light skin | Fourth instance of a colour literal that only looks wrong on manila | **§8.4** · Op Builder |
-| A red suite with nobody watching | `npm run test` has failed since `735c6bb` — no CI, and the failure is a real question | **§8.1** |
-| A safeguard whose exemption covers the case it was written for | `confirmRemoteWrite` correctly refuses a non-TTY run, then returns early on `process.env.CI` — set automatically by every CI, which is exactly where no human reads the warning | **§8.1** · Website Infrastructure |
-| **Every cheap way of checking a font is wrong** | `getComputedStyle().fontFamily` returns what CSS *asked for*, so it said `VT323` regardless. `document.fonts.check('16px "VT323"')` returned **`true`** for a family not in the registry at all — it answers "would this be used", assuming system availability. `canvas.measureText` reported every family, real or invented, as an identical width. | **no check** · Website Infrastructure — the only honest test is rendered DOM width against a bogus family; candidate for §8.6 |
-| Importers default to localhost when `SUPABASE_URL` is unset | `npm run import` writes to the laptop while appearing to publish | **§8.1** · Website Infrastructure |
 | `npm run skins` reads the DB, not content files | Reports a stale count | Website Infrastructure |
 | A branch lacking the skin its activity needs | Renders unstyled; reads as a CSS bug | candidate `doctor` check |
 | Shared CSS changed for one skin | Another activity's look shifts, unnoticed | §8.6 |
 | Fixed-height child in a stretching flex parent | Surplus renders as chrome, invisible at small heights | §8.6 |
-| Evidence images not under version control | Not in `public/images/operations/<slug>/` | §9 |
 | A doc referencing a file that does not exist | Reader hunts for it, or trusts a spec never written | Doc Manager — candidate link check |
