@@ -118,7 +118,7 @@ Verified against `package.json` directly, not against a summary of it.
 Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
-- `f04c924` — both viewports centred; Case File given a measure and a monochrome padlock. Settled by measurement at 1000px and 660px; the clipping objection does not apply because `.crtViewport` uses `min-height`. **Geometry measured, result never seen** — see §10. *(Op Builder.)*
+- `f04c924` — both viewports centred; Case File given a measure and a monochrome padlock. Settled by measurement at 1000px and 660px; the clipping objection does not apply because `.crtViewport` uses `min-height`. **Zero Hour confirmed centred by eye**; Case File's half not yet looked at. *(Op Builder.)*
 - `2bf4df5` — `main` merged into `operation-prime-directive`, clean; `package.json` kept both sides. *(Op Builder.)*
 - `a50672b` — **the skin faces were never loading**; the terminal had drawn in bare monospace, ~⅓ oversized, since sizes are tuned to VT323's narrowness. All four now self-host via `next/font`. `--fd-scale` re-verified at 0.6671 against rendered widths — the 0.667 guess held to four decimals, and could not have been checked before. Method in `CLAUDE.md`. *(WI)*
 - `fc6cffb` — importers refuse to write blind: no localhost default, and a confirmation before any remote write. *(WI)*
@@ -186,7 +186,7 @@ session hit the documented apostrophe trap two commits after documenting it.
 |---|---|---|
 | A session commits to `main` mid-task | Another session's uncommitted files land in a commit that does not describe them | Website Infrastructure — candidate `doctor` warning on a dirty tree |
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
-| A ticking clock blocks screenshot verification | The HUD timer re-renders every second, so the page never reports idle and capture fails — geometry gets measured and the result is never seen | **§8.7** — `f04c924` shipped measured but unlooked-at |
+| A ticking clock blocks screenshot verification | The HUD timer re-renders every second, so the page never reports idle and capture fails; a session can measure geometry and never see the result | **§8.7** — unfixed for automation; `f04c924` was closed by a person looking instead |
 | A safeguard whose exemption covers the case it was written for | `confirmRemoteWrite` correctly refuses a non-TTY run, then returns early on `process.env.CI` — set automatically by every CI, which is exactly where no human reads the warning | **§8.1** · Website Infrastructure |
 | **A webfont that never loads** | Text renders in fallback at the wrong width; in a monospace skin it looks plausible, and sizes tuned to a narrow face come out about a third oversized | **fixed `a50672b`** by self-hosting — but see the row below for why it went unseen for so long |
 | **Every cheap way of checking a font is wrong** | `getComputedStyle().fontFamily` returns what CSS *asked for*, so it said `VT323` regardless. `document.fonts.check('16px "VT323"')` returned **`true`** for a family not in the registry at all — it answers "would this be used", assuming system availability. `canvas.measureText` reported every family, real or invented, as an identical width. | **no check** · Website Infrastructure — the only honest test is rendered DOM width against a bogus family; candidate for §8.6 |
