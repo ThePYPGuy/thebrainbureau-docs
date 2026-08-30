@@ -136,30 +136,33 @@ own account of its own work, not re-measured here.
    has never been played as a solvable puzzle by anyone who did not already
    know the answers. That is the check no automation replaces.
 2. **Exhibits should open as drawn CSS facsimiles, not magnified bitmaps** —
-   the mockup's design, never written down, so `Zoom.tsx` was built to enlarge
-   the image instead. Real DOM in sampled colours: fan-fold printout, notched
-   tag, torn receipt, scanlined screen. Text that scales, reads out and stays
-   sharp on a projector. Spec now in `docs/mockups/`. *(Op Builder draws them;
-   the zoom shell is WI's and already exists.)*
-3. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
+   eleven plate kinds, real DOM in sampled colours; text that scales, reads out
+   and stays sharp on a projector. `Zoom.tsx` enlarges the bitmap instead; its
+   shell is reusable. Spec in `docs/mockups/`. *(Op Builder.)*
+3. **Redraw the Case File index to the new mockup** — two faces, folder
+   furniture, stamps, progress bar, memo on its own sheet, per-lock icons.
+   Claims in `docs/mockups/case-file-appearance.md`. **Re-derive `--fd-scale`
+   by measurement**; it is calibrated to Courier Prime, which this replaces.
+   *(Op Builder.)*
+4. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
    shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
    short-circuit inherits the Value Vault. *(Website Infrastructure.)*
-4. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
+5. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
    primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
    (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
    is worse than none: it makes the Operation answer a search for something it
    does not teach. A curriculum decision. *(Maciej.)*
-5. **`prefix` is typed but never rendered** — `Tasks.tsx:316,470` destructure
+6. **`prefix` is typed but never rendered** — `Tasks.tsx:316,470` destructure
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-6. **`.completeBox` renders black on manila** — the same unscoped-literal leak
+7. **`.completeBox` renders black on manila** — the same unscoped-literal leak
    as Stage 2's input and button. *(Op Builder.)*
-7. Visual regression check — screenshot each activity, fail on change.
+8. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-8. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+9. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 

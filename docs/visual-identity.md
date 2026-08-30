@@ -154,7 +154,28 @@ until you lean in.
 > mouse is the same class of failure as the `prefix` that was typed and never
 > drawn — present in the design, absent for the child.
 
-**Typeface: Special Elite**, a distressed typewriter face. Verified on Google
+**Two faces, and the split is diegetic.** **Special Elite** for typed content —
+the memo, prose, anything a typewriter produced. **Oswald** 500/600/700 for
+printed labels — the tab, the stamps, headings, lock names, the case number.
+Someone typed the memo; the folder's labels were printed before anyone typed
+anything. One face loses that distinction, and the surface reads flat even when
+the paper is right.
+
+Both verified on Google Fonts, so both load through `next/font/google`.
+
+> This replaces Courier Prime and Lora for this skin, and therefore
+> **invalidates `--fd-scale`** — `.667` was derived as VT323-against-Courier
+> Prime. Oswald is a condensed grotesque. Re-derive by measurement; adjusting
+> it by eye is how the terminal ran a third oversized for four commits.
+
+Palette, from `docs/mockups/case-file-appearance.md`: paper `#d9c9a3` on frame
+`#14171c`, ink `#3a2c1a`, stamp red `#8c2f1f`, stamp green `#2f5d3a`, amber
+`#b3791a`. Lighter papers `#f3ead4` and `#faf6ea` sit on the folder for the
+title box and the memo.
+
+**Marks of handling carry the archetype**: a rotated ACTIVE CASE stamp, CLEARED
+stamps on solved locks, a drawn paperclip on the memo, per-lock icons, ruled
+paper. The earlier note about Special Elite alone: Verified on Google
 Fonts, so it arrives through `next/font/google` beside the other four — no new
 loading path, no font binaries in the repo, no licence to track.
 
