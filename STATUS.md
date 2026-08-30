@@ -47,7 +47,7 @@ mechanics in `CLAUDE.md`.
 | Stream | Branch | Uncommitted | Status |
 |---|---|---|---|
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images |
-| Prime Directive | `operation-prime-directive` | none | pushed `77f1e83`; 2 behind again |
+| Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `main` | none | measure and CI exemption landed |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
 
@@ -138,33 +138,29 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Build the Case Dossier — Prime Directive cannot be played without it.**
-   The mechanic is elimination (`10-7-5-4-3-2-1`) and the ten suspects reach
-   the student nowhere. **Settled by Maciej: on screen *and* a downloadable
-   PDF.** The briefing is the first thing seen on load — typed on a page, not
-   behind a disclosure — with the suspect list and portraits beside it.
-   Nine portraits are still outside version control; only `cogsworth.png` is
-   in. A suspect table is new public content: the columns are the ones
-   `_evidenceDesign` names, and it must carry attributes without carrying the
-   eliminations. **Split: the print route and base print stylesheet are
-   platform (WI); the dossier's content and its `[data-skin="case-file"]`
-   styling are Op Builder's.**
-2. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
+1. **Render the Dossier — Prime Directive cannot be played without it.** The
+   data is **on `main` and deployed**: `orders.dossier`, six columns, ten
+   suspects, all ten portraits tracked. Nothing draws it, so not one suspect
+   name reaches the page. *(Website Infrastructure.)*
+2. **Uncollapse the briefing** (`Mission.tsx:219`) and **build the print
+   route** — route and base print stylesheet are platform; Op Builder writes
+   the `[data-skin="case-file"]` print rules inside them.
+3. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
    primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
    (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
    is worse than none: it makes the Operation answer a search for something it
    does not teach. A curriculum decision. *(Maciej.)*
-3. **`prefix` is typed but never rendered** — `Tasks.tsx:316,470` destructure
+4. **`prefix` is typed but never rendered** — `Tasks.tsx:316,470` destructure
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-4. **`.completeBox` renders black on manila** — the same unscoped-literal leak
+5. **`.completeBox` renders black on manila** — the same unscoped-literal leak
    as Stage 2's input and button. *(Op Builder.)*
-5. Visual regression check — screenshot each activity, fail on change.
+6. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-6. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+7. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -188,6 +184,7 @@ session hit the documented apostrophe trap two commits after documenting it.
 |---|---|---|
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
 | Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
+| A check is only as good as what you point it at | Two near-misses in one session: a font probe whose test string gave a 10px gap that read as "loaded", and a CSS grep run against the wrong path. Both would have returned confident wrong answers | prove the probe can fail before trusting that it passed |
 | A demo is not a build | The suspect list and image zoom existed in a demo and never in this repo — `git log --all -S "suspect"` finds no component in any commit. Nothing carried them across because nothing was asked to | if it is not in a commit, it does not exist |
 | An activity verified end to end that cannot be played | Every lock accepted its key, Intel and hints behaved, the gate held — and the deduction is impossible, because the suspects are not rendered anywhere. A session that knows the answers cannot detect a missing affordance | **§8.1** — playthroughs must be by someone who does not know the answer |
 | The briefing is a collapsed `<details>` | `Mission.tsx:219` puts the whole back story behind a summary line that reads as a heading. Prime Directive's briefing exists and is good; nobody sees it | **unfixed** · Website Infrastructure — shared chrome |
