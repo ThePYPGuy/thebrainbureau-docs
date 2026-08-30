@@ -38,7 +38,7 @@ last losing work. Mechanics in `CLAUDE.md`.
 | Stream | Folder | Branch | Files | Status |
 |---|---|---|---|---|
 | Case File skin | main worktree | `main` | none | Stage 1 of 5 done |
-| Prime Directive | PD worktree | `operation-prime-directive` | none | pushed, in sync, **not merged** |
+| Prime Directive | PD worktree | `operation-prime-directive` | none | `main` merged in (`2bf4df5`); already 4 behind again |
 | Website Infrastructure | main worktree | `main` | none — committed | `--prod` fix landed |
 | Doc Manager | main worktree | `main` | `STATUS.md` | this change |
 
@@ -46,12 +46,11 @@ last losing work. Mechanics in `CLAUDE.md`.
 
 Live collisions only; standing hazards are in `CLAUDE.md`.
 
-- **Prime Directive is a Case File activity and its branch lacks the Case File
-  skin.** `main` holds four commits the branch does not, including `735c6bb`,
-  which *is* the skin. It cannot render as designed until `main` merges in.
-- **`npm run doctor` does not exist on `operation-prime-directive`** — it
-  arrived in `d446fb4`, after that branch last took `main`. Verified:
-  `grep -c doctor package.json` returns 0.
+- **A branch merge is a snapshot, not a subscription.** `2bf4df5` put the Case
+  File skin and `doctor` onto `operation-prime-directive`; `main` moved again
+  the same evening and the branch is already 4 behind. Run
+  `git rev-list --left-right --count main...HEAD` before judging how anything
+  on a branch looks — never the date of the last merge.
 - **`package.json` `"import"` is a hardcoded list, not a glob.** Every new
   activity conflicts on merge; resolution is always "keep both sides". The
   `import:curriculum` conflict was already resolved by merge `46d7037`.
@@ -61,7 +60,7 @@ Live collisions only; standing hazards are in `CLAUDE.md`.
 ## 4. Publish state
 
 Pushing to `main` deploys the app. **Migrations do not run themselves. Content
-does not import itself.** Both manual parts fail silently.
+does not import itself.** Both fail silently.
 
 **Production is verified** — 2026-08-25, for the first time.
 `deploy:check -- --prod` queried the real host and reported every section `ok`:
@@ -111,24 +110,21 @@ Verified against `package.json` directly, not against a summary of it.
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
 | Docs mirror | `npm run docs:sync` | built — `--dry-run`, `--no-push` |
 
-**Activity schema is locked at 0.4** — both shipped activities declare it;
-earlier revisions said 0.3 and were wrong. `CLAUDE.md` pointed at
-`activity-schema-v0.4.md`, which **has never been written**; it now points at
-the README.
+**Activity schema is locked at 0.4**, declared by both shipped activities.
+`activity-schema-v0.4.md` **has never been written**; `CLAUDE.md` says so.
 
 ## 7. Recently completed
 
 Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
+- `f04c924` — both viewports centred; Case File given a measure and a monochrome padlock. Settled by measurement at 1000px and 660px; the clipping objection does not apply because `.crtViewport` uses `min-height`. **Geometry measured, result never seen** — see §10. *(Op Builder.)*
+- `2bf4df5` — `main` merged into `operation-prime-directive`, clean; `package.json` kept both sides. *(Op Builder.)*
 - `a50672b` — **the skin faces were never loading**; the terminal had drawn in bare monospace, ~⅓ oversized, since sizes are tuned to VT323's narrowness. All four now self-host via `next/font`. `--fd-scale` re-verified at 0.6671 against rendered widths — the 0.667 guess held to four decimals, and could not have been checked before. Method in `CLAUDE.md`. *(WI)*
 - `fc6cffb` — importers refuse to write blind: no localhost default, and a confirmation before any remote write. *(WI)*
 - **13 commits deployed** (`d446fb4..eb46bfc`) — first push since the Case File work began; no migrations or content in the range, so nothing manual followed.
-- **Zero Hour checked in a browser** — both `31db28f` regressions confirmed fixed: the monitor frame holds 686px at 720/900/1100px windows, and task prose keeps the skin's face.
 - **Production re-imported and verified clean** — first confirmed match between the deployed database and the repo.
 - `b0ead55`–`5eff8d6` — `STATUS.md` into the repo, the allowlisted public docs mirror, and machine-specific values split into `docs/local/`.
-- `f0563c2` — `.gitattributes`; line endings normalised on commit. *(WI)*
-- `8839d38` — `deploy:check --prod` no longer queries localhost and calls it production. *(WI)*
 - `735c6bb` — Case File skin, Stage 1 of 5: type tokenised, two contrast failures fixed.
 - `b53ddf2` — Prime Directive: 7 phases, 7 answer keys, 6 hints. On its branch.
 
@@ -153,11 +149,11 @@ own account of its own work, not re-measured here.
    confirmed against `content/curriculum/`: no *factors, multiples and primes*
    (nearest is a Y3 unit-fractions entry) and no *order of operations*. Both
    are UK Y6 blocks it builds locks on.
-7. Visual regression check — screenshot each activity, fail on change.
-   **Include a rendered-width assertion per skin**: measure a known string in
-   the skin's display face against a deliberately nonexistent family and fail
-   if they match. That is the only check that would have caught the fonts —
-   see §10.
+7. Visual regression check — screenshot each activity, fail on change. It must
+   freeze or mock the clock (**the HUD timer never lets the page go idle**, so
+   capture fails), and carry a **rendered-width assertion per skin**: a known
+   string in the display face against a nonexistent family, failing if they
+   match. That is the only check that would have caught the fonts.
 8. Lint rule on hex colours and `font-family` outside a token block; make
    `"import"` a glob rather than a hardcoded list.
 
@@ -166,6 +162,10 @@ own account of its own work, not re-measured here.
 - **The Drive "Accounts" doc holds live credentials in plain text** — a
   database password and a mail-provider API key. A `service_role` key was
   already rotated once this week after landing in a transcript.
+- **Local database has Prime Directive `published` as `BB-0009`**, repo says
+  `draft` — set by Op Builder to open it locally; nothing reached production.
+  `deploy:check` flags it `?`, correctly, since the file is on a branch. Revert
+  or keep as a dev convenience, but know it is there.
 - **Duplicate style templates** in Maciej's image folder; `content/styles/` is
   authoritative. Unresolved across three revisions.
 - **Evidence images outside version control** — 6 PNGs, confirmed by listing,
@@ -186,6 +186,7 @@ session hit the documented apostrophe trap two commits after documenting it.
 |---|---|---|
 | A session commits to `main` mid-task | Another session's uncommitted files land in a commit that does not describe them | Website Infrastructure — candidate `doctor` warning on a dirty tree |
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
+| A ticking clock blocks screenshot verification | The HUD timer re-renders every second, so the page never reports idle and capture fails — geometry gets measured and the result is never seen | **§8.7** — `f04c924` shipped measured but unlooked-at |
 | A safeguard whose exemption covers the case it was written for | `confirmRemoteWrite` correctly refuses a non-TTY run, then returns early on `process.env.CI` — set automatically by every CI, which is exactly where no human reads the warning | **§8.1** · Website Infrastructure |
 | **A webfont that never loads** | Text renders in fallback at the wrong width; in a monospace skin it looks plausible, and sizes tuned to a narrow face come out about a third oversized | **fixed `a50672b`** by self-hosting — but see the row below for why it went unseen for so long |
 | **Every cheap way of checking a font is wrong** | `getComputedStyle().fontFamily` returns what CSS *asked for*, so it said `VT323` regardless. `document.fonts.check('16px "VT323"')` returned **`true`** for a family not in the registry at all — it answers "would this be used", assuming system availability. `canvas.measureText` reported every family, real or invented, as an identical width. | **no check** · Website Infrastructure — the only honest test is rendered DOM width against a bogus family; candidate for §8.6 |
