@@ -137,34 +137,30 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **A stuck phase is unrecoverable for a child.** **Hypothesis, from reading
-   `check.ts` — not reproduced:** the task upsert at :179 and
-   `settleCompletion` at :194 are two non-atomic writes, and `alreadyDone` at
-   :176 is read from the row *before* the upsert. If `settleCompletion` fails
-   after the upsert lands, the task is `correct` and the phase is not — and on
-   retry `alreadyDone` is now true, so :191 returns before `settleCompletion`
-   is reached again. **The child's natural recovery is the path that is
-   closed.** Reachable by playing; no manual writes needed. `alreadyDone`
-   conflates *answered correctly* with *settled*. Confirm by failing
-   `settleCompletion` after the upsert, then re-answering.
-2. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
+1. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
    pass, but their leak checks cover Zero Hour and Global Intel Cards only.
    This activity's served state was verified by hand, and it is the one that
    already shipped an answer in a caption. *(WI.)*
-3. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
+2. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
    short-circuit inherits the Value Vault. *(Website Infrastructure.)*
-4. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
+3. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-5. Visual regression check — screenshot each activity, fail on change.
+4. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-6. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+5. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
+- **Look for children the bug stranded, before the evidence goes?** The
+  reconcile shipped in `5674cb1` and repairs silently on next load, so the
+  signature — every task in a phase `correct`, no completed `phase_progress` —
+  disappears as each affected agent returns. A read-only query would say
+  whether it ever happened to a real child. It also stops being answerable a
+  little more each day.
 - **Publish Prime Directive?** Everything is built, imported and played. It
   needs `status` flipped to `published` in the content file, a production
   re-import, and a deployment from the teacher dashboard to give a class its
@@ -188,7 +184,8 @@ table once. **Documentation does not fire at 11pm.**
 
 | Failure | Symptom | Owner |
 |---|---|---|
-| A phase that completes its task but not itself | The task reads *correct*, the next lock stays shut, and `settleCompletion` fires only on the transition — so re-answering cannot recover it. A child is simply stuck, with nothing to report | **§8.1** · Website Infrastructure |
+| A guard that closed the only recovery path | `alreadyDone` skipped `settleCompletion` whenever the task was already correct — protecting against a double-award the callee already refused, and in doing so shutting the door a stranded child would push on. **Fixed**, and the state is now repaired on load | atomicity is still outstanding: the two writes need a Postgres function, which the Supabase client cannot open |
+| A repair that reads as a loss | The reconcile awards Intel, but `loadStudentState` had already read the agent row — so the phase opened with the old total beside it and the award looked like it had gone missing. Caught in testing; the agent is re-read only when something was repaired | **fixed** — a silent repair still has to be visible where it lands |
 | A failed import leaves rows it created | Positions are restored and creations are not — no transaction, because the Supabase client cannot open one; it would take a Postgres function. Bites only if the file is reverted after a failed import | **stated, unfixed** · Website Infrastructure |
 | A test that does not reproduce the reported bug | The first recovery test poisoned the *last* phase, so the failure landed after all seven had been renumbered: it caught the ordering corruption and stranded nothing, and would have passed against the broken importer for the wrong reason. Moving the fault to the first phase reproduced it exactly | prove the test fails against the original bug, not a neighbour |
 | Leak guards that cover only the activities they were written for | `e2e` passes while an untested activity ships its whole deduction. Prime Directive's served state is checked by hand, and it is the one that already shipped an answer in a caption | **§8.3** · Website Infrastructure |
