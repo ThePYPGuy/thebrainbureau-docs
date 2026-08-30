@@ -71,6 +71,13 @@ does not import itself.** Both fail silently.
 bare 200-or-fail check reads a healthy site as down. Follow redirects, or check
 the `www` host.
 
+> ⚠️ **The repo and production now disagree, deliberately.** The crosswalk has
+> 73 skills and Prime Directive carries six tags; production still holds 70 and
+> 17. Content does not deploy with code. `deploy:check -- --prod` will report
+> this as drift until someone runs `npm run import:curriculum` **and** the
+> activity import against production — and the activity one waits on §8.2,
+> because an aborted import strands the phases at 1001–1007.
+
 **Production matches the repo** — `--prod` green on all four sections, most
 recently after `3e30eac`. **Re-run after every publish**: `?` is not `DRIFT`,
 it means unconfirmable, and the answer is usually a re-import.
@@ -128,14 +135,7 @@ own account of its own work, not re-measured here.
 - `14a726f`, `4d268bd`, merged in `3e30eac` — **`completion` released only once every phase is done**, with a check proved by reverting the gate: 4 assertions go red. Built against a fixture whose debrief names its own answer, since asserting on Zero Hour would pass for the reason the bug hid. Also checks it releases *whole* (`unlocksCertificate` rides along) and *per agent*. *(WI.)*
 - `9405d9c` — **Stage 3 content.** Seven phases onto `config.evidence` + `_evidenceDesign`; `column` went private with them — it reads as a routing hint but names the Suspect Log column each lock filters on, and five of seven blocks held it. Seven images copied by name, byte-identical, no `_superseded/` shadows. *(Op Builder.)*
 - `01182fd` — **Case File is designed** — drawn enough to ship, not finished. The test's expectation moved rather than the flag, so the next archetype meets the question rather than the answer. Five remain undrawn. *(WI.)*
-- `b6f997b` — **the evidence boundary.** `config.evidence` is public (image, alt, caption); everything meaning-bearing goes behind `_`, `column` included — five of seven blocks are `{image, column}`, so that is most of them. One tested strip function replaces three copies of the rule, now applied on the way in *and* out. **[unpushed]** *(WI.)*
-- `b1e74ca` — **the seven glyphs, and the last claim line.** Both capability lists complete, so the publish gate is clear. Field Terminal verified two ways: no icon element renders, and one injected into a row computes `display: none` and moves it 0px. `interview` is a statement bubble, not the mockup's padlock — every locked row already shows a padlock, so it would have said "locked" on the one lock that is open. *(Op Builder.)*
-- `66d6cdf`, `b46df7b` — **the icon field and the certificate print fix.** A named set in `lib/phase-icons.ts`, with the gate proved by rejection before being trusted to accept; absent renders no element at all, and the base rule is `display: none` so a skin must opt in. Certificate isolation re-keyed on `body:has(.certificate)` rather than the CRT chrome: Case File went 4 pages and 19 images to 1 and 0, Zero Hour still prints alone. Migration `20260830000015` applied to production. *(WI.)*
-- `1a425ea`, `b832987`, `3e4638e` — **the Case File drawn.** Exhibits are CSS facsimiles in real text, twelve plate kinds across sixteen hotspots, and the on-page transcript came off *after* them. Index redrawn: ruled folder, ACTIVE CASE stamp that turns CASE CLOSED, progress bar counted in CSS, memo on its own sheet with a paperclip, CLEARED stamps. Five contrast failures found by measuring things that looked finished. Played through, all seven locks, every figure read off a drawn exhibit. *(Op Builder.)*
-- `108652c`, `411e69f` — **Prime Directive unblocked.** Dossier render slot, briefing open on load, `prefix` drawn on both input paths, image zoom, `/terminal/print` with `app/print.css`, and `stripNotes` extended to `orders` at read time with e2e assertions beside the completion guard. *(WI.)*
-- `f1cb2ce` — **Case File Stage 2.** Three defects Stage 1's measuring could not see, all found by looking: an unscoped `h2.caret::after` putting a terminal cursor on a paper dossier; `background: #000` literals in the shared `input`/`button` rules, which only look wrong on a light surface; `--accent` at 3.54:1 on manila, now 4.64:1. Callout constrained. *(Op Builder.)*
-- `48a23b3`, `914d97b` — Field Terminal measured at 72ch (`ch` is honest there — Share Tech Mono's `0` and average glyph both 8.64px), callouts constrained from 101; `CI` exempts nothing. Both **live** — §10. *(WI)*
-- `f04c924` — both viewports centred; Case File given a measure and a monochrome padlock. Settled by measurement at 1000px and 660px; the clipping objection does not apply because `.crtViewport` uses `min-height`. Both halves since confirmed by eye — centring and padlock correct. *(Op Builder.)*
+
 ## 8. Next up
 
 1. **A stuck phase is unrecoverable for a child** — the one to fix first.
@@ -160,20 +160,15 @@ own account of its own work, not re-measured here.
    already shipped an answer in a caption. *(WI.)*
 4. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
    short-circuit inherits the Value Vault. *(Website Infrastructure.)*
-5. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
-   primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
-   (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
-   is worse than none: it makes the Operation answer a search for something it
-   does not teach. A curriculum decision. *(Maciej.)*
-6. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
+5. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-7. Visual regression check — screenshot each activity, fail on change.
+6. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-8. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+7. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -188,10 +183,17 @@ own account of its own work, not re-measured here.
 
 ## 10. Known silent failures
 
-Open items, plus fixes recent enough to still be worth seeing — a fix names
-the check that catches the thing. Standing traps are in `CLAUDE.md`. Prune a
-row once its fix is old news. **Documentation does not fire at 11pm** — a
-session hit the documented apostrophe trap two commits after documenting it.
+Open items. Standing traps are in `CLAUDE.md`; prune a row only when it is
+closed there or here, and **never to hit a line count** — that emptied this
+table once. **Documentation does not fire at 11pm.**
 
 | Failure | Symptom | Owner |
 |---|---|---|
+| A phase that completes its task but not itself | The task reads *correct*, the next lock stays shut, and `settleCompletion` fires only on the transition — so re-answering cannot recover it. A child is simply stuck, with nothing to report | **§8.1** · Website Infrastructure |
+| The importer writes before it validates | Positions are bumped +1000 to dodge the unique constraint, then a bad field throws. The activity is left reading "1001" until a later import repairs it | **§8.2** · Website Infrastructure |
+| Leak guards that cover only the activities they were written for | `e2e` passes while an untested activity ships its whole deduction. Prime Directive's served state is checked by hand, and it is the one that already shipped an answer in a caption | **§8.3** · Website Infrastructure |
+| One activity's fiction hardcoded for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A workshop short-circuit case ends by securing the Value Vault, and it renders perfectly | **§8.4** · Website Infrastructure |
+| A single scalar describing a proportional face | `--fd-scale` was exact for two monospace faces and has no single value for Archivo Narrow — 0.786 to 1.002 across six strings. Wrong sizes render, they do not error | **§8.5** · Website Infrastructure |
+| `npm run skins` reads the database, not the content files | Reports a stale archetype count, so the variety prompt advises on a world that may not be the repo | **unfixed** · Website Infrastructure |
+| New tables need an explicit `service_role` grant | Reads fail as a permission error that reads like a missing row | **unfixed** · Website Infrastructure |
+| Pruning a list by its length rather than its contents | This table was emptied over one session. Every removal was defensible alone — fixed, or recorded in `CLAUDE.md` — and nothing checked whether the section still said anything, because the number being watched was the line count | **fixed by rebuilding** — prune against what is still open, never against a budget |

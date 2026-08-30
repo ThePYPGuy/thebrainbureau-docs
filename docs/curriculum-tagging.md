@@ -23,7 +23,7 @@ Source: `Documents\The Brain Bureau\TBB curriculum crosswalk` —
 | Skills | **70** — each a plain-language description |
 | Frameworks | UK NC, Common Core, Cambridge Primary, IB PYP, ACARA |
 | Age bands | 7–8, 8–9, 9–10, 10–11 |
-| Disagreement flags | 22 skills marked `check` |
+| Disagreement flags | 24 skills marked `check` |
 
 Each skill already carries its own mapping into all five frameworks. That is
 the whole asset, and it is worth more than it looks.
@@ -149,16 +149,28 @@ they expect, in Year 6 — would be both wrong and noisy. Getting a true
 "this is a year ahead for you" needs structured years, and that is a crosswalk
 change, not a code change.
 
-**Two gaps in the crosswalk itself**, found while tagging real content:
+**Three gaps in the crosswalk, since closed.** Found while tagging real
+content, and there were three rather than the two first reported — square
+numbers was the one nobody counted:
 
-- **Factors, multiples and primes** has no skill of its own, though it is a
-  named UK Year 6 block and one of Prime Directive's four.
-- **Order of operations** likewise, and Prime Directive has a lock built on it.
+- **Factors, multiples and primes** — `multiplication-and-division.4`
+- **Square numbers** — `multiplication-and-division.5`
+- **Order of operations** — `algebra-at-primary-level.3`
 
-Both were tagged to the nearest honest match under Multiplication and
-Division. Neither is wrong, but a teacher searching for "primes" will not find
-them. Also worth noting: the doc said 22 skills carry the `check` flag; the
-file has 21.
+All three carry `check: true`: the UK column is authoritative and the others
+are best-effort rather than sourced.
+
+**Two of them are Year 5, not Year 6.** Factors/multiples/primes and square
+numbers sit in Y5 in the National Curriculum; only order of operations is Y6.
+They were recorded as "three Y6 blocks" for several days. It matters for
+pitching an activity, not just for the file — a Y6 class has already met two
+of them.
+
+Until they existed those locks were tagged to the nearest honest match, which
+is the failure worth remembering: a near-miss tag is not a smaller version of
+the right tag. It makes the Operation answer a search for something it does
+not teach, and one attempt had Lock 02's long multiplication tagged as
+addition.
 
 **Coverage still to decide.** Global Intel Cards is economics and geography
 tagged against its maths; Field Ops will be cross-curricular. Either the
