@@ -136,6 +136,7 @@ from `735c6bb` to `01182fd` with no CI to say so.
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `f7a33d6` — **`npm run import:one -- <slug|path>`**, so one drifted file can go to production without rewriting the other six; the `--prod --yes` passthrough is preserved. *(WI.)*
 - `be460dc`, `aec8557` — **`npm run check:tokens`**, which fails on a hex colour or `font-family` written outside a token block: 43 existing literals grandfathered by name so the check lands green, and the list only shrinks. Four black slabs reached a light skin this week and each was one of these. **`npm run import` walks the directory** instead of naming every file, so a new activity no longer conflicts in `package.json` on every merge. *(WI.)*
 - **`--fd-scale` replaced by explicit sizes** — the token is gone; only two comments naming it survive, both explaining why a scalar could not work. Case File states its display sizes outright rather than deriving them, so nineteen values that were each the smallest size that could not overflow are now each the size they should be. Training's six stay Field Terminal-only until that archetype has a skin. **[on `platform`, unmerged]** *(WI.)*
 - **Production re-imported through the glob** — checked first that only Zero Hour drifted, then verified against the data: its fiction is back (`⚠ ZERO HOUR`, `VAULT SECURE`, `RESTORE CODE`) while Global Intel Cards and Prime Directive take the colourless defaults, which is what `c11d11e` was for. No phase stranded above 1000 on the first production run under the new importer. Every line said `REMOTE`. *(WI.)*
@@ -146,11 +147,7 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **`deploy:check` only looks one way** — repo files against the database, so
-   a row the repo does not know about is invisible to it. That is how a
-   slugless `training_sims` row has sat in production since 25 August. Report
-   rows with no corresponding file. *(WI — small addition, its own suggestion.)*
-2. Visual regression check — screenshot each activity, fail on change.
+1. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle. Carry a **rendered-width assertion per skin**: a
    known string in the display face against a nonexistent family, failing if
@@ -158,17 +155,6 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-- **Delete the orphan `training_sims` row on production?** Verified: four rows,
-  one with a NULL slug, `draft`, created 25 August, matching no content file.
-  WI will delete it on your word but wants to know it is not something in
-  progress. Nothing in the repo refers to it.
-- **A narrower import for production?** `npm run import` is a glob now, so it
-  rewrites all seven content files even when one has drifted. Safe — the
-  importer matches by slug and updates in place, and `test:reimport` covers
-  that — but wider than the drift requires.
-  `npx vite-node scripts/import-activity.ts <file> --prod --yes` already works
-  on a single file; WI offered an `import:one` script for it. Worth it, or is
-  the glob fine?
 - **Symlink `uv` into `/usr/local/bin`?** `sudo ln -s ~/.local/bin/uv
   /usr/local/bin/uv`. `doctor` now reports the situation honestly — installed,
   not on this shell's `PATH` — so this is tidying rather than a fix, and it
@@ -199,7 +185,8 @@ table once. **Documentation does not fire at 11pm.**
 | Short numeric answers are not leak-checked, and cannot be | `test-answer-leak.ts` derives forbidden values from each activity's own `answer` fields, `_`-prefixed subtrees and `completion` — but with two floors that **are** its coverage. `PROSE_FLOOR` 12 chars, below which a secret string is usually an identifier: `_evidenceDesign.column` is "colour", public by design, and forbidding it would fail on correct content. `DIGITS_FLOOR` 3, below which a figure cannot be told from any other on the page — Lock 06's answer is 2 and appears inside its own exhibit, correctly, because it is the sum. Lock 07 is covered only because its `prefix` makes the typed value `C-09` | **stated, not fixable** — written out in the script so it is never cited for more than it does |
 | A check that resolves a tool by bare name | It reports the launching shell's `PATH` as the machine's state. `uv` is installed and `doctor` passes interactively and fails under `bash -c`, because `~/.local/bin` comes from `~/.profile`. Reported as *not installed*, which is a different problem with a different fix | **fixed** `84138c5` — it now names the path it found and says which of the two it means |
 | A check that fires on every call is one nobody reads | The aspect-ratio check first compared reduced fractions and flagged a genuine 4:3 response of 1200×896 — 75:56, 0.45% out. Decimals within 2% now, tested against six cases including that one. Same lesson `doctor` already carries about its anchored `/images/` pattern | **fixed** in the art skill |
-| A drift check that only reads one direction | `deploy:check` compares repo files to the database and cannot see a row with no file behind it. Structurally blind, not broken — and a slugless `training_sims` row has been in production since 25 August without any check noticing | **§8.1** · Website Infrastructure |
+| **A diagnostic read outside the question it was built for** | `content-fingerprint.ts` answers *did anything other than the named file move during this import*, where ownership is irrelevant — so it never selected `owner_teacher_id`. Its output was then read as an inventory of platform content, where ownership is the only thing that matters. **Every value it printed was correct.** A slugless `training_sims` row was called an orphan and queued for deletion; it is Maciej's own draft quiz, made in the app on 25 August. Verifying it against production repeated the same omission and made the wrong claim more credible | **fixed** — the output now marks every row `platform` or `teacher <id>`, so that reading is refused rather than available |
+| `deploy:check` read only one direction | It compared repo files to the database and stopped. `checkActivities` already asked whether a row had no file behind it; `checkTraining` never did | **fixed** — one helper, unmatched rows report `?` rather than DRIFT, since DRIFT's remedy is *run the importer* and importing never removes a row |
 | A guard that closed the only recovery path | `alreadyDone` skipped `settleCompletion` whenever the task was already correct — protecting against a double-award the callee already refused, and in doing so shutting the door a stranded child would push on. **Fixed**, and the state is now repaired on load | **self-healing, not closed** — the two writes are still not atomic and cannot be made so from the client; it needs a Postgres function, and `check.ts` says so where it happens |
 | A repair that reads as a loss | The reconcile awards Intel, but `loadStudentState` had already read the agent row — so the phase opened with the old total beside it and the award looked like it had gone missing. Caught in testing; the agent is re-read only when something was repaired | **fixed** — a silent repair still has to be visible where it lands |
 | A failed import leaves rows it created | Positions are restored and creations are not — no transaction, because the Supabase client cannot open one; it would take a Postgres function. Bites only if the file is reverted after a failed import | **stated, unfixed** · Website Infrastructure |
