@@ -11,17 +11,34 @@ time does not happen. See [README.md](README.md) for why this folder exists.
 Clicking an exhibit opens a **CSS-rendered object** — real DOM, real text, in
 colours sampled from the bitmap. Not an enlargement of the image.
 
-Each exhibit has its own drawn form:
+The mockup defines **sixteen hotspots across eleven plate kinds**. Most locks
+carry two or three exhibits, so there is no one-to-one mapping from lock to
+form — an earlier version of this table assumed there was, and got three rows
+wrong as a result.
 
-| Exhibit | Drawn as |
-|---|---|
-| Power log | fan-fold printout with sprocket margins |
-| Torque card | notched tag on an eyelet |
-| Damaged badge | badge with photo box and corner scorch |
-| Batch sheet | receipt torn along the bottom |
-| Monitoring unit | screen with scanlines and a bezel |
-| Parts trays | engraved metal plates |
-| Radio swatches | swatch card of drawn chips |
+Kinds, with the number of hotspots using each (counted from
+`docs/local/mockups/operation-prime-directive-loupe.html`):
+
+| Kind | Hotspots | Drawn as |
+|---|---|---|
+| `tag` | 4 | notched tag on an eyelet — the evidence tag |
+| `label` | 2 | paper insert in a metal holder |
+| `printout` | 1 | fan-fold printout with sprocket margins |
+| `card` | 1 | cream calibration card |
+| `sheet` | 1 | clipboard job sheet with a grid |
+| `strip` | 1 | receipt torn along the bottom |
+| `steel` | 1 | engraved metal plate |
+| `hopper` | 1 | engraved metal plate |
+| `glass` | 1 | screen with scanlines and a bezel |
+| `radio` | 1 | swatch card of drawn chips |
+| `badge` | 1 | badge with photo box and corner scorch |
+
+Which lock uses which is in the source, not here — the mapping is many-to-one
+and writing it out again is how it goes wrong again. **Read the loupe file.**
+
+*Kind names and hotspot counts verified from the source. The drawn-form
+descriptions are Op Builder's reading of the rendered plates, since the source
+carries no prose describing them.*
 
 **There is no magnification at all.** That is the point rather than an omission.
 Because the facsimile is text:
@@ -50,7 +67,7 @@ experience, not correctness.
 - [x] Briefing open on load, typed on paper
 - [x] Printable dossier
 - [ ] **Exhibits open as drawn CSS facsimiles, not magnified bitmaps**
-- [ ] Per-exhibit forms as tabulated above
+- [ ] Eleven plate kinds across sixteen hotspots, per the source
 
 Unticked lines are `STATUS.md` §8 items. The activity does not publish while
 any remain.

@@ -24,10 +24,13 @@ the platform is.
 **One mockup, one capability list, both committed before building starts.**
 
 ```
-docs/mockups/
-  operation-prime-directive.html      the mockup itself
-  operation-prime-directive.md        what it claims, as a list
+docs/local/mockups/                   the mockup itself — NOT published
+docs/mockups/<activity>.md            what it claims — published
 ```
+
+The source lives under `docs/local/` because a mockup of an activity carries
+its puzzle, and this folder is mirrored publicly. The capability list is safe
+to publish and is the half other sessions read.
 
 The `.md` is the load-bearing half. The file alone changes nothing — a
 committed mockup nobody compares against is exactly as useless as an
