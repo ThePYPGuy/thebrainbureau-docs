@@ -120,6 +120,7 @@ Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
 - **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
+- `9405d9c` — **Stage 3 content.** Seven phases onto `config.evidence` + `_evidenceDesign`; `column` went private with them — it reads as a routing hint but names the Suspect Log column each lock filters on, and five of seven blocks held it. Seven images copied by name, byte-identical, no `_superseded/` shadows. *(Op Builder.)*
 - `01182fd` — **Case File is designed** — drawn enough to ship, not finished. The test's expectation moved rather than the flag, so the next archetype meets the question rather than the answer. Five remain undrawn. *(WI.)*
 - `b6f997b` — **the evidence boundary.** `config.evidence` is public (image, alt, caption); everything meaning-bearing goes behind `_`, `column` included — five of seven blocks are `{image, column}`, so that is most of them. One tested strip function replaces three copies of the rule, now applied on the way in *and* out. **[unpushed]** *(WI.)*
 - `f1cb2ce` — **Case File Stage 2.** Three defects Stage 1's measuring could not see, all found by looking: an unscoped `h2.caret::after` putting a terminal cursor on a paper dossier; `background: #000` literals in the shared `input`/`button` rules, which only look wrong on a light surface; `--accent` at 3.54:1 on manila, now 4.64:1. Callout constrained. *(Op Builder.)*
@@ -135,38 +136,37 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **A branch per session.** Doc Manager has one; the other two commit
-   straight to `main`, where a commit is shippable the moment it exists and
-   someone else's push decides its fate — twice now. The pre-push check helps
-   the pusher, not the author (§10).
-2. **Stage 3 content, on `b6f997b`'s contract** — move the images in, restructure
-   seven phases to `config.evidence` + `_evidenceDesign`. *(Op Builder.)*
-3. **Re-merge `main` into `operation-prime-directive`** before judging how it
-   looks — 4 behind again (§3).
-4. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
-   confirmed against `content/curriculum/`: no *factors, multiples and primes*
-   (nearest is a Y3 unit-fractions entry) and no *order of operations*. Both
-   are UK Y6 blocks it builds locks on.
-5. Visual regression check — screenshot each activity, fail on change.
+1. **A branch per session.** Doc Manager has one; the other two commit to
+   `main`, where a commit ships whenever anyone else pushes — twice now. The
+   pre-push check helps the pusher, not the author (§10).
+2. **Gate `completion` on progress — Prime Directive cannot publish until it
+   lands.** `state.ts:215` sends it unconditionally: at 0 of 7 phases the
+   browser holds "ACCESS GRANTED… COGSWORTH" and `C-09`, Lock 07's answer.
+   *(Website Infrastructure.)*
+3. **Tag Prime Directive's curriculum skills** (~10 min). Two gaps confirmed
+   in `content/curriculum/`: no *factors, multiples and primes* (nearest is a
+   Y3 unit-fractions entry) and no *order of operations* — both UK Y6 blocks
+   it builds locks on.
+4. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-6. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+5. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
 - **The Drive "Accounts" doc holds live credentials in plain text** — a
   database password and a mail-provider key; one `service_role` key has
   already been rotated this week after a transcript leak.
-- **Local database has Prime Directive `published` as `BB-0009`**, repo says
+- **Local DB has Prime Directive `published` as `BB-0009`**, repo says
   `draft` — local only; `deploy:check` flags it `?`, correctly.
 - **Duplicate style templates** in Maciej's image folder; `content/styles/`
   is authoritative. Unresolved across three revisions.
-- **Activity images outside version control — 16, not 6**: 6 `evidence/`,
-  10 `suspects/`, plus `manifest.json`. Prime Directive references
-  `suspects/cogsworth.png`. `_superseded/` holds 7 near-identically named
-  files — copy named files, never directories.
+- **Nine suspect portraits stay outside version control**, deliberately —
+  `doctor` warns about art nothing references, and they belong to a Suspect
+  Log panel that does not exist yet. The seven referenced files are in
+  (`9405d9c`).
 - **Merge `operation-prime-directive` now, or wait for evidence capability?**
 
 ## 10. Known silent failures
@@ -184,6 +184,8 @@ session hit the documented apostrophe trap two commits after documenting it.
 | Pushing publishes every session's unpushed commits | Twice now. `git push` sends the branch, not your commits, so a commit on `main` ships whenever anyone else pushes. The pre-push check surfaced it the second time and Maciej approved — but it captures the **pusher's** intent, never the **author's**, and the author is not asked | **§8.1** — a branch per session is the actual fix |
 | The apex redirects, so a bare status check misreads it | `thebrainbureau.app` answers 308 to `www.`; a naive uptime check reading 200-or-fail would call a healthy site down | follow redirects, or check the `www.` host |
 | Escapes written into a commit message by the shell that builds it | `printf "%s"` does not expand `\x27`, so six commits carry a literal `\x27` where an apostrophe belongs — permanent, and invisible unless the message is read back | **fixed** — write the message as a file, never assemble it in a shell |
+| `completion` always serialised | `state.ts:215` sends every activity's ending on first load. **Prime Directive's ending is its answer** — COGSWORTH and `C-09` readable at 0 of 7 phases; Zero Hour survives only because its ending does not contain its answer | **§8.2, blocks publication** · Website Infrastructure |
+| `Mission.tsx` hardcodes one activity's fiction for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE" — the Value Vault is Zero Hour's story, inherited by a workshop short-circuit case | **unfixed** · Website Infrastructure; the content half went with `9405d9c` |
 | Stripping at import only | A `_`-prefixed key written straight to a row — what any migration does — reached the browser; the importer was the only gate | **fixed** `b6f997b` — same function on read |
 | A check that passes by matching nothing | `doctor` said "no activity references an image yet" of an activity referencing seven: the pattern was anchored to `/images/` and the paths were relative | **fixed** `b6f997b` — 0 matched before, 7 after |
 | A guard everyone believes in that does not exist | Twice. This table cited `e2e` for `config._evidence`; those assertions were Zero Hour's own answers and would have passed while another activity shipped its deduction. And `designed: true` is believed to stop a half-drawn skin shipping, and gates nothing | **`e2e` real since `b6f997b`** — cite the assertion, never the script |
