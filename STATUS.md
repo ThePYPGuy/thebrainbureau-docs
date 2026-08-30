@@ -135,25 +135,31 @@ own account of its own work, not re-measured here.
    briefing opens on load, images zoom, `prefix` draws, print route exists. It
    has never been played as a solvable puzzle by anyone who did not already
    know the answers. That is the check no automation replaces.
-2. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
+2. **Exhibits should open as drawn CSS facsimiles, not magnified bitmaps** —
+   the mockup's design, never written down, so `Zoom.tsx` was built to enlarge
+   the image instead. Real DOM in sampled colours: fan-fold printout, notched
+   tag, torn receipt, scanlined screen. Text that scales, reads out and stays
+   sharp on a projector. Spec now in `docs/mockups/`. *(Op Builder draws them;
+   the zoom shell is WI's and already exists.)*
+3. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
    shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
    short-circuit inherits the Value Vault. *(Website Infrastructure.)*
-3. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
+4. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
    primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
    (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
    is worse than none: it makes the Operation answer a search for something it
    does not teach. A curriculum decision. *(Maciej.)*
-4. **`prefix` is typed but never rendered** — `Tasks.tsx:316,470` destructure
+5. **`prefix` is typed but never rendered** — `Tasks.tsx:316,470` destructure
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-5. **`.completeBox` renders black on manila** — the same unscoped-literal leak
+6. **`.completeBox` renders black on manila** — the same unscoped-literal leak
    as Stage 2's input and button. *(Op Builder.)*
-6. Visual regression check — screenshot each activity, fail on change.
+7. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-7. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+8. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -179,6 +185,7 @@ session hit the documented apostrophe trap two commits after documenting it.
 | Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
 | A preflight that checks the wrong pair | WI compared `main` to `origin/main` before a merge it was making from `platform` — clean, and the divergence was elsewhere. The check ran, passed, and did not cover the thing about to happen | compare what you are about to move, not a proxy for it |
 | A check is only as good as what you point it at | Two near-misses in one session: a font probe whose test string gave a 10px gap that read as "loaded", and a CSS grep run against the wrong path. Both would have returned confident wrong answers | prove the probe can fail before trusting that it passed |
+| A demo is not a build — **second instance** | The mockup's exhibit facsimiles were rebuilt as bitmap magnification, because the instruction said "opens the image large". Written a day after the convention meant to stop exactly this. Nobody was wrong; the design had never been recorded anywhere a builder would look | `docs/mockups/` — capture the claim *before* the instruction is written |
 | A demo is not a build | The suspect list and image zoom existed in a demo and never in this repo — `git log --all -S "suspect"` finds no component in any commit. Nothing carried them across because nothing was asked to | if it is not in a commit, it does not exist |
 | An activity verified end to end that cannot be played | Every lock accepted its key, Intel and hints behaved, the gate held — and the deduction is impossible, because the suspects are not rendered anywhere. A session that knows the answers cannot detect a missing affordance | **§8.1** — playthroughs must be by someone who does not know the answer |
 | The briefing is a collapsed `<details>` | `Mission.tsx:219` puts the whole back story behind a summary line that reads as a heading. Prime Directive's briefing exists and is good; nobody sees it | **unfixed** · Website Infrastructure — shared chrome |
