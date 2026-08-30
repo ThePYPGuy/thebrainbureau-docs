@@ -164,7 +164,6 @@ from `git log`; descriptions are each session's account of its own work.
   re-import, and a deployment from the teacher dashboard to give a class its
   code. Nothing technical is outstanding; the question is whether you want a
   class on it.
-
 - **The Drive "Accounts" doc holds live credentials in plain text** — a
   database password and a mail-provider key; one `service_role` key has
   already been rotated this week after a transcript leak.
