@@ -322,6 +322,24 @@ after a key rotation. It catches empty, truncated and `[SENSITIVE]` keys, and
 nothing beyond that. Know what a check actually claims before citing it as
 evidence that something is done.
 
+**Commissioning an activity — the shape that costs least.** Learned across
+Prime Directive, where most of the expense was avoidable:
+
+1. **Ask for a playable-but-ugly version at about 30%.** Content and mechanics,
+   default skin, no drawing. Play it. *Then* commission the look. The missing
+   Suspect Log survived a full verification pass and was found in one sitting
+   by someone playing — and the skin had been drawn twice around an activity
+   that could not be played at all.
+2. **Hand over the mockup first, as a file, whole.** Three instalments arriving
+   mid-build each redrew surfaces already drawn.
+3. **Answer the design questions in one go, before anyone starts.** Three faces
+   not one, click not hover, the transcript comes off, screen *and* PDF — none
+   was hard, and each cost a redraw for arriving late.
+4. **Reuse an archetype unless the subject demands otherwise.** Drawing one is
+   Stages 1–5 plus a redraw; wearing an existing one is content and tagging.
+   `npm run skins` will still prompt for variety, and that is right in the long
+   run — but a new archetype is roughly a whole build on its own.
+
 **Look at each activity in a browser before pushing.** Three levels, and each
 catches what the one before misses: computed styles missed the bezel bug
 entirely, rendered geometry across window heights catches it, and a person
@@ -351,6 +369,19 @@ large and pick characters the faces disagree about: at 200px the same test gave
 while you are there, since the fallback is what you are measuring against. All faces now come through `next/font/google`, which
 self-hosts — no render-time third-party request, and nothing for a school
 network to block. Keep it that way rather than adding an `@import`.
+
+**Draw the replacement before removing the original.** Prime Directive's
+exhibit transcript could only come off the page once the facsimiles carried
+those figures as real text. Removing it first would have put the numbers beyond
+a screen reader with nothing at all to report it, because the page renders
+perfectly either way. Whenever one thing is to supersede another, the order is
+not a preference.
+
+**A zero from a fetch you have not confirmed succeeded is inconclusive, not
+negative.** Checking the live stylesheet for markers returned zero for every
+one — because the apex 308-redirects to `www` and the greps were running over
+15-byte "Redirecting…" bodies. Confirm the fetch, then trust the count. Same
+shape as grepping the wrong path and concluding the code is not there.
 
 **A mockup is a claim, so commit it with a list of what it claims.**
 `docs/mockups/` holds the mockup and a capability checklist beside it, and

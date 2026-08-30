@@ -184,10 +184,12 @@ Archivo Narrow is the only addition.
 
 > **Two consequences worth planning for.**
 >
-> `--fd-scale` is invalidated. It is `.667`, derived as
-> VT323-against-Courier-Prime and re-verified at 0.6671. Courier Prime is no
-> longer this skin's display face. Re-derive by measurement — adjusting it by
-> eye is how the terminal ran a third oversized for four commits.
+> `--fd-scale` is `.79` for this skin, measured. It was `.667`, exact because
+> VT323 and Courier Prime are both monospace and share one ratio for any
+> string. **A proportional display face has no single ratio** — Archivo Narrow
+> measured 0.786 to 1.002 across six strings. `.79` is the floor of that
+> range, which is a floor rather than an answer: too small only renders small,
+> too large overflows. Explicit sizes are the real fix, and a platform change.
 >
 > Three roles need three tokens, not the two `--skin-font-display` and
 > `--skin-font-body` the contract has today. And it makes the `.preLine`

@@ -83,8 +83,8 @@ experience, not correctness.
 - [x] Suspect Log: ten suspects, portraits, six attribute columns
 - [x] Briefing open on load, typed on paper
 - [x] Printable dossier
-- [ ] **Exhibits open as drawn CSS facsimiles, not magnified bitmaps**
-- [ ] Twelve plate kinds across sixteen hotspots, per the source
+- [x] **Exhibits open as drawn CSS facsimiles, not magnified bitmaps**
+- [x] Twelve plate kinds across sixteen hotspots, per the source — all verified rendering, no overflow
 
 Unticked lines are `STATUS.md` §8 items. The activity does not publish while
 any remain.
