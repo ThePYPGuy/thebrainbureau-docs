@@ -186,8 +186,6 @@ session hit the documented apostrophe trap two commits after documenting it.
 
 | Failure | Symptom | Owner |
 |---|---|---|
-| A session commits to `main` mid-task | Another session's uncommitted files land in a commit that does not describe them | Website Infrastructure — candidate `doctor` warning on a dirty tree |
-| Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
 | Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
 | A demo is not a build | The suspect list and image zoom existed in a demo and never in this repo — `git log --all -S "suspect"` finds no component in any commit. Nothing carried them across because nothing was asked to | if it is not in a commit, it does not exist |
