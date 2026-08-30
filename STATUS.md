@@ -138,14 +138,16 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **A stuck phase is unrecoverable for a child** — the one to fix first.
-   Zero Hour lock 1 read *correct* while its phase never completed, so lock 2
-   stayed locked. `settleCompletion` fires only on the transition to correct,
-   so re-answering cannot recover it: a `task_progress` row without its
-   `phase_progress` row is a dead end with no way out from the UI. Cause
-   unknown — and **not** the "8 of 7 done" on the hub, which turned out to be a
-   too-broad `UPDATE` in a local dev database, since corrected. That leaves
-   this instance with no explanation at all. *(Website Infrastructure.)*
+1. **A stuck phase is unrecoverable for a child.** **Hypothesis, from reading
+   `check.ts` — not reproduced:** the task upsert at :179 and
+   `settleCompletion` at :194 are two non-atomic writes, and `alreadyDone` at
+   :176 is read from the row *before* the upsert. If `settleCompletion` fails
+   after the upsert lands, the task is `correct` and the phase is not — and on
+   retry `alreadyDone` is now true, so :191 returns before `settleCompletion`
+   is reached again. **The child's natural recovery is the path that is
+   closed.** Reachable by playing; no manual writes needed. `alreadyDone`
+   conflates *answered correctly* with *settled*. Confirm by failing
+   `settleCompletion` after the upsert, then re-answering.
 2. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
    pass, but their leak checks cover Zero Hour and Global Intel Cards only.
    This activity's served state was verified by hand, and it is the one that
