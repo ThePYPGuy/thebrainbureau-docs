@@ -140,30 +140,35 @@ own account of its own work, not re-measured here.
    Directive in `draft`.** Schema, importer and `Mission.tsx`. The skin cannot
    invent it: keying icons to `:nth-child()` would put a lightning bolt on lock
    1 of every Case File activity ever written. *(Website Infrastructure.)*
-3. **No answer-leak guard covers Prime Directive.** The seven `e2e` scripts
+3. **The certificate prints the whole page on any skin but Field Terminal.**
+   The isolation rule is `.screenContent > *:not(.certificate)`, and
+   `.screenContent` is the CRT chrome — `chromeFor()` gives every other skin
+   `"plain"`, so the selector matches nothing. Prime Directive is the first
+   non-terminal activity to reach a certificate. *(Website Infrastructure.)*
+4. **No answer-leak guard covers Prime Directive.** The seven `e2e` scripts
    pass, but their leak checks cover Zero Hour and Global Intel Cards only.
    This activity's served state was verified by hand — and it is the one that
    already shipped an answer in a caption. *(Website Infrastructure.)*
-4. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
+5. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
    shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
    short-circuit inherits the Value Vault. *(Website Infrastructure.)*
-5. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
+6. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
    primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
    (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
    is worse than none: it makes the Operation answer a search for something it
    does not teach. A curriculum decision. *(Maciej.)*
-6. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
-7. **`prefix` is typed but never rendered** — `Tasks.tsx:316,470` destructure
+7. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
+8. **`prefix` is typed but never rendered** — `Tasks.tsx:316,470` destructure
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-8. **`.completeBox` renders black on manila** — the same unscoped-literal leak
+9. **`.completeBox` renders black on manila** — the same unscoped-literal leak
    as Stage 2's input and button. *(Op Builder.)*
-9. Visual regression check — screenshot each activity, fail on change.
+10. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-10. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+11. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -190,6 +195,7 @@ session hit the documented apostrophe trap two commits after documenting it.
 | A check is only as good as what you point it at | Two near-misses in one session: a font probe whose test string gave a 10px gap that read as "loaded", and a CSS grep run against the wrong path. Both would have returned confident wrong answers | prove the probe can fail before trusting that it passed |
 | On-page text removed while its replacement is still an image | The exhibit transcript is safe to drop *because* the facsimile is DOM text. Drop it while the exhibit is a bitmap and the figures reach no screen reader, and no check would notice — the page still renders | **§8.2** — draw the facsimiles first, remove the transcript second |
 | Correct data, invented provenance | The plate counts were right — globbed across both mockups — and then written up as "counted from" a named file they did not come from, which held zero plates. The number was checked; the citation never was, and it sent the next reader to the wrong file | cite only what you opened |
+| A rule written for one skin's chrome | The certificate print isolation keys on `.screenContent`, which only the CRT chrome renders. On every other skin it matches nothing and the whole page prints — no error, and it looked correct for as long as one skin existed | **§8.3** · Website Infrastructure |
 | A demo is not a build — **second instance** | The mockup's exhibit facsimiles were rebuilt as bitmap magnification, because the instruction said "opens the image large". Written a day after the convention meant to stop exactly this. Nobody was wrong; the design had never been recorded anywhere a builder would look | `docs/mockups/` — capture the claim *before* the instruction is written |
 | A demo is not a build | The suspect list and image zoom existed in a demo and never in this repo — `git log --all -S "suspect"` finds no component in any commit. Nothing carried them across because nothing was asked to | if it is not in a commit, it does not exist |
 | An activity verified end to end that cannot be played | Every lock accepted its key, Intel and hints behaved, the gate held — and the deduction is impossible, because the suspects are not rendered anywhere. A session that knows the answers cannot detect a missing affordance | **§8.1** — playthroughs must be by someone who does not know the answer |
