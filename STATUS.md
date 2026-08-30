@@ -136,13 +136,13 @@ own account of its own work, not re-measured here.
    has never been played as a solvable puzzle by anyone who did not already
    know the answers. That is the check no automation replaces.
 2. **Exhibits should open as drawn CSS facsimiles, not magnified bitmaps** —
-   eleven plate kinds, real DOM in sampled colours; text that scales, reads out
-   and stays sharp on a projector. `Zoom.tsx` enlarges the bitmap instead; its
-   shell is reusable. Spec in `docs/mockups/`. *(Op Builder.)*
-3. **Redraw the Case File index to the new mockup** — two faces, folder
-   furniture, stamps, progress bar, memo on its own sheet, per-lock icons.
-   Claims in `docs/mockups/case-file-appearance.md`. **Re-derive `--fd-scale`
-   by measurement**; it is calibrated to Courier Prime, which this replaces.
+   eleven plate kinds, real DOM in sampled colours; text that scales and reads
+   out. `Zoom.tsx` enlarges the bitmap; its shell is reusable. *(Op Builder.)*
+3. **Redraw the Case File index to the new mockup** — three faces (Archivo
+   Narrow printed, Special Elite typed, Lora read), folder furniture, stamps,
+   progress bar, memo on its own sheet, per-lock icons. Claims in
+   `docs/mockups/case-file-appearance.md`. Needs a third font token and the
+   `.preLine` split; **re-derive `--fd-scale` by measurement**.
    *(Op Builder.)*
 4. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
    shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File

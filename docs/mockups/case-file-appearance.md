@@ -4,23 +4,35 @@ Source: `docs/local/mockups/case-file-appearance.html` (not published — see
 [README.md](README.md)). It shows **the activity index**: folder, briefing,
 lock list. Not a lock page.
 
-## Type: two faces, and the reason is the point
+## Type: three faces, three roles
 
 | Role | Face | Used for |
 |---|---|---|
-| Typed content | **Special Elite** | the memo, prose, anything a typewriter produced |
-| Printed labels | **Oswald** 500/600/700 | tab, stamps, headings, lock names, progress, case number |
+| Printed | **Archivo Narrow** | tab, stamps, headings, lock names, progress, case number |
+| Typed | **Special Elite** | the briefing memo |
+| Read | **Lora** | lock prose, anything read repeatedly |
 
-The split is diegetic rather than decorative: **someone typed the memo; the
-folder's labels were printed before anyone typed anything.** A single face
-loses that, which is why the current build reads flat even now the paper is
-right.
+The mockup uses Oswald for the printed role; **Archivo Narrow replaces it** —
+the same condensed shape, quieter, closer to the gothic actually printed on
+filing furniture and less recognisable as a web heading face.
 
-Both are on Google Fonts — verified, 200 — so both load through
-`next/font/google` beside the others. Special Elite is already loaded.
+The printed/typed split is diegetic: **someone typed the memo; the folder's
+labels were printed before anyone typed anything.** A single face loses that,
+which is why the surface reads flat even now the paper is right.
 
-> **This replaces Case File's current faces.** The tokens are Courier Prime
-> (display) and Lora (body); neither appears in the mockup.
+Lora is the third role and a legibility decision rather than an aesthetic one.
+Special Elite is distressed and irregular — right for a memo read once, hard
+work across prose a child returns to, particularly a dyslexic one.
+**Atmosphere where it is read once; legibility where it is read often.**
+
+All three verified on Google Fonts. Lora and Special Elite already load;
+Archivo Narrow is the only addition.
+
+> **This replaces Courier Prime**, the current display token. Lora stays, in a
+> narrower role. Three roles need **three tokens**, not the two the contract
+> has today — and it makes the `.preLine` split necessary rather than optional,
+> since prose and exhibit transcript share one element and now want different
+> faces.
 >
 > **It therefore invalidates `--fd-scale`.** That is `.667`, derived as
 > VT323-against-Courier-Prime and re-verified at 0.6671 by measurement. Oswald
@@ -47,7 +59,7 @@ to check first, and `--amber` is the one that failed before at 3.54:1.
 
 ## Capability list
 
-- [ ] Two-face type contract, `--fd-scale` re-derived by measurement
+- [ ] Three-face type contract, third token, `--fd-scale` re-derived
 - [ ] Folder: ruled paper, tab offset from the left edge, deep shadow
 - [ ] **ACTIVE CASE** stamp, rotated, translucent, top right
 - [ ] Case progress bar — "6 OF 7 LOCKS CRACKED", green fill

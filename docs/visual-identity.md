@@ -154,19 +154,38 @@ until you lean in.
 > mouse is the same class of failure as the `prefix` that was typed and never
 > drawn — present in the design, absent for the child.
 
-**Two faces, and the split is diegetic.** **Special Elite** for typed content —
-the memo, prose, anything a typewriter produced. **Oswald** 500/600/700 for
-printed labels — the tab, the stamps, headings, lock names, the case number.
-Someone typed the memo; the folder's labels were printed before anyone typed
-anything. One face loses that distinction, and the surface reads flat even when
-the paper is right.
+**Three faces, three roles.** Decided 2026-08-30.
 
-Both verified on Google Fonts, so both load through `next/font/google`.
+| Role | Face | Used for |
+|---|---|---|
+| Printed | **Archivo Narrow** | tab, stamps, headings, lock names, case number |
+| Typed | **Special Elite** | the briefing memo — what a typewriter produced |
+| Read | **Lora** | lock prose and anything a child reads repeatedly |
 
-> This replaces Courier Prime and Lora for this skin, and therefore
-> **invalidates `--fd-scale`** — `.667` was derived as VT323-against-Courier
-> Prime. Oswald is a condensed grotesque. Re-derive by measurement; adjusting
-> it by eye is how the terminal ran a third oversized for four commits.
+The first split is diegetic: the folder's labels were printed before anyone
+typed anything, so a single face for both loses the distinction and the surface
+reads flat even when the paper is right.
+
+The second is a legibility decision rather than an aesthetic one. Special Elite
+is distressed and irregular, which is right for a memo and hard work across
+paragraphs a Y6 reader returns to — particularly a dyslexic one. Lora is drawn
+for reading. **Atmosphere where it is read once; legibility where it is read
+often.**
+
+All three verified on Google Fonts. Lora and Special Elite already load;
+Archivo Narrow is the only addition.
+
+> **Two consequences worth planning for.**
+>
+> `--fd-scale` is invalidated. It is `.667`, derived as
+> VT323-against-Courier-Prime and re-verified at 0.6671. Courier Prime is no
+> longer this skin's display face. Re-derive by measurement — adjusting it by
+> eye is how the terminal ran a third oversized for four commits.
+>
+> Three roles need three tokens, not the two `--skin-font-display` and
+> `--skin-font-body` the contract has today. And it makes the `.preLine`
+> markup split **necessary rather than optional**: prose and exhibit transcript
+> currently share one element, and they now want different faces.
 
 Palette, from `docs/mockups/case-file-appearance.md`: paper `#d9c9a3` on frame
 `#14171c`, ink `#3a2c1a`, stamp red `#8c2f1f`, stamp green `#2f5d3a`, amber
