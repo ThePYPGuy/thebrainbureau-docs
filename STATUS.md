@@ -125,26 +125,19 @@ own account of its own work, not re-measured here.
 - `9405d9c` — **Stage 3 content.** Seven phases onto `config.evidence` + `_evidenceDesign`; `column` went private with them — it reads as a routing hint but names the Suspect Log column each lock filters on, and five of seven blocks held it. Seven images copied by name, byte-identical, no `_superseded/` shadows. *(Op Builder.)*
 - `01182fd` — **Case File is designed** — drawn enough to ship, not finished. The test's expectation moved rather than the flag, so the next archetype meets the question rather than the answer. Five remain undrawn. *(WI.)*
 - `b6f997b` — **the evidence boundary.** `config.evidence` is public (image, alt, caption); everything meaning-bearing goes behind `_`, `column` included — five of seven blocks are `{image, column}`, so that is most of them. One tested strip function replaces three copies of the rule, now applied on the way in *and* out. **[unpushed]** *(WI.)*
+- `108652c`, `411e69f` — **Prime Directive unblocked.** Dossier render slot, briefing open on load, `prefix` drawn on both input paths, image zoom, `/terminal/print` with `app/print.css`, and `stripNotes` extended to `orders` at read time with e2e assertions beside the completion guard. *(WI.)*
 - `f1cb2ce` — **Case File Stage 2.** Three defects Stage 1's measuring could not see, all found by looking: an unscoped `h2.caret::after` putting a terminal cursor on a paper dossier; `background: #000` literals in the shared `input`/`button` rules, which only look wrong on a light surface; `--accent` at 3.54:1 on manila, now 4.64:1. Callout constrained. *(Op Builder.)*
 - `48a23b3`, `914d97b` — Field Terminal measured at 72ch (`ch` is honest there — Share Tech Mono's `0` and average glyph both 8.64px), callouts constrained from 101; `CI` exempts nothing. Both **live** — §10. *(WI)*
 - `f04c924` — both viewports centred; Case File given a measure and a monochrome padlock. Settled by measurement at 1000px and 660px; the clipping objection does not apply because `.crtViewport` uses `min-height`. Both halves since confirmed by eye — centring and padlock correct. *(Op Builder.)*
-- `a50672b` — **the skin faces were never loading**; the terminal had drawn in bare monospace, ~⅓ oversized, since sizes are tuned to VT323's narrowness. All four now self-host via `next/font`. `--fd-scale` re-verified at 0.6671 against rendered widths — the 0.667 guess held to four decimals, and could not have been checked before. Method in `CLAUDE.md`. *(WI)*
-- `fc6cffb` — importers refuse to write blind: no localhost default, and a confirmation before any remote write. *(WI)*
-- **13 commits deployed** (`d446fb4..eb46bfc`) — first push since the Case File work began; no migrations or content in the range, so nothing manual followed.
-- **Production re-imported and verified clean** — first confirmed match between the deployed database and the repo.
-- `b0ead55`–`5eff8d6` — `STATUS.md` into the repo, the allowlisted public docs mirror, and machine-specific values split into `docs/local/`.
-- `735c6bb` — Case File skin, Stage 1 of 5: type tokenised, two contrast failures fixed.
-- `b53ddf2` — Prime Directive: 7 phases, 7 answer keys, 6 hints. On its branch.
-
 ## 8. Next up
 
-1. **Render the Dossier — Prime Directive cannot be played without it.** The
-   data is **on `main` and deployed**: `orders.dossier`, six columns, ten
-   suspects, all ten portraits tracked. Nothing draws it, so not one suspect
-   name reaches the page. *(Website Infrastructure.)*
-2. **Uncollapse the briefing** (`Mission.tsx:219`) and **build the print
-   route** — route and base print stylesheet are platform; Op Builder writes
-   the `[data-skin="case-file"]` print rules inside them.
+1. **Play Prime Directive through.** Every blocker is gone — Dossier renders,
+   briefing opens on load, images zoom, `prefix` draws, print route exists. It
+   has never been played as a solvable puzzle by anyone who did not already
+   know the answers. That is the check no automation replaces.
+2. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
+   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
+   short-circuit inherits the Value Vault. *(Website Infrastructure.)*
 3. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
    primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
    (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
@@ -184,6 +177,7 @@ session hit the documented apostrophe trap two commits after documenting it.
 |---|---|---|
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
 | Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
+| A preflight that checks the wrong pair | WI compared `main` to `origin/main` before a merge it was making from `platform` — clean, and the divergence was elsewhere. The check ran, passed, and did not cover the thing about to happen | compare what you are about to move, not a proxy for it |
 | A check is only as good as what you point it at | Two near-misses in one session: a font probe whose test string gave a 10px gap that read as "loaded", and a CSS grep run against the wrong path. Both would have returned confident wrong answers | prove the probe can fail before trusting that it passed |
 | A demo is not a build | The suspect list and image zoom existed in a demo and never in this repo — `git log --all -S "suspect"` finds no component in any commit. Nothing carried them across because nothing was asked to | if it is not in a commit, it does not exist |
 | An activity verified end to end that cannot be played | Every lock accepted its key, Intel and hints behaved, the gate held — and the deduction is impossible, because the suspects are not rendered anywhere. A session that knows the answers cannot detect a missing affordance | **§8.1** — playthroughs must be by someone who does not know the answer |
