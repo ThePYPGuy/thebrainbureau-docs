@@ -136,6 +136,7 @@ from `735c6bb` to `01182fd` with no CI to say so.
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- **`--fd-scale` replaced by explicit sizes** — the token is gone; only two comments naming it survive, both explaining why a scalar could not work. Case File states its display sizes outright rather than deriving them, so nineteen values that were each the smallest size that could not overflow are now each the size they should be. Training's six stay Field Terminal-only until that archetype has a skin. **[on `platform`, unmerged]** *(WI.)*
 - `c11d11e` — **one activity's fiction stops being every activity's.** The timer's end-state labels and the keypad label are authored now, defaulting to words that fit any case rather than to Zero Hour's. `docs/activity-file.md` written alongside: there was no activity-file reference at all, so every field found this week — `icon`, `prefix`, `evidence`, `dossier`, and now three labels — was documented only in the code that read it. *(WI, doc by Doc Manager.)*
 - `84138c5` — **two `doctor` checks that described the shell instead of the machine.** `uv` now reports *installed at `~/.local/bin/uv`, but not on this shell's `PATH`* — verified from a stripped shell — instead of *not on PATH*, which read as *not installed*. And the `tools/google-image-gen` warning is retired in favour of a check for something the art skill actually needs: the API key. *(WI.)*
 - `03d6907`, merged `8f84348` — **`.claude/skills/bureau-art/`**, the repo's first `.claude/` tree: generating operation art *and* the half that has broken twice — read the slug from the activity file, absolute paths, `git add`, `doctor` as the finish line. It does not publish; the mirror allows `docs/**.md` only, verified by `docs:sync --dry-run`. *(Op Builder.)*
@@ -147,16 +148,12 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot
-   describe a proportional face; Archivo Narrow measured 0.786–1.002 across six
-   strings. Seventeen declarations shared with Field Terminal, so platform.
-   *(WI.)*
-2. Visual regression check — screenshot each activity, fail on change.
+1. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle. Carry a **rendered-width assertion per skin**: a
    known string in the display face against a nonexistent family, failing if
    they match — with a discriminating string, since a 10px gap proves nothing.
-3. Lint rule on hex colours and `font-family` outside token blocks; make
+2. Lint rule on hex colours and `font-family` outside token blocks; make
    `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
@@ -197,7 +194,6 @@ table once. **Documentation does not fire at 11pm.**
 | A test that does not reproduce the reported bug | The first recovery test poisoned the *last* phase, so the failure landed after all seven had been renumbered: it caught the ordering corruption and stranded nothing, and would have passed against the broken importer for the wrong reason. Moving the fault to the first phase reproduced it exactly | prove the test fails against the original bug, not a neighbour |
 | Leak guards that cover only the activities they were written for | `e2e` passes while an untested activity ships its whole deduction. Prime Directive's served state is checked by hand, and it is the one that already shipped an answer in a caption | **§8.3** · Website Infrastructure |
 | One activity's fiction hardcoded for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A workshop short-circuit case ends by securing the Value Vault, and it renders perfectly | **§8.4** · Website Infrastructure |
-| A single scalar describing a proportional face | `--fd-scale` was exact for two monospace faces and has no single value for Archivo Narrow — 0.786 to 1.002 across six strings. Wrong sizes render, they do not error | **§8.5** · Website Infrastructure |
 | `npm run skins` reads the database, not the content files | Reports a stale archetype count, so the variety prompt advises on a world that may not be the repo | **unfixed** · Website Infrastructure |
 | New tables need an explicit `service_role` grant | Reads fail as a permission error that reads like a missing row | **unfixed** · Website Infrastructure |
 | Pruning a list by its length rather than its contents | This table was emptied over one session. Every removal was defensible alone — fixed, or recorded in `CLAUDE.md` — and nothing checked whether the section still said anything, because the number being watched was the line count | **fixed by rebuilding** — prune against what is still open, never against a budget |
