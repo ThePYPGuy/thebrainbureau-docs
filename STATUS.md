@@ -198,4 +198,3 @@ session hit the documented apostrophe trap two commits after documenting it.
 | Failure | Symptom | Owner |
 |---|---|---|
 | `.completeBox` unscoped black on a light skin | Fourth instance of a colour literal that only looks wrong on manila | **§8.4** · Op Builder |
-| `npm run skins` reads the DB, not content files | Reports a stale count | Website Infrastructure |
