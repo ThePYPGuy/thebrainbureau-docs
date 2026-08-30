@@ -146,7 +146,9 @@ own account of its own work, not re-measured here.
    Nine portraits are still outside version control; only `cogsworth.png` is
    in. A suspect table is new public content: the columns are the ones
    `_evidenceDesign` names, and it must carry attributes without carrying the
-   eliminations.
+   eliminations. **Split: the print route and base print stylesheet are
+   platform (WI); the dossier's content and its `[data-skin="case-file"]`
+   styling are Op Builder's.**
 2. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
    primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
    (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
