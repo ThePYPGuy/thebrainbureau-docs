@@ -59,7 +59,7 @@ to check first, and `--amber` is the one that failed before at 3.54:1.
 
 ## Capability list
 
-- [ ] Three-face type contract, third token, `--fd-scale` re-derived
+- [x] Three-face type contract, third token, `--fd-scale` re-derived
 - [ ] Folder: ruled paper, tab offset from the left edge, deep shadow
 - [ ] **ACTIVE CASE** stamp, rotated, translucent, top right
 - [ ] Case progress bar — "6 OF 7 LOCKS CRACKED", green fill

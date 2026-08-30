@@ -11,34 +11,47 @@ time does not happen. See [README.md](README.md) for why this folder exists.
 Clicking an exhibit opens a **CSS-rendered object** — real DOM, real text, in
 colours sampled from the bitmap. Not an enlargement of the image.
 
-The mockup defines **sixteen hotspots across eleven plate kinds**. Most locks
-carry two or three exhibits, so there is no one-to-one mapping from lock to
-form — an earlier version of this table assumed there was, and got three rows
-wrong as a result.
+The mockup defines **sixteen hotspots across twelve plate kinds**, in
+`docs/local/mockups/operation-prime-directive.html`. Most locks carry two,
+three or four exhibits, so there is no one-to-one mapping from lock to form.
 
-Kinds, with the number of hotspots using each (counted from
-`docs/local/mockups/operation-prime-directive-loupe.html`):
+**Not the loupe file.** `operation-prime-directive-loupe.html` holds zero
+plates — it is the zoom prototype, and it magnifies a bitmap, which is the
+approach this design abandoned. An earlier version of this page cited it,
+wrongly.
 
 | Kind | Hotspots | Drawn as |
 |---|---|---|
 | `tag` | 4 | notched tag on an eyelet — the evidence tag |
 | `label` | 2 | paper insert in a metal holder |
 | `printout` | 1 | fan-fold printout with sprocket margins |
-| `card` | 1 | cream calibration card |
-| `sheet` | 1 | clipboard job sheet with a grid |
-| `strip` | 1 | receipt torn along the bottom |
-| `steel` | 1 | engraved metal plate |
-| `hopper` | 1 | engraved metal plate |
 | `glass` | 1 | screen with scanlines and a bezel |
-| `radio` | 1 | swatch card of drawn chips |
+| `card` | 1 | cream calibration card |
+| `steel` | 1 | engraved metal plate |
+| `sheet` | 1 | clipboard job sheet with a grid |
+| `hopper` | 1 | engraved metal plate |
 | `badge` | 1 | badge with photo box and corner scorch |
+| `strip` | 1 | receipt torn along the bottom |
+| `radio` | 1 | LCD screen |
+| `none` | 1 | swatch card of drawn chips |
 
-Which lock uses which is in the source, not here — the mapping is many-to-one
-and writing it out again is how it goes wrong again. **Read the loupe file.**
+Per lock, in source order:
 
-*Kind names and hotspot counts verified from the source. The drawn-form
-descriptions are Op Builder's reading of the rendered plates, since the source
-carries no prose describing them.*
+| Lock | Hotspots |
+|---|---|
+| 01 Power Reading | `printout`, `glass`, `tag` |
+| 02 Torque Check | `card`, `steel` |
+| 03 Batch Sort | `sheet`, `hopper`, `tag` |
+| 04 Gear Inspection | `label`, `tag`, `tag`, `label` |
+| 05 Badge Verification | `badge`, `strip` |
+| 06 Colour Match | `radio`, `none` |
+
+*Provenance: kinds, counts and the per-lock mapping extracted from the
+sequence in `operation-prime-directive.html`, and independently produced by Op
+Builder reading the same file. The drawn-form descriptions are Op Builder's
+reading of the rendered plates — the source carries no prose describing them.
+Everything above was checked; nothing was inferred from a description. Three
+earlier versions of this table were, and all three were wrong.*
 
 Clicking opens the facsimile — **click, not hover**. And because the
 facsimile carries the figures, the page does not repeat them: the on-page
@@ -71,7 +84,7 @@ experience, not correctness.
 - [x] Briefing open on load, typed on paper
 - [x] Printable dossier
 - [ ] **Exhibits open as drawn CSS facsimiles, not magnified bitmaps**
-- [ ] Eleven plate kinds across sixteen hotspots, per the source
+- [ ] Twelve plate kinds across sixteen hotspots, per the source
 
 Unticked lines are `STATUS.md` §8 items. The activity does not publish while
 any remain.
