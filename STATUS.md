@@ -129,6 +129,7 @@ own account of its own work, not re-measured here.
 - `9405d9c` — **Stage 3 content.** Seven phases onto `config.evidence` + `_evidenceDesign`; `column` went private with them — it reads as a routing hint but names the Suspect Log column each lock filters on, and five of seven blocks held it. Seven images copied by name, byte-identical, no `_superseded/` shadows. *(Op Builder.)*
 - `01182fd` — **Case File is designed** — drawn enough to ship, not finished. The test's expectation moved rather than the flag, so the next archetype meets the question rather than the answer. Five remain undrawn. *(WI.)*
 - `b6f997b` — **the evidence boundary.** `config.evidence` is public (image, alt, caption); everything meaning-bearing goes behind `_`, `column` included — five of seven blocks are `{image, column}`, so that is most of them. One tested strip function replaces three copies of the rule, now applied on the way in *and* out. **[unpushed]** *(WI.)*
+- `b1e74ca` — **the seven glyphs, and the last claim line.** Both capability lists complete, so the publish gate is clear. Field Terminal verified two ways: no icon element renders, and one injected into a row computes `display: none` and moves it 0px. `interview` is a statement bubble, not the mockup's padlock — every locked row already shows a padlock, so it would have said "locked" on the one lock that is open. *(Op Builder.)*
 - `66d6cdf`, `b46df7b` — **the icon field and the certificate print fix.** A named set in `lib/phase-icons.ts`, with the gate proved by rejection before being trusted to accept; absent renders no element at all, and the base rule is `display: none` so a skin must opt in. Certificate isolation re-keyed on `body:has(.certificate)` rather than the CRT chrome: Case File went 4 pages and 19 images to 1 and 0, Zero Hour still prints alone. Migration `20260830000015` applied to production. *(WI.)*
 - `1a425ea`, `b832987`, `3e4638e` — **the Case File drawn.** Exhibits are CSS facsimiles in real text, twelve plate kinds across sixteen hotspots, and the on-page transcript came off *after* them. Index redrawn: ruled folder, ACTIVE CASE stamp that turns CASE CLOSED, progress bar counted in CSS, memo on its own sheet with a paperclip, CLEARED stamps. Five contrast failures found by measuring things that looked finished. Played through, all seven locks, every figure read off a drawn exhibit. *(Op Builder.)*
 - `108652c`, `411e69f` — **Prime Directive unblocked.** Dossier render slot, briefing open on load, `prefix` drawn on both input paths, image zoom, `/terminal/print` with `app/print.css`, and `stripNotes` extended to `orders` at read time with e2e assertions beside the completion guard. *(WI.)*
@@ -142,13 +143,17 @@ own account of its own work, not re-measured here.
    stayed locked. `settleCompletion` fires only on the transition to correct,
    so re-answering cannot recover it: a `task_progress` row without its
    `phase_progress` row is a dead end with no way out from the UI. Cause
-   unknown. Prime Directive also shows "8 of 7 done" on the hub, possibly the
-   same thing. *(Website Infrastructure.)*
-2. **Op Builder draws the seven glyphs** and authors the icon values — the
-   platform side is done, and this is the last line on the claim list, so it is
-   the last thing between Prime Directive and publication. Hook is
-   `<span class="phaseIcon" data-icon="…">` inside `.phaseItem` before `.no`;
-   opt in with `[data-skin="case-file"] .phaseIcon { display: … }`.
+   unknown — and **not** the "8 of 7 done" on the hub, which turned out to be a
+   too-broad `UPDATE` in a local dev database, since corrected. That leaves
+   this instance with no explanation at all. *(Website Infrastructure.)*
+2. **The importer validates after it starts writing — fix before the next
+   production import.** `import-activity.ts:135` bumps every phase position by
+   +1000 to dodge the unique constraint; the icon check throws at :145, in the
+   loop after. A mistyped icon name aborts the import and leaves the phases at
+   1001–1007, which `Mission.tsx` pads to "1001". The activity stays corrupt
+   until a successful import repairs it. **Publishing Prime Directive requires
+   a production import**, so this is a precondition, not a nicety. Validate the
+   whole file before the first write. *(Website Infrastructure.)*
 3. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
    pass, but their leak checks cover Zero Hour and Global Intel Cards only.
    This activity's served state was verified by hand, and it is the one that
@@ -192,8 +197,5 @@ session hit the documented apostrophe trap two commits after documenting it.
 
 | Failure | Symptom | Owner |
 |---|---|---|
-| A test harness that never loaded what it tested | `print-proof.ts` linked stylesheets and trusted `<base>` to resolve them. The PDF rendered, images loaded, the output looked plausible — and the CSS under test was never applied, so a 10-page unstyled handout was reported as one styled page. The measurement was sound; the artefact was not | **fixed** — it inlines CSS and refuses to render a page with no stylesheet |
-| A rule written for one skin's chrome | The certificate print isolation keys on `.screenContent`, which only the CRT chrome renders. On every other skin it matches nothing and the whole page prints — no error, and it looked correct for as long as one skin existed | **§8.3** · Website Infrastructure |
-| A demo is not a build — **second instance** | The mockup's exhibit facsimiles were rebuilt as bitmap magnification, because the instruction said "opens the image large". Written a day after the convention meant to stop exactly this. Nobody was wrong; the design had never been recorded anywhere a builder would look | `docs/mockups/` — capture the claim *before* the instruction is written |
 | `.completeBox` unscoped black on a light skin | Fourth instance of a colour literal that only looks wrong on manila | **§8.4** · Op Builder |
 | `npm run skins` reads the DB, not content files | Reports a stale count | Website Infrastructure |

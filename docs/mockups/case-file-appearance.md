@@ -79,10 +79,13 @@ to check first, and `--amber` is the one that failed before at 3.54:1.
 - [x] Title box on lighter paper; case number in the stamp red
 - [x] Briefing as a **memo on its own sheet**, rotated ~-0.6°, ruled, with a
       drawn **paperclip**
-- [ ] Lock rows: per-lock **SVG icon**, number, name — number and name done;
-      **the icon is blocked.** Keying it to `:nth-child()` would put a lightning
-      bolt on lock 1 of every Case File activity ever written, so it needs a
-      field on the phase. §8
+- [x] Lock rows: per-lock **SVG icon**, number, name — `phases[].icon` is a
+      named set the importer validates; the skin opts in. `interview` is drawn
+      as a statement bubble rather than the mockup's padlock: every other lock
+      already shows a padlock when locked, so a padlock would have said
+      "locked" on the one lock that is open.
+
+**Both lists are complete.** The publish gate is clear.
 - [x] **CLEARED** stamp per solved lock, green, rotated ~-4°
 - [x] **NEXT →** tag on the active lock, amber, outlined — and the row tinted
       **lighter** than the cleared rows, not amber-washed. An amber wash put
