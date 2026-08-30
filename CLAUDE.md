@@ -342,9 +342,22 @@ third oversized in a fallback face:
 
 The only honest test: render a known string in the target family and in a
 deliberately nonexistent family, via the DOM, and compare widths. Equal means
-the face is not loading. All faces now come through `next/font/google`, which
+the face is not loading.
+
+**The test is only as good as its string.** Special Elite measured 1352 against
+a bogus 1342 — a 10px gap at ordinary size, which is not proof of anything. Set
+large and pick characters the faces disagree about: at 200px the same test gave
+1478 against 1310, decisive. Sanity-check what the bogus family resolves to
+while you are there, since the fallback is what you are measuring against. All faces now come through `next/font/google`, which
 self-hosts — no render-time third-party request, and nothing for a school
 network to block. Keep it that way rather than adding an `@import`.
+
+**Alt text can be the answer.** A portrait's description reaches the browser
+like any other public string, and a child using a screen reader gets it in
+place of the image. Describing one suspect as sheepish and another as calm
+would hand over the deduction that the puzzle exists to make. Write every
+description in one register — physical detail, no demeanour — so the alt text
+carries what the image carries and nothing the image does not.
 
 **Image generation:** `--aspect` is ignored when `--ref` is passed, so the
 output silently takes the reference image's dimensions.
