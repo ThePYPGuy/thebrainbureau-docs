@@ -71,12 +71,12 @@ does not import itself.** Both fail silently.
 bare 200-or-fail check reads a healthy site as down. Follow redirects, or check
 the `www` host.
 
-> ⚠️ **The repo and production now disagree, deliberately.** The crosswalk has
-> 73 skills and Prime Directive carries six tags; production still holds 70 and
-> 17. Content does not deploy with code. `deploy:check -- --prod` will report
-> this as drift until someone runs `npm run import:curriculum` **and** the
-> activity import against production. **Both are now safe to run** — the
-> importer validates before it writes, so a bad file changes nothing.
+**Only the main worktree can reach production.** `supabase/.temp/project-ref`
+is gitignored, so it exists in `~/thebrainbureau` and nowhere else, and
+`--prod` from a feature worktree fails with *no linked Supabase project found*.
+That is a good property — you cannot write to production from a branch by
+accident — but the error reads like a broken link rather than a deliberate
+boundary. Run production commands from the main worktree.
 
 **Production matches the repo** — `--prod` green on all four sections, most
 recently after `3e30eac`. **Re-run after every publish**: `?` is not `DRIFT`,
@@ -138,7 +138,12 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **A stuck phase is unrecoverable for a child** — the one to fix first.
+1. **Maciej plays the finished version.** Everything Prime Directive needs is
+   on production — schema, icons, tags, evidence, answer keys — and only its
+   `draft` flag stands between it and a class. Op Builder has played it
+   knowing every answer, which is how a missing Suspect Log survived a full
+   pass. This is the last look anyone gets before children do.
+2. **A stuck phase is unrecoverable for a child** — the one to fix first.
    Zero Hour lock 1 read *correct* while its phase never completed, so lock 2
    stayed locked. `settleCompletion` fires only on the transition to correct,
    so re-answering cannot recover it: a `task_progress` row without its
@@ -146,21 +151,21 @@ own account of its own work, not re-measured here.
    unknown — and **not** the "8 of 7 done" on the hub, which turned out to be a
    too-broad `UPDATE` in a local dev database, since corrected. That leaves
    this instance with no explanation at all. *(Website Infrastructure.)*
-2. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
+3. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
    pass, but their leak checks cover Zero Hour and Global Intel Cards only.
    This activity's served state was verified by hand, and it is the one that
    already shipped an answer in a caption. *(WI.)*
-3. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
+4. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
    short-circuit inherits the Value Vault. *(Website Infrastructure.)*
-4. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
+5. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-5. Visual regression check — screenshot each activity, fail on change.
+6. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-6. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+7. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
