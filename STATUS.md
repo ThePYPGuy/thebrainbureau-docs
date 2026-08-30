@@ -168,14 +168,12 @@ own account of its own work, not re-measured here.
 6. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-7. **`.completeBox` renders black on manila** — the same unscoped-literal leak
-   as Stage 2's input and button. *(Op Builder.)*
-8. Visual regression check — screenshot each activity, fail on change.
+7. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-9. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+8. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -197,4 +195,3 @@ session hit the documented apostrophe trap two commits after documenting it.
 
 | Failure | Symptom | Owner |
 |---|---|---|
-| `.completeBox` unscoped black on a light skin | Fourth instance of a colour literal that only looks wrong on manila | **§8.4** · Op Builder |
