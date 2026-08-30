@@ -501,6 +501,31 @@ against it. The safe-feeling assumption cuts the wrong way: people either
 re-import unnecessarily against a live database, or leave prose wrong because
 they believe fixing it means touching one.
 
+A fifth place deliberately does *not* call it, and must not:
+`scripts/test-answer-leak.ts:96` keeps its own `startsWith` test on the `_`
+prefix. The guard marks every string under an `_` key secret in the *authored*
+file, then looks for those strings in the *served* state — so the two halves
+must agree about nothing except whether the strip actually ran. Break
+`stripNotes` today and the guard still marks `_evidenceDesign` secret, finds it
+served, and fails. Make it import the shared function and the same break empties
+its forbidden set: it passes, having tested nothing, on precisely the change it
+exists to catch.
+
+**A guard must not share its constant with the thing it guards.** This has bitten
+twice. `docs-sync.mjs` grew a second gate derived from the first gate's list, so
+adding a file to the allowlist published it cleanly through both; the fix was to
+spell the rule out literally in `forbidden()`. The leak test is the same shape
+one step from happening. Test a guard by **breaking what it guards** and
+confirming it fails — a guard that goes quiet when its subject breaks was never
+a second gate.
+
+The trade is real, so this is a judgement and not a slogan. An independent copy
+silently covers *less* after a deliberate convention change: move the prefix to
+`__` and the copy keeps checking `_`. A shared constant falsely certifies the
+*current* convention when it breaks. The second is worse — failing to cover
+something new is visible the moment anyone looks, while reporting success on
+something that regressed is not.
+
 **A note that records an absence has a shelf life the code does not.** Prime
 Directive published carrying four false sentences, and every one had been true
 when written — not played yet, not tagged yet, not built yet, not made yet. A
