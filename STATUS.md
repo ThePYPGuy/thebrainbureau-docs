@@ -26,7 +26,7 @@ cheaper check is wrong.
 
 | Name | Owns | Worktree | Holding the tree? |
 |---|---|---|---|
-| **Operation Builder** | Prime Directive + the Case File skin | main | no — images next |
+| **Operation Builder** | Prime Directive + the Case File skin | own, on `case-file` + PD | n/a |
 | **Website Infrastructure** | Platform, engine, scripts, checks | own, on `platform` | n/a |
 | **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` | own, on `docs` | n/a — never in main's tree |
 
@@ -120,6 +120,7 @@ Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
 - **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
+- **Prime Directive played end to end** as a fresh agent — the first time anyone has solved all seven locks rather than inspected them. All keys accepted, wrong answers refused with their own feedback, Intel 150/75/25 as designed (1,375 total, promoted), hints on 01–06 and none on 07, `completion` `{}` at 0/7 and 6/7 and released at 7/7, certificate unlocked. Two defects found that no check could see — see §10. *(Op Builder.)*
 - `14a726f`, `4d268bd`, merged in `3e30eac` — **`completion` released only once every phase is done**, with a check proved by reverting the gate: 4 assertions go red. Built against a fixture whose debrief names its own answer, since asserting on Zero Hour would pass for the reason the bug hid. Also checks it releases *whole* (`unlocksCertificate` rides along) and *per agent*. *(WI.)*
 - `9405d9c` — **Stage 3 content.** Seven phases onto `config.evidence` + `_evidenceDesign`; `column` went private with them — it reads as a routing hint but names the Suspect Log column each lock filters on, and five of seven blocks held it. Seven images copied by name, byte-identical, no `_superseded/` shadows. *(Op Builder.)*
 - `01182fd` — **Case File is designed** — drawn enough to ship, not finished. The test's expectation moved rather than the flag, so the next archetype meets the question rather than the answer. Five remain undrawn. *(WI.)*
@@ -140,13 +141,16 @@ own account of its own work, not re-measured here.
 1. **Prime Directive can publish** — the gate landed, so nothing blocks it.
    Merge to `main`, tag its curriculum skills, import against production, flip
    `draft`. Every one of those fails silently if skipped; `--prod` is the check.
-2. **Op Builder needs its own branch** — the last session still committing to
-   `main` (§10).
-3. **Clear `BB-0009` locally** or teach the tests to tolerate extras — it
-   breaks `test:dashboard` and `test:curriculum` (§9).
-4. **Curriculum gaps** confirmed in `content/curriculum/`: no *factors,
-   multiples and primes* (nearest is a Y3 unit-fractions entry) and no *order
-   of operations* — both UK Y6 blocks Prime Directive builds locks on.
+2. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
+   primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
+   (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
+   is worse than none: it makes the Operation answer a search for something it
+   does not teach. A curriculum decision. *(Maciej.)*
+3. **`prefix` is typed but never rendered** — `Tasks.tsx:316,470` destructure
+   it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
+   *(Website Infrastructure.)*
+4. **`.completeBox` renders black on manila** — the same unscoped-literal leak
+   as Stage 2's input and button. *(Op Builder.)*
 5. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
@@ -159,17 +163,11 @@ own account of its own work, not re-measured here.
 - **The Drive "Accounts" doc holds live credentials in plain text** — a
   database password and a mail-provider key; one `service_role` key has
   already been rotated this week after a transcript leak.
-- **Local DB has Prime Directive `published` as `BB-0009`**, repo says `draft`
-  — local only, but it now **breaks `test:dashboard` and `test:curriculum`**:
-  the seeded class holds three activities where the tests assert two. Remove
-  the local deployment, or teach the tests to tolerate extras.
-- **A stash sits on `operation-prime-directive`** — "curriculum tagging work
-  in progress"; easy to lose between sessions. Claim it or drop it.
 - **Duplicate style templates** in Maciej's image folder; `content/styles/`
   is authoritative. Unresolved across three revisions.
-- **Nine suspect portraits stay outside version control**, deliberately —
-  `doctor` warns about art nothing references, and they await a Suspect Log
-  panel that does not exist. The seven referenced are in `9405d9c`.
+- **Nine suspect portraits stay outside version control**, awaiting a Suspect
+  Log panel that does not exist — and the design leans on a *printable* one for
+  paper cross-referencing. The seven referenced are in `9405d9c`.
 
 ## 10. Known silent failures
 
@@ -186,6 +184,9 @@ session hit the documented apostrophe trap two commits after documenting it.
 | Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
 | `completion` always serialised | `state.ts:215` sends every activity's ending on first load. **Prime Directive's ending is its answer** — COGSWORTH and `C-09` readable at 0 of 7 phases; Zero Hour survives only because its ending does not contain its answer | **§8.2, blocks publication** · Website Infrastructure |
 | `Mission.tsx` hardcodes one activity's fiction for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE" — the Value Vault is Zero Hour's story, inherited by a workshop short-circuit case | **unfixed** · Website Infrastructure; the content half went with `9405d9c` |
+| A public field carrying something secret | `config.evidence.caption` read "C-09 COGSWORTH", publishing Lock 07's answer at 0 of 7 phases. The boundary held, the gate worked, `e2e` passed — the field is *meant* to be public, so no structural check can see this. **Found by playing** | **fixed** — read what public fields say, not just where they sit |
+| `prefix` typed but never rendered | `Tasks.tsx` destructures it and draws nothing, so a Suspect Log of C-01…C-10 offers a numeric box that refuses `C-09`. Live: Global Intel Cards declares `"$"` | **§8.3** · Website Infrastructure |
+| `.completeBox` unscoped black on a light skin | Fourth instance of a colour literal that only looks wrong on manila | **§8.4** · Op Builder |
 | A red suite with nobody watching | `npm run test` has failed since `735c6bb` — no CI, and the failure is a real question | **§8.1** |
 | A safeguard whose exemption covers the case it was written for | `confirmRemoteWrite` correctly refuses a non-TTY run, then returns early on `process.env.CI` — set automatically by every CI, which is exactly where no human reads the warning | **§8.1** · Website Infrastructure |
 | **Every cheap way of checking a font is wrong** | `getComputedStyle().fontFamily` returns what CSS *asked for*, so it said `VT323` regardless. `document.fonts.check('16px "VT323"')` returned **`true`** for a family not in the registry at all — it answers "would this be used", assuming system availability. `canvas.measureText` reported every family, real or invented, as an identical width. | **no check** · Website Infrastructure — the only honest test is rendered DOM width against a bogus family; candidate for §8.6 |
