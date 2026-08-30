@@ -416,8 +416,21 @@ would hand over the deduction that the puzzle exists to make. Write every
 description in one register — physical detail, no demeanour — so the alt text
 carries what the image carries and nothing the image does not.
 
-**Image generation:** `--aspect` is ignored when `--ref` is passed, so the
-output silently takes the reference image's dimensions.
+This applies to anyone writing alt text, not only to art sessions — a content
+author writes it too, and will not have the skill loaded.
+`.claude/skills/bureau-art/references/house-style.md` covers how to hit the
+register while generating; the rule above is why it matters.
+
+**Image generation goes through `.claude/skills/bureau-art/`.** It carries the
+house style, the folder convention, and the half that has broken twice — read
+the slug out of the activity file rather than inferring it, absolute paths,
+`git add`, `doctor` as the finish line.
+
+**The plugin ignores `--aspect` when `--ref` is passed**, so the output
+silently takes the reference image's dimensions. That is still true of the
+plugin and no longer true of the repo's generator, which builds one config on
+every path and then measures the delivered file. Call the plugin directly and
+the trap is still there.
 
 **`npm run docs:sync` publishes to a public repo.** `STATUS.md`, `CLAUDE.md`
 and `docs/` go; `docs/local/` never does. Assume anything written in those
