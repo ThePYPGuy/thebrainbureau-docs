@@ -55,9 +55,8 @@ mechanics in `CLAUDE.md`.
 
 Live collisions only; standing hazards are in `CLAUDE.md`.
 
-- **A branch merge is a snapshot, not a subscription.** `2bf4df5` put the Case
-  File skin and `doctor` onto `operation-prime-directive`; `main` moved again
-  the same evening and the branch is already 4 behind. Run
+- **A branch merge is a snapshot, not a subscription.** `2bf4df5` put the skin
+  and `doctor` onto `operation-prime-directive`; it is 15 behind already. Run
   `git rev-list --left-right --count main...HEAD` before judging how anything
   on a branch looks — never the date of the last merge.
 - **`package.json` `"import"` is a hardcoded list, not a glob** — every new
@@ -135,10 +134,10 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Case File Stage 3 — the evidence capability**, the one that unlocks the
-   Operation. Blocked on the images: they need moving into
-   `public/images/operations/<slug>/` first (§9). Then 4–5, persistent panel
-   and two correctness fixes.
+1. **Case File Stage 3 — the evidence capability.** Two jobs crossing the
+   ownership line: nothing renders a task image today, so the engine part is
+   WI's; `_evidence` mixes one public field with three private ones (§10), so
+   the content and skin part is Op Builder's. Agree the shape first. Then 4–5.
 2. **Re-merge `main` into `operation-prime-directive`** before judging how it
    looks — 4 behind again (§3).
 3. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
@@ -146,10 +145,10 @@ own account of its own work, not re-measured here.
    (nearest is a Y3 unit-fractions entry) and no *order of operations*. Both
    are UK Y6 blocks it builds locks on.
 4. Visual regression check — screenshot each activity, fail on change.
-   **Clear intervals and cancel animations before capture**, or the HUD timer
-   keeps the page from ever reporting idle. Carry a **rendered-width assertion
-   per skin**: a known string in the display face against a nonexistent
-   family, failing if they match — the only check that caught the fonts.
+   **Clear intervals and cancel animations before capture** or the HUD timer
+   never lets the page idle (Op Builder proved this out). Carry a
+   **rendered-width assertion per skin**: a known string in the display face
+   against a nonexistent family, failing if they match.
 5. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
@@ -158,13 +157,14 @@ own account of its own work, not re-measured here.
   database password and a mail-provider API key. A `service_role` key was
   already rotated once this week after landing in a transcript.
 - **Local database has Prime Directive `published` as `BB-0009`**, repo says
-  `draft` — Op Builder, to open it locally; nothing reached production.
-  `deploy:check` flags it `?`, correctly, since the file is on a branch.
+  `draft` — local only; `deploy:check` flags it `?`, correctly.
 - **Duplicate style templates** in Maciej's image folder; `content/styles/` is
   authoritative. Unresolved across three revisions.
-- **Evidence images outside version control** — 6 PNGs, beside a
-  `_superseded/` folder of 7 older ones under near-identical names. Stage 3
-  copies the 6, not the directory; a superseded image renders perfectly.
+- **Activity images outside version control — 16, not 6.** 6 in `evidence/`,
+  **10 in `suspects/`** plus a `manifest.json`; earlier counts saw only the
+  first folder, and Prime Directive references `suspects/cogsworth.png`.
+  `_superseded/` sits beside them with 7 near-identically named files — copy
+  named files, never directories; a superseded image renders perfectly.
 - **Case File is `designed: true`** — "drawn enough to ship" or "finished"?
   The flag read `true` from `735c6bb` while `--accent` sat at 3.54:1 on
   manila, below AA. No reader saw it — both published activities are Field
@@ -186,7 +186,7 @@ session hit the documented apostrophe trap two commits after documenting it.
 | A docs push publishes every session's unpushed commits | `git push` pushes the branch, not your commits. Doc Manager pushed `914d97b` and `48a23b3` to production as a side effect of publishing `STATUS.md`; a deliberate hold would have broken silently | **unfixed** — check `git log origin/main..main` before pushing, and say what is going with you |
 | Escapes written into a commit message by the shell that builds it | `printf "%s"` does not expand `\x27`, so six commits carry a literal `\x27` where an apostrophe belongs — permanent, and invisible unless the message is read back | **fixed** — write the message as a file, never assemble it in a shell |
 | A rule contradicting the tables in the same document | §1 called three sessions Active while the line below forbade it and §2 put all three in one folder; every reader resolved it differently and none was warned | **fixed** — §1 now states an action and a check, not a state |
-| A ticking clock blocks screenshot verification | The HUD timer re-renders every second, so the page never reports idle and capture fails | **solved** — clear intervals and cancel animations before capture; feeds §8.4 |
+| `_evidence` mixes public and private in one blob | `image` must reach the browser; `eliminates`, `remaining` and `trap` must not — `trap` names the wrong suspect and its reasoning outright. The `_` prefix strips all four together, so the feature is safe only while inert | **§8.1** — split before un-prefixing; `e2e` catches a naive version |
 | Contrast checked per change, not per token | Stage 1 measured the pairs it altered and never re-checked `--accent` itself, which stayed at 3.54:1 for three commits; a token is used in more places than one commit touches | **fixed** `f1cb2ce` — candidate lint, §8.5 |
 | A safeguard whose exemption covers the case it was written for | `confirmRemoteWrite` correctly refuses a non-TTY run, then returns early on `process.env.CI` — set automatically by every CI, which is exactly where no human reads the warning | **§8.1** · Website Infrastructure |
 | **Every cheap way of checking a font is wrong** | `getComputedStyle().fontFamily` returns what CSS *asked for*, so it said `VT323` regardless. `document.fonts.check('16px "VT323"')` returned **`true`** for a family not in the registry at all — it answers "would this be used", assuming system availability. `canvas.measureText` reported every family, real or invented, as an identical width. | **no check** · Website Infrastructure — the only honest test is rendered DOM width against a bogus family; candidate for §8.6 |
