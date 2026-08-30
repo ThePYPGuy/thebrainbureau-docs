@@ -47,7 +47,7 @@ mechanics in `CLAUDE.md`.
 | Stream | Branch | Uncommitted | Status |
 |---|---|---|---|
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images |
-| Prime Directive | `operation-prime-directive` | none | merged to `2bf4df5`, already 4 behind |
+| Prime Directive | `operation-prime-directive` | none | pushed `77f1e83`; 2 behind again |
 | Platform | `main` | none | measure and CI exemption landed |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
 
@@ -77,13 +77,14 @@ every publish** — `?` is not `DRIFT`, it means unconfirmable.
 A third deploy went out unplanned — a `docs` push carried WI's two commits
 (§10); re-checked green after, but nobody decided it.
 
-**Deployed repeatedly on 2026-08-25**, re-verified each time: pages 200,
-`/dashboard` 307, **zero** `fonts.googleapis.com` requests served, `--prod`
-green.
+**Deployed repeatedly on 2026-08-25**, re-verified each time: pages 200, zero
+`fonts.googleapis.com` requests, `--prod` green. **Prime Directive's art 404s
+in production, correctly** — its content and images are on the branch, so none
+of the Operation is live and the Case File CSS styles nothing yet.
 
-**No manual step was needed in any range** — checked, not assumed. Before any
-push run `git diff --stat origin/main..main -- supabase/migrations/ content/`;
-both fail silently when missed.
+**No manual step in any range** — checked, not assumed. Before any push run
+`git diff --stat origin/main..main -- supabase/migrations/ content/`; both
+fail silently when missed.
 
 ## 5. Environment
 
@@ -181,7 +182,7 @@ session hit the documented apostrophe trap two commits after documenting it.
 | A session commits to `main` mid-task | Another session's uncommitted files land in a commit that does not describe them | Website Infrastructure — candidate `doctor` warning on a dirty tree |
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
-| Pushing publishes every session's unpushed commits | Twice now. `git push` sends the branch, not your commits, so a commit on `main` ships whenever anyone else pushes. The pre-push check surfaced it the second time and Maciej approved — but it captures the **pusher's** intent, never the **author's**, and the author is not asked | **§8.1** — a branch per session is the actual fix |
+| Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
 | The apex redirects, so a bare status check misreads it | `thebrainbureau.app` answers 308 to `www.`; a naive uptime check reading 200-or-fail would call a healthy site down | follow redirects, or check the `www.` host |
 | `completion` always serialised | `state.ts:215` sends every activity's ending on first load. **Prime Directive's ending is its answer** — COGSWORTH and `C-09` readable at 0 of 7 phases; Zero Hour survives only because its ending does not contain its answer | **§8.2, blocks publication** · Website Infrastructure |
 | `Mission.tsx` hardcodes one activity's fiction for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE" — the Value Vault is Zero Hour's story, inherited by a workshop short-circuit case | **unfixed** · Website Infrastructure; the content half went with `9405d9c` |
