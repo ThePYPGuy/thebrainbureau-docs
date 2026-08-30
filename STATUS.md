@@ -138,12 +138,15 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Prime Directive cannot be played, and must not publish.** Its mechanic is
-   elimination (`_design.eliminationTrace`: `10-7-5-4-3-2-1`) and **the ten
-   suspects exist nowhere a student can reach** — not in content, not as a task
-   type, not as a panel. The columns each lock filters on live only in
-   `_evidenceDesign`, private by design. **The Suspect Log is Stage 3's real
-   remainder** and needs a decision first: on screen, printable, or both.
+1. **Build the Case Dossier — Prime Directive cannot be played without it.**
+   The mechanic is elimination (`10-7-5-4-3-2-1`) and the ten suspects reach
+   the student nowhere. **Settled by Maciej: on screen *and* a downloadable
+   PDF.** The briefing is the first thing seen on load — typed on a page, not
+   behind a disclosure — with the suspect list and portraits beside it.
+   Nine portraits are still outside version control; only `cogsworth.png` is
+   in. A suspect table is new public content: the columns are the ones
+   `_evidenceDesign` names, and it must carry attributes without carrying the
+   eliminations.
 2. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
    primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
    (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
@@ -185,6 +188,7 @@ session hit the documented apostrophe trap two commits after documenting it.
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
 | Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
+| A demo is not a build | The suspect list and image zoom existed in a demo and never in this repo — `git log --all -S "suspect"` finds no component in any commit. Nothing carried them across because nothing was asked to | if it is not in a commit, it does not exist |
 | An activity verified end to end that cannot be played | Every lock accepted its key, Intel and hints behaved, the gate held — and the deduction is impossible, because the suspects are not rendered anywhere. A session that knows the answers cannot detect a missing affordance | **§8.1** — playthroughs must be by someone who does not know the answer |
 | The briefing is a collapsed `<details>` | `Mission.tsx:219` puts the whole back story behind a summary line that reads as a heading. Prime Directive's briefing exists and is good; nobody sees it | **unfixed** · Website Infrastructure — shared chrome |
 | Evidence images cannot be enlarged | Exhibits carry figures a child must read — a batch sheet, a power log — rendered at fixed width and `pixelated`, with no zoom | **unfixed** · Website Infrastructure |
@@ -192,7 +196,3 @@ session hit the documented apostrophe trap two commits after documenting it.
 | `prefix` typed but never rendered | `Tasks.tsx` destructures it and draws nothing, so a Suspect Log of C-01…C-10 offers a numeric box that refuses `C-09`. Live: Global Intel Cards declares `"$"` | **§8.3** · Website Infrastructure |
 | `.completeBox` unscoped black on a light skin | Fourth instance of a colour literal that only looks wrong on manila | **§8.4** · Op Builder |
 | `npm run skins` reads the DB, not content files | Reports a stale count | Website Infrastructure |
-| A branch lacking the skin its activity needs | Renders unstyled; reads as a CSS bug | candidate `doctor` check |
-| Shared CSS changed for one skin | Another activity's look shifts, unnoticed | §8.6 |
-| Fixed-height child in a stretching flex parent | Surplus renders as chrome, invisible at small heights | §8.6 |
-| A doc referencing a file that does not exist | Reader hunts for it, or trusts a spec never written | Doc Manager — candidate link check |
