@@ -37,8 +37,8 @@ cheaper check is wrong.
 - **Not empty** — stop. Do not edit, commit, stash, renormalise or switch
   branches. Say which files you found, and wait for the tree to clear.
 
-Say so when you commit, so a waiting session knows. Four collisions on
-2026-08-25, two destroying work. Mechanics in `CLAUDE.md`.
+Say so when you commit. Four collisions on 2026-08-25, two destroying work;
+mechanics in `CLAUDE.md`.
 
 ## 2. Active work
 
@@ -78,16 +78,17 @@ three training banks, 70 skills, 14 tags. **This database matches the repo.**
 rows predated content hashes, and a re-import stamped them. **Re-run after
 every publish** — `?` is not `DRIFT`, it means unconfirmable.
 
-**Deployed twice on 2026-08-25.** `d446fb4..eb46bfc` carried the Case File
-skin, the `deploy:check` fix and the docs work; the second carried the
-self-hosted faces and the importer guards. Re-verified after landing: pages
-200, `/dashboard` 307, **zero** `fonts.googleapis.com` requests served,
-`--prod` green throughout.
+A third deploy went out unplanned — a `docs` push carried WI's two commits
+(§10); re-checked green after, but nobody decided it.
 
-**Neither manual step was needed in either range**, checked rather than
-assumed — no `supabase/migrations/`, no `content/`. Before any push, run
-`git diff --stat origin/main..main -- supabase/migrations/ content/`; both fail
-silently when missed.
+**Deployed 2026-08-25.** `d446fb4..eb46bfc` carried the Case File skin, the
+`deploy:check` fix and the docs work; later pushes the self-hosted faces and
+the importer guards. Re-verified each time: pages 200, `/dashboard` 307,
+**zero** `fonts.googleapis.com` requests served, `--prod` green.
+
+**No manual step was needed in any range** — checked, not assumed. Before any
+push run `git diff --stat origin/main..main -- supabase/migrations/ content/`;
+both fail silently when missed.
 
 ## 5. Environment
 
@@ -107,8 +108,7 @@ Verified against `package.json` directly, not against a summary of it.
 | Check | Command | State |
 |---|---|---|
 | Preflight | `npm run doctor` | built (`d446fb4`) |
-| Publish drift, local | `npm run deploy:check` | built (`0760a88`) |
-| Publish drift, prod | `deploy:check -- --prod` | **fixed** (`8839d38`) — exits rather than checking the wrong database |
+| Publish drift | `npm run deploy:check [-- --prod]` | built (`0760a88`); `--prod` fixed (`8839d38`) — exits rather than checking the wrong database |
 | Line endings | `.gitattributes` | built (`f0563c2`) |
 | Skin variety | `npm run skins` | built — reads the DB, not content files (§10) |
 | Tests | `npm run test`, `npm run e2e` | vitest suite; 6 e2e scripts, incl. answer leak |
@@ -125,7 +125,7 @@ Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
 - **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
-- `48a23b3`, `914d97b` — Field Terminal given a 72-character measure; `CI` no longer exempts a production write. *(WI)*
+- `48a23b3`, `914d97b` — Field Terminal measured at 72ch (`ch` is honest there — Share Tech Mono's `0` and average glyph both 8.64px), callouts constrained from 101; `CI` exempts nothing. Both **live** — §10. *(WI)*
 - `f04c924` — both viewports centred; Case File given a measure and a monochrome padlock. Settled by measurement at 1000px and 660px; the clipping objection does not apply because `.crtViewport` uses `min-height`. **Zero Hour confirmed centred by eye**; Case File's half not yet looked at. *(Op Builder.)*
 - `a50672b` — **the skin faces were never loading**; the terminal had drawn in bare monospace, ~⅓ oversized, since sizes are tuned to VT323's narrowness. All four now self-host via `next/font`. `--fd-scale` re-verified at 0.6671 against rendered widths — the 0.667 guess held to four decimals, and could not have been checked before. Method in `CLAUDE.md`. *(WI)*
 - `fc6cffb` — importers refuse to write blind: no localhost default, and a confirmation before any remote write. *(WI)*
@@ -137,21 +137,23 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
+1. **Case File's `.calloutBox` has the 101-character gap** Field Terminal just
+   closed — it covers `.preLine` and `.panel > p` but not the callout.
+   Constrain the box, not its text. *(Op Builder, Stage 2.)*
+2. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
    matters), persistent panel, two correctness fixes.
-2. **Re-merge `main` into `operation-prime-directive`** before judging how it
+3. **Re-merge `main` into `operation-prime-directive`** before judging how it
    looks — 4 behind again (§3).
-3. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
+4. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
    confirmed against `content/curriculum/`: no *factors, multiples and primes*
    (nearest is a Y3 unit-fractions entry) and no *order of operations*. Both
    are UK Y6 blocks it builds locks on.
-4. Visual regression check — screenshot each activity, fail on change. It must
+5. Visual regression check — screenshot each activity, fail on change. It must
    freeze or mock the clock (**the HUD timer never lets the page go idle**, so
    capture fails), and carry a **rendered-width assertion per skin**: a known
    string in the display face against a nonexistent family, failing if they
    match. That is the only check that would have caught the fonts.
-5. Lint rule on hex colours and `font-family` outside a token block; make
-   `"import"` a glob rather than a hardcoded list.
+6. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -159,9 +161,8 @@ own account of its own work, not re-measured here.
   database password and a mail-provider API key. A `service_role` key was
   already rotated once this week after landing in a transcript.
 - **Local database has Prime Directive `published` as `BB-0009`**, repo says
-  `draft` — set by Op Builder to open it locally; nothing reached production.
-  `deploy:check` flags it `?`, correctly, since the file is on a branch. Revert
-  or keep as a dev convenience, but know it is there.
+  `draft` — Op Builder, to open it locally; nothing reached production.
+  `deploy:check` flags it `?`, correctly, since the file is on a branch.
 - **Duplicate style templates** in Maciej's image folder; `content/styles/` is
   authoritative. Unresolved across three revisions.
 - **Evidence images outside version control** — 6 PNGs, beside a
@@ -173,19 +174,21 @@ own account of its own work, not re-measured here.
 
 ## 10. Known silent failures
 
-Open items only, each with an owner; failures already caught by a check, and
-standing traps, are in `CLAUDE.md`. **Documentation does not fire at 11pm** — a
+Open items, plus fixes recent enough to still be worth seeing — a fix names
+the check that catches the thing. Standing traps are in `CLAUDE.md`. Prune a
+row once its fix is old news. **Documentation does not fire at 11pm** — a
 session hit the documented apostrophe trap two commits after documenting it.
 
 | Failure | Symptom | Owner |
 |---|---|---|
 | A session commits to `main` mid-task | Another session's uncommitted files land in a commit that does not describe them | Website Infrastructure — candidate `doctor` warning on a dirty tree |
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
+| An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
+| A docs push publishes every session's unpushed commits | `git push` pushes the branch, not your commits. Doc Manager pushed `914d97b` and `48a23b3` to production as a side effect of publishing `STATUS.md`; a deliberate hold would have broken silently | **unfixed** — check `git log origin/main..main` before pushing, and say what is going with you |
 | Escapes written into a commit message by the shell that builds it | `printf "%s"` does not expand `\x27`, so six commits carry a literal `\x27` where an apostrophe belongs — permanent, and invisible unless the message is read back | **fixed** — write the message as a file, never assemble it in a shell |
 | A rule contradicting the tables in the same document | §1 called three sessions Active while the line below forbade it and §2 put all three in one folder; every reader resolved it differently and none was warned | **fixed** — §1 now states an action and a check, not a state |
 | A ticking clock blocks screenshot verification | The HUD timer re-renders every second, so the page never reports idle and capture fails; a session can measure geometry and never see the result | **§8.7** — unfixed for automation; `f04c924` was closed by a person looking instead |
 | A safeguard whose exemption covers the case it was written for | `confirmRemoteWrite` correctly refuses a non-TTY run, then returns early on `process.env.CI` — set automatically by every CI, which is exactly where no human reads the warning | **§8.1** · Website Infrastructure |
-| **A webfont that never loads** | Text renders in fallback at the wrong width; in a monospace skin it looks plausible, and sizes tuned to a narrow face come out about a third oversized | **fixed `a50672b`** by self-hosting — but see the row below for why it went unseen for so long |
 | **Every cheap way of checking a font is wrong** | `getComputedStyle().fontFamily` returns what CSS *asked for*, so it said `VT323` regardless. `document.fonts.check('16px "VT323"')` returned **`true`** for a family not in the registry at all — it answers "would this be used", assuming system availability. `canvas.measureText` reported every family, real or invented, as an identical width. | **no check** · Website Infrastructure — the only honest test is rendered DOM width against a bogus family; candidate for §8.6 |
 | Importers default to localhost when `SUPABASE_URL` is unset | `npm run import` writes to the laptop while appearing to publish | **§8.1** · Website Infrastructure |
 | `npm run skins` reads the DB, not content files | Reports a stale count | Website Infrastructure |

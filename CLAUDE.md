@@ -220,6 +220,19 @@ git status --porcelain
 
 Say so when you commit, so a session that is waiting knows the tree is free.
 
+**`git push` publishes the branch, not your commits.** Anything another
+session has committed and not pushed goes with you, and deploying is
+automatic. Before pushing, look at what you are about to send:
+
+```bash
+git log --oneline origin/main..main
+```
+
+If it holds work that is not yours, say so before pushing, or wait. A
+deliberate hold — commits kept back until a related change lands — looks
+identical to work that simply has not been pushed yet, and breaking one
+produces no error.
+
 **These need an empty tree before they are safe to run at all** —
 `git add --renormalize`, `reset`, `checkout .`, `stash`, and any branch
 switch. Each rewrites files you did not author and reports nothing when it
