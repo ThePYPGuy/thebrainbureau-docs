@@ -160,11 +160,9 @@ from `git log`; descriptions are each session's account of its own work.
   /usr/local/bin/uv`. `doctor` now reports the situation honestly — installed,
   not on this shell's `PATH` — so this is tidying rather than a fix, and it
   needs sudo with interactive authentication, which no session can do.
-- **Publish Prime Directive?** Everything is built, imported and played. It
-  needs `status` flipped to `published` in the content file, a production
-  re-import, and a deployment from the teacher dashboard to give a class its
-  code. Nothing technical is outstanding; the question is whether you want a
-  class on it.
+- **Deploy Prime Directive to a class?** Published and on production; the
+  dashboard step that mints a class code is the only thing left, and it is the
+  first time a child rather than Maciej reaches an Operation.
 - **The Drive "Accounts" doc holds live credentials in plain text** — a
   database password and a mail-provider key; one `service_role` key has
   already been rotated this week after a transcript leak.
