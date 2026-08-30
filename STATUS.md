@@ -71,31 +71,31 @@ does not import itself.** Both fail silently.
 bare 200-or-fail check reads a healthy site as down. Follow redirects, or check
 the `www` host.
 
-**No class has used the platform yet.** Two activities are published and the
-site is up, but Maciej is the only person who has played anything. "Live"
+**No class has used the platform yet.** All three activities are published and
+the site is up, but Maciej is the only person who has played anything. "Live"
 means reachable, not in use — worth holding when reading §10, where several
 rows describe what *would* happen to a child rather than what has.
 
-**Only the main worktree can reach production.** `supabase/.temp/project-ref`
-is gitignored, so it exists in `~/thebrainbureau` and nowhere else, and
-`--prod` from a feature worktree fails with *no linked Supabase project found*.
-That is a good property — you cannot write to production from a branch by
-accident — but the error reads like a broken link rather than a deliberate
-boundary. Run production commands from the main worktree.
+**Only the main worktree can reach production.** `--prod` elsewhere fails with
+*no linked Supabase project found*, which reads like a broken install and is a
+boundary: you cannot write to production from a branch by accident. Run
+production commands from the main worktree. (Why, and the override, in §5's
+file.)
 
-Project refs, hostnames, aliases, machine paths and the worktree table live in
-[docs/local/environment.md](docs/local/environment.md), which is **excluded from
-the public mirror**. That file is state and says so: `npm run doctor` and
-`git worktree list` are the authorities wherever they disagree with it.
+**Production matches the repo** — `--prod` green after `bb7f9b2`: 15 migrations
+applied, three activities published, 73 skills, 20 tags. **Re-run after every
+publish**: `?` is not `DRIFT` — it means unconfirmable, and the answer is
+usually a re-import.
 
-**Production matches the repo** — `--prod` green on all four sections, most
-recently after `3e30eac`. **Re-run after every publish**: `?` is not `DRIFT`,
-it means unconfirmable, and the answer is usually a re-import.
+**Live:** the platform, three activities, the Case File skin and its CSS, the
+evidence capability, and the `completion` gate. Prime Directive published at
+`bb7f9b2` and imported to production; its art is on `main` and serving. Nothing
+is built but unshipped.
 
-**Live:** the platform, two Field Terminal activities, the Case File skin, the
-evidence capability, and the `completion` gate. **Not live:** Prime Directive —
-content and images sit on its branch, so its art 404s in production, correctly,
-and the Case File CSS styles nothing yet.
+This paragraph said the opposite for several hours after the fact — *not live,
+art 404s, CSS styles nothing* — every clause true when written. The publish step
+in `CLAUDE.md` exists because of it, and §10's row on notes recording an absence
+is about the same failure in the activity file.
 
 The gate was **verified locally, not on production** — proving it there means
 creating a student agent in a live database. To confirm on the site, join a
