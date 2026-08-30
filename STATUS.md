@@ -75,8 +75,8 @@ the `www` host.
 > 73 skills and Prime Directive carries six tags; production still holds 70 and
 > 17. Content does not deploy with code. `deploy:check -- --prod` will report
 > this as drift until someone runs `npm run import:curriculum` **and** the
-> activity import against production — and the activity one waits on §8.2,
-> because an aborted import strands the phases at 1001–1007.
+> activity import against production. **Both are now safe to run** — the
+> importer validates before it writes, so a bad file changes nothing.
 
 **Production matches the repo** — `--prod` green on all four sections, most
 recently after `3e30eac`. **Re-run after every publish**: `?` is not `DRIFT`,
@@ -146,29 +146,21 @@ own account of its own work, not re-measured here.
    unknown — and **not** the "8 of 7 done" on the hub, which turned out to be a
    too-broad `UPDATE` in a local dev database, since corrected. That leaves
    this instance with no explanation at all. *(Website Infrastructure.)*
-2. **The importer validates after it starts writing — fix before the next
-   production import.** `import-activity.ts:135` bumps every phase position by
-   +1000 to dodge the unique constraint; the icon check throws at :145, in the
-   loop after. A mistyped icon name aborts the import and leaves the phases at
-   1001–1007, which `Mission.tsx` pads to "1001". The activity stays corrupt
-   until a successful import repairs it. **Publishing Prime Directive requires
-   a production import**, so this is a precondition, not a nicety. Validate the
-   whole file before the first write. *(Website Infrastructure.)*
-3. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
+2. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
    pass, but their leak checks cover Zero Hour and Global Intel Cards only.
    This activity's served state was verified by hand, and it is the one that
    already shipped an answer in a caption. *(WI.)*
-4. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
+3. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
    short-circuit inherits the Value Vault. *(Website Infrastructure.)*
-5. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
+4. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-6. Visual regression check — screenshot each activity, fail on change.
+5. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-7. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+6. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -190,7 +182,8 @@ table once. **Documentation does not fire at 11pm.**
 | Failure | Symptom | Owner |
 |---|---|---|
 | A phase that completes its task but not itself | The task reads *correct*, the next lock stays shut, and `settleCompletion` fires only on the transition — so re-answering cannot recover it. A child is simply stuck, with nothing to report | **§8.1** · Website Infrastructure |
-| The importer writes before it validates | Positions are bumped +1000 to dodge the unique constraint, then a bad field throws. The activity is left reading "1001" until a later import repairs it | **§8.2** · Website Infrastructure |
+| A failed import leaves rows it created | Positions are restored and creations are not — no transaction, because the Supabase client cannot open one; it would take a Postgres function. Bites only if the file is reverted after a failed import | **stated, unfixed** · Website Infrastructure |
+| A test that does not reproduce the reported bug | The first recovery test poisoned the *last* phase, so the failure landed after all seven had been renumbered: it caught the ordering corruption and stranded nothing, and would have passed against the broken importer for the wrong reason. Moving the fault to the first phase reproduced it exactly | prove the test fails against the original bug, not a neighbour |
 | Leak guards that cover only the activities they were written for | `e2e` passes while an untested activity ships its whole deduction. Prime Directive's served state is checked by hand, and it is the one that already shipped an answer in a caption | **§8.3** · Website Infrastructure |
 | One activity's fiction hardcoded for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A workshop short-circuit case ends by securing the Value Vault, and it renders perfectly | **§8.4** · Website Infrastructure |
 | A single scalar describing a proportional face | `--fd-scale` was exact for two monospace faces and has no single value for Archivo Narrow — 0.786 to 1.002 across six strings. Wrong sizes render, they do not error | **§8.5** · Website Infrastructure |
