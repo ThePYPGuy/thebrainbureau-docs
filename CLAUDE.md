@@ -383,6 +383,25 @@ one — because the apex 308-redirects to `www` and the greps were running over
 15-byte "Redirecting…" bodies. Confirm the fetch, then trust the count. Same
 shape as grepping the wrong path and concluding the code is not there.
 
+**`STATUS.md` is capped at 250 lines, and §7 is the only section that pays
+for it.** The cap keeps the file readable in one sitting, which is the whole
+point of it — but it must never be met by taking rows out of §10 or §8.
+
+- **§7 is a window, not a record.** Oldest entries fall off. Git holds the
+  history; this section holds what someone returning on Monday needs.
+- **§10 is open items.** A row leaves when it is closed, or when its lesson
+  moves to this file — never because the file is long.
+- **§8 leaves when it is done.**
+
+Both rules exist because both were broken. §10 was emptied a row at a time,
+each removal defensible, watching the line count rather than the contents. §7
+was trimmed to three entries and lost that week's playthrough, the production
+import and two fixes — so a session reported from memory that a thing still
+needed doing which had been done, because the file no longer said so.
+
+**A prune that is hard to justify by contents is not a prune, it is damage
+with a number attached.**
+
 **A mockup is a claim, so commit it with a list of what it claims.**
 `docs/mockups/` holds the mockup and a capability checklist beside it, and
 every unticked line is a `STATUS.md` §8 item until it is built. Prime Directive

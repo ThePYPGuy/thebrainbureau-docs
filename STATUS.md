@@ -132,8 +132,9 @@ from `735c6bb` to `01182fd` with no CI to say so.
 
 ## 7. Recently completed
 
-Newest first. Hashes from `git log`; descriptions are each session's account of
-its own work, not re-measured here.
+**A window, not a record** — oldest entries fall off, and git holds the rest.
+This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
+from `git log`; descriptions are each session's account of its own work.
 
 - `df82038` — **answer values in public fields are checked**, derived from each activity's own secret fields rather than a list, so it covers an activity not yet written. Two floors, stated in §10, that are its coverage. *(WI.)*
 - `5674cb1` — **the stuck phase closed.** `alreadyDone` had skipped `settleCompletion` whenever the task was already correct, shutting the one door a stranded child could push on. Repaired on load; atomicity still open. *(WI.)*
