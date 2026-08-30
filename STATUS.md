@@ -26,7 +26,7 @@ cheaper check is wrong.
 
 | Name | Owns | Worktree | Holding the tree? |
 |---|---|---|---|
-| **Operation Builder** | Prime Directive + the Case File skin | main | no — Stage 2 next |
+| **Operation Builder** | Prime Directive + the Case File skin | main | no — images next |
 | **Website Infrastructure** | Platform, engine, scripts, checks | main | no — `914d97b`, `48a23b3` committed |
 | **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` | own, on `docs` | n/a — never in main's tree |
 
@@ -46,7 +46,7 @@ mechanics in `CLAUDE.md`.
 
 | Stream | Branch | Uncommitted | Status |
 |---|---|---|---|
-| Case File skin | `main` | none | Stage 1 done; Stage 2 next |
+| Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images |
 | Prime Directive | `operation-prime-directive` | none | merged to `2bf4df5`, already 4 behind |
 | Platform | `main` | none | measure and CI exemption landed |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
@@ -55,10 +55,9 @@ mechanics in `CLAUDE.md`.
 
 Live collisions only; standing hazards are in `CLAUDE.md`.
 
-- **A branch merge is a snapshot, not a subscription.** `2bf4df5` put the skin
-  and `doctor` onto `operation-prime-directive`; it is 15 behind already. Run
-  `git rev-list --left-right --count main...HEAD` before judging how anything
-  on a branch looks — never the date of the last merge.
+- **A branch merge is a snapshot, not a subscription.** `operation-prime-directive`
+  is 15 behind. Run `git rev-list --left-right --count main...HEAD` before
+  judging how anything on a branch looks — never the last merge date.
 - **`package.json` `"import"` is a hardcoded list, not a glob** — every new
   activity conflicts on merge; resolution is always "keep both sides".
 - **`bb49a62` duplicates `5fda3d3`** — verified; cherry-pick residue is inference. Likely to conflict on merge.
@@ -78,10 +77,9 @@ every publish** — `?` is not `DRIFT`, it means unconfirmable.
 A third deploy went out unplanned — a `docs` push carried WI's two commits
 (§10); re-checked green after, but nobody decided it.
 
-**Deployed 2026-08-25.** `d446fb4..eb46bfc` carried the Case File skin, the
-`deploy:check` fix and the docs work; later pushes the self-hosted faces and
-the importer guards. Re-verified each time: pages 200, `/dashboard` 307,
-**zero** `fonts.googleapis.com` requests served, `--prod` green.
+**Deployed repeatedly on 2026-08-25**, re-verified each time: pages 200,
+`/dashboard` 307, **zero** `fonts.googleapis.com` requests served, `--prod`
+green.
 
 **No manual step was needed in any range** — checked, not assumed. Before any
 push run `git diff --stat origin/main..main -- supabase/migrations/ content/`;
@@ -112,8 +110,7 @@ Verified against `package.json` directly, not against a summary of it.
 | Importer safety | `npm run test:reimport` | built |
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
 
-**Activity schema is locked at 0.4**, declared by both shipped activities.
-`activity-schema-v0.4.md` **has never been written**; `CLAUDE.md` says so.
+**Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never written.
 
 ## 7. Recently completed
 
@@ -121,6 +118,7 @@ Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
 - **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
+- `b6f997b` — **the evidence boundary.** `config.evidence` is public (image, alt, caption); everything meaning-bearing goes behind `_`, `column` included — five of seven blocks are `{image, column}`, so that is most of them. One tested strip function replaces three copies of the rule, now applied on the way in *and* out. **[unpushed]** *(WI.)*
 - `f1cb2ce` — **Case File Stage 2.** Three defects Stage 1's measuring could not see, all found by looking: an unscoped `h2.caret::after` putting a terminal cursor on a paper dossier; `background: #000` literals in the shared `input`/`button` rules, which only look wrong on a light surface; `--accent` at 3.54:1 on manila, now 4.64:1. Callout constrained. *(Op Builder.)*
 - `48a23b3`, `914d97b` — Field Terminal measured at 72ch (`ch` is honest there — Share Tech Mono's `0` and average glyph both 8.64px), callouts constrained from 101; `CI` exempts nothing. Both **live** — §10. *(WI)*
 - `f04c924` — both viewports centred; Case File given a measure and a monochrome padlock. Settled by measurement at 1000px and 660px; the clipping objection does not apply because `.crtViewport` uses `min-height`. Both halves since confirmed by eye — centring and padlock correct. *(Op Builder.)*
@@ -134,41 +132,41 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Case File Stage 3 — the evidence capability.** Two jobs crossing the
-   ownership line: nothing renders a task image today, so the engine part is
-   WI's; `_evidence` mixes one public field with three private ones (§10), so
-   the content and skin part is Op Builder's. Agree the shape first. Then 4–5.
-2. **Re-merge `main` into `operation-prime-directive`** before judging how it
+1. **Decide `designed: true` (§9) — `npm run test` is red until you do.**
+   `skins.test.ts` says it should fail only "because someone drew one", and
+   someone did. Red since `735c6bb`, no CI to notice. *(Maciej.)*
+2. **Stage 3 content, on `b6f997b`'s contract** — move the images in, restructure
+   seven phases to `config.evidence` + `_evidenceDesign`. *(Op Builder.)*
+3. **Re-merge `main` into `operation-prime-directive`** before judging how it
    looks — 4 behind again (§3).
-3. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
+4. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
    confirmed against `content/curriculum/`: no *factors, multiples and primes*
    (nearest is a Y3 unit-fractions entry) and no *order of operations*. Both
    are UK Y6 blocks it builds locks on.
-4. Visual regression check — screenshot each activity, fail on change.
+5. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-5. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+6. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
 - **The Drive "Accounts" doc holds live credentials in plain text** — a
-  database password and a mail-provider API key. A `service_role` key was
-  already rotated once this week after landing in a transcript.
+  database password and a mail-provider key; one `service_role` key has
+  already been rotated this week after a transcript leak.
 - **Local database has Prime Directive `published` as `BB-0009`**, repo says
   `draft` — local only; `deploy:check` flags it `?`, correctly.
-- **Duplicate style templates** in Maciej's image folder; `content/styles/` is
-  authoritative. Unresolved across three revisions.
-- **Activity images outside version control — 16, not 6.** 6 in `evidence/`,
-  **10 in `suspects/`** plus a `manifest.json`; earlier counts saw only the
-  first folder, and Prime Directive references `suspects/cogsworth.png`.
-  `_superseded/` sits beside them with 7 near-identically named files — copy
-  named files, never directories; a superseded image renders perfectly.
+- **Duplicate style templates** in Maciej's image folder; `content/styles/`
+  is authoritative. Unresolved across three revisions.
+- **Activity images outside version control — 16, not 6**: 6 `evidence/`,
+  10 `suspects/`, plus `manifest.json`. Prime Directive references
+  `suspects/cogsworth.png`. `_superseded/` holds 7 near-identically named
+  files — copy named files, never directories.
 - **Case File is `designed: true`** — "drawn enough to ship" or "finished"?
-  The flag read `true` from `735c6bb` while `--accent` sat at 3.54:1 on
-  manila, below AA. No reader saw it — both published activities are Field
-  Terminal — but stopping exactly that is what the flag is for.
+  Lower stakes than assumed: **the flag gates nothing**, being read only by
+  `skins.test.ts` and one label in `npm run skins`. Deciding unblocks the red
+  suite; building the guard people believe in is a separate job.
 - **Merge `operation-prime-directive` now, or wait for evidence capability?**
 
 ## 10. Known silent failures
@@ -185,8 +183,10 @@ session hit the documented apostrophe trap two commits after documenting it.
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
 | A docs push publishes every session's unpushed commits | `git push` pushes the branch, not your commits. Doc Manager pushed `914d97b` and `48a23b3` to production as a side effect of publishing `STATUS.md`; a deliberate hold would have broken silently | **unfixed** — check `git log origin/main..main` before pushing, and say what is going with you |
 | Escapes written into a commit message by the shell that builds it | `printf "%s"` does not expand `\x27`, so six commits carry a literal `\x27` where an apostrophe belongs — permanent, and invisible unless the message is read back | **fixed** — write the message as a file, never assemble it in a shell |
-| A rule contradicting the tables in the same document | §1 called three sessions Active while the line below forbade it and §2 put all three in one folder; every reader resolved it differently and none was warned | **fixed** — §1 now states an action and a check, not a state |
-| `_evidence` mixes public and private in one blob | `image` must reach the browser; `eliminates`, `remaining` and `trap` must not — `trap` names the wrong suspect and its reasoning outright. The `_` prefix strips all four together, so the feature is safe only while inert | **§8.1** — split before un-prefixing; `e2e` catches a naive version |
+| Stripping at import only | A `_`-prefixed key written straight to a row — what any migration does — reached the browser; the importer was the only gate | **fixed** `b6f997b` — same function on read |
+| A check that passes by matching nothing | `doctor` said "no activity references an image yet" of an activity referencing seven: the pattern was anchored to `/images/` and the paths were relative | **fixed** `b6f997b` — 0 matched before, 7 after |
+| A guard everyone believes in that does not exist | Twice. This table cited `e2e` for `config._evidence`; those assertions were Zero Hour's own answers and would have passed while another activity shipped its deduction. And `designed: true` is believed to stop a half-drawn skin shipping, and gates nothing | **`e2e` real since `b6f997b`** — cite the assertion, never the script |
+| A red suite with nobody watching | `npm run test` has failed since `735c6bb` — no CI, and the failure is a real question | **§8.1** |
 | Contrast checked per change, not per token | Stage 1 measured the pairs it altered and never re-checked `--accent` itself, which stayed at 3.54:1 for three commits; a token is used in more places than one commit touches | **fixed** `f1cb2ce` — candidate lint, §8.5 |
 | A safeguard whose exemption covers the case it was written for | `confirmRemoteWrite` correctly refuses a non-TTY run, then returns early on `process.env.CI` — set automatically by every CI, which is exactly where no human reads the warning | **§8.1** · Website Infrastructure |
 | **Every cheap way of checking a font is wrong** | `getComputedStyle().fontFamily` returns what CSS *asked for*, so it said `VT323` regardless. `document.fonts.check('16px "VT323"')` returned **`true`** for a family not in the registry at all — it answers "would this be used", assuming system availability. `canvas.measureText` reported every family, real or invented, as an identical width. | **no check** · Website Infrastructure — the only honest test is rendered DOM width against a bogus family; candidate for §8.6 |
