@@ -136,8 +136,10 @@ own account of its own work, not re-measured here.
    has never been played as a solvable puzzle by anyone who did not already
    know the answers. That is the check no automation replaces.
 2. **Exhibits should open as drawn CSS facsimiles, not magnified bitmaps** —
-   eleven plate kinds, real DOM in sampled colours; text that scales and reads
-   out. `Zoom.tsx` enlarges the bitmap; its shell is reusable. *(Op Builder.)*
+   eleven plate kinds, real DOM in sampled colours; **click, not hover**. The
+   facsimile carries the figures, so the on-page transcript comes off — but
+   **draw first, remove second** (§10). `Zoom.tsx` enlarges the bitmap; its
+   shell is reusable. *(Op Builder.)*
 3. **Redraw the Case File index to the new mockup** — three faces (Archivo
    Narrow printed, Special Elite typed, Lora read), folder furniture, stamps,
    progress bar, memo on its own sheet, per-lock icons. Claims in
@@ -186,13 +188,11 @@ session hit the documented apostrophe trap two commits after documenting it.
 |---|---|---|
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
 | Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
-| A preflight that checks the wrong pair | WI compared `main` to `origin/main` before a merge it was making from `platform` — clean, and the divergence was elsewhere. The check ran, passed, and did not cover the thing about to happen | compare what you are about to move, not a proxy for it |
 | A check is only as good as what you point it at | Two near-misses in one session: a font probe whose test string gave a 10px gap that read as "loaded", and a CSS grep run against the wrong path. Both would have returned confident wrong answers | prove the probe can fail before trusting that it passed |
+| On-page text removed while its replacement is still an image | The exhibit transcript is safe to drop *because* the facsimile is DOM text. Drop it while the exhibit is a bitmap and the figures reach no screen reader, and no check would notice — the page still renders | **§8.2** — draw the facsimiles first, remove the transcript second |
 | A demo is not a build — **second instance** | The mockup's exhibit facsimiles were rebuilt as bitmap magnification, because the instruction said "opens the image large". Written a day after the convention meant to stop exactly this. Nobody was wrong; the design had never been recorded anywhere a builder would look | `docs/mockups/` — capture the claim *before* the instruction is written |
 | A demo is not a build | The suspect list and image zoom existed in a demo and never in this repo — `git log --all -S "suspect"` finds no component in any commit. Nothing carried them across because nothing was asked to | if it is not in a commit, it does not exist |
 | An activity verified end to end that cannot be played | Every lock accepted its key, Intel and hints behaved, the gate held — and the deduction is impossible, because the suspects are not rendered anywhere. A session that knows the answers cannot detect a missing affordance | **§8.1** — playthroughs must be by someone who does not know the answer |
-| The briefing is a collapsed `<details>` | `Mission.tsx:219` puts the whole back story behind a summary line that reads as a heading. Prime Directive's briefing exists and is good; nobody sees it | **unfixed** · Website Infrastructure — shared chrome |
-| Evidence images cannot be enlarged | Exhibits carry figures a child must read — a batch sheet, a power log — rendered at fixed width and `pixelated`, with no zoom | **unfixed** · Website Infrastructure |
 | A public field carrying something secret | `config.evidence.caption` read "C-09 COGSWORTH", publishing Lock 07's answer at 0 of 7 phases. The boundary held, the gate worked, `e2e` passed — the field is *meant* to be public, so no structural check can see this. **Found by playing** | **fixed** — read what public fields say, not just where they sit |
 | `prefix` typed but never rendered | `Tasks.tsx` destructures it and draws nothing, so a Suspect Log of C-01…C-10 offers a numeric box that refuses `C-09`. Live: Global Intel Cards declares `"$"` | **§8.3** · Website Infrastructure |
 | `.completeBox` unscoped black on a light skin | Fourth instance of a colour literal that only looks wrong on manila | **§8.4** · Op Builder |

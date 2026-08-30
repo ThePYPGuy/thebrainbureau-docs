@@ -40,6 +40,10 @@ and writing it out again is how it goes wrong again. **Read the loupe file.**
 descriptions are Op Builder's reading of the rendered plates, since the source
 carries no prose describing them.*
 
+Clicking opens the facsimile — **click, not hover**. And because the
+facsimile carries the figures, the page does not repeat them: the on-page
+exhibit transcript comes off once the drawn objects exist, **in that order**.
+
 **There is no magnification at all.** That is the point rather than an omission.
 Because the facsimile is text:
 

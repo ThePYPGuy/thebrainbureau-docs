@@ -144,15 +144,22 @@ carries only what a folder carries: the tab, the case number, the texture.
 The distinction is the whole archetype. Text on manila reads as a website
 wearing a colour; text on a sheet reads as a document someone handled.
 
-**Evidence photographs reveal their detail on hover** — the print is a print
-until you lean in.
+**Clicking an exhibit opens its facsimile. Click only — not hover.** Corrected
+2026-08-30; an earlier note here said hover, which was wrong. Hover does not
+exist on a tablet or an interactive whiteboard, where a good share of these
+students will meet this, and an affordance reachable only by mouse is the same
+failure as the `prefix` that was typed and never drawn.
 
-> **This needs a non-hover path, and it is not optional.** Hover does not
-> exist on a tablet or an interactive whiteboard, which is where a good share
-> of these students will meet it. Hover is the *enhancement*; tap-to-reveal, or
-> simply showing the detail, is the behaviour. An affordance only reachable by
-> mouse is the same class of failure as the `prefix` that was typed and never
-> drawn — present in the design, absent for the child.
+**The facsimile carries the exhibit's data, so the page does not repeat it.**
+The lock states the task; the figures live in the drawn object. That keeps the
+page uncluttered and the exhibit worth opening.
+
+> **This holds only while the facsimile is real DOM text**, which is the whole
+> reason it is drawn rather than magnified. Take the transcript off the page
+> while the exhibit is still a bitmap and the figures become unreachable — to a
+> screen reader, and to anyone who cannot resolve pixel art. **Draw the
+> facsimiles first, remove the on-page transcript second.** In that order, or
+> the activity is briefly unsolvable for the children least able to say so.
 
 **Three faces, three roles.** Decided 2026-08-30.
 
