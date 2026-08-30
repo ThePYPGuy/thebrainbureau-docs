@@ -154,16 +154,20 @@ until you lean in.
 > mouse is the same class of failure as the `prefix` that was typed and never
 > drawn — present in the design, absent for the child.
 
-**Typeface: TT2020.** A typewriter face with real irregularity, which is what
-separates a typed sheet from a monospaced web page.
+**Typeface: Special Elite**, a distressed typewriter face. Verified on Google
+Fonts, so it arrives through `next/font/google` beside the other four — no new
+loading path, no font binaries in the repo, no licence to track.
 
-> **TT2020 is not on Google Fonts** — verified, every variant returns 400. It
-> cannot arrive through `next/font/google` like the other four faces. It is SIL
-> OFL licensed, so the files can live in the repo and load through
-> `next/font/local`. Adding the name to a token without the files would fall
-> back to a generic serif and look approximately right, which is exactly how
-> VT323 went unnoticed for four commits. Verify by rendered width against a
-> nonexistent family, per `CLAUDE.md`.
+TT2020 was the first choice and is the better face, having real per-glyph
+irregularity. It is **not on Google Fonts** — verified, every variant of the
+family returns 400 — so it would need its OFL files committed and
+`next/font/local`. Worth revisiting if the sheets read as too clean, but the
+paper treatment carries most of the effect and the face carries the rest.
+
+> Whichever face is used, **verify it actually loaded** by rendered width
+> against a deliberately nonexistent family, per `CLAUDE.md`. A name added to a
+> token without the file behind it falls back and looks approximately right,
+> which is how VT323 rendered a third oversized for four commits.
 
 ### Keeping them varied
 
