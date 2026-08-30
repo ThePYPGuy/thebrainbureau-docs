@@ -166,9 +166,7 @@ own account of its own work, not re-measured here.
   is authoritative. Unresolved across three revisions.
 - **Nine suspect portraits stay outside version control**, deliberately —
   `doctor` warns about art nothing references, and they belong to a Suspect
-  Log panel that does not exist yet. The seven referenced files are in
-  (`9405d9c`).
-- **Merge `operation-prime-directive` now, or wait for evidence capability?**
+  Log panel that does not exist yet. The seven referenced are in `9405d9c`.
 
 ## 10. Known silent failures
 
