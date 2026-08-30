@@ -27,7 +27,7 @@ cheaper check is wrong.
 | Name | Owns | Worktree | Holding the tree? |
 |---|---|---|---|
 | **Operation Builder** | Prime Directive + the Case File skin | main | no — images next |
-| **Website Infrastructure** | Platform, engine, scripts, checks | main | no — `914d97b`, `48a23b3` committed |
+| **Website Infrastructure** | Platform, engine, scripts, checks | own, on `platform` | n/a |
 | **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` | own, on `docs` | n/a — never in main's tree |
 
 **Before your first write, run `git status --porcelain`.**
@@ -121,6 +121,7 @@ Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
 - **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
+- `14a726f`, `4d268bd` — **`completion` released only once every phase is done**, with a check that proves it: reverting the gate turns 4 assertions red. Built against a fixture whose debrief names its own answer, since asserting on Zero Hour would pass for the reason the bug hid. Also checks it releases *whole* (`unlocksCertificate` rides along) and *per agent* (one child finishing cannot release the ending for the class). **[on `platform`]** *(WI.)*
 - `9405d9c` — **Stage 3 content.** Seven phases onto `config.evidence` + `_evidenceDesign`; `column` went private with them — it reads as a routing hint but names the Suspect Log column each lock filters on, and five of seven blocks held it. Seven images copied by name, byte-identical, no `_superseded/` shadows. *(Op Builder.)*
 - `01182fd` — **Case File is designed** — drawn enough to ship, not finished. The test's expectation moved rather than the flag, so the next archetype meets the question rather than the answer. Five remain undrawn. *(WI.)*
 - `b6f997b` — **the evidence boundary.** `config.evidence` is public (image, alt, caption); everything meaning-bearing goes behind `_`, `column` included — five of seven blocks are `{image, column}`, so that is most of them. One tested strip function replaces three copies of the rule, now applied on the way in *and* out. **[unpushed]** *(WI.)*
@@ -137,13 +138,9 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **A branch per session.** Doc Manager has one; the other two commit to
-   `main`, where a commit ships whenever anyone else pushes — twice now. The
-   pre-push check helps the pusher, not the author (§10).
-2. **Gate `completion` on progress — Prime Directive cannot publish until it
-   lands.** `state.ts:215` sends it unconditionally: at 0 of 7 phases the
-   browser holds "ACCESS GRANTED… COGSWORTH" and `C-09`, Lock 07's answer.
-   *(Website Infrastructure.)*
+1. **Publish the `completion` gate** — `14a726f`, `4d268bd` sit on `platform`,
+   verified but unmerged. Unblocks publishing Prime Directive. Op Builder is
+   the last session without its own branch.
 3. **Tag Prime Directive's curriculum skills** (~10 min). Two gaps confirmed
    in `content/curriculum/`: no *factors, multiples and primes* (nearest is a
    Y3 unit-fractions entry) and no *order of operations* — both UK Y6 blocks
@@ -160,8 +157,12 @@ own account of its own work, not re-measured here.
 - **The Drive "Accounts" doc holds live credentials in plain text** — a
   database password and a mail-provider key; one `service_role` key has
   already been rotated this week after a transcript leak.
-- **Local DB has Prime Directive `published` as `BB-0009`**, repo says
-  `draft` — local only; `deploy:check` flags it `?`, correctly.
+- **Local DB has Prime Directive `published` as `BB-0009`**, repo says `draft`
+  — local only, but it now **breaks `test:dashboard` and `test:curriculum`**:
+  the seeded class holds three activities where the tests assert two. Remove
+  the local deployment, or teach the tests to tolerate extras.
+- **A stash sits on `operation-prime-directive`** — "curriculum tagging work in
+  progress". Stashes are easy to lose between sessions; claim it or drop it.
 - **Duplicate style templates** in Maciej's image folder; `content/styles/`
   is authoritative. Unresolved across three revisions.
 - **Nine suspect portraits stay outside version control**, deliberately —
