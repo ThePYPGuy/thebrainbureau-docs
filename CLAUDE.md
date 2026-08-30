@@ -492,6 +492,26 @@ pushed content change is live in the repo and absent from production until
 someone imports it — the same trap as migrations, with no error to announce
 it: the app reads the old row and carries on.
 
+**Except notes: editing a `_` key never needs an import.** `lib/content-notes.ts`
+holds the `_`-prefix rule in one function, and four places call it —
+`import-activity.ts`, `deploy-check.ts`, `content-hash.ts` and
+`lib/server/state.ts`. The drift hash is taken *after* stripping, so correcting
+a stale note on a published activity cannot drift production and needs no run
+against it. The safe-feeling assumption cuts the wrong way: people either
+re-import unnecessarily against a live database, or leave prose wrong because
+they believe fixing it means touching one.
+
+**A note that records an absence has a shelf life the code does not.** Prime
+Directive published carrying four false sentences, and every one had been true
+when written — not played yet, not tagged yet, not built yet, not made yet. A
+note about something that exists ages slowly; a note about something that does
+*not* is invalidated by the very work the project is trying to do, and nothing
+fails when it expires. So: when you finish a thing, grep the notes for it — and
+prefer deleting such a note to replacing it with *done now*, which only starts a
+new clock on the same sentence. `lib/content-notes.ts` exists because its own
+rule was written three times, one copy carrying the comment *the same way the
+importer does* — true when written, with nothing to say so if it stopped.
+
 Importing against production means pointing `SUPABASE_URL` and
 `SUPABASE_SECRET_KEY` at the linked project for one command. The exact
 invocation — written so the key never reaches the screen — is in
