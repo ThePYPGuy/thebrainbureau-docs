@@ -132,6 +132,33 @@ the start of a session that might be sharing the repo.
 
 ## Deployment
 
+**Re-read the activity's `_note` end to end before you publish.** Prime
+Directive went out carrying four false sentences, and every one had been true
+when it was written: not played yet, not tagged yet, not built yet, not made
+yet. Notes are written while the work is unfinished, and nothing revisits them
+when it lands — so publication is the last moment anyone looks at that file with
+the whole build in view.
+
+Delete each clause the work has overtaken. **Delete rather than reword to "done
+now"**, which only starts a new clock on the same sentence; that the thing
+exists is already visible in the app and the repo, both of which fail loudly if
+it stops being true. Keep notes that explain a live constraint and name the code
+enforcing it — those age slowly, and they are the reason the field is there.
+
+To list the candidates rather than trust a skim:
+
+```bash
+grep -nEi "has not|not yet|does not exist|still (draft|untagged)|awaiting|later stage|for now" content/activities/<slug>.json
+```
+
+It finds sentences shaped like a claim of absence. It cannot tell you whether
+one is still true — that is the read, and there is no script for it. See **A
+note that records an absence has a shelf life the code does not** below for why
+this class of sentence, and no other, needs the pass.
+
+Editing a note is free at any time: it changes no hash and needs no import, so
+correcting one on a live activity never touches production.
+
 **Run `npm run deploy:check -- --prod` after every publish.** Publishing has
 three parts and only one is automatic: pushing to `main` deploys the app,
 migrations do not run themselves, and content does not import itself. Both
