@@ -242,6 +242,9 @@ destroys someone's work.
 its own worktree, not more care.** Git refuses the same branch in two
 worktrees, so such a session needs a branch of its own.
 
+**Each worktree needs its own `npm install`.** Turbopack rejects a symlinked
+`node_modules` outright, so sharing one between worktrees does not work.
+
 Doc Manager has one: `/home/maciej/tbb-doc-manager` on branch `docs`. It never
 appears in `main`'s working tree, so nothing it holds can be swept into another
 session's commit or reverted by a renormalise. Its cycle:
@@ -299,6 +302,19 @@ survived review — the element itself was byte-identical and measured correctly
   first**. Getting it backwards fails silently.
 - Static answers are numeric-only, so alphanumeric IDs need a prefix
   workaround until the engine handles them properly.
+
+**Cite the assertion, never the script.** Two guards on this project were
+believed in and did not exist: `e2e` was recorded as covering
+`config._evidence` while its assertions only checked one activity's own answer
+values, and `designed: true` was believed to stop a half-drawn skin shipping
+while gating nothing. Before citing a check as evidence, read what it actually
+asserts.
+
+**A check can pass by matching nothing.** `doctor` reported "no activity
+references an image yet" about an activity referencing seven, because its
+pattern was anchored to `/images/` and the paths were relative. A rule that
+finds zero things looks identical to a rule with nothing to find — so when you
+write one, prove it matches something before trusting that it matched nothing.
 
 **A green check asserts less than it appears to.** `doctor` reads secret
 *shape*, never identity: `sb_secret_… len 41` is byte-identical before and

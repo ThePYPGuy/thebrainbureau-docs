@@ -67,24 +67,23 @@ Live collisions only; standing hazards are in `CLAUDE.md`.
 Pushing to `main` deploys the app. **Migrations do not run themselves. Content
 does not import itself.** Both fail silently.
 
-**Production is verified** — 2026-08-25, for the first time. `--prod` queried
-the real host and returned `ok` throughout: 14 migrations, both activities,
-three training banks, 70 skills, 14 tags. **This database matches the repo.**
-`8839d38` fixed the check; the first honest run returned five `?` because the
-rows predated content hashes, and a re-import stamped them. **Re-run after
-every publish** — `?` is not `DRIFT`, it means unconfirmable.
+**Production matches the repo** — `--prod` green on all four sections, most
+recently after `3e30eac`. **Re-run after every publish**: `?` is not `DRIFT`,
+it means unconfirmable, and the answer is usually a re-import.
 
-A third deploy went out unplanned — a `docs` push carried WI's two commits
-(§10); re-checked green after, but nobody decided it.
+**Live:** the platform, two Field Terminal activities, the Case File skin, the
+evidence capability, and the `completion` gate. **Not live:** Prime Directive —
+content and images sit on its branch, so its art 404s in production, correctly,
+and the Case File CSS styles nothing yet.
 
-**Deployed repeatedly on 2026-08-25**, re-verified each time: pages 200, zero
-`fonts.googleapis.com` requests, `--prod` green. **Prime Directive's art 404s
-in production, correctly** — its content and images are on the branch, so none
-of the Operation is live and the Case File CSS styles nothing yet.
+The gate was **verified locally, not on production** — proving it there means
+creating a student agent in a live database. To confirm on the site, join a
+real class code and check the ending stays absent until the last lock.
 
-**No manual step in any range** — checked, not assumed. Before any push run
-`git diff --stat origin/main..main -- supabase/migrations/ content/`; both
-fail silently when missed.
+**Before any push** run
+`git diff --stat origin/main..main -- supabase/migrations/ content/`. Neither
+deploys itself and both fail silently when missed; no range so far has needed
+one.
 
 ## 5. Environment
 
@@ -121,7 +120,7 @@ Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
 - **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
-- `14a726f`, `4d268bd` — **`completion` released only once every phase is done**, with a check that proves it: reverting the gate turns 4 assertions red. Built against a fixture whose debrief names its own answer, since asserting on Zero Hour would pass for the reason the bug hid. Also checks it releases *whole* (`unlocksCertificate` rides along) and *per agent* (one child finishing cannot release the ending for the class). **[on `platform`]** *(WI.)*
+- `14a726f`, `4d268bd`, merged in `3e30eac` — **`completion` released only once every phase is done**, with a check proved by reverting the gate: 4 assertions go red. Built against a fixture whose debrief names its own answer, since asserting on Zero Hour would pass for the reason the bug hid. Also checks it releases *whole* (`unlocksCertificate` rides along) and *per agent*. *(WI.)*
 - `9405d9c` — **Stage 3 content.** Seven phases onto `config.evidence` + `_evidenceDesign`; `column` went private with them — it reads as a routing hint but names the Suspect Log column each lock filters on, and five of seven blocks held it. Seven images copied by name, byte-identical, no `_superseded/` shadows. *(Op Builder.)*
 - `01182fd` — **Case File is designed** — drawn enough to ship, not finished. The test's expectation moved rather than the flag, so the next archetype meets the question rather than the answer. Five remain undrawn. *(WI.)*
 - `b6f997b` — **the evidence boundary.** `config.evidence` is public (image, alt, caption); everything meaning-bearing goes behind `_`, `column` included — five of seven blocks are `{image, column}`, so that is most of them. One tested strip function replaces three copies of the rule, now applied on the way in *and* out. **[unpushed]** *(WI.)*
@@ -138,19 +137,22 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Publish the `completion` gate** — `14a726f`, `4d268bd` sit on `platform`,
-   verified but unmerged. Unblocks publishing Prime Directive. Op Builder is
-   the last session without its own branch.
-3. **Tag Prime Directive's curriculum skills** (~10 min). Two gaps confirmed
-   in `content/curriculum/`: no *factors, multiples and primes* (nearest is a
-   Y3 unit-fractions entry) and no *order of operations* — both UK Y6 blocks
-   it builds locks on.
-4. Visual regression check — screenshot each activity, fail on change.
+1. **Prime Directive can publish** — the gate landed, so nothing blocks it.
+   Merge to `main`, tag its curriculum skills, import against production, flip
+   `draft`. Every one of those fails silently if skipped; `--prod` is the check.
+2. **Op Builder needs its own branch** — the last session still committing to
+   `main` (§10).
+3. **Clear `BB-0009` locally** or teach the tests to tolerate extras — it
+   breaks `test:dashboard` and `test:curriculum` (§9).
+4. **Curriculum gaps** confirmed in `content/curriculum/`: no *factors,
+   multiples and primes* (nearest is a Y3 unit-fractions entry) and no *order
+   of operations* — both UK Y6 blocks Prime Directive builds locks on.
+5. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-5. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+6. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -161,13 +163,13 @@ own account of its own work, not re-measured here.
   — local only, but it now **breaks `test:dashboard` and `test:curriculum`**:
   the seeded class holds three activities where the tests assert two. Remove
   the local deployment, or teach the tests to tolerate extras.
-- **A stash sits on `operation-prime-directive`** — "curriculum tagging work in
-  progress". Stashes are easy to lose between sessions; claim it or drop it.
+- **A stash sits on `operation-prime-directive`** — "curriculum tagging work
+  in progress"; easy to lose between sessions. Claim it or drop it.
 - **Duplicate style templates** in Maciej's image folder; `content/styles/`
   is authoritative. Unresolved across three revisions.
 - **Nine suspect portraits stay outside version control**, deliberately —
-  `doctor` warns about art nothing references, and they belong to a Suspect
-  Log panel that does not exist yet. The seven referenced are in `9405d9c`.
+  `doctor` warns about art nothing references, and they await a Suspect Log
+  panel that does not exist. The seven referenced are in `9405d9c`.
 
 ## 10. Known silent failures
 
@@ -182,11 +184,8 @@ session hit the documented apostrophe trap two commits after documenting it.
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
 | Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
-| The apex redirects, so a bare status check misreads it | `thebrainbureau.app` answers 308 to `www.`; a naive uptime check reading 200-or-fail would call a healthy site down | follow redirects, or check the `www.` host |
 | `completion` always serialised | `state.ts:215` sends every activity's ending on first load. **Prime Directive's ending is its answer** — COGSWORTH and `C-09` readable at 0 of 7 phases; Zero Hour survives only because its ending does not contain its answer | **§8.2, blocks publication** · Website Infrastructure |
 | `Mission.tsx` hardcodes one activity's fiction for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE" — the Value Vault is Zero Hour's story, inherited by a workshop short-circuit case | **unfixed** · Website Infrastructure; the content half went with `9405d9c` |
-| A check that passes by matching nothing | `doctor` said "no activity references an image yet" of an activity referencing seven: the pattern was anchored to `/images/` and the paths were relative | **fixed** `b6f997b` — 0 matched before, 7 after |
-| A guard everyone believes in that does not exist | Twice. This table cited `e2e` for `config._evidence`; those assertions were Zero Hour's own answers and would have passed while another activity shipped its deduction. And `designed: true` is believed to stop a half-drawn skin shipping, and gates nothing | **`e2e` real since `b6f997b`** — cite the assertion, never the script |
 | A red suite with nobody watching | `npm run test` has failed since `735c6bb` — no CI, and the failure is a real question | **§8.1** |
 | A safeguard whose exemption covers the case it was written for | `confirmRemoteWrite` correctly refuses a non-TTY run, then returns early on `process.env.CI` — set automatically by every CI, which is exactly where no human reads the warning | **§8.1** · Website Infrastructure |
 | **Every cheap way of checking a font is wrong** | `getComputedStyle().fontFamily` returns what CSS *asked for*, so it said `VT323` regardless. `document.fonts.check('16px "VT323"')` returned **`true`** for a family not in the registry at all — it answers "would this be used", assuming system availability. `canvas.measureText` reported every family, real or invented, as an identical width. | **no check** · Website Infrastructure — the only honest test is rendered DOM width against a bogus family; candidate for §8.6 |
