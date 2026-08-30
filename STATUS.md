@@ -132,12 +132,17 @@ from `735c6bb` to `01182fd` with no CI to say so.
 
 ## 7. Recently completed
 
-Newest first. Hashes and order from `git log`; descriptions are each session's
-own account of its own work, not re-measured here.
+Newest first. Hashes from `git log`; descriptions are each session's account of
+its own work, not re-measured here.
 
-- **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
-- **Prime Directive played end to end** as a fresh agent — the first time anyone has solved all seven locks rather than inspected them. All keys accepted, wrong answers refused with their own feedback, Intel 150/75/25 as designed (1,375 total, promoted), hints on 01–06 and none on 07, `completion` `{}` at 0/7 and 6/7 and released at 7/7, certificate unlocked. Two defects no check could see (§10) — but knowing the answers hid a third: the activity is unplayable. *(Op Builder.)*
-- `14a726f`, `4d268bd`, merged in `3e30eac` — **`completion` released only once every phase is done**, with a check proved by reverting the gate: 4 assertions go red. Built against a fixture whose debrief names its own answer, since asserting on Zero Hour would pass for the reason the bug hid. Also checks it releases *whole* (`unlocksCertificate` rides along) and *per agent*. *(WI.)*
+- `df82038` — **answer values in public fields are checked**, derived from each activity's own secret fields rather than a list, so it covers an activity not yet written. Two floors, stated in §10, that are its coverage. *(WI.)*
+- `5674cb1` — **the stuck phase closed.** `alreadyDone` had skipped `settleCompletion` whenever the task was already correct, shutting the one door a stranded child could push on. Repaired on load; atomicity still open. *(WI.)*
+- **The importer validates before it writes** — every fault reported together before anything is touched, and no shuffle at all when nothing collides. `npm run test:import-recovery`. *(WI.)*
+- **Production imported and verified against the data** — 73 skills, 20 tags, phases at their proper positions with all seven icons. *(WI.)*
+- **Prime Directive played through by Maciej and passed** — the last check before children, and the one nothing automated could do. *(Maciej.)*
+- `b1e74ca` — **the seven glyphs**, closing the last claim line on either list. *(Op Builder.)*
+- `66d6cdf`, `b46df7b` — the phase icon field, and certificate print isolation keyed on the certificate rather than the CRT chrome. *(WI.)*
+- `1a425ea`, `b832987`, `3e4638e` — **the Case File drawn**: exhibits as CSS facsimiles in real text, the index redrawn, the transcript taken off *after* them. *(Op Builder.)*
 
 ## 8. Next up
 
