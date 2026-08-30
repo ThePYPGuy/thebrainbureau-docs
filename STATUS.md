@@ -108,8 +108,10 @@ one.
 
 ## 5. Environment
 
-`npm run doctor` — 2026-08-25: **no failures, 2 warnings** (`uv` not on PATH,
-`tools/google-image-gen` absent). Both expected — that pipeline is not in the repo.
+`npm run doctor` — 2026-08-31: **all checks passed**, no warnings. Both former
+warnings are closed: `uv` is symlinked into `/usr/local/bin`, so a plain
+`bash -c` finds it and not only a login shell, and the image-gen API key
+resolves. This is the first fully clean run recorded here.
 
 Paths, worktrees, project refs and Maciej's folders are in
 `docs/local/environment.md`; `git worktree list` and `doctor` outrank it.
@@ -170,10 +172,6 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-- **Symlink `uv` into `/usr/local/bin`?** `sudo ln -s ~/.local/bin/uv
-  /usr/local/bin/uv`. `doctor` now reports the situation honestly — installed,
-  not on this shell's `PATH` — so this is tidying rather than a fix, and it
-  needs sudo with interactive authentication, which no session can do.
 - **Deploy Prime Directive to a class?** Published and on production; the
   dashboard step that mints a class code is the only thing left, and it is the
   first time a child rather than Maciej reaches an Operation.
