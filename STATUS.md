@@ -71,10 +71,12 @@ does not import itself.** Both fail silently.
 bare 200-or-fail check reads a healthy site as down. Follow redirects, or check
 the `www` host.
 
-**No class has used the platform yet.** All three activities are published and
-the site is up, but Maciej is the only person who has played anything. "Live"
-means reachable, not in use — worth holding when reading §10, where several
-rows describe what *would* happen to a child rather than what has.
+**A class code is open on production.** `OP-35HY` for Prime Directive, alongside
+three older codes; two classes and three agents exist. Maciej is still the only
+person who has *played* anything, so far as the repo can tell — but the door is
+now open, and §10's rows about what would happen to a child stop being
+hypothetical the moment one uses that code. Verified against production, not
+assumed: `deployments` joined to `activities`.
 
 **Only the main worktree can reach production.** `--prod` elsewhere fails with
 *no linked Supabase project found*, which reads like a broken install and is a
@@ -172,12 +174,8 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-- **Deploy Prime Directive to a class?** Published and on production; the
-  dashboard step that mints a class code is the only thing left, and it is the
-  first time a child rather than Maciej reaches an Operation.
-- **The Drive "Accounts" doc holds live credentials in plain text** — a
-  database password and a mail-provider key; one `service_role` key has
-  already been rotated this week after a transcript leak.
+**Nothing.** First time this section has been empty. The credentials are out of
+the Drive doc and Prime Directive is deployed — `OP-35HY`, open on production.
 
 ## 10. Known silent failures
 
