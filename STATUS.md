@@ -83,6 +83,11 @@ That is a good property — you cannot write to production from a branch by
 accident — but the error reads like a broken link rather than a deliberate
 boundary. Run production commands from the main worktree.
 
+Project refs, hostnames, aliases, machine paths and the worktree table live in
+[docs/local/environment.md](docs/local/environment.md), which is **excluded from
+the public mirror**. That file is state and says so: `npm run doctor` and
+`git worktree list` are the authorities wherever they disagree with it.
+
 **Production matches the repo** — `--prod` green on all four sections, most
 recently after `3e30eac`. **Re-run after every publish**: `?` is not `DRIFT`,
 it means unconfirmable, and the answer is usually a re-import.
