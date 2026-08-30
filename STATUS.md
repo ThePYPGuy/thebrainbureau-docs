@@ -136,6 +136,7 @@ from `735c6bb` to `01182fd` with no CI to say so.
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `c11d11e` — **one activity's fiction stops being every activity's.** The timer's end-state labels and the keypad label are authored now, defaulting to words that fit any case rather than to Zero Hour's. `docs/activity-file.md` written alongside: there was no activity-file reference at all, so every field found this week — `icon`, `prefix`, `evidence`, `dossier`, and now three labels — was documented only in the code that read it. *(WI, doc by Doc Manager.)*
 - `84138c5` — **two `doctor` checks that described the shell instead of the machine.** `uv` now reports *installed at `~/.local/bin/uv`, but not on this shell's `PATH`* — verified from a stripped shell — instead of *not on PATH*, which read as *not installed*. And the `tools/google-image-gen` warning is retired in favour of a check for something the art skill actually needs: the API key. *(WI.)*
 - `03d6907`, merged `8f84348` — **`.claude/skills/bureau-art/`**, the repo's first `.claude/` tree: generating operation art *and* the half that has broken twice — read the slug from the activity file, absolute paths, `git add`, `doctor` as the finish line. It does not publish; the mirror allows `docs/**.md` only, verified by `docs:sync --dry-run`. *(Op Builder.)*
 - `df82038` — **answer values in public fields are checked**, derived from each activity's own secret fields rather than a list, so it covers an activity not yet written. Two floors, stated in §10, that are its coverage. *(WI.)*
@@ -146,19 +147,16 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
-   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE", so a Case File
-   short-circuit inherits the Value Vault. *(WI.)*
-2. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot
+1. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot
    describe a proportional face; Archivo Narrow measured 0.786–1.002 across six
    strings. Seventeen declarations shared with Field Terminal, so platform.
    *(WI.)*
-3. Visual regression check — screenshot each activity, fail on change.
+2. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle. Carry a **rendered-width assertion per skin**: a
    known string in the display face against a nonexistent family, failing if
    they match — with a discriminating string, since a 10px gap proves nothing.
-4. Lint rule on hex colours and `font-family` outside token blocks; make
+3. Lint rule on hex colours and `font-family` outside token blocks; make
    `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
