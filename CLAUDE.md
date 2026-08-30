@@ -182,19 +182,45 @@ live here rather than in `STATUS.md` because they are properties of the system
 rather than things anyone is about to fix — `STATUS.md` section 10 tracks only
 what is still open, with an owner against it.
 
-**Two sessions, one branch.** The worktree above separates branches, not
-agents.
+**A shared working tree is the hazard, not a shared file.** All four collisions
+on this project shared a tree; none needed a shared file. Two had provably
+disjoint file sets and destroyed work anyway:
 
-- **Commit by path. Never `git add -A`.** A session committing to `main`
-  mid-task sweeps up whatever else is in the tree. `8839d38` is titled for a
-  `deploy:check` fix and also carries another session's `CLAUDE.md` edits,
-  committed by a session that had not written them.
-- **Commit or stash before anyone renormalises line endings.** Adding
-  `.gitattributes` in `f0563c2` rewrote tracked files from the index and
-  silently discarded another session's uncommitted work — no error, no
-  conflict, the files simply reverted to their committed state.
-- **Read `git status` before committing.** Another session's work may be
-  sitting in the tree, and it will not be labelled.
+- `8839d38` swept another session's uncommitted `CLAUDE.md` into a commit
+  titled for a `deploy:check` fix. The two sessions were editing
+  `scripts/deploy-check.ts` and `CLAUDE.md`.
+- `f0563c2` renormalised line endings and silently reverted another session's
+  uncommitted `STATUS.md` and `scripts/docs-sync.mjs`. No error, no conflict —
+  the files simply returned to their committed state.
+
+Neither mechanism reads authorship. `git add -A` stages what is *present*; an
+index-driven rewrite touches what is *tracked*. Working on different files
+protects you from merge conflicts and from nothing else.
+
+So the rule is about the tree, and it is an action rather than a state.
+**Before your first write in a shared worktree:**
+
+```bash
+git status --porcelain
+```
+
+- **Empty** — the tree is yours. Work. Commit only the paths you authored, by
+  name: `git add <paths>`, then `git commit -F <file>`. Never `-A`, never
+  `-a`, never `.`.
+- **Not empty** — stop. Do not edit, commit, stash, renormalise or switch
+  branches. Name the files you found, say they are not yours, and wait.
+
+Say so when you commit, so a session that is waiting knows the tree is free.
+
+**These need an empty tree before they are safe to run at all** —
+`git add --renormalize`, `reset`, `checkout .`, `stash`, and any branch
+switch. Each rewrites files you did not author and reports nothing when it
+destroys someone's work.
+
+**A session that holds uncommitted work across another session's turn wants
+its own worktree, not more care.** Git refuses the same branch in two
+worktrees, so give it a branch: `git worktree add ../tbb-docs docs`, merge
+`main` in before writing, merge back to publish.
 
 **Line endings** are normalised on commit by `.gitattributes` (`* text=auto
 eol=lf`). The old rule — remember `newline="\n"` when writing from Windows —
