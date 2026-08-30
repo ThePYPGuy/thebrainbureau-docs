@@ -136,6 +136,7 @@ from `735c6bb` to `01182fd` with no CI to say so.
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `84138c5` — **two `doctor` checks that described the shell instead of the machine.** `uv` now reports *installed at `~/.local/bin/uv`, but not on this shell's `PATH`* — verified from a stripped shell — instead of *not on PATH*, which read as *not installed*. And the `tools/google-image-gen` warning is retired in favour of a check for something the art skill actually needs: the API key. *(WI.)*
 - `03d6907`, merged `8f84348` — **`.claude/skills/bureau-art/`**, the repo's first `.claude/` tree: generating operation art *and* the half that has broken twice — read the slug from the activity file, absolute paths, `git add`, `doctor` as the finish line. It does not publish; the mirror allows `docs/**.md` only, verified by `docs:sync --dry-run`. *(Op Builder.)*
 - `df82038` — **answer values in public fields are checked**, derived from each activity's own secret fields rather than a list, so it covers an activity not yet written. Two floors, stated in §10, that are its coverage. *(WI.)*
 - `5674cb1` — **the stuck phase closed.** `alreadyDone` had skipped `settleCompletion` whenever the task was already correct, shutting the one door a stranded child could push on. Repaired on load; atomicity still open. *(WI.)*
@@ -145,35 +146,27 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **`doctor` resolves tools by bare name, so it reports the launching shell's
-   `PATH` as the machine's.** `uv` is genuinely installed at `~/.local/bin/uv`
-   and `doctor` **passes** from an interactive shell — but `~/.local/bin` is
-   added by `~/.profile` and `~/.bashrc`, which a plain `bash -c` does not
-   read, so the same check fails from any non-interactive context. Verified
-   both ways. *"Not installed"* and *"not on this shell's PATH"* are different
-   problems with different fixes, and the check cannot tell them apart.
-   `scripts/doctor.ts:85`. *(WI.)*
-2. **Retire `doctor`'s `tools/google-image-gen` warning** — it still tells the
-   next person to clone something the `bureau-art` skill supersedes. A check
-   that recommends installing what should not be installed.
-   `scripts/doctor.ts:118`. *(WI.)*
-3. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
+1. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
    shows "⚠ ZERO HOUR" and completes on "VAULT SECURE", so a Case File
    short-circuit inherits the Value Vault. *(WI.)*
-4. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot
+2. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot
    describe a proportional face; Archivo Narrow measured 0.786–1.002 across six
    strings. Seventeen declarations shared with Field Terminal, so platform.
    *(WI.)*
-5. Visual regression check — screenshot each activity, fail on change.
+3. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle. Carry a **rendered-width assertion per skin**: a
    known string in the display face against a nonexistent family, failing if
    they match — with a discriminating string, since a 10px gap proves nothing.
-6. Lint rule on hex colours and `font-family` outside token blocks; make
+4. Lint rule on hex colours and `font-family` outside token blocks; make
    `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
+- **Symlink `uv` into `/usr/local/bin`?** `sudo ln -s ~/.local/bin/uv
+  /usr/local/bin/uv`. `doctor` now reports the situation honestly — installed,
+  not on this shell's `PATH` — so this is tidying rather than a fix, and it
+  needs sudo with interactive authentication, which no session can do.
 - **Publish Prime Directive?** Everything is built, imported and played. It
   needs `status` flipped to `published` in the content file, a production
   re-import, and a deployment from the teacher dashboard to give a class its
@@ -198,7 +191,7 @@ table once. **Documentation does not fire at 11pm.**
 | Failure | Symptom | Owner |
 |---|---|---|
 | Short numeric answers are not leak-checked, and cannot be | `test-answer-leak.ts` derives forbidden values from each activity's own `answer` fields, `_`-prefixed subtrees and `completion` — but with two floors that **are** its coverage. `PROSE_FLOOR` 12 chars, below which a secret string is usually an identifier: `_evidenceDesign.column` is "colour", public by design, and forbidding it would fail on correct content. `DIGITS_FLOOR` 3, below which a figure cannot be told from any other on the page — Lock 06's answer is 2 and appears inside its own exhibit, correctly, because it is the sum. Lock 07 is covered only because its `prefix` makes the typed value `C-09` | **stated, not fixable** — written out in the script so it is never cited for more than it does |
-| A check that resolves a tool by bare name | It reports the launching shell's `PATH` as the machine's state. `uv` is installed and `doctor` passes interactively and fails under `bash -c`, because `~/.local/bin` comes from `~/.profile`. Reported as *not installed*, which is a different problem with a different fix | **§8.1** · Website Infrastructure |
+| A check that resolves a tool by bare name | It reports the launching shell's `PATH` as the machine's state. `uv` is installed and `doctor` passes interactively and fails under `bash -c`, because `~/.local/bin` comes from `~/.profile`. Reported as *not installed*, which is a different problem with a different fix | **fixed** `84138c5` — it now names the path it found and says which of the two it means |
 | A check that fires on every call is one nobody reads | The aspect-ratio check first compared reduced fractions and flagged a genuine 4:3 response of 1200×896 — 75:56, 0.45% out. Decimals within 2% now, tested against six cases including that one. Same lesson `doctor` already carries about its anchored `/images/` pattern | **fixed** in the art skill |
 | A guard that closed the only recovery path | `alreadyDone` skipped `settleCompletion` whenever the task was already correct — protecting against a double-award the callee already refused, and in doing so shutting the door a stranded child would push on. **Fixed**, and the state is now repaired on load | **self-healing, not closed** — the two writes are still not atomic and cannot be made so from the client; it needs a Postgres function, and `check.ts` says so where it happens |
 | A repair that reads as a loss | The reconcile awards Intel, but `loadStudentState` had already read the agent row — so the phase opened with the old total beside it and the award looked like it had gone missing. Caught in testing; the agent is re-read only when something was repaired | **fixed** — a silent repair still has to be visible where it lands |
