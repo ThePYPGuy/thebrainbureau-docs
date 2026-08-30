@@ -352,6 +352,13 @@ while you are there, since the fallback is what you are measuring against. All f
 self-hosts — no render-time third-party request, and nothing for a school
 network to block. Keep it that way rather than adding an `@import`.
 
+**A mockup is a claim, so commit it with a list of what it claims.**
+`docs/mockups/` holds the mockup and a capability checklist beside it, and
+every unticked line is a `STATUS.md` §8 item until it is built. Prime Directive
+shipped without the Suspect Log and image zoom that a mockup had shown — not
+lost, never here; `git log --all -S "suspect"` finds no such component in any
+commit. It looked finished, so nobody checked whether it existed.
+
 **Alt text can be the answer.** A portrait's description reaches the browser
 like any other public string, and a child using a screen reader gets it in
 place of the image. Describing one suspect as sheepish and another as calm
