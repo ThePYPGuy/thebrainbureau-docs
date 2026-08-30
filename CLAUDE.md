@@ -310,6 +310,17 @@ values, and `designed: true` was believed to stop a half-drawn skin shipping
 while gating nothing. Before citing a check as evidence, read what it actually
 asserts.
 
+**A diagnostic answers the question it was built for.** `content-fingerprint.ts`
+was written to tell whether anything other than the named file moved during a
+one-file import — a question where ownership is irrelevant, so it never
+selected `owner_teacher_id`. Read later as an inventory of platform content,
+where ownership is the *only* thing that matters, its output made a teacher's
+draft quiz look like an orphan and nearly got it deleted. Every value it
+printed was true. Before reusing a diagnostic to answer a new question, read
+what it **selects**, not what it prints — and when you find the gap, fix the
+output so the wrong reading is unavailable rather than merely discouraged.
+That script now marks every row `platform` or `teacher <id>`.
+
 **A check can pass by matching nothing.** `doctor` reported "no activity
 references an image yet" about an activity referencing seven, because its
 pattern was anchored to `/images/` and the paths were relative. A rule that
