@@ -71,6 +71,11 @@ does not import itself.** Both fail silently.
 bare 200-or-fail check reads a healthy site as down. Follow redirects, or check
 the `www` host.
 
+**No class has used the platform yet.** Two activities are published and the
+site is up, but Maciej is the only person who has played anything. "Live"
+means reachable, not in use — worth holding when reading §10, where several
+rows describe what *would* happen to a child rather than what has.
+
 **Only the main worktree can reach production.** `supabase/.temp/project-ref`
 is gitignored, so it exists in `~/thebrainbureau` and nowhere else, and
 `--prod` from a feature worktree fails with *no linked Supabase project found*.
@@ -155,12 +160,6 @@ own account of its own work, not re-measured here.
 
 ## 9. Open decisions — waiting on Maciej
 
-- **Look for children the bug stranded, before the evidence goes?** The
-  reconcile shipped in `5674cb1` and repairs silently on next load, so the
-  signature — every task in a phase `correct`, no completed `phase_progress` —
-  disappears as each affected agent returns. A read-only query would say
-  whether it ever happened to a real child. It also stops being answerable a
-  little more each day.
 - **Publish Prime Directive?** Everything is built, imported and played. It
   needs `status` flipped to `published` in the content file, a production
   re-import, and a deployment from the teacher dashboard to give a class its
@@ -184,7 +183,7 @@ table once. **Documentation does not fire at 11pm.**
 
 | Failure | Symptom | Owner |
 |---|---|---|
-| A guard that closed the only recovery path | `alreadyDone` skipped `settleCompletion` whenever the task was already correct — protecting against a double-award the callee already refused, and in doing so shutting the door a stranded child would push on. **Fixed**, and the state is now repaired on load | atomicity is still outstanding: the two writes need a Postgres function, which the Supabase client cannot open |
+| A guard that closed the only recovery path | `alreadyDone` skipped `settleCompletion` whenever the task was already correct — protecting against a double-award the callee already refused, and in doing so shutting the door a stranded child would push on. **Fixed**, and the state is now repaired on load | **self-healing, not closed** — the two writes are still not atomic and cannot be made so from the client; it needs a Postgres function, and `check.ts` says so where it happens |
 | A repair that reads as a loss | The reconcile awards Intel, but `loadStudentState` had already read the agent row — so the phase opened with the old total beside it and the award looked like it had gone missing. Caught in testing; the agent is re-read only when something was repaired | **fixed** — a silent repair still has to be visible where it lands |
 | A failed import leaves rows it created | Positions are restored and creations are not — no transaction, because the Supabase client cannot open one; it would take a Postgres function. Bites only if the file is reverted after a failed import | **stated, unfixed** · Website Infrastructure |
 | A test that does not reproduce the reported bug | The first recovery test poisoned the *last* phase, so the failure landed after all seven had been renumbered: it caught the ordering corruption and stranded nothing, and would have passed against the broken importer for the wrong reason. Moving the fault to the first phase reproduced it exactly | prove the test fails against the original bug, not a neighbour |
