@@ -154,7 +154,15 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. Visual regression check — screenshot each activity, fail on change.
+1. **The art skill quotes an error `doctor` no longer prints.**
+   `.claude/skills/bureau-art/SKILL.md:40` says the report reads `uv not on
+   PATH`, "which reads like *not installed* and is not the same thing" — the
+   exact complaint `84138c5` fixed. `doctor.ts:128` now prints the version and
+   path *and* says it is not on this shell's PATH. So the skill teaches a
+   workaround for a confusion that no longer exists, in a file whose whole
+   point is that the distinction matters. One line. *(Whoever owns the art
+   skill — not Doc Manager's file.)*
+2. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle. Carry a **rendered-width assertion per skin**: a
    known string in the display face against a nonexistent family, failing if
