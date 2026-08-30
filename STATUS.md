@@ -138,12 +138,7 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Maciej plays the finished version.** Everything Prime Directive needs is
-   on production — schema, icons, tags, evidence, answer keys — and only its
-   `draft` flag stands between it and a class. Op Builder has played it
-   knowing every answer, which is how a missing Suspect Log survived a full
-   pass. This is the last look anyone gets before children do.
-2. **A stuck phase is unrecoverable for a child** — the one to fix first.
+1. **A stuck phase is unrecoverable for a child** — the one to fix first.
    Zero Hour lock 1 read *correct* while its phase never completed, so lock 2
    stayed locked. `settleCompletion` fires only on the transition to correct,
    so re-answering cannot recover it: a `task_progress` row without its
@@ -151,23 +146,29 @@ own account of its own work, not re-measured here.
    unknown — and **not** the "8 of 7 done" on the hub, which turned out to be a
    too-broad `UPDATE` in a local dev database, since corrected. That leaves
    this instance with no explanation at all. *(Website Infrastructure.)*
-3. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
+2. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
    pass, but their leak checks cover Zero Hour and Global Intel Cards only.
    This activity's served state was verified by hand, and it is the one that
    already shipped an answer in a caption. *(WI.)*
-4. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
+3. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
    short-circuit inherits the Value Vault. *(Website Infrastructure.)*
-5. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
+4. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-6. Visual regression check — screenshot each activity, fail on change.
+5. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-7. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+6. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
+
+- **Publish Prime Directive?** Everything is built, imported and played. It
+  needs `status` flipped to `published` in the content file, a production
+  re-import, and a deployment from the teacher dashboard to give a class its
+  code. Nothing technical is outstanding; the question is whether you want a
+  class on it.
 
 - **The Drive "Accounts" doc holds live credentials in plain text** — a
   database password and a mail-provider key; one `service_role` key has
