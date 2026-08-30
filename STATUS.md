@@ -24,23 +24,32 @@ cheaper check is wrong.
 
 ## 1. Sessions
 
-| Name | Owns | Currently |
-|---|---|---|
-| **Operation Builder** | Prime Directive + the Case File skin | Active — Stage 1 of 5 done, Stage 2 not started |
-| **Website Infrastructure** | Platform, engine, scripts, checks | Active — shipped `8839d38`, `f0563c2` |
-| **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` | Active — touches no code |
+| Name | Owns | Worktree | Holding the tree? |
+|---|---|---|---|
+| **Operation Builder** | Prime Directive + the Case File skin | main | no — Stage 2 next |
+| **Website Infrastructure** | Platform, engine, scripts, checks | main | no — `914d97b`, `48a23b3` committed |
+| **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` | main — **should be its own, §8.1** | yes, this change |
 
-**One session on `main` at a time** — collided four times on 2026-08-25, the
-last losing work. Mechanics in `CLAUDE.md`.
+**Before your first write, run `git status --porcelain`.**
+
+- **Empty** — the tree is yours. Work, then commit only the paths you
+  authored, by name.
+- **Not empty** — stop. Do not edit, commit, stash, renormalise or switch
+  branches. Say which files you found, and wait for the tree to clear.
+
+Say so when you commit, so a waiting session knows. Four collisions on
+2026-08-25, two destroying work. Mechanics in `CLAUDE.md`.
 
 ## 2. Active work
 
-| Stream | Folder | Branch | Files | Status |
-|---|---|---|---|---|
-| Case File skin | main worktree | `main` | none | Stage 1 of 5 done |
-| Prime Directive | PD worktree | `operation-prime-directive` | none | `main` merged in (`2bf4df5`); already 4 behind again |
-| Website Infrastructure | main worktree | `main` | none — committed | `--prod` fix landed |
-| Doc Manager | main worktree | `main` | `STATUS.md` | this change |
+**Only one row may show uncommitted files at a time**; §1 says how to check.
+
+| Stream | Branch | Uncommitted | Status |
+|---|---|---|---|
+| Case File skin | `main` | none | Stage 1 done; Stage 2 next |
+| Prime Directive | `operation-prime-directive` | none | merged to `2bf4df5`, already 4 behind |
+| Platform | `main` | none | measure and CI exemption landed |
+| Docs | `main` | `STATUS.md`, `CLAUDE.md` | this change |
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -62,15 +71,12 @@ Live collisions only; standing hazards are in `CLAUDE.md`.
 Pushing to `main` deploys the app. **Migrations do not run themselves. Content
 does not import itself.** Both fail silently.
 
-**Production is verified** — 2026-08-25, for the first time.
-`deploy:check -- --prod` queried the real host and reported every section `ok`:
-14 migrations applied, both activities published, three training banks, 70
-skills and 14 curriculum tags. **This database matches the repo.**
-
+**Production is verified** — 2026-08-25, for the first time. `--prod` queried
+the real host and returned `ok` throughout: 14 migrations, both activities,
+three training banks, 70 skills, 14 tags. **This database matches the repo.**
 `8839d38` fixed the check; the first honest run returned five `?` because the
 rows predated content hashes, and a re-import stamped them. **Re-run after
-every publish.** `?` is not `DRIFT` — it means unconfirmable, usually a
-re-import.
+every publish** — `?` is not `DRIFT`, it means unconfirmable.
 
 **Deployed twice on 2026-08-25.** `d446fb4..eb46bfc` carried the Case File
 skin, the `deploy:check` fix and the docs work; the second carried the
@@ -108,7 +114,7 @@ Verified against `package.json` directly, not against a summary of it.
 | Tests | `npm run test`, `npm run e2e` | vitest suite; 6 e2e scripts, incl. answer leak |
 | Importer safety | `npm run test:reimport` | built |
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
-| Docs mirror | `npm run docs:sync` | built — `--dry-run`, `--no-push` |
+| Docs mirror | `npm run docs:sync` | built |
 
 **Activity schema is locked at 0.4**, declared by both shipped activities.
 `activity-schema-v0.4.md` **has never been written**; `CLAUDE.md` says so.
@@ -118,8 +124,8 @@ Verified against `package.json` directly, not against a summary of it.
 Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
+- `48a23b3`, `914d97b` — Field Terminal given a 72-character measure; `CI` no longer exempts a production write. *(WI)*
 - `f04c924` — both viewports centred; Case File given a measure and a monochrome padlock. Settled by measurement at 1000px and 660px; the clipping objection does not apply because `.crtViewport` uses `min-height`. **Zero Hour confirmed centred by eye**; Case File's half not yet looked at. *(Op Builder.)*
-- `2bf4df5` — `main` merged into `operation-prime-directive`, clean; `package.json` kept both sides. *(Op Builder.)*
 - `a50672b` — **the skin faces were never loading**; the terminal had drawn in bare monospace, ~⅓ oversized, since sizes are tuned to VT323's narrowness. All four now self-host via `next/font`. `--fd-scale` re-verified at 0.6671 against rendered widths — the 0.667 guess held to four decimals, and could not have been checked before. Method in `CLAUDE.md`. *(WI)*
 - `fc6cffb` — importers refuse to write blind: no localhost default, and a confirmation before any remote write. *(WI)*
 - **13 commits deployed** (`d446fb4..eb46bfc`) — first push since the Case File work began; no migrations or content in the range, so nothing manual followed.
@@ -130,31 +136,25 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Narrow `confirmRemoteWrite`'s `CI` exemption** (§10) — one line; the guard
-   is otherwise sound. *(Website Infrastructure.)*
-2. **Centre both viewports** — settled on measurement, not taste: at 1000px
-   `flex-start` gives 30/284, `center` gives 157/157; at 660px, where the
-   monitor overflows, all options behave alike with the top reachable, because
-   `.crtViewport` uses `min-height` and grows. The clipping objection does not
-   apply. Op Builder takes both halves, having done the measuring.
-3. **Zero Hour's measure runs to 87 characters** — flagged by Op Builder, owned
-   by Website Infrastructure: Field Terminal, live, and a readability change for
-   Y6 readers rather than the alignment question asked. Case File's equivalent
-   is Op Builder's, in Stage 2.
-4. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
+1. **Give Doc Manager its own worktree** — `git worktree add ../tbb-docs docs`.
+   It is the session that holds uncommitted work across other sessions' turns,
+   and it lost that work twice. Merge `main` in before writing, merge back to
+   publish; nobody else touches those files, so it stays a fast-forward.
+   Reasoning in `CLAUDE.md`.
+2. Case File Stages 2–5 — dossier chrome, evidence capability (the one that
    matters), persistent panel, two correctness fixes.
-5. **Merge `main` into `operation-prime-directive`** before judging how Prime
-   Directive looks — it has no skin yet (§3).
-6. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
+3. **Re-merge `main` into `operation-prime-directive`** before judging how it
+   looks — 4 behind again (§3).
+4. **Tag Prime Directive's curriculum skills** on merge (~10 min). Two gaps
    confirmed against `content/curriculum/`: no *factors, multiples and primes*
    (nearest is a Y3 unit-fractions entry) and no *order of operations*. Both
    are UK Y6 blocks it builds locks on.
-7. Visual regression check — screenshot each activity, fail on change. It must
+5. Visual regression check — screenshot each activity, fail on change. It must
    freeze or mock the clock (**the HUD timer never lets the page go idle**, so
    capture fails), and carry a **rendered-width assertion per skin**: a known
    string in the display face against a nonexistent family, failing if they
    match. That is the only check that would have caught the fonts.
-8. Lint rule on hex colours and `font-family` outside a token block; make
+6. Lint rule on hex colours and `font-family` outside a token block; make
    `"import"` a glob rather than a hardcoded list.
 
 ## 9. Open decisions — waiting on Maciej
@@ -168,12 +168,11 @@ own account of its own work, not re-measured here.
   or keep as a dev convenience, but know it is there.
 - **Duplicate style templates** in Maciej's image folder; `content/styles/` is
   authoritative. Unresolved across three revisions.
-- **Evidence images outside version control** — 6 PNGs, confirmed by listing,
-  beside a `_superseded/` folder of 7 older ones under near-identical names.
-  Stage 3 copies the 6, not the directory: a superseded image renders
-  perfectly, so nothing reports the mistake.
-- **Case File is `designed: true` with Stage 2 of 5 to come**
-  (`lib/skins.ts:46`). Does the flag mean "drawn enough to ship" or "finished"?
+- **Evidence images outside version control** — 6 PNGs, beside a
+  `_superseded/` folder of 7 older ones under near-identical names. Stage 3
+  copies the 6, not the directory; a superseded image renders perfectly.
+- **Case File is `designed: true` with Stage 2 of 5 to come** — does the flag
+  mean "drawn enough to ship" or "finished"? (`lib/skins.ts:46`)
 - **Merge `operation-prime-directive` now, or wait for evidence capability?**
 
 ## 10. Known silent failures
@@ -186,6 +185,7 @@ session hit the documented apostrophe trap two commits after documenting it.
 |---|---|---|
 | A session commits to `main` mid-task | Another session's uncommitted files land in a commit that does not describe them | Website Infrastructure — candidate `doctor` warning on a dirty tree |
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
+| A rule contradicting the tables in the same document | §1 called three sessions Active while the line below forbade it and §2 put all three in one folder; every reader resolved it differently and none was warned | **fixed** — §1 now states an action and a check, not a state |
 | A ticking clock blocks screenshot verification | The HUD timer re-renders every second, so the page never reports idle and capture fails; a session can measure geometry and never see the result | **§8.7** — unfixed for automation; `f04c924` was closed by a person looking instead |
 | A safeguard whose exemption covers the case it was written for | `confirmRemoteWrite` correctly refuses a non-TTY run, then returns early on `process.env.CI` — set automatically by every CI, which is exactly where no human reads the warning | **§8.1** · Website Infrastructure |
 | **A webfont that never loads** | Text renders in fallback at the wrong width; in a monospace skin it looks plausible, and sizes tuned to a narrow face come out about a third oversized | **fixed `a50672b`** by self-hosting — but see the row below for why it went unseen for so long |
