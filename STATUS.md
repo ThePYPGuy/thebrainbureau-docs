@@ -67,6 +67,10 @@ Live collisions only; standing hazards are in `CLAUDE.md`.
 Pushing to `main` deploys the app. **Migrations do not run themselves. Content
 does not import itself.** Both fail silently.
 
+**Live at https://thebrainbureau.app** — the apex 308-redirects to `www`, so a
+bare 200-or-fail check reads a healthy site as down. Follow redirects, or check
+the `www` host.
+
 **Production matches the repo** — `--prod` green on all four sections, most
 recently after `3e30eac`. **Re-run after every publish**: `?` is not `DRIFT`,
 it means unconfirmable, and the answer is usually a re-import.
@@ -125,6 +129,7 @@ own account of its own work, not re-measured here.
 - `9405d9c` — **Stage 3 content.** Seven phases onto `config.evidence` + `_evidenceDesign`; `column` went private with them — it reads as a routing hint but names the Suspect Log column each lock filters on, and five of seven blocks held it. Seven images copied by name, byte-identical, no `_superseded/` shadows. *(Op Builder.)*
 - `01182fd` — **Case File is designed** — drawn enough to ship, not finished. The test's expectation moved rather than the flag, so the next archetype meets the question rather than the answer. Five remain undrawn. *(WI.)*
 - `b6f997b` — **the evidence boundary.** `config.evidence` is public (image, alt, caption); everything meaning-bearing goes behind `_`, `column` included — five of seven blocks are `{image, column}`, so that is most of them. One tested strip function replaces three copies of the rule, now applied on the way in *and* out. **[unpushed]** *(WI.)*
+- `66d6cdf`, `b46df7b` — **the icon field and the certificate print fix.** A named set in `lib/phase-icons.ts`, with the gate proved by rejection before being trusted to accept; absent renders no element at all, and the base rule is `display: none` so a skin must opt in. Certificate isolation re-keyed on `body:has(.certificate)` rather than the CRT chrome: Case File went 4 pages and 19 images to 1 and 0, Zero Hour still prints alone. Migration `20260830000015` applied to production. *(WI.)*
 - `1a425ea`, `b832987`, `3e4638e` — **the Case File drawn.** Exhibits are CSS facsimiles in real text, twelve plate kinds across sixteen hotspots, and the on-page transcript came off *after* them. Index redrawn: ruled folder, ACTIVE CASE stamp that turns CASE CLOSED, progress bar counted in CSS, memo on its own sheet with a paperclip, CLEARED stamps. Five contrast failures found by measuring things that looked finished. Played through, all seven locks, every figure read off a drawn exhibit. *(Op Builder.)*
 - `108652c`, `411e69f` — **Prime Directive unblocked.** Dossier render slot, briefing open on load, `prefix` drawn on both input paths, image zoom, `/terminal/print` with `app/print.css`, and `stripNotes` extended to `orders` at read time with e2e assertions beside the completion guard. *(WI.)*
 - `f1cb2ce` — **Case File Stage 2.** Three defects Stage 1's measuring could not see, all found by looking: an unscoped `h2.caret::after` putting a terminal cursor on a paper dossier; `background: #000` literals in the shared `input`/`button` rules, which only look wrong on a light surface; `--accent` at 3.54:1 on manila, now 4.64:1. Callout constrained. *(Op Builder.)*
@@ -132,43 +137,40 @@ own account of its own work, not re-measured here.
 - `f04c924` — both viewports centred; Case File given a measure and a monochrome padlock. Settled by measurement at 1000px and 660px; the clipping objection does not apply because `.crtViewport` uses `min-height`. Both halves since confirmed by eye — centring and padlock correct. *(Op Builder.)*
 ## 8. Next up
 
-1. **Maciej plays the drawn version.** Op Builder played all seven locks with
-   every figure read off a drawn exhibit — but it knows the answers, which is
-   how the missing Suspect Log survived a full pass. The last time a person
-   played this, two of the three findings were things no check could see.
-2. **A phase needs an icon field — this is the only thing keeping Prime
-   Directive in `draft`.** Schema, importer and `Mission.tsx`. The skin cannot
-   invent it: keying icons to `:nth-child()` would put a lightning bolt on lock
-   1 of every Case File activity ever written. *(Website Infrastructure.)*
-3. **The certificate prints the whole page on any skin but Field Terminal.**
-   The isolation rule is `.screenContent > *:not(.certificate)`, and
-   `.screenContent` is the CRT chrome — `chromeFor()` gives every other skin
-   `"plain"`, so the selector matches nothing. Prime Directive is the first
-   non-terminal activity to reach a certificate. *(Website Infrastructure.)*
-4. **No answer-leak guard covers Prime Directive.** The seven `e2e` scripts
+1. **A stuck phase is unrecoverable for a child** — the one to fix first.
+   Zero Hour lock 1 read *correct* while its phase never completed, so lock 2
+   stayed locked. `settleCompletion` fires only on the transition to correct,
+   so re-answering cannot recover it: a `task_progress` row without its
+   `phase_progress` row is a dead end with no way out from the UI. Cause
+   unknown. Prime Directive also shows "8 of 7 done" on the hub, possibly the
+   same thing. *(Website Infrastructure.)*
+2. **Op Builder draws the seven glyphs** and authors the icon values — the
+   platform side is done, and this is the last line on the claim list, so it is
+   the last thing between Prime Directive and publication. Hook is
+   `<span class="phaseIcon" data-icon="…">` inside `.phaseItem` before `.no`;
+   opt in with `[data-skin="case-file"] .phaseIcon { display: … }`.
+3. **No answer-leak guard covers Prime Directive** — the seven `e2e` scripts
    pass, but their leak checks cover Zero Hour and Global Intel Cards only.
-   This activity's served state was verified by hand — and it is the one that
-   already shipped an answer in a caption. *(Website Infrastructure.)*
-5. **`Mission.tsx` hardcodes one activity's fiction for all** — every activity
-   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
+   This activity's served state was verified by hand, and it is the one that
+   already shipped an answer in a caption. *(WI.)*
+4. **`Mission.tsx` hardcodes one activity's fiction for all**   shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A Case File
    short-circuit inherits the Value Vault. *(Website Infrastructure.)*
-6. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
+5. **Three Y6 skills missing from the crosswalk** — *factors, multiples and
    primes* (Lock 04), *square numbers* (Lock 05), *order of operations*
    (Lock 06). Three locks stay untagged until they exist, and a near-miss tag
    is worse than none: it makes the Operation answer a search for something it
    does not teach. A curriculum decision. *(Maciej.)*
-7. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
-8. **`prefix` is typed but never rendered** — `Tasks.tsx:316,470` destructure
+6. **Replace `--fd-scale` with explicit sizes** — a single scalar cannot describe a proportional face; Archivo Narrow measured 0.786–1.002 across six strings. Seventeen declarations shared with Field Terminal, so platform. *(WI.)*
    it and draw nothing. **Global Intel Cards is live and declares `"$"`.**
    *(Website Infrastructure.)*
-9. **`.completeBox` renders black on manila** — the same unscoped-literal leak
+7. **`.completeBox` renders black on manila** — the same unscoped-literal leak
    as Stage 2's input and button. *(Op Builder.)*
-10. Visual regression check — screenshot each activity, fail on change.
+8. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle (Op Builder proved this out). Carry a
    **rendered-width assertion per skin**: a known string in the display face
    against a nonexistent family, failing if they match.
-11. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
+9. Lint rule on hex colours and `font-family` outside token blocks; make `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -192,8 +194,8 @@ session hit the documented apostrophe trap two commits after documenting it.
 |---|---|---|
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
 | Pushing publishes every session's unpushed commits | Three times. `git push` sends the branch, so a commit on `main` ships whenever anyone else pushes. The check worked on the third: the pusher read the range first, saw whose it was, and judged it — which is the difference the row buys. It still captures the **pusher's** intent, never the **author's** | **§8.1** — a branch per session is the actual fix |
+| A test harness that never loaded what it tested | `print-proof.ts` linked stylesheets and trusted `<base>` to resolve them. The PDF rendered, images loaded, the output looked plausible — and the CSS under test was never applied, so a 10-page unstyled handout was reported as one styled page. The measurement was sound; the artefact was not | **fixed** — it inlines CSS and refuses to render a page with no stylesheet |
 | A rule written for one skin's chrome | The certificate print isolation keys on `.screenContent`, which only the CRT chrome renders. On every other skin it matches nothing and the whole page prints — no error, and it looked correct for as long as one skin existed | **§8.3** · Website Infrastructure |
 | A demo is not a build — **second instance** | The mockup's exhibit facsimiles were rebuilt as bitmap magnification, because the instruction said "opens the image large". Written a day after the convention meant to stop exactly this. Nobody was wrong; the design had never been recorded anywhere a builder would look | `docs/mockups/` — capture the claim *before* the instruction is written |
-| `prefix` typed but never rendered | `Tasks.tsx` destructures it and draws nothing, so a Suspect Log of C-01…C-10 offers a numeric box that refuses `C-09`. Live: Global Intel Cards declares `"$"` | **§8.3** · Website Infrastructure |
 | `.completeBox` unscoped black on a light skin | Fourth instance of a colour literal that only looks wrong on manila | **§8.4** · Op Builder |
 | `npm run skins` reads the DB, not content files | Reports a stale count | Website Infrastructure |
