@@ -58,6 +58,14 @@ Commit messages with an apostrophe can break through nested `bash -ic '...'`
 quoting. Write the message to a scratch file and use `git commit -F <file>`
 rather than fighting the quoting.
 
+**Write that file the way you would write any other file — do not assemble it
+in the shell.** Escaping the apostrophe instead is how six commits here ended
+up carrying a literal `\x27`: `printf "%s"` passes escapes through rather than
+expanding them, and nothing complains, because a commit message is never
+parsed. `-F` was never the weak point; building its input with shell quoting
+was. Read the file back before committing if you did anything clever to
+produce it.
+
 ## Run `npm run doctor` first
 
 ```bash
