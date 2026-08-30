@@ -110,7 +110,9 @@ Verified against `package.json` directly, not against a summary of it.
 | Importer safety | `npm run test:reimport` | built |
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
 
-**Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never written.
+**Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never
+written. **`npm run test` is green** — 131/131, 8/8 files, after running red
+from `735c6bb` to `01182fd` with no CI to say so.
 
 ## 7. Recently completed
 
@@ -118,6 +120,7 @@ Newest first. Hashes and order from `git log`; descriptions are each session's
 own account of its own work, not re-measured here.
 
 - **Doc Manager moved to its own worktree** on branch `docs` — the last shared-tree collision risk closed structurally rather than by care.
+- `01182fd` — **Case File is designed** — drawn enough to ship, not finished. The test's expectation moved rather than the flag, so the next archetype meets the question rather than the answer. Five remain undrawn. *(WI.)*
 - `b6f997b` — **the evidence boundary.** `config.evidence` is public (image, alt, caption); everything meaning-bearing goes behind `_`, `column` included — five of seven blocks are `{image, column}`, so that is most of them. One tested strip function replaces three copies of the rule, now applied on the way in *and* out. **[unpushed]** *(WI.)*
 - `f1cb2ce` — **Case File Stage 2.** Three defects Stage 1's measuring could not see, all found by looking: an unscoped `h2.caret::after` putting a terminal cursor on a paper dossier; `background: #000` literals in the shared `input`/`button` rules, which only look wrong on a light surface; `--accent` at 3.54:1 on manila, now 4.64:1. Callout constrained. *(Op Builder.)*
 - `48a23b3`, `914d97b` — Field Terminal measured at 72ch (`ch` is honest there — Share Tech Mono's `0` and average glyph both 8.64px), callouts constrained from 101; `CI` exempts nothing. Both **live** — §10. *(WI)*
@@ -132,9 +135,10 @@ own account of its own work, not re-measured here.
 
 ## 8. Next up
 
-1. **Decide `designed: true` (§9) — `npm run test` is red until you do.**
-   `skins.test.ts` says it should fail only "because someone drew one", and
-   someone did. Red since `735c6bb`, no CI to notice. *(Maciej.)*
+1. **A branch per session.** Doc Manager has one; the other two commit
+   straight to `main`, where a commit is shippable the moment it exists and
+   someone else's push decides its fate — twice now. The pre-push check helps
+   the pusher, not the author (§10).
 2. **Stage 3 content, on `b6f997b`'s contract** — move the images in, restructure
    seven phases to `config.evidence` + `_evidenceDesign`. *(Op Builder.)*
 3. **Re-merge `main` into `operation-prime-directive`** before judging how it
@@ -163,10 +167,6 @@ own account of its own work, not re-measured here.
   10 `suspects/`, plus `manifest.json`. Prime Directive references
   `suspects/cogsworth.png`. `_superseded/` holds 7 near-identically named
   files — copy named files, never directories.
-- **Case File is `designed: true`** — "drawn enough to ship" or "finished"?
-  Lower stakes than assumed: **the flag gates nothing**, being read only by
-  `skins.test.ts` and one label in `npm run skins`. Deciding unblocks the red
-  suite; building the guard people believe in is a separate job.
 - **Merge `operation-prime-directive` now, or wait for evidence capability?**
 
 ## 10. Known silent failures
@@ -181,7 +181,8 @@ session hit the documented apostrophe trap two commits after documenting it.
 | A session commits to `main` mid-task | Another session's uncommitted files land in a commit that does not describe them | Website Infrastructure — candidate `doctor` warning on a dirty tree |
 | Renormalising rewrites the working tree | Uncommitted edits silently revert; no error, no conflict | as above; cost Doc Manager `STATUS.md` on 2026-08-25 |
 | An exemption whose condition is the hazard | Third instance in one file: the non-TTY skip, then `process.env.CI`. Both named the situation with nobody watching and then waived the guard for it | **fixed** `914d97b` — `CI` exempts nothing; an automated write types `--yes` like anyone else |
-| A docs push publishes every session's unpushed commits | `git push` pushes the branch, not your commits. Doc Manager pushed `914d97b` and `48a23b3` to production as a side effect of publishing `STATUS.md`; a deliberate hold would have broken silently | **unfixed** — check `git log origin/main..main` before pushing, and say what is going with you |
+| Pushing publishes every session's unpushed commits | Twice now. `git push` sends the branch, not your commits, so a commit on `main` ships whenever anyone else pushes. The pre-push check surfaced it the second time and Maciej approved — but it captures the **pusher's** intent, never the **author's**, and the author is not asked | **§8.1** — a branch per session is the actual fix |
+| The apex redirects, so a bare status check misreads it | `thebrainbureau.app` answers 308 to `www.`; a naive uptime check reading 200-or-fail would call a healthy site down | follow redirects, or check the `www.` host |
 | Escapes written into a commit message by the shell that builds it | `printf "%s"` does not expand `\x27`, so six commits carry a literal `\x27` where an apostrophe belongs — permanent, and invisible unless the message is read back | **fixed** — write the message as a file, never assemble it in a shell |
 | Stripping at import only | A `_`-prefixed key written straight to a row — what any migration does — reached the browser; the importer was the only gate | **fixed** `b6f997b` — same function on read |
 | A check that passes by matching nothing | `doctor` said "no activity references an image yet" of an activity referencing seven: the pattern was anchored to `/images/` and the paths were relative | **fixed** `b6f997b` — 0 matched before, 7 after |
