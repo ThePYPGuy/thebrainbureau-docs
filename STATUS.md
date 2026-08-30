@@ -136,6 +136,7 @@ from `735c6bb` to `01182fd` with no CI to say so.
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `bb7f9b2` — **Prime Directive is published** and imported to production; every line of the import said REMOTE, and `deploy:check --prod` reports 15 migrations, three activities, 73 skills, 20 tags. **Not deployed to a class** — that step mints the code and is Maciej's. Three stale `_note` sentences went out with it; a fourth, claiming the printable Suspect Log was never made, survived because Doc Manager vouched for it. *(OB.)*
 - `f7a33d6` — **`npm run import:one -- <slug|path>`**, so one drifted file can go to production without rewriting the other six; the `--prod --yes` passthrough is preserved. *(WI.)*
 - `be460dc`, `aec8557` — **`npm run check:tokens`**, which fails on a hex colour or `font-family` written outside a token block: 43 existing literals grandfathered by name so the check lands green, and the list only shrinks. Four black slabs reached a light skin this week and each was one of these. **`npm run import` walks the directory** instead of naming every file, so a new activity no longer conflicts in `package.json` on every merge. *(WI.)*
 - **`--fd-scale` replaced by explicit sizes** — the token is gone; only two comments naming it survive, both explaining why a scalar could not work. Case File states its display sizes outright rather than deriving them, so nineteen values that were each the smallest size that could not overflow are now each the size they should be. Training's six stay Field Terminal-only until that archetype has a skin. **[on `platform`, unmerged]** *(WI.)*
@@ -169,9 +170,6 @@ from `git log`; descriptions are each session's account of its own work.
   already been rotated this week after a transcript leak.
 - **Duplicate style templates** in Maciej's image folder; `content/styles/`
   is authoritative. Unresolved across three revisions.
-- **Nine suspect portraits stay outside version control**, awaiting a Suspect
-  Log panel that does not exist — and the design leans on a *printable* one for
-  paper cross-referencing. The seven referenced are in `9405d9c`.
 
 ## 10. Known silent failures
 
