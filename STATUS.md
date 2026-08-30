@@ -146,7 +146,11 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. Visual regression check — screenshot each activity, fail on change.
+1. **`deploy:check` only looks one way** — repo files against the database, so
+   a row the repo does not know about is invisible to it. That is how a
+   slugless `training_sims` row has sat in production since 25 August. Report
+   rows with no corresponding file. *(WI — small addition, its own suggestion.)*
+2. Visual regression check — screenshot each activity, fail on change.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle. Carry a **rendered-width assertion per skin**: a
    known string in the display face against a nonexistent family, failing if
@@ -154,6 +158,10 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
+- **Delete the orphan `training_sims` row on production?** Verified: four rows,
+  one with a NULL slug, `draft`, created 25 August, matching no content file.
+  WI will delete it on your word but wants to know it is not something in
+  progress. Nothing in the repo refers to it.
 - **A narrower import for production?** `npm run import` is a glob now, so it
   rewrites all seven content files even when one has drifted. Safe — the
   importer matches by slug and updates in place, and `test:reimport` covers
@@ -191,6 +199,7 @@ table once. **Documentation does not fire at 11pm.**
 | Short numeric answers are not leak-checked, and cannot be | `test-answer-leak.ts` derives forbidden values from each activity's own `answer` fields, `_`-prefixed subtrees and `completion` — but with two floors that **are** its coverage. `PROSE_FLOOR` 12 chars, below which a secret string is usually an identifier: `_evidenceDesign.column` is "colour", public by design, and forbidding it would fail on correct content. `DIGITS_FLOOR` 3, below which a figure cannot be told from any other on the page — Lock 06's answer is 2 and appears inside its own exhibit, correctly, because it is the sum. Lock 07 is covered only because its `prefix` makes the typed value `C-09` | **stated, not fixable** — written out in the script so it is never cited for more than it does |
 | A check that resolves a tool by bare name | It reports the launching shell's `PATH` as the machine's state. `uv` is installed and `doctor` passes interactively and fails under `bash -c`, because `~/.local/bin` comes from `~/.profile`. Reported as *not installed*, which is a different problem with a different fix | **fixed** `84138c5` — it now names the path it found and says which of the two it means |
 | A check that fires on every call is one nobody reads | The aspect-ratio check first compared reduced fractions and flagged a genuine 4:3 response of 1200×896 — 75:56, 0.45% out. Decimals within 2% now, tested against six cases including that one. Same lesson `doctor` already carries about its anchored `/images/` pattern | **fixed** in the art skill |
+| A drift check that only reads one direction | `deploy:check` compares repo files to the database and cannot see a row with no file behind it. Structurally blind, not broken — and a slugless `training_sims` row has been in production since 25 August without any check noticing | **§8.1** · Website Infrastructure |
 | A guard that closed the only recovery path | `alreadyDone` skipped `settleCompletion` whenever the task was already correct — protecting against a double-award the callee already refused, and in doing so shutting the door a stranded child would push on. **Fixed**, and the state is now repaired on load | **self-healing, not closed** — the two writes are still not atomic and cannot be made so from the client; it needs a Postgres function, and `check.ts` says so where it happens |
 | A repair that reads as a loss | The reconcile awards Intel, but `loadStudentState` had already read the agent row — so the phase opened with the old total beside it and the award looked like it had gone missing. Caught in testing; the agent is re-read only when something was repaired | **fixed** — a silent repair still has to be visible where it lands |
 | A failed import leaves rows it created | Positions are restored and creations are not — no transaction, because the Supabase client cannot open one; it would take a Postgres function. Bites only if the file is reverted after a failed import | **stated, unfixed** · Website Infrastructure |
