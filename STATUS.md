@@ -136,15 +136,13 @@ from `735c6bb` to `01182fd` with no CI to say so.
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `be460dc`, `aec8557` — **`npm run check:tokens`**, which fails on a hex colour or `font-family` written outside a token block: 43 existing literals grandfathered by name so the check lands green, and the list only shrinks. Four black slabs reached a light skin this week and each was one of these. **`npm run import` walks the directory** instead of naming every file, so a new activity no longer conflicts in `package.json` on every merge. *(WI.)*
 - **`--fd-scale` replaced by explicit sizes** — the token is gone; only two comments naming it survive, both explaining why a scalar could not work. Case File states its display sizes outright rather than deriving them, so nineteen values that were each the smallest size that could not overflow are now each the size they should be. Training's six stay Field Terminal-only until that archetype has a skin. **[on `platform`, unmerged]** *(WI.)*
+- **Production re-imported through the glob** — checked first that only Zero Hour drifted, then verified against the data: its fiction is back (`⚠ ZERO HOUR`, `VAULT SECURE`, `RESTORE CODE`) while Global Intel Cards and Prime Directive take the colourless defaults, which is what `c11d11e` was for. No phase stranded above 1000 on the first production run under the new importer. Every line said `REMOTE`. *(WI.)*
 - `c11d11e` — **one activity's fiction stops being every activity's.** The timer's end-state labels and the keypad label are authored now, defaulting to words that fit any case rather than to Zero Hour's. `docs/activity-file.md` written alongside: there was no activity-file reference at all, so every field found this week — `icon`, `prefix`, `evidence`, `dossier`, and now three labels — was documented only in the code that read it. *(WI, doc by Doc Manager.)*
 - `84138c5` — **two `doctor` checks that described the shell instead of the machine.** `uv` now reports *installed at `~/.local/bin/uv`, but not on this shell's `PATH`* — verified from a stripped shell — instead of *not on PATH*, which read as *not installed*. And the `tools/google-image-gen` warning is retired in favour of a check for something the art skill actually needs: the API key. *(WI.)*
 - `03d6907`, merged `8f84348` — **`.claude/skills/bureau-art/`**, the repo's first `.claude/` tree: generating operation art *and* the half that has broken twice — read the slug from the activity file, absolute paths, `git add`, `doctor` as the finish line. It does not publish; the mirror allows `docs/**.md` only, verified by `docs:sync --dry-run`. *(Op Builder.)*
 - `df82038` — **answer values in public fields are checked**, derived from each activity's own secret fields rather than a list, so it covers an activity not yet written. Two floors, stated in §10, that are its coverage. *(WI.)*
-- `5674cb1` — **the stuck phase closed.** `alreadyDone` had skipped `settleCompletion` whenever the task was already correct, shutting the one door a stranded child could push on. Repaired on load; atomicity still open. *(WI.)*
-- **The importer validates before it writes** — every fault reported together before anything is touched, and no shuffle at all when nothing collides. `npm run test:import-recovery`. *(WI.)*
-- **Production imported and verified against the data** — 73 skills, 20 tags, phases at their proper positions with all seven icons. *(WI.)*
-- **Prime Directive played through by Maciej and passed** — the last check before children, and the one nothing automated could do. *(Maciej.)*
 
 ## 8. Next up
 
@@ -153,11 +151,16 @@ from `git log`; descriptions are each session's account of its own work.
    never lets the page idle. Carry a **rendered-width assertion per skin**: a
    known string in the display face against a nonexistent family, failing if
    they match — with a discriminating string, since a 10px gap proves nothing.
-2. Lint rule on hex colours and `font-family` outside token blocks; make
-   `"import"` a glob.
 
 ## 9. Open decisions — waiting on Maciej
 
+- **A narrower import for production?** `npm run import` is a glob now, so it
+  rewrites all seven content files even when one has drifted. Safe — the
+  importer matches by slug and updates in place, and `test:reimport` covers
+  that — but wider than the drift requires.
+  `npx vite-node scripts/import-activity.ts <file> --prod --yes` already works
+  on a single file; WI offered an `import:one` script for it. Worth it, or is
+  the glob fine?
 - **Symlink `uv` into `/usr/local/bin`?** `sudo ln -s ~/.local/bin/uv
   /usr/local/bin/uv`. `doctor` now reports the situation honestly — installed,
   not on this shell's `PATH` — so this is tidying rather than a fix, and it
