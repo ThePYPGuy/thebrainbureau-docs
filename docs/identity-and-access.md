@@ -26,6 +26,52 @@ reset instead.
 
 ---
 
+## Telemetry — what leaves the building
+
+**Decided 2026-08-31.** Error monitoring is needed before the first classroom
+session: with thirty children playing, the current detection method is a child
+raising their hand. It reports to a third party, and **identifiers are stripped
+at the client, before transmission**.
+
+**Codenames are only non-identifying outside the classroom.** Inside it everyone
+knows who AGENT FALCON is — that is what the teacher's roster is *for*. So
+"a codename is anonymous" is true of a vendor's servers and false of everyone in
+the room, and the question a school asks at procurement is not *is this
+technically anonymous* but *what leaves the building*.
+
+Guest nicknames settle it regardless. They are free text typed by children, are
+sometimes the child's own name, and no policy about codenames covers them.
+
+**Sent:** the error and its stack trace, browser and device, question type and
+question id, the session's mode and phase, and the sequence of **event types** —
+`question_served`, `answer_submitted`, `reconnect` — carrying no payloads. That
+is enough to debug a live session and identifies nobody.
+
+**Stripped before it is sent:** codenames, guest nicknames, agent ids, game
+PINs, session ids, and the answer text a child typed.
+
+**At the client, never in the vendor's filters.** Server-side scrubbing means
+the data arrives and is then deleted, which is a promise about somebody else's
+behaviour rather than a property of this system. Stripping at the client means
+it never leaves the device. That is the same distinction as the rule at the top
+of this file — by construction rather than by policy — and it is the half a
+school can be shown rather than told.
+
+**This needs a guard, because it is a silent leak.** A check failing when a
+payload carries a codename pattern or a PIN: a scrubber that regresses sends
+real identifiers and looks exactly like one that works. It belongs beside the
+answer-key leak check, which is the same shape.
+
+**The guard must spell out its own patterns rather than importing the
+scrubber's.** A test derived from the thing it tests is one gate, not two:
+break the scrubber and the guard's list empties with it, and it passes having
+checked nothing. `CLAUDE.md` records this happening twice already.
+
+Self-hosting is the eventual answer if schools press on it. It is a running
+service to maintain, and it is not needed yet.
+
+---
+
 ## Entities
 
 ```
