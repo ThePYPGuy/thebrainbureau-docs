@@ -218,6 +218,16 @@ The async modes forgive all of this; synchronous play forgives none of it,
 which is why Signal Check is a larger build than its description suggests —
 and why it is worth building as the mode whose job is to prove the transport.
 
+**One broadcast into a room of thirty is thirty metered events**, because
+Realtime counts each delivery to each client. Measured 2026-08-31 against thirty
+real sockets: **96 msg/s at peak**, 3.6 deliveries per player per question.
+
+So the binding limit is **throughput, not monthly volume** — the question this
+was first specified to answer, *does a session burn six figures a month*, was
+the wrong one. Any future live mode inherits the arithmetic: the ceiling is
+per-second and it is reached by one classroom, not by a term of them. And
+Realtime does not error at the ceiling. It stops delivering.
+
 **Keep it the thinnest thing that proves the transport** (decided 2026-08-31):
 one question to everyone at once, a fixed answer window, no speed bonus and no
 individual leaderboard. Every feature it does not have is one that cannot
