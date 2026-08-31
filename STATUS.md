@@ -57,17 +57,14 @@ mechanics in `CLAUDE.md`.
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | level with `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
-| Signal Check | `signal-check` in `../tbb-quiz` | none | **built; no screen starts a session** — 12 commits |
+| Signal Check | `signal-check` in `../tbb-quiz` | none | **complete on the branch** — 14 commits |
 
 **Signal Check has started.** Transport interface, two implementations behind one
 contract suite, the engine, the per-player shuffle, the telemetry scrubber, and
-Sentry proven to arrive — it was silently 400-ing on every event until
-`5c98acb`. Lifecycle, PIN, routes, both surfaces and the load harness have since
-landed: 395 unit tests and 45 e2e checks, both re-run here.
-
-**One gap stops it being usable: no screen starts a session.** The route exists
-and is tested; nothing in `/dashboard` calls it, so every session so far was made
-by a script. Migration 26 is on the branch only — not `main`, not production.
+**Signal Check is complete on the branch** — 14 commits, 395 tests across 18
+files and 45 e2e checks, all re-run here. The teacher session screen and the
+accessibility switch were the last two, and both landed. Migration 26 is still
+branch-only: not `main`, not production.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -166,7 +163,7 @@ Verified against `package.json` directly, not against a summary of it.
 | Bank checks | `test:columns`, `:insight`, `:images`, `:search`, `:edit-after-serve`, `:copy`, `check:alt`, `check:keys` | built, 8 scripts |
 
 **Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never
-written. **`npm run test` is green — 372/372, 17 files**, run on `signal-check`
+written. **`npm run test` is green — 395/395, 18 files**, run on `signal-check`
 31 Aug. Still no CI, so that number ages the moment anybody commits.
 
 ## 7. Recently completed
@@ -182,13 +179,6 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **Two screens, both before the merge.** *(Quiz Maker; decided 31 Aug.)*
-   **No screen starts a live session** — `POST /api/live/session` exists and is
-   tested, and nothing in `/dashboard` calls it, so every session so far came
-   from a script. And **the accessibility override has no control**:
-   `visual-identity.md` specified a global escape hatch, only reduced-motion was
-   ever built, and the mechanism now exists with nothing to switch it on.
-   Per-device by design — a guest has no agent record to hang a setting on.
 1. **Prime Directive's `_note` claims the `prefix` field is never rendered.**
    `Tasks.tsx:428` and `:583` draw it now. **Delete only the "never rendered"
    and "platform gap" clauses** — keep the rest: the answer is numeric `9`
@@ -215,9 +205,12 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-**Nothing.** The plan question is answered — **Pro from 31 Aug**, which also ends
-the Free tier's week-of-inactivity pause, a worse problem than the throughput one
-for anything used in term time. Reasoning in `docs/local/environment.md`.
+- **Merge `signal-check` and deploy?** Nothing waits on an agent: both pre-merge
+  screens landed, 395 tests and 45 e2e checks pass, `doctor` is green. Bigger
+  than the last merge in two ways — migration 26 carries `submit_live_answer`,
+  which the atomic write depends on, and merging **turns Sentry on for the whole
+  app**, not only this mode. Order: migrations first, then push, then read the
+  Vercel build log, then confirm one stack trace.
 
 ## 10. Known silent failures
 
