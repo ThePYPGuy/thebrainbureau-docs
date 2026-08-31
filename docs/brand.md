@@ -193,6 +193,22 @@ will be.
 
 The brand is ours; the arrangement is the reference.
 
+**A Case is not a longer Operation.** Measured on `/missions` at 1440px: the
+Operations and Agent Training entries leave 79–136px of empty column below their
+image, which is a balanced row. The Case leaves **946px** — its image fills a
+fifth of an 1184px row — because it carries six phases, a curriculum note and an
+outcome where an Operation carries one paragraph. Same layout, five times the
+prose.
+
+**The fix is not a bigger image.** One had already been grown — 313×239 against
+everyone else's 258×193 — and it bought 45px against a 946px gap. Lift the long
+list *out* of the column and run it full width, where a numbered list belongs
+anyway, and the top of the entry falls back into the same rhythm as the others.
+
+The fixed frame is right and should stay: three captures of three different
+shapes in a row of ragged heights reads as broken. The frame was never the
+problem — the assumption that every entry carries a paragraph was.
+
 ---
 
 ## Assets
