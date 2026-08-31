@@ -338,6 +338,22 @@ lines of arithmetic.
 mid-run, that task keeps `hintPenalty: 40` in the local database. Local only, but
 it presents as a mystery rather than as damage.
 
+**A `TABLE(...)` return makes its own names ambiguous, and Postgres waits until
+run time to say so.** `submit_live_answer` returns `TABLE (accepted boolean,
+score int)`, which puts `score` in scope as an output parameter *and* as a
+column — so `set score = score + 1` is ambiguous. **`CREATE FUNCTION` accepts
+it. The error arrives on the first call.** That would have been the first answer
+of the first lesson, in front of a class. Name output parameters so they cannot
+collide with columns, or qualify every reference.
+
+**`supabase-js` returns errors as values, not exceptions.** A failed RPC or
+insert comes back as `{ data: null, error }` and throws nothing, so an
+unchecked call reads exactly like a successful one. Signal Check graded an
+answer `correct: true` while the insert behind it had failed: a tick beside a
+score that never moved, the reveal counting one answer where there were two, and
+the misconception lost from the insight view. Check `error` on every call whose
+result you are about to report as success.
+
 **A redaction pass cannot tell a secret from a protocol field.** Signal Check's
 Sentry scrubber walked every string in the payload and redacted anything shaped
 like a long run of hex — which is what a session id looks like, and also what

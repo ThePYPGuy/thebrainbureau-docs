@@ -187,6 +187,18 @@ Three distinct things, deliberately named apart.
 A teacher normally shares the **class code** once. Deployment codes cover
 one-off use and guests; game PINs are Phase 2.
 
+**The game PIN is six digits** (2026-08-31), and its uniqueness index covers
+only *joinable* sessions rather than every session ever run. Four digits is ten
+thousand, and a school running several classes in one period would start
+colliding — a teacher reading out a PIN that drops a child into another class's
+game is not a fault anyone diagnoses quickly.
+
+**A signed-in agent is used only when the client asks for it** (2026-08-31). A
+class set of iPads means the previous child is still in the cookie, so
+defaulting to it would file one child's answers against another child's Intel —
+and the child it happened to would have no way of seeing that it had. A live
+join always states who is playing rather than inferring it.
+
 ---
 
 ## Registration, and why this shape

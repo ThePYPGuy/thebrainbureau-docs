@@ -62,8 +62,9 @@ mechanics in `CLAUDE.md`.
 **Signal Check has started.** Transport interface, two implementations behind one
 contract suite, the engine, the per-player shuffle, the telemetry scrubber, and
 Sentry wired and **proven to arrive** — it was silently 400-ing on every event
-until `5c98acb`. Still to build: session lifecycle and PIN, the HTTP routes,
-both surfaces, Intel settlement, the load harness.
+until `5c98acb`. Session lifecycle, six-digit PIN and the routes have since
+landed. **Remaining: both surfaces and the load harness.** Migration 26 is on the
+branch only — not on `main`, not in production; `git ls-tree` says so.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
