@@ -58,6 +58,27 @@ Commit messages with an apostrophe can break through nested `bash -ic '...'`
 quoting. Write the message to a scratch file and use `git commit -F <file>`
 rather than fighting the quoting.
 
+**The same trap applies to any text, not just commit messages.** A Windows
+session driving WSL through `wsl -e bash -ic '...'` hands the string to a second
+shell, so anything the *inner* shell treats as syntax is live: backticks run as
+commands, `$(...)` substitutes, and a shell variable holding backticked text
+expands when you echo it — which silently deleted a finished STATUS line here,
+because the variable was captured from the file and written straight back.
+`\x22` does not escape a quote for `sed`, and heredocs do not survive the nesting
+at all.
+
+The pattern that works, for anything with backticks, quotes or newlines in it:
+
+```bash
+# write the content with the editor tool, then
+tr -d '\r' < scratch/thing.py > /tmp/thing.py && python3 /tmp/thing.py
+```
+
+The `tr` is not optional — a file written from Windows carries CRLF, and Python
+will read `\r` into the strings it is matching on. Do the edit in Python with an
+`assert` that the text you expected to find appeared exactly once, so a failed
+match stops rather than silently changing nothing.
+
 **Write that file the way you would write any other file — do not assemble it
 in the shell.** Escaping the apostrophe instead is how six commits here ended
 up carrying a literal `\x27`: `printf "%s"` passes escapes through rather than
