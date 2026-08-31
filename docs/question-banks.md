@@ -320,6 +320,10 @@ and it is a good part of why those types are worth having.
 **Not built.** A per-bank view: which questions are answered wrong most often,
 per year group, and for numeric and short_text the most common wrong answers.
 
+**This is a teacher's screen, and it is the only place those typed answers are
+shown** — never a projector, never a shared surface. See *Nothing a child typed
+goes on a shared screen* under the rules below.
+
 Worth shipping on its own, independent of any mode. It surfaces misconceptions
 and badly-worded questions, and it is the one thing here that pays a teacher
 back for authoring rather than asking something further of them.
@@ -336,6 +340,20 @@ back for authoring rather than asking something further of them.
   remembering positions.
 - **The review screen names the right answers, and only afterwards.** During
   play the same information is the answer key.
+- **Nothing a child typed goes on a shared screen.** A `short_text` answer is
+  something a child wrote, and a projector puts it in front of the whole room at
+  eight metres — where the ones worth showing a teacher are exactly the ones a
+  child would least like shown. Decided 2026-08-31, when a live reveal had been
+  specified to display the three most common wrong answers.
+
+  Aggregates are safe, because nobody wrote them: how many chose each *authored*
+  option, how many answered correctly, and which questions the class got wrong.
+  Those are what a shared screen shows.
+
+  **The typed values are still logged and still reach the teacher** — in the
+  per-bank insight view, which is a teacher's screen and not the room's. The
+  misconception is not lost; it moves to the surface where only one adult reads
+  it. That is also why the wrong answer is worth logging at all.
 - **Free-entry keys cannot be leak-checked by value.**
   `scripts/test-answer-leak.ts` matches secret strings in the served payload and
   sets `DIGITS_FLOOR = 3`, saying in its own comment that short numeric answers
