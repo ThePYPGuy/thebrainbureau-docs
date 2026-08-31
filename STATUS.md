@@ -66,8 +66,8 @@ migrations, five screens, 323/323 run here, mode config on
 `5cceed0` with `scripts/test-edit-after-serve.ts` beside it — the first thing to
 exercise *Reproducibility*, an edit being what that design exists to survive.
 
-**Not blocking, and not built:** per-option images, and the *Take a copy* button
-both bank screens describe in words; `copied_from` is in the schema for it.
+***Take a copy* is being built and the merge waits for it** — Maciej, 31 Aug;
+nothing committed yet, so that is attribution. Per-option images still do not block.
 
 **A pre-existing bug the screens exposed:** every `<strong>` on the Bureau face
 was white on off-white. Invisible, no error. Fixed `e74e085`; lesson in `CLAUDE.md`.
