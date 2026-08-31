@@ -67,6 +67,27 @@ scrubber's.** A test derived from the thing it tests is one gate, not two:
 break the scrubber and the guard's list empties with it, and it passes having
 checked nothing. `CLAUDE.md` records this happening twice already.
 
+**Settled at setup, 2026-08-31.** Sentry, **EU region** — so that *it does not
+leave Europe* is the whole answer to a school asking where the data lives,
+rather than an explanation about scrubbing. The region is fixed when the
+organisation is created.
+
+- **Browser requests tunnel through the app's own domain.** School networks
+  filter telemetry hosts aggressively, and a blocked report is a silent absence
+  — monitoring that works everywhere except the classroom it was installed for.
+  The same reasoning that put the fonts on `next/font/google`.
+- **Session Replay is off, and that is a decision.** It reconstructs what was on
+  a child's screen, and **the scrubber does not reach it**: the guard would go on
+  passing while the thing it guards against arrived by another channel. It is
+  defensible later on teacher-facing screens only, and never on `/live/play`.
+- **Tracing is on**, which puts route URLs and navigation breadcrumbs into the
+  payload. Signal Check's routes carry a **session id**, which is on the strip
+  list above. So the scrubber has to cover transactions and breadcrumbs and not
+  only errors — and be proven against each by breaking it, not by inspection.
+- The build-time auth token lives in **Vercel's environment**, never in the repo.
+  Without it a production build still succeeds and silently skips source maps,
+  so every stack trace arrives minified: installed, reporting, and useless.
+
 Self-hosting is the eventual answer if schools press on it. It is a running
 service to maintain, and it is not needed yet.
 
