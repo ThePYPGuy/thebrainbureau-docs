@@ -76,18 +76,20 @@ pool, not a per-school setting and not a share list. So `visibility` is a flag
 on the bank, and there is no join table recording who a bank was shared with —
 which is the whole reason to settle this before the migration rather than after.
 
-**Only the owner edits a bank. Everyone else copies it.** A public bank is not
-a shared object with several editors — a teacher who wants to use someone else's
-takes a copy, and that copy is theirs. So a bank has one owner and needs no
-permission model beyond `visibility`, and an owner editing their own bank can
-never change a lesson running in another teacher's class.
+**Anyone may use a public bank. Only its owner may edit it.** Running a session
+from someone else's bank takes no copy — copying is what you do to *change* one.
+A teacher who wants a bank they do not own to be different takes a copy, and
+that copy is theirs. So a bank has one owner, and needs no permission model
+beyond `visibility`.
 
-The copy carries `copied_from` back to its source. That is not lineage for its
-own sake: without it, difficulty statistics fragment. Fifty teachers copying one
-bank produce fifty banks of under twenty plays each, the confidence threshold
-never trips anywhere, and a question answered a thousand times platform-wide
-still reads as *not enough to rate yet*. Keep the link so serves can be pooled
-across a lineage later, whether or not the first build pools them.
+Because most use is direct rather than copied, plays and difficulty accumulate
+on the one bank instead of scattering across forks. A copy does start its own
+statistics, so it carries `copied_from` to its source — provenance, and the
+option of pooling a lineage later.
+
+**The case that needs care is a bank being used by teachers who do not own it.**
+Its owner can still edit it, retire it, or make it private, and none of those
+should reach into a lesson somebody else is running. See *Reproducibility*.
 
 Public banks are **searchable**, and the search screen shows a **play count**
 beside each, so a teacher can tell a bank that has been used from one that has
@@ -182,7 +184,14 @@ write and players read, so a retained upload is a key every player can read. The
 whole file is validated before any insert, so a bad row rejects the file rather
 than importing its neighbours and reporting afterwards.
 
-**Still unsettled**: whether re-uploading a bank updates it or duplicates it.
+**Re-upload settled 2026-08-31.** Uploading a CSV always creates a **new** bank.
+Replacing the questions in an existing one is a separate action, taken against a
+bank the teacher picks from a list — never inferred from a filename or a title,
+because a wrong inference silently overwrites the wrong bank. Questions the
+replacement drops are archived, not deleted, so nothing that has been answered
+is destroyed. This is the shape the activity importer already has: match on a
+stable identifier, update in place, and never delete-and-recreate —
+`npm run test:reimport` exists to prove that last part.
 
 **Not built:** AI-assisted generation from a topic or pasted text, with teacher
 review before use. This is in the locked overview and needs a model call, a
