@@ -58,7 +58,7 @@ mechanics in `CLAUDE.md`.
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images — dormant |
 | Website redesign | `main` | stray `:Zone.Identifier` | **phase 1 live** at `9eb2071` |
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
-| Platform | `platform` in `../tbb-platform` | none | level with `main` |
+| Platform | `platform` in `../tbb-platform` | none | **importer: skills + difficulty** — globals scoping queued behind it |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
 
 **The redesign is in `main`'s tree**, shared with the dormant Case File stream —
