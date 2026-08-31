@@ -645,6 +645,19 @@ what it **selects**, not what it prints — and when you find the gap, fix the
 output so the wrong reading is unavailable rather than merely discouraged.
 That script now marks every row `platform` or `teacher <id>`.
 
+**An empty box in a screenshot is more often a lazy image than a broken one.**
+`next/image` defers anything below the fold, so a full-page capture of a section
+the shutter never scrolled to gets `naturalWidth: 0` and renders black — which
+looks exactly like the change failing. The tell that separates it from the
+stale-optimiser trap already recorded here: **no request was made at all.** A
+stale image is a response you can find in the log and inspect; a lazy one has no
+entry. Check the log before touching the file, then scroll the section into view
+and wait for every image to *decode*, not merely load, before clipping.
+
+That is now two distinct ways this project has photographed a working page and
+concluded it was broken. Both cost a round of chasing the wrong thing, and both
+were diagnosable in seconds from the network panel.
+
 **A harness that rebuilds what the player sees will invent defects, and being
 right once does not make it right twice.** Signal Check shuffles options per
 player: `/api/live/state` serves the **canonical** order, the play page permutes
