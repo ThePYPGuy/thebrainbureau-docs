@@ -353,6 +353,18 @@ enough to rate yet* forever, which is indistinguishable from a class that has
 not played much. The reasoning is also written into
 `20260831000023_insight_views.sql` beside the views themselves.
 
+**And the Advisor does not merely display this — it hands out a written request
+to fix it.** Its *Ask Assistant* control generates a prompt reading *"suggest
+fixes for the following lint item"*, naming the view. An agent given that will
+answer it correctly and destructively, because `security_invoker = true`
+genuinely is the right answer to the question as asked, and nothing in the
+prompt carries the reason the view is owner-run. That happened within the hour
+on 2026-08-31.
+
+The findings **cannot be muted**, so the Advisor reads **2 CRITICAL
+permanently**. That is a known state, not a new one. Treat any proposal to make
+it green as a change to the difficulty threshold, because that is what it is.
+
 **Guest responses count.** The statistic is about the answer and not the
 account, and dropping guests skews the sample toward whoever happened to have a
 login.
