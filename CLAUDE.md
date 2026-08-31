@@ -722,5 +722,13 @@ invocation — written so the key never reaches the screen — is in
 ways of fetching that key that silently do not work.
 
 The secret key bypasses RLS entirely and is the only credential that can read
-answer keys. Don't paste it into anything that keeps a transcript; that has
-already cost one rotation.
+answer keys. Don't paste it into anything that keeps a transcript.
+
+**That has now cost two rotations, and the second was a different credential.**
+The Supabase secret key went first. Then on 2026-08-31 a Sentry organisation
+token was pasted into a chat while asking a question about the wizard that had
+just printed it — rotated the same hour, and the new one went to Vercel without
+passing through anything that keeps a log. So the rule is not about which secret
+it is: a transcript keeps whatever reaches it, including the output you pasted
+in order to ask what it meant. Rotate rather than reason about who saw it; it
+takes a minute and the alternative is an argument with yourself.
