@@ -645,6 +645,26 @@ what it **selects**, not what it prints — and when you find the gap, fix the
 output so the wrong reading is unavailable rather than merely discouraged.
 That script now marks every row `platform` or `teacher <id>`.
 
+**A harness that rebuilds what the player sees will invent defects, and being
+right once does not make it right twice.** Signal Check shuffles options per
+player: `/api/live/state` serves the **canonical** order, the play page permutes
+it client-side from `runId:sessionQuestionId` (`page.tsx:99`), and the server
+inverts the same seed when the answer returns (`live-play.ts:257`). A harness
+that reads the API and submits without permuting sends the canonical index as a
+shown position, so every deliberately correct answer scores wrong.
+
+That is what happened on 31 August, and the finding was reported, believed and
+written into STATUS as *a correct answer is marked wrong*. It was never true.
+The same run also found a **real** off-by-one in `revealFor`, which is why the
+phantom was convincing: an instrument that has just caught a genuine bug feels
+proven, and the second finding rode in on the first one's credibility.
+
+Two rules out of it. **Score through the surface a child uses** — a request
+context is not a player, and anything the client computes is a step the harness
+must not skip. And when one run yields two findings, **verify them separately**;
+they share an instrument, not a truth. Here the tell was cheap: `shuffle.ts`
+says in its own comment that the order is derived and never stored.
+
 **A fixture that does not look like the data tests something nobody has.**
 Signal Check's reveal resolved the *next* question — naming its answer, labelling
 the bars from it, scoring the class against its key — and forty-five end-to-end

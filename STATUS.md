@@ -115,10 +115,9 @@ it** — signup writes a column production does not have. **Re-run after every
 publish**: `?` is not `DRIFT` — it means unconfirmable, and the answer is
 usually a re-import.
 
-**Live:** the platform, three activities, the Case File skin and its CSS, the
-evidence capability, and the `completion` gate. Prime Directive published at
-`bb7f9b2` and imported to production; its art is on `main` and serving. The
-question bank refactor is live at `b663ad3`.
+**Live:** the platform, three activities, the Case File skin, the evidence
+capability and the `completion` gate. Prime Directive `bb7f9b2` imported to
+production; the question bank refactor `b663ad3`. §6 carries the detail.
 
 **Sentry covers the whole app**, not only Signal Check — so the first unfamiliar
 error from an old surface is newly visible rather than new.
@@ -171,16 +170,16 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
-- `9eb2071` — **the Bureau face is live, and the reveal is fixed.** Forty-four commits: the marketing site, `/missions`, `/pricing`, `/for-schools` and `/contact` on the new identity — DM Serif, Space Mono, Inter, navy against cream with a wave between every band — and **Signal Check's reveal off-by-one**, which had the board naming the *next* question's answer and marking correct children wrong. No migrations, so the push was the whole deployment. Verified after: five public routes 200, `/missions` serving both CTAs, `deploy:check --prod` clean at 26 migrations. *(WD and QM; pushed and verified here.)*
+- `9eb2071` — **the Bureau face is live, and the reveal is fixed.** Forty-four commits: the marketing site, `/missions`, `/pricing`, `/for-schools` and `/contact` on the new identity — DM Serif, Space Mono, Inter, navy against cream with a wave between every band — and **Signal Check's reveal off-by-one**, which had the board naming the *next* question's answer. **Half of that report is withdrawn:** the mis-scoring was WD's harness, not the game. No migrations, so the push was the whole deployment. Verified after: five public routes 200, `/missions` serving both CTAs, `deploy:check --prod` clean at 26 migrations. *(WD and QM; pushed and verified here.)*
 - `f7f7953` — **the doors wear the Bureau face.** `/signup` and `/login` on `.surface` with the site header, footer and band rhythm, plus the compulsory **handle** field: `teachers.handle`, unique on `lower(handle)`, checked as you type, and **nullable** so accounts predating it are gated at first publish rather than locked out of their own dashboard. The sentence saying what a handle is for sits *above* the input, boxed, in the document's own words. Verified end to end — a real signup through the real form, the row carrying the handle and not the name, a case-variant duplicate refused with `23505`. **The leak was worse than the fonts:** neither page had a `.surface`, so the bare `input` rule drew first name, surname and password as solid black boxes on a white card, and `input[type="email"]` escaped only because it is not in that selector list — which is why it read as a quirk rather than a leak. **`/join` was left alone, and STATUS was wrong to list it** — it renders `Frame` with `data-skin="field-terminal"`, so Share Tech Mono there is the Field face doing its job. Moving it would be a decision, and WD raised it rather than taking it. *(WD. Migration 27 is not on production — see §4.)*
-- `862fe7a` — **Signal Check is live.** The live whole-class mode: session lifecycle, six-digit PIN, host controls, reconnection, late joiners, three question types and Intel settlement with the first-completion rule. Transport behind an interface the engine never sees past, with an in-memory implementation passing the same contract suite. Proven at thirty concurrent players by `npm run loadtest` — **96 msg/s**, which is what settled the move to Pro. Migration 26 applied to production and `deploy:check --prod` green at 26, re-run here; `/live/join` answers 200. Sentry came with it and now covers every surface. **The first thing here that a class could play together** — and the first that would fail in front of one. *(QM; every check re-run by Doc Manager.)*
 
 ## 8. Next up
 
 1. **WD's undo is now dead code.** The `currentColor` block in `site.module.css`
    neutralised bare rules that no longer reach a Bureau page — it measures
    identically either way now. *(WD; delete it before phase 2 adds forms.)*
-1. **The reveal capture is unblocked** — the bug it waited on is fixed. *(WD.)*
+1. **The retaken reveal capture is referenced by nothing.** Committed in
+   `f7f7953`; no page loads it. *(WD.)*
 1. **Signal Check is unreachable from the interface.** `/dashboard/live` is linked
    from nothing and `/live/join` appears only as prose on the teacher's screen.
    Both were driven by URL in verification, which is how it passed. *(Quiz Maker.)*
@@ -211,8 +210,10 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-**Nothing.** The `signal-check` merge and deployment were authorised 31 Aug; the
-order is in §2, and every other decision today has moved into `docs/`.
+1. **Does `/join` move to the Bureau face?** WD left it and asked, rightly. It
+   renders `Frame` with `data-skin="field-terminal"`, and `visual-identity.md`
+   puts the student terminal on the Field side — so `.surface` there moves a
+   designed surface between faces. **A decision, not a fix.** Small either way.
 
 ## 10. Known silent failures
 
@@ -240,7 +241,7 @@ table once. **Documentation does not fire at 11pm.**
 | **The importer's column lists live in two languages and nothing compares them** | `import-activity.ts` builds the payload; the `import_activity()` SQL function consumes it with explicit `INSERT` lists. Add a column, author it, and it is dropped silently — then `content_hash` is taken from the *file*, so the hash moves and `deploy:check` reports the database matches the repo while the column sits empty. Written 31 Aug, so it is the least-exercised code in the repo | **fixed** — `npm run test:columns`, three checks: schema against the SQL function, payload against it, and a real round trip. It reads the *installed* function with `pg_get_functiondef` rather than the migration file, so what is checked is what is running |
 | **Nothing verifies that the drawn things render** | No script mentions `hotspot`, `facsimile`, `phaseIcon` or `data-icon`; sixteen hotspots across twelve plate forms and seven glyphs were checked by hand, once, by one session. Rename `.plateRows` or change a `data-icon` and `doctor`, `e2e`, `tsc` and 131 unit tests all still pass. The page renders — it renders *wrong* | **§8's visual regression check** is the only cover this work will ever have |
 | **A check that agrees with the bug it was written to catch** | Both fixes this session shipped with a check that passed for the wrong reason, each found only by deliberately breaking the thing it guarded. The import fixture passed against the *broken* importer until the fault was moved. The grant audit read a `pg_catalog` view that hides exactly the tables it was hunting — so it found nothing and reported clean, which is indistinguishable from finding nothing because nothing is wrong | **pattern, not a defect** — a guard is only proven by breaking its subject, and both were |
-| **Signal Check's reveal is off by one, and it is live** | `revealFor` does `this.questions[position]` — a 0-based array indexed by a 1-based position — so the board shows the **next** question's answer, explanation and option labels, and scores the class against the wrong key. A correct answer is marked wrong. The header reads *QUESTION 2 OF 22* for the first question served. Found while staging a screenshot, isolated to one player and one answer, and verified against `session_questions` | **fixed and deployed** `9eb2071`. The constructor now refuses anything not renumbered, so the fault cannot return silently — it raises before a child joins |
+| **Signal Check's reveal is off by one, and it is live** | `revealFor` does `this.questions[position]` — a 0-based array indexed by a 1-based position — so the board shows the **next** question's answer, explanation and option labels. **The reported mis-scoring was never real** — that came from a harness reading canonical option order and skipping the per-player permutation. The header reads *QUESTION 2 OF 22* for the first question served. Found while staging a screenshot, isolated to one player and one answer, and verified against `session_questions` | **fixed and deployed** `9eb2071`. The constructor now refuses anything not renumbered, so the fault cannot return silently — it raises before a child joins |
 | **The scrubber redacts the debug id, so source maps never resolve** | `UUID_ANYWHERE` in `lib/live/telemetry.ts` matches Sentry's own `debug_meta.images[].debug_id`, which is a UUID by design. Sentry discards it — *invalid debug identifier* — and with nothing joining the served bundle to the uploaded map, every frame arrives minified. **The maps upload correctly and are never applied.** The earlier instance of this ate `trace_id` and `public_key` and was found because it caused a 400; this one produces no error at all | **fixed** `87a737e` — the scrubber now names the fields that can carry what a child wrote and leaves the envelope alone. A production payload carries an intact debug id matching an uploaded map, so *invalid debug identifier* cannot recur. **A mapped frame is still unseen** |
 | **Telemetry carries an identifier and nothing errors** | Sentry payloads are scrubbed at the client, so a regression in the scrubber sends codenames, guest nicknames or a game PIN to a third party while looking exactly like correct behaviour. Needs a guard that spells out its own patterns — one importing the scrubber's is a single gate, and empties when the scrubber breaks. `docs/identity-and-access.md` has the contract | **candidate** · Quiz Maker — before the first classroom session |
 | `tracesSampleRate` is 1.0 | Measured: roughly **140 transactions** for a thirty-player session of three questions. Left untuned on purpose so the figure came from the harness rather than from anyone's estimate | **measured** — tune when a real session shape is known |

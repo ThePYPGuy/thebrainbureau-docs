@@ -213,12 +213,13 @@ front door. Recommend not — one record, two doors, no flag.
 signup, unique across the platform, and the only thing another teacher sees on a
 public bank in *Discover*.
 
-`teachers` already holds `email` and a nullable `display_name`, and
-`display_name` arrives from the Google or Microsoft profile — so it is a real
-name. That is fine where it is: the teacher's own dashboard, their own sidebar.
-It is not fine on a searchable library every teacher on the platform can read.
-**The handle is a second field, and the two are not interchangeable:**
-`display_name` is what you are called; the handle is what you publish as.
+`teachers` holds `email`, `first_name` and `last_name` — **not `display_name`**,
+which `20260823000005_teacher_name_split.sql` splits into the two and then drops.
+SSO fills those from the Google or Microsoft profile, so they are a real name.
+That is fine where it is: the teacher's own dashboard, their own sidebar. It is
+not fine on a searchable library every teacher on the platform can read. **The
+handle is a further field, and they are not interchangeable:** the name is what
+you are called; the handle is what you publish as.
 
 **The signup screen has to say what it is for.** A field labelled *handle* with
 no explanation gets a real name typed into it, which defeats the entire point
