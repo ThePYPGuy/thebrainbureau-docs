@@ -208,10 +208,8 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-1. **Does `/join` move to the Bureau face?** WD left it and asked, rightly. It
-   renders `Frame` with `data-skin="field-terminal"`, and `visual-identity.md`
-   puts the student terminal on the Field side — so `.surface` there moves a
-   designed surface between faces. **A decision, not a fix.** Small either way.
+**Nothing.** `/join` stays Field — decided 31 Aug, recorded in
+`visual-identity.md` with why the *account is Bureau* row does not reach a door.
 
 ## 10. Known silent failures
 

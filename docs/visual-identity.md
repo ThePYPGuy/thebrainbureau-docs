@@ -159,6 +159,29 @@ they know how to get back to.
 > 2026-08-24: the assignments page absorbed it, and the CRT board was removed
 > rather than left as a second way to do the same thing.
 
+### `/join` stays on the Field face — decided 2026-08-31
+
+Website Designer asked rather than assumed, and the answer is no change.
+
+The table above lists *account* as Bureau, which makes a signing-in page look
+like administration. It is not. **`/join` is the door, not the account.** A
+child types a codename and arrives — the page `redirect`s to `/profile` — and
+everything behind the door that is administration is Bureau. The door itself is
+the moment of arriving somewhere, and the boot sequence is what says so.
+
+Three things settled it. The Bureau face exists to explain the platform to a
+teacher deciding whether to use it, and **a child is not that audience.** The
+accessibility worry that would otherwise argue for moving a CRT page is already
+answered elsewhere — clear view beats every skin and is remembered per student,
+so no child is stuck reading a terminal they cannot read. And moving it would
+have changed a written decision rather than fixed a defect.
+
+**The two student doors are not uniform, and that is not yet deliberate.**
+`/live/join` is `data-skin="field-terminal"` with no bezel and no boot sequence;
+`/join` has both. Field either way, so nothing here is wrong — but if phase 2
+wants one student entry style, that is the difference to settle, and it is a
+different question from this one.
+
 ---
 
 ## What stays constant, what varies
