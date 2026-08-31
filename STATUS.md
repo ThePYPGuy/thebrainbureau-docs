@@ -56,15 +56,15 @@ mechanics in `CLAUDE.md`.
 | Stream | Branch | Uncommitted | Status |
 |---|---|---|---|
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images — dormant |
-| Website redesign | `main` | seal, plus a stray `:Zone.Identifier` | **phase 1 held — the card needs the projector** |
+| Website redesign | `main` | seal, plus a stray `:Zone.Identifier` | **phase 1 held — needs `signal-check` merged** |
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | level with `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
 
 **The redesign works in `main`'s tree**, which the dormant Case File stream also
 holds. Two sessions in one tree is the hazard, not two on one file. **The Signal
-Check projector is commissioned** (31 Aug) and is **Quiz Maker's** — a Field
-surface stays with the session that built it. The homepage card waits on it.
+Check projector is built** (`1521d9c`, unmerged). The card waits on the merge:
+the two 1600×900 captures are on `signal-check`, so `main`'s tree cannot see them.
 
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
 mirror, not `origin`. The cycle, not a backlog, and not another session's to push.

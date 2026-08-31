@@ -363,6 +363,18 @@ score that never moved, the reveal counting one answer where there were two, and
 the misconception lost from the insight view. Check `error` on every call whose
 result you are about to report as success.
 
+**The surface that drives a session is assumed to know where it is.** Signal
+Check's projector held no state of its own and had no reconnection path, so a
+teacher reloading it mid-lesson — or opening it on a second screen — read
+*Waiting to start* until the next question. That can be a full answer window of
+blank wall in front of a class. The *play* surface has had a resync since day
+one; the host never did, because a screen that issues the commands looks like a
+screen that knows the state.
+
+Found by commissioning its appearance, not by testing its behaviour. The fix
+also split `revealFor` out of `closeWindow`: **idempotent is right for a command
+and useless for a question**, and one function was being asked to be both.
+
 **A feature is not built until something in the interface leads to it.** Three
 instances in one day, each shipped by a session that had verified its work
 carefully: *Take a copy* was described on two screens in those words while the

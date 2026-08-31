@@ -112,6 +112,34 @@ thirty clients in front of it.
 Kept here because the argument was plausible, and the next plausible one will
 also arrive as a reason to move the fence.
 
+### What the projector taught, built 2026-08-31
+
+**Contrast is distance-dependent and the ratio is not.** Field Terminal's
+`#d0d0d0` is 13:1 on its ground — ample at arm's length, thin at eight metres.
+The projected variant goes to `#ffffff` on `#05070a`, 20.6:1. A figure that
+passes AA says nothing about a wall.
+
+**One accent, and it is not the brand one.** Magenta on black is 6.9:1 and goes
+muddy through a lamp; cyan carries the chrome instead.
+
+**A display face has a stroke width, and distance eats it.** VT323 stays on the
+PIN, the timer and the counts, where the type is huge. It comes *off* the
+question, because a one-pixel stroke blooms at distance.
+
+**A shared screen cannot letter its options.** The obvious move is A/B/C on the
+wall, and it is wrong here: options are shuffled **per player**, so the wall
+shows the canonical order and every device shows a permutation. "B" on the wall
+is a different option on every screen in the room. Any future mode with a shared
+surface inherits this.
+
+**Correctness is triple-coded** on the reveal — a tick, a full bar and a solid
+edge. Remove the colour and it still reads, which is the accessibility rule
+applied to a surface nobody can adjust from their seat.
+
+The palettes differ by trigger; the shared list does not. No texture, motion off,
+plain body face, correctness by shape and position — those hold for a person's
+setting and for a projector alike, and that is the part that must not drift.
+
 ### Which surface is which
 
 The line is what a child is doing, not who they are.
