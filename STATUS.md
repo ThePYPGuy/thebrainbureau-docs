@@ -57,22 +57,22 @@ mechanics in `CLAUDE.md`.
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | measure and CI exemption landed |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
-| Question bank refactor | `platform` in `../tbb-platform` | none | **built on the branch, not on `main`** — `6602bf0`..`2120bc6` |
-| Signal Check | `signal-check` in `../tbb-quiz` | not started | **planned, still blocked** — below |
+| Question bank refactor | `platform` in `../tbb-platform` | none | **two thirds built; stays on the branch until whole** — from `6602bf0` |
+| Signal Check | `signal-check` in `../tbb-quiz` | not started | **blocked until the refactor is complete and on `main`** |
 
-**The refactor is built on `platform`, not on `main`.** Six commits on 31 Aug,
-pushed to `origin/platform`. Read from the two migrations rather than from a
-report: eight tables across `20260831000019` and `20260831000020`, and **mode
-config sits on `training_sessions.config`, none of it on the bank** — the one
-test its own spec says the refactor fails if it misses. No test run, review or
-WI account of the work is recorded here yet. *[verify]*
+**The refactor is two thirds built, on `platform` and not on `main`.** Read from
+the migrations rather than from a report: eight tables, **mode config on
+`training_sessions.config` with none on the bank** — the test its own spec says
+it fails if it misses — and the suite green at 243/243, run here.
 
-**Signal Check stays blocked.** The dependency means merged to `main`, not
-pushed to a feature branch: `origin/platform` is not what Quiz Maker builds
-against, and `platform` is itself 1 behind `main`. `git worktree list` still
-shows no `../tbb-quiz` and `git branch` no `signal-check`.
+**What is missing was missing from the spec, not from the work**: the
+recall/apply/stretch tags, the 20-play threshold, the insight view, image upload
+and bank search. All five are in `docs/question-banks.md` now, marked *Not built*.
 
-**Publish from `main`'s tree** — no other worktree can reach production.
+**Signal Check waits for the whole refactor, not for the schema** — decided
+31 Aug. The schema alone would have been enough for it to build against; landing
+the rest first is the call, so the trigger is the complete refactor on `main`.
+`git worktree list` still shows no `../tbb-quiz`.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
