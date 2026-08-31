@@ -117,11 +117,8 @@ evidence capability, and the `completion` gate. Prime Directive published at
 `bb7f9b2` and imported to production; its art is on `main` and serving. The
 question bank refactor is live at `b663ad3`.
 
-**Sentry covers the whole app**, not only Signal Check — it arrived with the
-merge rather than being switched on, so the first unfamiliar error from an old
-surface is newly visible rather than new.
-
-**Stack traces are legible** — `app/live/join/page.tsx:191:73`, read from Sentry.
+**Sentry covers the whole app**, not only Signal Check — so the first unfamiliar
+error from an old surface is newly visible rather than new.
 
 The gate was **verified locally, not on production** *[verify — no session has
 re-checked this since 25 Aug]* — proving it there means
@@ -179,6 +176,9 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
+1. **`docs/brand.md`, not `CLAUDE.md`** (31 Aug) — the brand canon gets its own
+   doc; `CLAUDE.md` stays the 785 lines read at every session start. Blocked on
+   the Agent Training copy question. *(Doc Manager.)*
 1. **Signal Check is unreachable from the interface.** `/dashboard/live` is linked
    from nothing and `/live/join` appears only as prose on the teacher's screen.
    Both were driven by URL in verification, which is how it passed. *(Quiz Maker.)*
