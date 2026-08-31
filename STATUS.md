@@ -104,7 +104,8 @@ art 404s, CSS styles nothing* — every clause true when written. The publish st
 in `CLAUDE.md` exists because of it, and §10's row on notes recording an absence
 is about the same failure in the activity file.
 
-The gate was **verified locally, not on production** — proving it there means
+The gate was **verified locally, not on production** *[verify — no session has
+re-checked this since 25 Aug]* — proving it there means
 creating a student agent in a live database. To confirm on the site, join a
 real class code and check the ending stays absent until the last lock.
 
@@ -163,6 +164,16 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
+1. **Prime Directive's `_note` claims the `prefix` field is never rendered.**
+   It says so at the Lock 07 clause — *"Tasks.tsx types it at lines 316 and 470
+   but draws nothing ... a platform gap affecting Global Intel Cards too"*.
+   `Tasks.tsx:428` and `:583` draw it now; the gap is closed and the cited
+   lines have moved. **Keep the first half** — the answer is numeric `9`
+   because `validate.ts` `expectedValues()` coerces every static answer to a
+   number and throws on text, which is a live constraint naming live code.
+   Delete only the "never rendered" and "platform gap" clauses. *(Operation
+   Builder's file. Doc Manager vouched for this sentence on 31 Aug and the fix
+   landed hours later — the fifth false sentence in that one note.)*
 1. **Make the importer's two column lists prove they agree.** A round-trip
    test: author a value in a new column, import, read it back. Cheap, and it
    closes the one failure mode that `deploy:check` actively disguises — the
