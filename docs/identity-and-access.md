@@ -58,6 +58,14 @@ them**, and a guard must assert that it did. Left to be remembered, this fails
 the way everything here fails: silently, with the redaction visibly working on
 everything it was told about.
 
+There is a worked example, kept rather than tidied away. A dev-only probe page
+never called the registration, and its Sentry title reads *no run for
+[redacted] in session [redacted] (pin [redacted]) answered "photosinthesis"* —
+codename, session and PIN all removed because each has a shape, and the typed
+word untouched because it has none. A fixture rather than a child, on a
+`development` event. It is exactly the leak this rule exists to prevent, and the
+structural patterns did everything they could.
+
 **Two things reach Sentry that the client cannot strip, and the difference
 between them decides the fix.** Found 2026-08-31 on the deploy-verification
 event, after the contract below had been written.
