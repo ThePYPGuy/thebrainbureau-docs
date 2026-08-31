@@ -57,15 +57,22 @@ mechanics in `CLAUDE.md`.
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | measure and CI exemption landed |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
-| Question bank refactor | `platform` in `../tbb-platform` | not started | **planned** — Website Infrastructure, implementing `docs/question-banks.md` |
-| Signal Check | `signal-check` in `../tbb-quiz` | not started | **planned, blocked** — see the dependency below |
+| Question bank refactor | `platform` in `../tbb-platform` | none | **built on the branch, not on `main`** — `6602bf0`..`2120bc6` |
+| Signal Check | `signal-check` in `../tbb-quiz` | not started | **planned, still blocked** — below |
 
-**Neither build has opened.** `git worktree list` shows no `../tbb-quiz` and
-`git branch` no `signal-check`; those two rows are a plan, not a state.
-**Signal Check builds against the bank schema, so it starts only once the
-refactor is pushed** — started earlier it builds on a moving target.
-**Build in `../tbb-platform`, taking `main` first; publish from `main`'s tree** —
-no other worktree can reach production.
+**The refactor is built on `platform`, not on `main`.** Six commits on 31 Aug,
+pushed to `origin/platform`. Read from the two migrations rather than from a
+report: eight tables across `20260831000019` and `20260831000020`, and **mode
+config sits on `training_sessions.config`, none of it on the bank** — the one
+test its own spec says the refactor fails if it misses. No test run, review or
+WI account of the work is recorded here yet. *[verify]*
+
+**Signal Check stays blocked.** The dependency means merged to `main`, not
+pushed to a feature branch: `origin/platform` is not what Quiz Maker builds
+against, and `platform` is itself 1 behind `main`. `git worktree list` still
+shows no `../tbb-quiz` and `git branch` no `signal-check`.
+
+**Publish from `main`'s tree** — no other worktree can reach production.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
