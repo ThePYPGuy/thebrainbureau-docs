@@ -57,11 +57,12 @@ mechanics in `CLAUDE.md`.
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | level with `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
-| Signal Check | `signal-check` in `../tbb-quiz` | not started | **unblocked, not started** |
+| Signal Check | `signal-check` in `../tbb-quiz` | not started | **worktree ready, not started** |
 
-**Signal Check is unblocked** — the refactor is merged, pushed and live; §7 has
-it. `git worktree list` shows no `../tbb-quiz` and `git branch` no
-`signal-check`. Its brief is at `docs/local/briefs/signal-check.md`.
+**Signal Check is unblocked and its desk is built.** `../tbb-quiz` exists on
+`signal-check`, cut from `main`, `npm install` run — `git worktree list` confirms.
+No session has opened it. Its brief is `docs/local/briefs/signal-check.md`, and
+the one setup step left is `.env.local`, which `doctor` fails on until it exists.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
