@@ -182,11 +182,13 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **No screen starts a live session.** `POST /api/live/session` exists and is
-   tested, carrying the answer window, Intel per correct answer and the
-   require-accounts toggle — but nothing in `/dashboard` calls it, so every
-   session so far was created by a script. A dashboard screen over an API that
-   is already built. *(Quiz Maker.)*
+1. **Two screens, both before the merge.** *(Quiz Maker; decided 31 Aug.)*
+   **No screen starts a live session** — `POST /api/live/session` exists and is
+   tested, and nothing in `/dashboard` calls it, so every session so far came
+   from a script. And **the accessibility override has no control**:
+   `visual-identity.md` specified a global escape hatch, only reduced-motion was
+   ever built, and the mechanism now exists with nothing to switch it on.
+   Per-device by design — a guest has no agent record to hang a setting on.
 1. **Prime Directive's `_note` claims the `prefix` field is never rendered.**
    `Tasks.tsx:428` and `:583` draw it now. **Delete only the "never rendered"
    and "platform gap" clauses** — keep the rest: the answer is numeric `9`
