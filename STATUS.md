@@ -56,7 +56,7 @@ mechanics in `CLAUDE.md`.
 | Stream | Branch | Uncommitted | Status |
 |---|---|---|---|
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images — dormant |
-| Website redesign | `main` | stray `:Zone.Identifier` | **phase 1 live** at `9eb2071` |
+| Website redesign | `main` | stray `:Zone.Identifier` | **phase 1 and the doors live** at `d669a13` |
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | scoping and importer both merged to `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
@@ -103,16 +103,16 @@ file.)
 
 **What is proven is the database, not the running code.** `deploy:check --prod`
 never asks Vercel which commit is serving. Confirmed *indirectly* 31 Aug:
-`/api/bank-template` returns `text/csv` in production and that route exists only
-in the merged code, so the deployment is current. The SHA itself is still
+`/api/handle?handle=…` answers `{"ok":true,…}` in production and exists only in
+the `d669a13` range, so that deployment is current. The SHA itself is still
 unasked — a route is evidence, not an identity.
 
-**Production is four things out of step**, and one of them is new today.
-`--prod` reports `DRIFT` on migration `20260831000027` *and* on all three
-training banks, whose files gained skill and difficulty tags. **The doors break
-if the code ships without the migration** — signup writes a column production
-does not have. Order: **migration, importer, re-check, then push.** `?` is not
-`DRIFT`: it means unconfirmable, and the answer is usually a re-import.
+**`--prod` was clean at `d669a13`**, 31 Aug, before the push and again after: 27
+migrations, three activities, three banks, 73 skills, 20 tags. **Re-run it; do
+not read this line as current.** The order that got there, and the one to reuse:
+**migration, importer, re-check, then push** — the check gates the push, so a
+drifted database cannot deploy. `?` is not `DRIFT`: it means unconfirmable, and
+the answer is usually a re-import.
 
 **Live:** the platform, three activities, the Case File skin, the evidence
 capability and the `completion` gate. Prime Directive `bb7f9b2` imported to
