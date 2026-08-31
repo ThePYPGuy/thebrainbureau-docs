@@ -58,6 +58,25 @@ them**, and a guard must assert that it did. Left to be remembered, this fails
 the way everything here fails: silently, with the redaction visibly working on
 everything it was told about.
 
+**Two things reach Sentry that the client cannot strip, and the difference
+between them decides the fix.** Found 2026-08-31 on the deploy-verification
+event, after the contract below had been written.
+
+`user.geo` — city level, *VN, Tan An, Vietnam* — is derived by Sentry from the
+connecting IP **at ingest**, after everything this codebase controls. No
+`beforeSend` can reach it. It goes off in the project's settings or not at all.
+
+`contexts.culture` — locale, calendar and **timezone** — is collected by the
+browser SDK *before* the send, so it is within reach and can be dropped in
+`beforeSend` like anything else.
+
+Both matter for one reason: on a platform whose model is a codename and nothing
+identifying, the town a child's device connected from and the timezone it sits
+in are precisely what a school asks about at procurement. And they fall outside
+the frame this section had drawn — **"stripped at the client" is a complete
+answer only for what the client sends.** The rule was right and its scope was
+not.
+
 **At the client, never in the vendor's filters.** Server-side scrubbing means
 the data arrives and is then deleted, which is a promise about somebody else's
 behaviour rather than a property of this system. Stripping at the client means
