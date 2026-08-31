@@ -173,18 +173,18 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `112d8eb` — **phase 2: the teacher dashboard wears the Bureau face, and finally leads somewhere.** `.shell` → `.surface` by **restating** every class name the dashboard already used in `site.module.css` rather than renaming them, so the face moved by changing an import across 29 files — and SchoolPicker's both-faces problem *stopped existing* rather than being worked around. `/dashboard` opens on Discover, Bureau Library and My banks with a live game as the primary action, and `▶ Start live` on each published bank lands on `/dashboard/live?bank=`. **§8's unreachable-Signal-Check defect is closed**: 31 links crawled from `/dashboard`, all 200. The handle is one component shared with signup so the required sentence cannot drift between copies, and `/api/handle` excludes the caller's own row — without which the account page tells a teacher their own handle is taken. 445 contrast pairs across seven teacher pages, none under AA; `components/student/Dashboard.tsx` byte-identical to `main`, verified here. **Not pushed.** *(WD.)*
 - `011afca` — **the two fixes rendered together, and the regression was found by measuring past the change.** All six `/signup` fields now paint identically — **0 of 8 differ from `input[type=email]`**, which is the field that escaped the CRT rule and so looked correct while the others were black boxes. Activities 0 of 6,033,920. The catch: `.navMuted` set a colour and nothing else, so on a `<button>` inside `.shell` the scoping swapped a documented black slab for an unstyled browser button. It now says what it means on either element. Found because WI measured the **dashboard**, which the merge was not about. *(WI.)*
 - `35272de` — **the Bureau library is tagged, and the policy is enforced where it is stated.** `import-training.ts` reads `difficulty` and `skills`, which only the CSV path could before — so *tagged in detail* stopped being a policy the library physically could not follow. All three banks re-imported at 100%: 66 questions, every one tagged and rated. The validation shape is the one the two-tier policy rests on and it survived intact — `if (wantedSkills.length)`, so an untagged bank imports silently while a mistyped id fails the whole file before a row is written. Its comment carries the reason better than `docs/` did: **a missing tag is a teacher's choice; a wrong one is a lie.** *(WI.)*
-- `b2d0049` — **the reveal capture is placed, and it makes a claim the site was not making.** Full width in `/missions`, Agent Training band, under the two mode rows. **Not the homepage** — that section argues *typed answers, not just multiple choice*, and a four-bar distribution would have sat directly beneath the sentence it undercuts. The pair earns its place because the row thumbnail is the room answering and this is the same board a minute later; neither picture holds the other's information. **The privacy claim in the copy is enforced rather than asserted** — `distribution` is null unless the handler `usesOptions` (`engine.ts:385`), so `HostBoard`'s branch cannot render a typed answer, and the answered line is a count with no names. Checked to source here, because it is a claim about children on a public page. *(WD.)*
 
 ## 8. Next up
 
 1. **Delete WD's undo.** `a1da068` is in `main`, the bare rules are scoped, and
    the `currentColor` block in `site.module.css` now neutralises nothing. *(WD.)*
-1. **Signal Check is unreachable from the interface.** `/dashboard/live` is linked
-   from nothing and `/live/join` appears only as prose on the teacher's screen.
-   Both were driven by URL in verification. **WD, with phase 2** — a dashboard not
-   leading to the headline feature is a defect on a surface it rebuilds anyway.
+1. **Nothing creates a blank bank**, so *Create* could not be built and the nav
+   says *import*. The only authoring path is a CSV through
+   `/dashboard/banks/import`. Maciej asked for Discover, Bureau Library and
+   Create; two of three exist. **A route and an editor.** *(WI, not design.)*
 1. **Prime Directive's `_note` claims the `prefix` field is never rendered.**
    `Tasks.tsx:428` and `:583` draw it now. **Delete only the "never rendered"
    and "platform gap" clauses** — keep the rest: the answer is numeric `9`
