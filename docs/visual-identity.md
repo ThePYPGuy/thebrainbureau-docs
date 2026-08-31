@@ -68,6 +68,30 @@ rather than a liability.
 
 ---
 
+### The 2026-08-31 redesign replaces one face and not the other
+
+Decided 31 Aug, and the line it follows is the one this section already draws.
+
+**Replaced:** the **Bureau face** — the marketing site, the teacher dashboard and
+the student dashboard. New identity, new palette, new typefaces: DM Serif
+Display, Space Mono, Inter. `docs/brand.md` holds the specification.
+
+**Untouched:** the **Field face** and all **seven archetypes**. The activity
+interiors are locked, drawn work — Case File's typewriter and Field Terminal's
+CRT are the product, not decoration. VT323, Special Elite and Courier Prime stay
+exactly where they are.
+
+**The trap is the root binding, and it is already recorded in `CLAUDE.md`.**
+`app/layout.tsx` binds `--font-display` and `--font-body` on `<html>`, which sits
+above every `[data-skin]` block — so replacing the fonts at the root reaches
+every activity silently, and this project has already shipped a terminal
+rendering a third of its text in a fallback face with nobody noticing. The new
+faces must be **scoped to the Bureau surfaces**, not bound at the root, and the
+old three must keep resolving inside `[data-skin]`.
+
+Six families now load rather than three. That is a deliberate cost of running two
+registers, and it is a reason to scope rather than a reason to compromise.
+
 ### Which surface is which
 
 The line is what a child is doing, not who they are.
