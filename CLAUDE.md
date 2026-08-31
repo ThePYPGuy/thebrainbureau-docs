@@ -528,6 +528,14 @@ git -C ~/tbb-doc-manager merge main      # take main's history first
 git -C ~/thebrainbureau merge --ff-only docs
 ```
 
+**The cycle ends there. Doc Manager does not `git push`.** It writes, merges its
+own branch forward, and runs `docs:sync` for the public mirror — and hands the
+push to whoever owns the code going out. Pushing `main` deploys to production and
+publishes every other session's unpushed work, which is not a documentation act
+however plainly it is asked for. *Written 2026-08-31, after I pushed forty-four
+commits of two other sessions' work on being told "push everything" — the
+instruction was clear and the boundary still was not mine to cross.*
+
 **`--ff-only` is the guard.** Only Doc Manager touches those three paths, so
 publishing is always a fast-forward — it moves the ref and rewrites nothing
 anyone else could be holding. If it ever refuses, the assumption has broken and

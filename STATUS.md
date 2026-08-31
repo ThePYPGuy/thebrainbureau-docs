@@ -37,7 +37,7 @@ cheaper check is wrong.
 | **Website Infrastructure** | Platform, engine, scripts, checks | own, on `platform` | n/a |
 | **Quiz Maker** | Signal Check and the live modes | own, on `signal-check` | n/a |
 | **Website Designer** | The Bureau face — marketing site, both dashboards | **`main`'s tree** | yes |
-| **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` — *not* `scripts/docs-sync.mjs`, which publishes them and is WI's | own, on `docs` | n/a — never in main's tree |
+| **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/`. Not `scripts/docs-sync.mjs`, and **never `git push`** — publishing is the builder's whose code goes out | own, on `docs` | n/a — never in main's tree |
 
 **Before your first write, run `git status --porcelain`.**
 
