@@ -473,9 +473,19 @@ out. A diagnostic that silently does nothing is worse than one that is missing.
 `npm run setup`, `npm run db:setup`, `npm run db:test` and any bare
 `supabase db reset` **wipe the local database out from under every other
 session** — a worktree of your own is not a database of your own, and nothing
-warns you. Ask before resetting while anyone else is working, and prefer
-`npm run doctor` plus `npm run deploy:check` to find out whether your local
-database is already fine, which it usually is.
+warns you.
+
+> **DO NOT RESET THE LOCAL DATABASE WITHOUT ASKING MACIEJ FIRST.** Not
+> `db:reset`, not `db:setup`, not `db:test`, not a bare `supabase db reset`,
+> not as a step inside something else. This is a standing instruction given on
+> 2026-08-31 after a reset destroyed his test agent for at least the second
+> time. **Ask, and wait for an answer** — "nobody else seemed to be working" is
+> not the test, because he is not a session and will not appear in `git status`.
+
+Before reaching for one, run `npm run doctor` and `npm run deploy:check`: they
+say whether your local database is already fine, which it usually is. If a test
+genuinely needs a clean database, say so and ask — the answer may well be yes,
+but it is his to give.
 
 **It also deletes Maciej's test accounts, and that looks exactly like a login
 bug.** On 31 August every agent in the local database had a `created_at` between
