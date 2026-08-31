@@ -175,9 +175,9 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **WD's undo is now dead code.** The `currentColor` block in `site.module.css`
-   neutralised bare rules that no longer reach a Bureau page — it measures
-   identically either way now. *(WD; delete it before phase 2 adds forms.)*
+1. **WD's undo is dead only once `a1da068` reaches `main`.** The `currentColor`
+   block still neutralises live bare rules here — `globals.css:1193-1225`. WI
+   measured "identical either way" on `platform`. **Merge first, delete second.**
 1. **The retaken reveal capture is referenced by nothing.** Committed in
    `f7f7953`; no page loads it. *(WD.)*
 1. **Signal Check is unreachable from the interface.** `/dashboard/live` is linked
