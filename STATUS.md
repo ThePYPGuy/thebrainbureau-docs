@@ -57,14 +57,17 @@ mechanics in `CLAUDE.md`.
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | level with `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
-| Signal Check | `signal-check` in `../tbb-quiz` | none | **transport and engine landed** — 4 commits |
+| Signal Check | `signal-check` in `../tbb-quiz` | none | **built; no screen starts a session** — 12 commits |
 
 **Signal Check has started.** Transport interface, two implementations behind one
 contract suite, the engine, the per-player shuffle, the telemetry scrubber, and
-Sentry wired and **proven to arrive** — it was silently 400-ing on every event
-until `5c98acb`. Session lifecycle, six-digit PIN and the routes have since
-landed. **Remaining: both surfaces and the load harness.** Migration 26 is on the
-branch only — not on `main`, not in production; `git ls-tree` says so.
+Sentry proven to arrive — it was silently 400-ing on every event until
+`5c98acb`. Lifecycle, PIN, routes, both surfaces and the load harness have since
+landed: 395 unit tests and 45 e2e checks, both re-run here.
+
+**One gap stops it being usable: no screen starts a session.** The route exists
+and is tested; nothing in `/dashboard` calls it, so every session so far was made
+by a script. Migration 26 is on the branch only — not `main`, not production.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -124,11 +127,6 @@ does not include the SDK and `SENTRY_AUTH_TOKEN` in Vercel is **inert until
 readable-stack-trace check cannot run until after that merge and the deploy that
 follows it.
 
-This paragraph said the opposite for several hours after the fact — *not live,
-art 404s, CSS styles nothing* — every clause true when written. The publish step
-in `CLAUDE.md` exists because of it, and §10's row on notes recording an absence
-is about the same failure in the activity file.
-
 The gate was **verified locally, not on production** *[verify — no session has
 re-checked this since 25 Aug]* — proving it there means
 creating a student agent in a live database. To confirm on the site, join a
@@ -184,16 +182,17 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
+1. **No screen starts a live session.** `POST /api/live/session` exists and is
+   tested, carrying the answer window, Intel per correct answer and the
+   require-accounts toggle — but nothing in `/dashboard` calls it, so every
+   session so far was created by a script. A dashboard screen over an API that
+   is already built. *(Quiz Maker.)*
 1. **Prime Directive's `_note` claims the `prefix` field is never rendered.**
-   It says so at the Lock 07 clause — *"Tasks.tsx types it at lines 316 and 470
-   but draws nothing ... a platform gap affecting Global Intel Cards too"*.
-   `Tasks.tsx:428` and `:583` draw it now; the gap is closed and the cited
-   lines have moved. **Keep the first half** — the answer is numeric `9`
-   because `validate.ts` `expectedValues()` coerces every static answer to a
-   number and throws on text, which is a live constraint naming live code.
-   Delete only the "never rendered" and "platform gap" clauses. *(Operation
-   Builder's file. Doc Manager vouched for this sentence on 31 Aug and the fix
-   landed hours later — the fifth false sentence in that one note.)*
+   `Tasks.tsx:428` and `:583` draw it now. **Delete only the "never rendered"
+   and "platform gap" clauses** — keep the rest: the answer is numeric `9`
+   because `validate.ts` `expectedValues()` coerces static answers to numbers
+   and throws on text, a live constraint naming live code. *(Operation Builder's
+   file; the fifth false sentence in that one note.)*
 2. **`runs.agent_id`'s comment says guests must "appear on the leaderboard".**
    `20260831000020_training_sessions.sql`. Signal Check has no leaderboard on any
    surface — the column is right, and the sentence records a design replaced
@@ -214,8 +213,11 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-**Nothing.** The merge and the deployment were authorised 31 Aug; the order they
-run in is in §2, and every other decision today has moved into `docs/`.
+- **Which Supabase plan, before a classroom?** Measured 31 Aug: one thirty-player
+  session peaks at **96 msg/s**. The **Free ceiling is 100**. Pro is 500 and
+  leaves the design comfortable. Realtime does not error when the ceiling is
+  crossed — it stops delivering, and the room notices before any log does. This
+  is the first hard limit the product has met, and one class meets it.
 
 ## 10. Known silent failures
 
@@ -242,7 +244,7 @@ table once. **Documentation does not fire at 11pm.**
 | **Nothing verifies that the drawn things render** | No script mentions `hotspot`, `facsimile`, `phaseIcon` or `data-icon`; sixteen hotspots across twelve plate forms and seven glyphs were checked by hand, once, by one session. Rename `.plateRows` or change a `data-icon` and `doctor`, `e2e`, `tsc` and 131 unit tests all still pass. The page renders — it renders *wrong* | **§8's visual regression check** is the only cover this work will ever have |
 | **A check that agrees with the bug it was written to catch** | Both fixes this session shipped with a check that passed for the wrong reason, each found only by deliberately breaking the thing it guarded. The import fixture passed against the *broken* importer until the fault was moved. The grant audit read a `pg_catalog` view that hides exactly the tables it was hunting — so it found nothing and reported clean, which is indistinguishable from finding nothing because nothing is wrong | **pattern, not a defect** — a guard is only proven by breaking its subject, and both were |
 | **Telemetry carries an identifier and nothing errors** | Sentry payloads are scrubbed at the client, so a regression in the scrubber sends codenames, guest nicknames or a game PIN to a third party while looking exactly like correct behaviour. Needs a guard that spells out its own patterns — one importing the scrubber's is a single gate, and empties when the scrubber breaks. `docs/identity-and-access.md` has the contract | **candidate** · Quiz Maker — before the first classroom session |
-| **`tracesSampleRate` is 1.0 — a transaction per navigation, per device** | Thirty children on thirty devices is the first thing here to generate telemetry volume, and Sentry's transaction quota is separate from Realtime's message quota. Nothing measures it yet; the load harness is where the number comes from rather than a guess | **candidate** · Quiz Maker — measure before the first classroom session |
-| **Realtime message volume crosses a quota with no error until it stops** | Supabase Realtime meters messages, and a class of thirty on a fixed answer window is the first thing here to generate volume. Nothing reads the quota; the symptom is delivery stopping mid-lesson rather than an exception, and the room notices before any log does | **candidate** · Quiz Maker — wanted before the first classroom session |
+| `tracesSampleRate` is 1.0 | Measured: roughly **140 transactions** for a thirty-player session of three questions. Left untuned on purpose so the figure came from the harness rather than from anyone's estimate | **measured** — tune when a real session shape is known |
+| **Throughput, not monthly volume, is the binding Realtime limit** | Measured 31 Aug against thirty real sockets: **96 msg/s peak**, 3.6 deliveries per player per question, 381 for a session. Supabase counts each delivery to each client, so one broadcast into a room of thirty is thirty events — which is why a monthly total was the wrong thing to worry about. Still does not error at the ceiling; it stops delivering | **measured** — and it is now a plan decision, §9 |
 | **A session desyncs and one player's score diverges from the server's** | Client and server both hold a score. They can drift apart with nothing comparing them, and the child sees only their own number — so it reads as correct until the review screen, or until a teacher is asked why two agents with the same answers finished apart | **candidate** · Quiz Maker |
 | Pruning a list by its length rather than its contents | This table was emptied over one session. Every removal was defensible alone — fixed, or recorded in `CLAUDE.md` — and nothing checked whether the section still said anything, because the number being watched was the line count | **fixed by rebuilding** — prune against what is still open, never against a budget |
