@@ -477,6 +477,20 @@ warns you. Ask before resetting while anyone else is working, and prefer
 `npm run doctor` plus `npm run deploy:check` to find out whether your local
 database is already fine, which it usually is.
 
+**It also deletes Maciej's test accounts, and that looks exactly like a login
+bug.** On 31 August every agent in the local database had a `created_at` between
+16:07 and 16:20 — a thirteen-minute window, because a session had reset the stack
+that afternoon and the test scripts repopulated it. The agent he had been signing
+in as was simply gone. Nothing failed; the row had stopped existing, and the
+sign-in screen has no way to say so.
+
+**So when someone cannot sign in, check the row exists before debugging the
+door.** `select codename, created_at from agents` answers in one query what
+reading the auth path does not, and a clustered `created_at` is the tell that the
+database was reset rather than that anything broke. The same goes for a class
+code: `deployments.status` must be `open`, and a reset leaves only whatever the
+seed and the test scripts made.
+
 None of these produces an error. Each has cost this project real time. They
 live here rather than in `STATUS.md` because they are properties of the system
 rather than things anyone is about to fix — `STATUS.md` section 10 tracks only
