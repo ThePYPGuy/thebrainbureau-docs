@@ -66,8 +66,13 @@ migrations, five screens, 323/323 run here, mode config on
 `5cceed0` with `scripts/test-edit-after-serve.ts` beside it — the first thing to
 exercise *Reproducibility*, an edit being what that design exists to survive.
 
-***Take a copy* landed at `cbc6398`** — `test:copy` run here, 22 checks, edit
-isolation proven in both directions. **No condition remains on the merge.**
+***Take a copy* landed at `cbc6398`**, `test:copy` run here. **The merge is
+authorised** (31 Aug) and not yet run: `platform` is 24 ahead of `main`, 3 behind.
+
+**The order is not a preference.** Migrations reach production *before* `main`
+is pushed — all additive, so old code ignores the new tables while the reverse
+breaks silently. Then push (deploys, carrying 23 unpushed docs commits), then
+`deploy:check -- --prod`, then re-import — from `main`'s worktree only.
 
 **A pre-existing bug the screens exposed:** every `<strong>` on the Bureau face
 was white on off-white. Invisible, no error. Fixed `e74e085`; lesson in `CLAUDE.md`.
@@ -212,12 +217,8 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-- **Merge `platform` to `main`, and deploy?** The refactor's conditions are met
-  — question editing and *Take a copy* landed, per-option images was ruled not
-  to block — and nothing else waits on an agent. Bigger than the steps before
-  it: merging deploys the app, while migrations 19–25 and the storage bucket do
-  not follow and exist on one local database. A class code is open on
-  production, and `deploy:check -- --prod` runs from the main worktree only.
+**Nothing.** The merge and the deployment were authorised 31 Aug; the order they
+run in is in §2, and every other decision today has moved into `docs/`.
 
 ## 10. Known silent failures
 
