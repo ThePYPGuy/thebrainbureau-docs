@@ -280,6 +280,25 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+**A lint exemption keyed to a substring widens when you restyle, not when you
+edit the lint.** `check-tokens.ts` decides what is exempt with
+`sel.includes("[data-skin")` — a plain string test on the selector. On 31 August
+the seven bare-element rules were scoped `:where([data-skin], .zoomBackdrop)`
+for a styling reason, and four `#000` declarations left the findings list
+without changing. Website Infrastructure saw that half and said it plainly: they
+stopped being findings rather than stopping being literals.
+
+The half nobody chose is the other selector in that list. **`.zoomBackdrop` is
+now permanently exempt too** — any literal written into a rule scoped that way
+passes, not because it sits inside a skin but because the *string* names one.
+The guard was widened by a commit that never mentioned the guard, and the check
+still reports green.
+
+So: when a rule gains a scope, ask what the linters key on before assuming only
+the rendering moved. An exemption that matches on selector text is not a
+statement about where a declaration *is* — it is a statement about how it is
+*spelled*, and spelling is the thing a refactor changes most freely.
+
 **Two column lists that must agree, in two languages.**
 `scripts/import-activity.ts` builds the payload and the `import_activity()` SQL
 function consumes it with explicit `INSERT` column lists. Add a column to
