@@ -338,6 +338,28 @@ lines of arithmetic.
 mid-run, that task keeps `hintPenalty: 40` in the local database. Local only, but
 it presents as a mystery rather than as damage.
 
+**A redaction pass cannot tell a secret from a protocol field.** Signal Check's
+Sentry scrubber walked every string in the payload and redacted anything shaped
+like a long run of hex — which is what a session id looks like, and also what
+`trace_id`, `public_key` and `org_id` look like. Sentry answered **400 and
+dropped every event**. From outside it was flawless: SDK installed, tunnel
+answering 200, scrubber visibly running, and nothing arriving anywhere at all.
+
+Found by reading a real envelope off the wire rather than by reading the
+scrubber. It generalises past Sentry: **a pattern describing the shape of a
+secret also describes the shape of the transport carrying it**, so a deep walk
+over a payload you did not design will eventually redact the envelope. Redact
+named fields you chose. Never everything that looks like the thing.
+
+**Two Sentry config traps, both the same family.** `dataCollection: {}` is not
+the same as `dataCollection` absent — the SDK branches on the key's *presence*,
+so a block containing only comments enables `userInfo`, cookies, both header
+directions, HTTP bodies in all four directions and stack-frame variables.
+Present-and-empty is *more* permissive than absent, which is the opposite of how
+an empty block reads. And **`debug: true` prints nothing in this repo**:
+`next.config.ts` sets `treeshake.removeDebugLogging`, which compiles the logging
+out. A diagnostic that silently does nothing is worse than one that is missing.
+
 **There is one local Supabase stack, and every worktree shares it.**
 `docker ps` shows a single `supabase_db_thebrainbureau`, not one per folder. So
 `npm run setup`, `npm run db:setup`, `npm run db:test` and any bare

@@ -50,6 +50,14 @@ is enough to debug a live session and identifies nobody.
 **Stripped before it is sent:** codenames, guest nicknames, agent ids, game
 PINs, session ids, and the answer text a child typed.
 
+**A pattern cannot match an arbitrary word.** Codenames, session ids and PINs
+have shapes. A child's typed answer does not — `photosinthesis` is
+indistinguishable from any other string, and no rule can find it. So a surface
+that collects free text must **register its identifiers as early as it has
+them**, and a guard must assert that it did. Left to be remembered, this fails
+the way everything here fails: silently, with the redaction visibly working on
+everything it was told about.
+
 **At the client, never in the vendor's filters.** Server-side scrubbing means
 the data arrives and is then deleted, which is a promise about somebody else's
 behaviour rather than a property of this system. Stripping at the client means

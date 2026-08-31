@@ -59,10 +59,11 @@ mechanics in `CLAUDE.md`.
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
 | Signal Check | `signal-check` in `../tbb-quiz` | none | **transport and engine landed** — 4 commits |
 
-**Signal Check has started.** The transport interface, two implementations behind
-one contract suite, the engine, the per-player shuffle and the telemetry scrubber
-— 372/372 across 17 files. Still to build: session lifecycle and PIN, the HTTP
-routes, both surfaces, Intel settlement, the load harness, Sentry.
+**Signal Check has started.** Transport interface, two implementations behind one
+contract suite, the engine, the per-player shuffle, the telemetry scrubber, and
+Sentry wired and **proven to arrive** — it was silently 400-ing on every event
+until `5c98acb`. Still to build: session lifecycle and PIN, the HTTP routes,
+both surfaces, Intel settlement, the load harness.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -234,6 +235,7 @@ table once. **Documentation does not fire at 11pm.**
 | **Nothing verifies that the drawn things render** | No script mentions `hotspot`, `facsimile`, `phaseIcon` or `data-icon`; sixteen hotspots across twelve plate forms and seven glyphs were checked by hand, once, by one session. Rename `.plateRows` or change a `data-icon` and `doctor`, `e2e`, `tsc` and 131 unit tests all still pass. The page renders — it renders *wrong* | **§8's visual regression check** is the only cover this work will ever have |
 | **A check that agrees with the bug it was written to catch** | Both fixes this session shipped with a check that passed for the wrong reason, each found only by deliberately breaking the thing it guarded. The import fixture passed against the *broken* importer until the fault was moved. The grant audit read a `pg_catalog` view that hides exactly the tables it was hunting — so it found nothing and reported clean, which is indistinguishable from finding nothing because nothing is wrong | **pattern, not a defect** — a guard is only proven by breaking its subject, and both were |
 | **Telemetry carries an identifier and nothing errors** | Sentry payloads are scrubbed at the client, so a regression in the scrubber sends codenames, guest nicknames or a game PIN to a third party while looking exactly like correct behaviour. Needs a guard that spells out its own patterns — one importing the scrubber's is a single gate, and empties when the scrubber breaks. `docs/identity-and-access.md` has the contract | **candidate** · Quiz Maker — before the first classroom session |
+| **`tracesSampleRate` is 1.0 — a transaction per navigation, per device** | Thirty children on thirty devices is the first thing here to generate telemetry volume, and Sentry's transaction quota is separate from Realtime's message quota. Nothing measures it yet; the load harness is where the number comes from rather than a guess | **candidate** · Quiz Maker — measure before the first classroom session |
 | **Realtime message volume crosses a quota with no error until it stops** | Supabase Realtime meters messages, and a class of thirty on a fixed answer window is the first thing here to generate volume. Nothing reads the quota; the symptom is delivery stopping mid-lesson rather than an exception, and the room notices before any log does | **candidate** · Quiz Maker — wanted before the first classroom session |
 | **A session desyncs and one player's score diverges from the server's** | Client and server both hold a score. They can drift apart with nothing comparing them, and the child sees only their own number — so it reads as correct until the review screen, or until a teacher is asked why two agents with the same answers finished apart | **candidate** · Quiz Maker |
 | Pruning a list by its length rather than its contents | This table was emptied over one session. Every removal was defensible alone — fixed, or recorded in `CLAUDE.md` — and nothing checked whether the section still said anything, because the number being watched was the line count | **fixed by rebuilding** — prune against what is still open, never against a budget |
