@@ -210,6 +210,13 @@ while Mainframe Breach is unbuilt:
 The typed-answers clause is the differentiator: every competitor is four coloured
 buttons, and a child typing `282` has done the multiplication.
 
+**A mode is not a mission, and the label has to know the difference.** Operations
+and Cases are missions — a teacher acquires one and runs it. Signal Check and
+Solo Practice are *modes*: ways of playing a bank, included with any account.
+So `GET THIS MISSION` is right on the first two and sells the second two
+something that is not for sale. They take `RUN THIS WITH YOUR CLASS` instead —
+same destination, honest verb.
+
 **Do not market what is not built.** No tokens, no attacks, no AI-assisted
 authoring, no leaderboard — the first three are unbuilt and the fourth never
 will be.
