@@ -618,6 +618,34 @@ what it **selects**, not what it prints — and when you find the gap, fix the
 output so the wrong reading is unavailable rather than merely discouraged.
 That script now marks every row `platform` or `teacher <id>`.
 
+**A fixture that does not look like the data tests something nobody has.**
+Signal Check's reveal resolved the *next* question — naming its answer, labelling
+the bars from it, scoring the class against its key — and forty-five end-to-end
+checks passed over it. The engine indexed a zero-based array with the database's
+`position` column, and every real bank numbers from 1:
+
+```
+figurative-frequencies   1..20
+multiplication-firewall  1..24
+syntax-vault             1..22
+signal-check-fixture     0..2     <- the fixture, and the only one
+```
+
+On that fixture the index and the column are equal, so **every site that confused
+them agreed with itself.** The suite proved the mechanism worked and never proved
+it resolved the right question. It took a session from outside, staging a
+screenshot and needing a correct answer to be marked correct, to find it.
+
+Check a new fixture against the shape of real rows — numbering, nullability,
+cardinality — before trusting a suite built on it. **A fixture is a claim about
+what the data looks like**, and a wrong one is invisible from inside every test
+that uses it.
+
+The repair is worth copying. The engine's constructor now **refuses** anything
+not renumbered, so reverting the fix raises before a child joins rather than
+mislabelling a projector. Where two numbering schemes meet, make one of them
+illegal at the boundary instead of remembering which is which.
+
 **A check can pass by matching nothing.** `doctor` reported "no activity
 references an image yet" about an activity referencing seven, because its
 pattern was anchored to `/images/` and the paths were relative. A rule that
