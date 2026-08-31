@@ -354,6 +354,20 @@ score that never moved, the reveal counting one answer where there were two, and
 the misconception lost from the insight view. Check `error` on every call whose
 result you are about to report as success.
 
+**A feature is not built until something in the interface leads to it.** Three
+instances in one day, each shipped by a session that had verified its work
+carefully: *Take a copy* was described on two screens in those words while the
+button did not exist; the accessibility override was built as a mechanism with
+nothing to switch it on; and Signal Check shipped with `/dashboard/live` linked
+from nowhere and `/live/join` appearing only as prose on the teacher's own
+screen. Each passed its own verification, because **a session drives its work by
+URL** — and a URL is exactly what a user does not have.
+
+It is invisible from the inside and it produces no error. The check is not *does
+the page work* but **can somebody reach it without being told the address**. Ask
+it of every surface before calling one done, and drive at least one path from
+the front door rather than from the route.
+
 **A redaction pass cannot tell a secret from a protocol field.** Signal Check's
 Sentry scrubber walked every string in the payload and redacted anything shaped
 like a long run of hex — which is what a session id looks like, and also what

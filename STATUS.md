@@ -117,13 +117,11 @@ evidence capability, and the `completion` gate. Prime Directive published at
 `bb7f9b2` and imported to production; its art is on `main` and serving. The
 question bank refactor is live at `b663ad3`.
 
-**Sentry is now on for the whole app**, not only Signal Check — the dashboard,
-the terminal and the three activities that never had error monitoring. It
-arrived with this merge rather than being switched on deliberately, which is
-worth knowing the first time an unfamiliar error appears from an old surface.
+**Sentry covers the whole app**, not only Signal Check — it arrived with the
+merge rather than being switched on, so the first unfamiliar error from an old
+surface is newly visible rather than new.
 
-**Stack traces are legible.** Read from Sentry itself, not from the payload:
-`app/live/join/page.tsx:191:73`, with the source line. `87a737e` closed it.
+**Stack traces are legible** — `app/live/join/page.tsx:191:73`, read from Sentry.
 
 The gate was **verified locally, not on production** *[verify — no session has
 re-checked this since 25 Aug]* — proving it there means
@@ -181,6 +179,9 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
+1. **Signal Check is unreachable from the interface.** `/dashboard/live` is linked
+   from nothing and `/live/join` appears only as prose on the teacher's screen.
+   Both were driven by URL in verification, which is how it passed. *(Quiz Maker.)*
 1. **Prime Directive's `_note` claims the `prefix` field is never rendered.**
    `Tasks.tsx:428` and `:583` draw it now. **Delete only the "never rendered"
    and "platform gap" clauses** — keep the rest: the answer is numeric `9`
