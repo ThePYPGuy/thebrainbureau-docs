@@ -19,7 +19,10 @@ this file and the repo disagree, **the repo wins.**
 **Provenance.** §2–6 rest on commands run 2026-08-25: `doctor`, `deploy:check`
 (local and `--prod`), `git log`/`status`/`worktree list`, `package.json` read
 directly. Stage progress and the key rotation come from the sessions’ own
-reports — attribution, not verification.
+reports — attribution, not verification. Re-checked 2026-08-31: `doctor`,
+`git worktree list`, `git rev-list`, `package.json` and `scripts/` read
+directly. **§2's two planned builds are scope from Maciej's brief, not code**
+— neither has anything in the repo yet to verify against.
 
 §7’s font findings are the exception: measured in a running browser this session,
 not reported. Rendered DOM width against a deliberately nonexistent family —
@@ -54,6 +57,13 @@ mechanics in `CLAUDE.md`.
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `main` | none | measure and CI exemption landed |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
+| Question bank refactor | `main` | not started | **planned** — Website Infrastructure, implementing `docs/question-banks.md` |
+| Signal Check | `signal-check` in `../tbb-quiz` | not started | **planned, blocked** — see the dependency below |
+
+**Neither build has opened.** `git worktree list` shows no `../tbb-quiz` and
+`git branch` no `signal-check`; those two rows are a plan, not a state.
+**Signal Check builds against the bank schema, so it starts only once the
+refactor is pushed** — started earlier it builds on a moving target.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -62,8 +72,15 @@ Live collisions only; standing hazards are in `CLAUDE.md`.
 - **A branch merge is a snapshot, not a subscription.** `operation-prime-directive`
   is 15 behind. Run `git rev-list --left-right --count main...HEAD` before
   judging how anything on a branch looks — never the last merge date.
-- **`package.json` `"import"` is a hardcoded list, not a glob** — every new
-  activity conflicts on merge; resolution is always "keep both sides".
+- **`"import"` globs now; `"import:training"` still does not.** `package.json:16`
+  names three bank files by hand, so the bank refactor and every new bank collide
+  there the way activities used to. Read both lines before assuming either —
+  `"import"` runs `scripts/import-all.ts`, which walks both directories.
+- **A live session has nowhere to declare a skin.** `skin` is a NOT NULL column
+  on `activities` (`20260824000007_activity_skin.sql`), but a Signal Check
+  session is a bank plus a mode rather than an activity — and
+  `scripts/skin-check.ts` reads `content/activities` only, so `npm run skins`
+  cannot see one. **Unresolved: a risk, not a decision.**
 - **`bb49a62` duplicates `5fda3d3`** — verified; cherry-pick residue is inference. Likely to conflict on merge.
 
 ## 4. Publish state
@@ -159,12 +176,7 @@ from `git log`; descriptions are each session's account of its own work.
 - `bb7f9b2` — **Prime Directive is published** and imported to production; every line of the import said REMOTE, and `deploy:check --prod` reports 15 migrations, three activities, 73 skills, 20 tags. **Not deployed to a class** — that step mints the code and is Maciej's. Three stale `_note` sentences went out with it; a fourth, claiming the printable Suspect Log was never made, survived because Doc Manager vouched for it. *(OB.)*
 - `f7a33d6` — **`npm run import:one -- <slug|path>`**, so one drifted file can go to production without rewriting the other six; the `--prod --yes` passthrough is preserved. *(WI.)*
 - `be460dc`, `aec8557` — **`npm run check:tokens`**, which fails on a hex colour or `font-family` written outside a token block: 43 existing literals grandfathered by name so the check lands green, and the list only shrinks. Four black slabs reached a light skin this week and each was one of these. **`npm run import` walks the directory** instead of naming every file, so a new activity no longer conflicts in `package.json` on every merge. *(WI.)*
-- **`--fd-scale` replaced by explicit sizes** — the token is gone; only two comments naming it survive, both explaining why a scalar could not work. Case File states its display sizes outright rather than deriving them, so nineteen values that were each the smallest size that could not overflow are now each the size they should be. Training's six stay Field Terminal-only until that archetype has a skin. **[on `platform`, unmerged]** *(WI.)*
-- **Production re-imported through the glob** — checked first that only Zero Hour drifted, then verified against the data: its fiction is back (`⚠ ZERO HOUR`, `VAULT SECURE`, `RESTORE CODE`) while Global Intel Cards and Prime Directive take the colourless defaults, which is what `c11d11e` was for. No phase stranded above 1000 on the first production run under the new importer. Every line said `REMOTE`. *(WI.)*
-- `c11d11e` — **one activity's fiction stops being every activity's.** The timer's end-state labels and the keypad label are authored now, defaulting to words that fit any case rather than to Zero Hour's. `docs/activity-file.md` written alongside: there was no activity-file reference at all, so every field found this week — `icon`, `prefix`, `evidence`, `dossier`, and now three labels — was documented only in the code that read it. *(WI, doc by Doc Manager.)*
-- `84138c5` — **two `doctor` checks that described the shell instead of the machine.** `uv` now reports *installed at `~/.local/bin/uv`, but not on this shell's `PATH`* — verified from a stripped shell — instead of *not on PATH*, which read as *not installed*. And the `tools/google-image-gen` warning is retired in favour of a check for something the art skill actually needs: the API key. *(WI.)*
-- `03d6907`, merged `8f84348` — **`.claude/skills/bureau-art/`**, the repo's first `.claude/` tree: generating operation art *and* the half that has broken twice — read the slug from the activity file, absolute paths, `git add`, `doctor` as the finish line. It does not publish; the mirror allows `docs/**.md` only, verified by `docs:sync --dry-run`. *(Op Builder.)*
-- `df82038` — **answer values in public fields are checked**, derived from each activity's own secret fields rather than a list, so it covers an activity not yet written. Two floors, stated in §10, that are its coverage. *(WI.)*
+- **`--fd-scale` replaced by explicit sizes** — the token is gone; only two comments naming it survive, both explaining why a scalar could not work. Case File states its display sizes outright rather than deriving them, so nineteen values that were each the smallest size that could not overflow are now each the size they should be. Training's six stay Field Terminal-only until that archetype has a skin. *(WI.)*
 
 ## 8. Next up
 
@@ -182,15 +194,7 @@ from `git log`; descriptions are each session's account of its own work.
    test: author a value in a new column, import, read it back. Cheap, and it
    closes the one failure mode that `deploy:check` actively disguises — the
    hash moves, so it reports clean. *(WI, whose own finding this is.)*
-2. **The art skill quotes an error `doctor` no longer prints.**
-   `.claude/skills/bureau-art/SKILL.md:40` says the report reads `uv not on
-   PATH`, "which reads like *not installed* and is not the same thing" — the
-   exact complaint `84138c5` fixed. `doctor.ts:128` now prints the version and
-   path *and* says it is not on this shell's PATH. So the skill teaches a
-   workaround for a confusion that no longer exists, in a file whose whole
-   point is that the distinction matters. One line. *(Whoever owns the art
-   skill — not Doc Manager's file.)*
-3. **Visual regression check** — screenshot each activity, fail on change.
+2. **Visual regression check** — screenshot each activity, fail on change.
    **Not polish.** It is the only thing that would ever cover the drawn work:
    sixteen hotspots, twelve plate forms, seven glyphs, all verified by hand
    once. Every other check on this project passes while a page renders wrong,
@@ -203,9 +207,18 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-**Nothing.** Both classes and all four codes are Maciej's — `%B` was a misclick,
-not seed data. My inference that the identical microsecond timestamp proved a
-script was wrong, and confidently so.
+Both are cheaper to settle now than to retrofit onto a shipped schema.
+
+- **Can teachers share banks — with each other, or between schools?** It decides
+  the `owner` and `status` columns on `question_banks`, which the refactor
+  creates, so the answer wants to arrive before the migration does.
+- **`docs/roadmap.md` and `docs/question-banks.md` disagree about Stage 3.** The
+  roadmap stars *Mainframe Breach* as "Agent Training, live", carrying the
+  session lifecycle, game PIN and realtime transport; `question-banks.md` says
+  Maciej moved Mainframe Breach to single player on 2026-08-31 and that *Signal
+  Check* is the live mode. One of the two is stale. Not urgent for either build,
+  but the plan currently contradicts itself and Doc Manager will not pick the
+  winner. *[verify]*
 
 ## 10. Known silent failures
 
@@ -228,7 +241,9 @@ table once. **Documentation does not fire at 11pm.**
 | One activity's fiction hardcoded for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A workshop short-circuit case ends by securing the Value Vault, and it renders perfectly | **fixed** — `Mission.tsx` takes `expiredLabel` and `doneLabel` from the theme, defaulting to `⏱ TIME UP` and `COMPLETE`. The Zero Hour literals survive only in a comment recording why |
 | `npm run skins` counted the database, not the content files | It reported an archetype count from rows, so the file you were authoring — not imported yet — did not count, and a row whose file was gone still did. Wrong in the one moment the tool is used | **fixed** `2b6df67` — it reads `content/activities` |
 | New tables needed an explicit `service_role` grant | Without it reads failed as a permission error that reads like a missing row — the worst disguise, since it sends you hunting for data that is already there | **fixed** — `deploy:check` audits every table for the grant |
-| **The importer's column lists live in two languages and nothing compares them** | `import-activity.ts` builds the payload; the `import_activity()` SQL function consumes it with explicit `INSERT` lists. Add a column, author it, and it is dropped silently — then `content_hash` is taken from the *file*, so the hash moves and `deploy:check` reports the database matches the repo while the column sits empty. Written 31 Aug, so it is the least-exercised code in the repo | **stated, unfixed** · Website Infrastructure — see §8.1 |
-| **Nothing verifies that the drawn things render** | No script mentions `hotspot`, `facsimile`, `phaseIcon` or `data-icon`; sixteen hotspots across twelve plate forms and seven glyphs were checked by hand, once, by one session. Rename `.plateRows` or change a `data-icon` and `doctor`, `e2e`, `tsc` and 131 unit tests all still pass. The page renders — it renders *wrong* | **§8.2** is the only cover this work will ever have |
+| **The importer's column lists live in two languages and nothing compares them** | `import-activity.ts` builds the payload; the `import_activity()` SQL function consumes it with explicit `INSERT` lists. Add a column, author it, and it is dropped silently — then `content_hash` is taken from the *file*, so the hash moves and `deploy:check` reports the database matches the repo while the column sits empty. Written 31 Aug, so it is the least-exercised code in the repo | **stated, unfixed** · Website Infrastructure — see §8, *Make the importer's two column lists prove they agree* |
+| **Nothing verifies that the drawn things render** | No script mentions `hotspot`, `facsimile`, `phaseIcon` or `data-icon`; sixteen hotspots across twelve plate forms and seven glyphs were checked by hand, once, by one session. Rename `.plateRows` or change a `data-icon` and `doctor`, `e2e`, `tsc` and 131 unit tests all still pass. The page renders — it renders *wrong* | **§8's visual regression check** is the only cover this work will ever have |
 | **A check that agrees with the bug it was written to catch** | Both fixes this session shipped with a check that passed for the wrong reason, each found only by deliberately breaking the thing it guarded. The import fixture passed against the *broken* importer until the fault was moved. The grant audit read a `pg_catalog` view that hides exactly the tables it was hunting — so it found nothing and reported clean, which is indistinguishable from finding nothing because nothing is wrong | **pattern, not a defect** — a guard is only proven by breaking its subject, and both were |
+| **Realtime message volume crosses a quota with no error until it stops** | Supabase Realtime meters messages, and a class of thirty on a fixed answer window is the first thing here to generate volume. Nothing reads the quota; the symptom is delivery stopping mid-lesson rather than an exception, and the room notices before any log does | **candidate** · Quiz Maker — wanted before the first classroom session |
+| **A session desyncs and one player's score diverges from the server's** | Client and server both hold a score. They can drift apart with nothing comparing them, and the child sees only their own number — so it reads as correct until the review screen, or until a teacher is asked why two agents with the same answers finished apart | **candidate** · Quiz Maker |
 | Pruning a list by its length rather than its contents | This table was emptied over one session. Every removal was defensible alone — fixed, or recorded in `CLAUDE.md` — and nothing checked whether the section still said anything, because the number being watched was the line count | **fixed by rebuilding** — prune against what is still open, never against a budget |
