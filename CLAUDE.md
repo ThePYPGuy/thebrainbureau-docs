@@ -233,6 +233,64 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+**Two column lists that must agree, in two languages.**
+`scripts/import-activity.ts` builds the payload and the `import_activity()` SQL
+function consumes it with explicit `INSERT` column lists. Add a column to
+`activities`, `phases` or `tasks` in a migration, author it in the content JSON,
+and the function ignores it — no error. Then `content_hash` is computed from the
+*file*, so the hash updates and `deploy:check` reports that the database matches
+the repo while the column sits empty. The old TypeScript importer had the same
+shape with the list beside the payload in one file; it is now split across
+TypeScript and SQL, and nothing audits the pair. When you add a column, change
+both, and prove it by round-tripping a value through an import.
+
+**A leak test will happily test somebody else's server.**
+`test:answer-leak` fetches `BASE_URL`, defaulting to `127.0.0.1:3000`. Across
+four worktrees that is whichever session started a server there first — which on
+31 August was `tbb-platform`, not the worktree running the test. It passes, and
+it has proved nothing about your branch. Before trusting a run, confirm the
+server on 3000 is yours, or set `BASE_URL` to a port you started. The same shape
+as the shared-working-tree hazard: the thing answering is not the thing you
+think you are asking.
+
+**A saved-HTML snapshot of a Field Terminal page is blank.**
+`Frame.tsx` renders children only after a client-side boot effect, so any tool
+that reads static HTML sees an empty terminal — and a "1 page, 0 images" PDF
+looks like a pass rather than a blank sheet. Case File survives this because it
+is plain chrome and server-rendered. Verify CRT pages in a live browser or not
+at all.
+
+**The browser pane reports geometry that is not there.**
+Independently hit by two sessions on the same day. `innerWidth` comes back `0`
+and `getBoundingClientRect()` near-zero — most often just after
+`resize_window` with `preset: desktop`, which clears emulation — and it will
+report a paragraph as 11px wide and hand back blank screenshots while the DOM
+says the content is present. It also serves a **stale frame after a programmatic
+scroll**: pixel-identical captures while the page has demonstrably moved. Pin an
+explicit width and height before measuring anything, treat any measurement taken
+while `innerWidth === 0` as void, and refresh by navigating rather than
+scrolling. Both failures produce confident numbers rather than errors, which is
+why they cost hours rather than minutes.
+
+**The zoom overlay's skin is threaded by hand, at two mount sites.**
+`Frame.tsx` mounts `ZoomProvider` at :98 and :107, each passing `skin={resolved}`.
+The overlay is deliberately a *sibling* of the skinned viewport because
+`.screenGlass` clips it, so the skin cannot cascade in. A third mount that
+forgets the prop renders every drawn plate unstyled at 816px wide. Found that
+way, not imagined.
+
+**The Case File progress bar assumes cleared locks are a prefix.**
+The `:has()` ladder takes the highest matching rung, which is correct only
+because locks unlock in order. Out-of-order completion would under-report behind
+a bar that still looks plausible. The CSS says so and nothing enforces it. The
+dead end worth not rediscovering: a CSS counter can be read in `content` but not
+in `calc()`, which is the entire reason there are twelve rungs rather than three
+lines of arithmetic.
+
+**`e2e-hint.ts` mutates a real task and restores it in a `finally`.** Killed
+mid-run, that task keeps `hintPenalty: 40` in the local database. Local only, but
+it presents as a mystery rather than as damage.
+
 None of these produces an error. Each has cost this project real time. They
 live here rather than in `STATUS.md` because they are properties of the system
 rather than things anyone is about to fix — `STATUS.md` section 10 tracks only

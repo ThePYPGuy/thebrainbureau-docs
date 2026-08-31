@@ -84,6 +84,11 @@ boundary: you cannot write to production from a branch by accident. Run
 production commands from the main worktree. (Why, and the override, in §5's
 file.)
 
+**What is proven is the database, not the running code.** `deploy:check --prod`
+compares the repo to Supabase; it never asks Vercel which commit is serving.
+That production runs current `main` is inference from deploy timings, and no
+session has confirmed a deployment's SHA. *[verify]*
+
 **Production matches the repo** — `--prod` green after `bb7f9b2`: 15 migrations
 applied, three activities published, 73 skills, 20 tags. **Re-run after every
 publish**: `?` is not `DRIFT` — it means unconfirmable, and the answer is
@@ -158,7 +163,11 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **The art skill quotes an error `doctor` no longer prints.**
+1. **Make the importer's two column lists prove they agree.** A round-trip
+   test: author a value in a new column, import, read it back. Cheap, and it
+   closes the one failure mode that `deploy:check` actively disguises — the
+   hash moves, so it reports clean. *(WI, whose own finding this is.)*
+2. **The art skill quotes an error `doctor` no longer prints.**
    `.claude/skills/bureau-art/SKILL.md:40` says the report reads `uv not on
    PATH`, "which reads like *not installed* and is not the same thing" — the
    exact complaint `84138c5` fixed. `doctor.ts:128` now prints the version and
@@ -166,7 +175,12 @@ from `git log`; descriptions are each session's account of its own work.
    workaround for a confusion that no longer exists, in a file whose whole
    point is that the distinction matters. One line. *(Whoever owns the art
    skill — not Doc Manager's file.)*
-2. Visual regression check — screenshot each activity, fail on change.
+3. **Visual regression check** — screenshot each activity, fail on change.
+   **Not polish.** It is the only thing that would ever cover the drawn work:
+   sixteen hotspots, twelve plate forms, seven glyphs, all verified by hand
+   once. Every other check on this project passes while a page renders wrong,
+   because nothing is broken — it just looks it. Doc Manager recommended
+   deferring this three times and was reading it as finish rather than cover.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle. Carry a **rendered-width assertion per skin**: a
    known string in the display face against a nonexistent family, failing if
@@ -199,5 +213,7 @@ table once. **Documentation does not fire at 11pm.**
 | One activity's fiction hardcoded for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A workshop short-circuit case ends by securing the Value Vault, and it renders perfectly | **fixed** — `Mission.tsx` takes `expiredLabel` and `doneLabel` from the theme, defaulting to `⏱ TIME UP` and `COMPLETE`. The Zero Hour literals survive only in a comment recording why |
 | `npm run skins` counted the database, not the content files | It reported an archetype count from rows, so the file you were authoring — not imported yet — did not count, and a row whose file was gone still did. Wrong in the one moment the tool is used | **fixed** `2b6df67` — it reads `content/activities` |
 | New tables needed an explicit `service_role` grant | Without it reads failed as a permission error that reads like a missing row — the worst disguise, since it sends you hunting for data that is already there | **fixed** — `deploy:check` audits every table for the grant |
+| **The importer's column lists live in two languages and nothing compares them** | `import-activity.ts` builds the payload; the `import_activity()` SQL function consumes it with explicit `INSERT` lists. Add a column, author it, and it is dropped silently — then `content_hash` is taken from the *file*, so the hash moves and `deploy:check` reports the database matches the repo while the column sits empty. Written 31 Aug, so it is the least-exercised code in the repo | **stated, unfixed** · Website Infrastructure — see §8.1 |
+| **Nothing verifies that the drawn things render** | No script mentions `hotspot`, `facsimile`, `phaseIcon` or `data-icon`; sixteen hotspots across twelve plate forms and seven glyphs were checked by hand, once, by one session. Rename `.plateRows` or change a `data-icon` and `doctor`, `e2e`, `tsc` and 131 unit tests all still pass. The page renders — it renders *wrong* | **§8.2** is the only cover this work will ever have |
 | **A check that agrees with the bug it was written to catch** | Both fixes this session shipped with a check that passed for the wrong reason, each found only by deliberately breaking the thing it guarded. The import fixture passed against the *broken* importer until the fault was moved. The grant audit read a `pg_catalog` view that hides exactly the tables it was hunting — so it found nothing and reported clean, which is indistinguishable from finding nothing because nothing is wrong | **pattern, not a defect** — a guard is only proven by breaking its subject, and both were |
 | Pruning a list by its length rather than its contents | This table was emptied over one session. Every removal was defensible alone — fixed, or recorded in `CLAUDE.md` — and nothing checked whether the section still said anything, because the number being watched was the line count | **fixed by rebuilding** — prune against what is still open, never against a budget |
