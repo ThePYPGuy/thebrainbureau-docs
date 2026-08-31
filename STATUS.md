@@ -55,31 +55,13 @@ mechanics in `CLAUDE.md`.
 |---|---|---|---|
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images |
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
-| Platform | `platform` in `../tbb-platform` | none | measure and CI exemption landed |
+| Platform | `platform` in `../tbb-platform` | none | level with `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
-| Question bank refactor | `platform` in `../tbb-platform` | none | **data layer done, no screens** — 13 commits from `6602bf0` |
-| Signal Check | `signal-check` in `../tbb-quiz` | not started | **blocked until the refactor is complete and on `main`** |
+| Signal Check | `signal-check` in `../tbb-quiz` | not started | **unblocked, not started** |
 
-**The merge condition is met on `platform`; it is still not on `main`.** 25
-migrations, five screens, 323/323 run here, mode config on
-`training_sessions.config` and none on the bank. Question editing landed at
-`5cceed0` with `scripts/test-edit-after-serve.ts` beside it — the first thing to
-exercise *Reproducibility*, an edit being what that design exists to survive.
-
-***Take a copy* landed at `cbc6398`**, `test:copy` run here. **The merge is
-authorised** (31 Aug) and not yet run: `platform` is 24 ahead of `main`, 3 behind.
-
-**The order is not a preference.** Migrations reach production *before* `main`
-is pushed — all additive, so old code ignores the new tables while the reverse
-breaks silently. Then push (deploys, carrying 23 unpushed docs commits), then
-`deploy:check -- --prod`, then re-import — from `main`'s worktree only.
-
-**A pre-existing bug the screens exposed:** every `<strong>` on the Bureau face
-was white on off-white. Invisible, no error. Fixed `e74e085`; lesson in `CLAUDE.md`.
-
-**Signal Check waits for the whole refactor, not for the schema** — decided
-31 Aug, a choice and not a constraint: the schema alone would have been enough
-to build against. `git worktree list` still shows no `../tbb-quiz`.
+**Signal Check is unblocked** — the refactor is merged, pushed and live; §7 has
+it. `git worktree list` shows no `../tbb-quiz` and `git branch` no
+`signal-check`. Its brief is at `docs/local/briefs/signal-check.md`.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -117,12 +99,13 @@ production commands from the main worktree. (Why, and the override, in §5's
 file.)
 
 **What is proven is the database, not the running code.** `deploy:check --prod`
-compares the repo to Supabase; it never asks Vercel which commit is serving.
-That production runs current `main` is inference from deploy timings, and no
-session has confirmed a deployment's SHA. *[verify]*
+never asks Vercel which commit is serving. Confirmed *indirectly* 31 Aug:
+`/api/bank-template` returns `text/csv` in production and that route exists only
+in the merged code, so the deployment is current. The SHA itself is still
+unasked — a route is evidence, not an identity.
 
-**Production matches the repo** — `--prod` green after `bb7f9b2`: 15 migrations
-applied, three activities published, 73 skills, 20 tags. **Re-run after every
+**Production matches the repo** — `--prod` green after `b663ad3`: 25 migrations
+applied, three activities and three training banks published, 73 skills, 20 tags. **Re-run after every
 publish**: `?` is not `DRIFT` — it means unconfirmable, and the answer is
 usually a re-import.
 
@@ -172,7 +155,7 @@ Verified against `package.json` directly, not against a summary of it.
 | Tests | `npm run test`, `npm run e2e` | vitest suite; 6 e2e scripts, incl. answer leak |
 | Importer safety | `npm run test:reimport` | built |
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
-| Bank checks | `test:columns`, `:insight`, `:images`, `:search`, `:edit-after-serve`, `:copy`, `check:alt`, `check:keys` | **on `platform`**, 8 scripts |
+| Bank checks | `test:columns`, `:insight`, `:images`, `:search`, `:edit-after-serve`, `:copy`, `check:alt`, `check:keys` | built, 8 scripts |
 
 **Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never
 written. **`npm run test` is green — 323/323, 13 files**, run on `platform`
@@ -184,6 +167,7 @@ written. **`npm run test` is green — 323/323, 13 files**, run on `platform`
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `b663ad3` — **the question bank refactor is live.** `training_sims` split into banks, questions, keys, sessions, snapshots, runs and responses, with mode config on the session and **none on the bank**. Three question types, CSV import, images with an alt-text check, per-year-group difficulty from raw serves, the insight view, search, question editing and *Take a copy*. 25 migrations and the storage bucket applied to production; `deploy:check --prod` clean before and after the re-import. **The new code is serving** — `/api/bank-template` answers `text/csv`, a route only it has. The backfill gave 4 banks, 66 questions and 66 keys, and turned one historical run into a session with 10 snapshot rows; the slugless teacher draft came across as `draft/private`, which is the row a title-join would have lost. *(WI; every check re-run by Doc Manager.)*
 - `2b6df67`, `4983d89` — **the two authoring gaps closed**. `npm run skins` counts content files rather than rows, so it answers about what you are writing instead of what you have imported. And **a task can price its own hint**: `config.hintPenalty` overrides the activity's, falling back when absent, so Prime Directive's factors-and-primes hint need no longer cost the same as its subtraction hint. Every existing task keeps the old number. *(WI.)*
 - `f7a33d6` — **`npm run import:one -- <slug|path>`**, so one drifted file can go to production without rewriting the other six; the `--prod --yes` passthrough is preserved. *(WI.)*
 - `be460dc`, `aec8557` — **`npm run check:tokens`**, which fails on a hex colour or `font-family` written outside a token block: 43 existing literals grandfathered by name so the check lands green, and the list only shrinks. Four black slabs reached a light skin this week and each was one of these. **`npm run import` walks the directory** instead of naming every file, so a new activity no longer conflicts in `package.json` on every merge. *(WI.)*

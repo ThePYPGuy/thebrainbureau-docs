@@ -324,6 +324,13 @@ neither year and never separates back out.
 account, and dropping guests skews the sample toward whoever happened to have a
 login.
 
+**History has no year group, and cannot be given one.** The runs that predate
+sessions were migrated with a null year group, because nothing recorded one at
+the time. They aggregate under *unknown* and sit far below the threshold, so
+they show as a count rather than a rating. This is correct rather than a defect
+to fix: a year group invented for them would be a guess presented as data, and
+per-year-group difficulty simply starts accumulating from the first live session.
+
 Teachers tag difficulty when authoring — **recall / apply / stretch**. Live data
 overrides that tag only above a confidence threshold, **starting at 20 plays for
 that year group**. Below it the editor shows the count instead — *answered 6
