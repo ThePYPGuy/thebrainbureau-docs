@@ -66,8 +66,8 @@ migrations, five screens, 323/323 run here, mode config on
 `5cceed0` with `scripts/test-edit-after-serve.ts` beside it — the first thing to
 exercise *Reproducibility*, an edit being what that design exists to survive.
 
-***Take a copy* is being built and the merge waits for it** — Maciej, 31 Aug;
-nothing committed yet, so that is attribution. Per-option images still do not block.
+***Take a copy* landed at `cbc6398`** — `test:copy` run here, 22 checks, edit
+isolation proven in both directions. **No condition remains on the merge.**
 
 **A pre-existing bug the screens exposed:** every `<strong>` on the Bureau face
 was white on off-white. Invisible, no error. Fixed `e74e085`; lesson in `CLAUDE.md`.
@@ -167,7 +167,7 @@ Verified against `package.json` directly, not against a summary of it.
 | Tests | `npm run test`, `npm run e2e` | vitest suite; 6 e2e scripts, incl. answer leak |
 | Importer safety | `npm run test:reimport` | built |
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
-| Bank checks | `test:columns`, `:insight`, `:images`, `:search`, `:edit-after-serve`, `check:alt`, `check:keys` | **on `platform`**, 7 scripts |
+| Bank checks | `test:columns`, `:insight`, `:images`, `:search`, `:edit-after-serve`, `:copy`, `check:alt`, `check:keys` | **on `platform`**, 8 scripts |
 
 **Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never
 written. **`npm run test` is green — 323/323, 13 files**, run on `platform`
@@ -212,12 +212,12 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-**Nothing.** Both decisions filed here on 31 August are answered and have moved
-into `docs/`, which is where a decision lives once it is taken: banks are public
-or private, public meaning everyone on the platform and searchable with a play
-count; and Signal Check ships before Mainframe Breach, both modes under Agent
-Training rather than either replacing the other. The roadmap no longer
-contradicts `question-banks.md`.
+- **Merge `platform` to `main`, and deploy?** The refactor's conditions are met
+  — question editing and *Take a copy* landed, per-option images was ruled not
+  to block — and nothing else waits on an agent. Bigger than the steps before
+  it: merging deploys the app, while migrations 19–25 and the storage bucket do
+  not follow and exist on one local database. A class code is open on
+  production, and `deploy:check -- --prod` runs from the main worktree only.
 
 ## 10. Known silent failures
 
