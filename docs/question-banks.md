@@ -255,6 +255,75 @@ cost model, and a review-and-edit step that makes clear the teacher is
 accountable for what their class sees. No generated question should ever reach
 a child unreviewed.
 
+### Images
+
+**Not built.** A question may carry one image, and each multiple_choice option
+may carry one. Teacher-uploaded, held in storage and served from there.
+
+- jpg, png and webp — **rejected by content type, never by file extension**.
+- A size cap, starting at 2MB, and a server-side resize to a sensible maximum
+  dimension. An unresized phone photo does not arrive in time on school wifi,
+  and the question is on a projector in front of a waiting class.
+- **Store an image reference, not a raw URL**, so storage can move without
+  rewriting every row that points into it.
+- Alt text is required on every image, and must not carry the answer — the rule
+  and the reason are under *Rules that hold across every mode*.
+
+CSV import does not carry images. They are added afterwards in the editor, and
+the import screen says so rather than leaving teachers to work it out.
+
+### Search
+
+**Not built.** Banks list and filter by subject, year group, tags, owner, status
+and visibility, with the play count beside each.
+
+A teacher must be able to find a bank they made last term, and to find public
+banks made by anyone. Authoring a bank that cannot be found again is most of the
+way to not having authored it.
+
+---
+
+## Difficulty
+
+**Not built**, though the raw serve log it rests on is part of the refactor
+itself: every serve is a row carrying question, session, year group, correct,
+milliseconds and timestamp.
+
+**Derived from those raw rows, never from a running average.** An average cannot
+be recomputed when the formula changes, and the formula will change. The same
+rule as the play count, for the same reason.
+
+**Per year group, never globally.** A question hard for Y4 and easy for Y6 has
+no single difficulty; aggregating the two produces a middle that describes
+neither year and never separates back out.
+
+**Guest responses count.** The statistic is about the answer and not the
+account, and dropping guests skews the sample toward whoever happened to have a
+login.
+
+Teachers tag difficulty when authoring — **recall / apply / stretch**. Live data
+overrides that tag only above a confidence threshold, **starting at 20 plays for
+that year group**. Below it the editor shows the count instead — *answered 6
+times, not enough to rate yet* — rather than adapting on noise.
+
+**The threshold is visible in the editor**, because a system acting on thin data
+looks exactly like one acting on good data, and the teacher is the only person
+in a position to notice which it is doing.
+
+**For numeric and short_text, log the wrong answer itself**, not only that it
+was wrong. Thirty children typing the same wrong value is a misconception worth
+putting in front of a teacher. Multiple choice cannot show that; free entry can,
+and it is a good part of why those types are worth having.
+
+## Teacher insight
+
+**Not built.** A per-bank view: which questions are answered wrong most often,
+per year group, and for numeric and short_text the most common wrong answers.
+
+Worth shipping on its own, independent of any mode. It surfaces misconceptions
+and badly-worded questions, and it is the one thing here that pays a teacher
+back for authoring rather than asking something further of them.
+
 ---
 
 ## Rules that hold across every mode
