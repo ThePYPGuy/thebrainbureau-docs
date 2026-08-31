@@ -363,6 +363,18 @@ score that never moved, the reveal counting one answer where there were two, and
 the misconception lost from the insight view. Check `error` on every call whose
 result you are about to report as success.
 
+**`curl` and the browser get different images, and `curl` is the wrong witness.**
+Next's image optimiser serves with `Vary: Accept`, so a request with no `Accept`
+header gets a freshly generated JPEG while Chrome gets a stale WebP from the same
+URL. The file on disk was new, the raw `/images/` URL was new, the optimiser said
+new — and only the browser disagreed. Checking with `curl` confirmed the *other*
+half of the negotiation and read as proof.
+
+It survived deleting `.next/cache/images` with the server stopped; the whole
+`.next` had to go. Nothing is wrong in the repo and a production build
+regenerates it. Cost four rounds. **Verify an image in the browser that renders
+it, sending the headers that browser sends.**
+
 **A capture made to prove something works is not a capture fit to publish.** The
 projector was screenshotted to show the commission was done; the homepage then
 needed an image of the same screen. Both files carried the bank name
