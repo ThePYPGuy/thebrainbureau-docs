@@ -61,6 +61,10 @@ mechanics in `CLAUDE.md`.
 **Signal Check is merged and live** — §7 has it. Nothing is mid-flight; the next
 work is §8, and the redesign Maciej has queued behind it.
 
+**Doc commits ride to `origin` on the next code push.** `docs:sync` publishes the
+public mirror, not `origin`, so they accumulate on `main`. That is the cycle, not
+a backlog — and they are not another session's to push.
+
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
 Live collisions only; standing hazards are in `CLAUDE.md`.
@@ -117,8 +121,12 @@ question bank refactor is live at `b663ad3`.
 the terminal and the three activities that never had error monitoring. It
 arrived with this merge rather than being switched on deliberately, which is
 worth knowing the first time an unfamiliar error appears from an old surface.
-**Still unconfirmed: whether stack traces are legible.** The Vercel build log
-answers whether source maps uploaded; a real error answers the rest. *[verify]*
+
+**Source maps upload.** Build log for `862fe7a`: 253 files with maps, one
+without, zero auth failures — and the debug IDs in the served bundles match the
+upload report, the mechanism Sentry uses to resolve a minified frame.
+**Legibility is still unseen**, needs the Sentry UI, and is Maciej's to close;
+the issue waits, titled *DEPLOY VERIFICATION 862fe7a*. *[verify]*
 
 The gate was **verified locally, not on production** *[verify — no session has
 re-checked this since 25 Aug]* — proving it there means
