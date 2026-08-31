@@ -207,6 +207,38 @@ front door. Recommend not — one record, two doors, no flag.
 
 ---
 
+## Teacher handles — decided 2026-08-31
+
+**A teacher publishes under a handle, never under their name.** Compulsory at
+signup, unique across the platform, and the only thing another teacher sees on a
+public bank in *Discover*.
+
+`teachers` already holds `email` and a nullable `display_name`, and
+`display_name` arrives from the Google or Microsoft profile — so it is a real
+name. That is fine where it is: the teacher's own dashboard, their own sidebar.
+It is not fine on a searchable library every teacher on the platform can read.
+**The handle is a second field, and the two are not interchangeable:**
+`display_name` is what you are called; the handle is what you publish as.
+
+**The signup screen has to say what it is for.** A field labelled *handle* with
+no explanation gets a real name typed into it, which defeats the entire point
+and cannot be taken back once a bank is public. Say it plainly at the moment of
+choosing: *this appears on every bank you publish, and every teacher can see it.*
+
+Two consequences that follow:
+
+- **Unique platform-wide**, so collisions are common in a way codenames are not —
+  those are scoped per teacher. Block at creation and suggest alternatives, the
+  same shape as the codename rule.
+- **Existing accounts have none.** Anyone who signed up before this needs to
+  choose one, and the natural gate is the first attempt to publish a bank rather
+  than a blocking prompt at next login.
+
+Changing a handle later is allowed: it is rendered from the teacher row, so a
+change follows everywhere it appears, and the uniqueness check is the same one.
+
+---
+
 ## Codes
 
 Three distinct things, deliberately named apart.
