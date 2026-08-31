@@ -44,6 +44,14 @@ the `\\wsl$` equivalents are in
 [`docs/local/environment.md`](docs/local/environment.md) — machine-specific
 values are kept out of this file so it can be mirrored publicly.
 
+**A brief handed to a fresh session must say where the repo is in its first
+paragraph, with the `\\wsl.localhost\...` path spelled out.** This file explains
+the arrangement and is no use for it — it lives inside the repo, so a session
+that cannot find the repo cannot read it. Two sessions have now searched `C:\`,
+found the spec folder under `Documents`, and accurately reported that the
+project does not exist. A `~/tbb-...` path in a brief is worse than nothing on
+the Windows side, because it looks like an answer.
+
 Run `npm`/`git`/`supabase`/`vercel`/`docker` inside WSL rather than from
 Windows. From PowerShell: `wsl -e bash -ic '<command>'`. What is actually
 installed, and where, is reported by `npm run doctor` — this file does not
