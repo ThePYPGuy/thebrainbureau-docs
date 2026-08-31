@@ -60,11 +60,14 @@ mechanics in `CLAUDE.md`.
 | Question bank refactor | `platform` in `../tbb-platform` | none | **data layer done, no screens** — 13 commits from `6602bf0` |
 | Signal Check | `signal-check` in `../tbb-quiz` | not started | **blocked until the refactor is complete and on `main`** |
 
-**The refactor is close to whole on `platform`, still not on `main`.** 25
-migrations, four screens, 323/323 run here, mode config on
-`training_sessions.config` and none on the bank. **Question editing blocks the
-merge** — decided 31 Aug, since a bank authored only by CSV is a real constraint
-on a teacher. Per-option images and *Take a copy* do not block it.
+**The merge condition is met on `platform`; it is still not on `main`.** 25
+migrations, five screens, 323/323 run here, mode config on
+`training_sessions.config` and none on the bank. Question editing landed at
+`5cceed0` with `scripts/test-edit-after-serve.ts` beside it — the first thing to
+exercise *Reproducibility*, an edit being what that design exists to survive.
+
+**Not blocking, and not built:** per-option images, and the *Take a copy* button
+both bank screens describe in words; `copied_from` is in the schema for it.
 
 **A pre-existing bug the screens exposed:** every `<strong>` on the Bureau face
 was white on off-white. Invisible, no error. Fixed `e74e085`; lesson in `CLAUDE.md`.
@@ -84,11 +87,6 @@ Live collisions only; standing hazards are in `CLAUDE.md`.
   names three bank files by hand, so the bank refactor and every new bank collide
   there the way activities used to. Read both lines before assuming either —
   `"import"` runs `scripts/import-all.ts`, which walks both directories.
-- **`npm run skins` answers about authored activities and does not say so.**
-  The live-session skin gap is **settled** — a mode declares its skin in code,
-  and `activities.skin` is unchanged; `docs/visual-identity.md` has the whole of
-  it. So the script's scope is right and its wording is not: it still reads as
-  an inventory of the platform. One line of output. *(WI.)*
 - **`bb49a62` duplicates `5fda3d3`** — verified; cherry-pick residue is inference. Likely to conflict on merge.
 
 ## 4. Publish state
@@ -169,6 +167,7 @@ Verified against `package.json` directly, not against a summary of it.
 | Tests | `npm run test`, `npm run e2e` | vitest suite; 6 e2e scripts, incl. answer leak |
 | Importer safety | `npm run test:reimport` | built |
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
+| Bank checks | `test:columns`, `:insight`, `:images`, `:search`, `:edit-after-serve`, `check:alt`, `check:keys` | **on `platform`**, 7 scripts |
 
 **Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never
 written. **`npm run test` is green — 323/323, 13 files**, run on `platform`
