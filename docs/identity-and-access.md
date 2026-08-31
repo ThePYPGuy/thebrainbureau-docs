@@ -259,6 +259,38 @@ thousand, and a school running several classes in one period would start
 colliding — a teacher reading out a PIN that drops a child into another class's
 game is not a fault anyone diagnoses quickly.
 
+### All three become six digits, in one namespace — decided 2026-08-31
+
+**Every code is six digits, and no two codes are ever the same, whatever kind
+they are.** Existing class codes are deleted rather than migrated; Maciej gave
+that explicitly, and there is one class locally and two on production.
+
+The reason is not tidiness. It is that **uniform codes without a router make the
+confusion worse, not better** — three doors that each reject two-thirds of a
+six-digit number, and nothing on the code itself to say which door it opens.
+Once the namespace is shared, a code identifies *what it is* as well as *which
+one*, so **one input box can accept any of the three and send the child to the
+right place.** That is the fix for "too many doors"; the renumbering is only
+what makes it possible.
+
+**So the router is not an optional second phase.** Shipping six-digit codes into
+three separate doors is strictly worse than what exists today, where the shapes
+at least tell you which code you are holding.
+
+Digits rather than letters, for the reason `lib/live/pin.ts` already gives: a
+numeric keypad, and a child reading a projector at eight metres who cannot tell
+an ambiguous glyph apart. That argument was always general; only the game PIN
+had taken it.
+
+**The recycling problem, which is the real design work.** A game PIN is
+*ephemeral* by design — `training_sessions_pin_idx` is unique only across
+`lobby`, `active` and `paused`, so a PIN returns to the pool when a session
+ends. Class and deployment codes are permanent. A shared namespace has to hold
+both: a registry that a retired PIN leaves and a class code never does. Without
+that, either PINs stop being reusable and the space narrows with every lesson
+ever taught, or a retired PIN gets minted as a class code and an old projector
+photo joins somebody's class.
+
 **A signed-in agent is used only when the client asks for it** (2026-08-31). A
 class set of iPads means the previous child is still in the cookie, so
 defaulting to it would file one child's answers against another child's Intel —
