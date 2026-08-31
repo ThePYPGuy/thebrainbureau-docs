@@ -26,17 +26,47 @@ another mode without dragging one mode's settings along.
 ### Target shape
 
 ```
-question_banks        title, subject, owner, tags, status, visibility
-  └── bank_questions  prompt, options, explanation, position
+question_banks        title, subject, owner, year_group, tags, status, visibility
+  └── bank_questions  question_type, prompt, options, explanation, position,
+                      image, option_images, alt_text
         └── keys      the correct answer — server-only, as now
 
-training_sessions     bank + mode + config + class + status + game PIN
+training_sessions     bank + mode + config + class + status + game PIN +
+                      year_group
   └── runs            one agent's play of one session
         └── responses what they answered
 ```
 
 Mode configuration — how many questions a round serves, what a correct answer
 pays, whether attacks are enabled — belongs to the **session**, not the bank.
+
+**The two `year_group` columns mean different things.** On the bank it is the
+year the questions were written for: authoring metadata, for search and
+filtering. On the session it is the year group actually playing, and it is the
+only one the statistics read — sessions carry guests with no account, and every
+response needs a year group regardless of who gave it.
+
+### Question types — decided 2026-08-31
+
+`question_type` is a column, and each type carries a validation handler and a
+rendering contract, so a fourth type later is one handler rather than a
+migration and a change to every mode.
+
+- **multiple_choice** — two to six options, one correct, shuffled per run.
+- **numeric** — free entry, no options, with an optional tolerance defaulting to
+  exact. The gap this closes is maths: *47 × 6* as multiple choice is a
+  different task from working it out, because the options do half the thinking
+  and can be back-solved. Units are never part of the answer; they belong in the
+  prompt.
+- **short_text** — free entry for spelling and vocabulary, case-insensitive and
+  trimmed, holding a **list** of accepted answers rather than one string. No
+  fuzzy matching: silently accepting a misspelling in a spelling test is worse
+  than being strict.
+
+**Every type must work in every mode.** A type that functions in only one breaks
+the premise of the refactor — which is why these two and not ordering or
+matching, both of which need drag interactions and do not fit a projector-paced
+answer window.
 
 ### Sharing — decided 2026-08-31
 
@@ -129,12 +159,17 @@ the parsing. It is that **the answer key cannot live in the same place as the
 questions** — keys are in a table no client-facing role can read, and that rule
 holds for every mode. So a CSV either carries the key and is a file that must
 never be served back, or it does not and the teacher marks answers after
-import. Decide that before writing a parser.
+import.
 
-**Malformed rows are settled**: the whole file is validated before any insert,
-so a bad row rejects the file rather than importing its neighbours and
-reporting. **Still unsettled**: where the key lives, the column contract, and
-whether re-uploading a bank updates it or duplicates it.
+**Settled 2026-08-31.** The CSV *does* carry the key, in a `correct` column, so
+the uploaded file is an answer key for every question in it. It is therefore
+parsed in memory and **discarded** — never written to storage, never left on
+disk, never attached to the bank for re-download. The bucket policy is teachers
+write and players read, so a retained upload is a key every player can read. The
+whole file is validated before any insert, so a bad row rejects the file rather
+than importing its neighbours and reporting afterwards.
+
+**Still unsettled**: whether re-uploading a bank updates it or duplicates it.
 
 **Not built:** AI-assisted generation from a topic or pasted text, with teacher
 review before use. This is in the locked overview and needs a model call, a
@@ -154,3 +189,17 @@ a child unreviewed.
   remembering positions.
 - **The review screen names the right answers, and only afterwards.** During
   play the same information is the answer key.
+- **Free-entry keys cannot be leak-checked by value.**
+  `scripts/test-answer-leak.ts` matches secret strings in the served payload and
+  sets `DIGITS_FLOOR = 3`, saying in its own comment that short numeric answers
+  are not checked and cannot be — a two-digit answer is indistinguishable from
+  any other number on the page. Numeric and short_text keys need a guard that
+  asserts **shape**: that no client-facing query selects the keys table and no
+  serialised payload carries a key field. Prove it by pointing a client-facing
+  query at the keys table and confirming the guard fails.
+- **Alt text must not carry the answer.** It reaches the browser as a public
+  string like any other, and on option images it is acute: *which shape is a
+  hexagon*, with the right option described as *a hexagon*, hands the answer to
+  the one group who cannot see the image. Physical detail only, never what makes
+  an option correct. The reason is in `CLAUDE.md` under *Alt text can be the
+  answer*.
