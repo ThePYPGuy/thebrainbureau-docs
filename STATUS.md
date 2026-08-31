@@ -108,9 +108,10 @@ never asks Vercel which commit is serving. Confirmed *indirectly* 31 Aug:
 in the merged code, so the deployment is current. The SHA itself is still
 unasked — a route is evidence, not an identity.
 
-**Production matches the repo** — `--prod` green after the Signal Check merge:
-**26 migrations applied**, three activities and three training banks published,
-73 skills, 20 tags. **Re-run after every
+**Production is one migration behind the repo.** `--prod` reports `DRIFT` on
+`20260831000027` (teacher handles). Everything else is ok: three activities,
+three banks, 73 skills, 20 tags. **The doors break if the code ships without
+it** — signup writes a column production does not have. **Re-run after every
 publish**: `?` is not `DRIFT` — it means unconfirmable, and the answer is
 usually a re-import.
 
@@ -129,8 +130,8 @@ real class code and check the ending stays absent until the last lock.
 
 **Before any push** run
 `git diff --stat origin/main..main -- supabase/migrations/ content/`. Neither
-deploys itself and both fail silently when missed; no range so far has needed
-one.
+deploys itself and both fail silently when missed — and **this range needs a
+migration**, the first that has.
 
 ## 5. Environment
 
@@ -171,13 +172,11 @@ This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
 - `9eb2071` — **the Bureau face is live, and the reveal is fixed.** Forty-four commits: the marketing site, `/missions`, `/pricing`, `/for-schools` and `/contact` on the new identity — DM Serif, Space Mono, Inter, navy against cream with a wave between every band — and **Signal Check's reveal off-by-one**, which had the board naming the *next* question's answer and marking correct children wrong. No migrations, so the push was the whole deployment. Verified after: five public routes 200, `/missions` serving both CTAs, `deploy:check --prod` clean at 26 migrations. *(WD and QM; pushed and verified here.)*
+- `f7f7953` — **the doors wear the Bureau face.** `/signup` and `/login` on `.surface` with the site header, footer and band rhythm, plus the compulsory **handle** field: `teachers.handle`, unique on `lower(handle)`, checked as you type, and **nullable** so accounts predating it are gated at first publish rather than locked out of their own dashboard. The sentence saying what a handle is for sits *above* the input, boxed, in the document's own words. Verified end to end — a real signup through the real form, the row carrying the handle and not the name, a case-variant duplicate refused with `23505`. **The leak was worse than the fonts:** neither page had a `.surface`, so the bare `input` rule drew first name, surname and password as solid black boxes on a white card, and `input[type="email"]` escaped only because it is not in that selector list — which is why it read as a quirk rather than a leak. **`/join` was left alone, and STATUS was wrong to list it** — it renders `Frame` with `data-skin="field-terminal"`, so Share Tech Mono there is the Field face doing its job. Moving it would be a decision, and WD raised it rather than taking it. *(WD. Migration 27 is not on production — see §4.)*
 - `862fe7a` — **Signal Check is live.** The live whole-class mode: session lifecycle, six-digit PIN, host controls, reconnection, late joiners, three question types and Intel settlement with the first-completion rule. Transport behind an interface the engine never sees past, with an in-memory implementation passing the same contract suite. Proven at thirty concurrent players by `npm run loadtest` — **96 msg/s**, which is what settled the move to Pro. Migration 26 applied to production and `deploy:check --prod` green at 26, re-run here; `/live/join` answers 200. Sentry came with it and now covers every surface. **The first thing here that a class could play together** — and the first that would fail in front of one. *(QM; every check re-run by Doc Manager.)*
 
 ## 8. Next up
 
-1. **The doors still wear the old brand.** `/signup` and `/login` render in Titan
-   One, `/join` in Share Tech Mono, so every CTA on the new site lands on the old
-   one — and `/signup` has no **handle** field, which is compulsory. *(WD.)*
 1. **WD's undo is now dead code.** The `currentColor` block in `site.module.css`
    neutralised bare rules that no longer reach a Bureau page — it measures
    identically either way now. *(WD; delete it before phase 2 adds forms.)*
