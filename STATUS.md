@@ -176,7 +176,10 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **The reveal capture waits on the reveal bug** — in-play retaken, `/missions` filled. *(WD.)*
+1. **The doors still wear the old brand.** `/signup` and `/login` render in Titan
+   One, `/join` in Share Tech Mono, so every CTA on the new site lands on the old
+   one — and `/signup` has no **handle** field, which is compulsory. *(WD.)*
+1. **The reveal capture is unblocked** — the bug it waited on is fixed. *(WD.)*
 1. **Signal Check is unreachable from the interface.** `/dashboard/live` is linked
    from nothing and `/live/join` appears only as prose on the teacher's screen.
    Both were driven by URL in verification, which is how it passed. *(Quiz Maker.)*
@@ -204,11 +207,8 @@ from `git log`; descriptions are each session's account of its own work.
    It sat unowned from the day it was filed, and an item with no name against it
    is a note rather than a plan. That is most of why it was deferrable.
 
-   **A redesign follows in three phases — public site, then teacher, then student
-   pages** (31 Aug). Build the check anyway: phase one should not reach activity
-   chrome, and this is the only thing that would prove it did. Phases two and
-   three change the faces deliberately and need a planned baseline regeneration,
-   the one moment a real regression can hide inside an intended one.
+   **Phase one shipped without touching activity chrome** — both activities
+   diffed at 0 pixels. Phases two and three will need a baseline regeneration.
 
 ## 9. Open decisions — waiting on Maciej
 
