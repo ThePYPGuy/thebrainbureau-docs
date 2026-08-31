@@ -173,9 +173,8 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- **the codes are one namespace, and the join box is one door.** `access_codes` (migration **28, not on production**) keys on the code itself, so minting is an insert and a collision is a unique violation rather than a race two teachers can both win — and the id is chosen in TypeScript so the code is claimed *before* the row exists. **Both lifetimes are held:** a PIN leaves the registry when its session ends so the space cannot narrow, while a permanent code refuses any string ever used as a PIN — so last term's projector photo can at worst reach another live game, which is what recycling already meant, and can never reach a class. `/api/join` resolves once and dispatches: a game PIN typed into the join box is handed to `/live/join?pin=` already filled, not refused. **The router test caught a real bug before it shipped** — `normaliseCode` strips dashes, so `C-6M01` reached `isLegacyCode` as `C6M01`, and every old card would have been told *check the digits* when the digits were right. *(WI; nothing deleted, nothing pushed.)*
 - `9de0d0b` — **Create exists, and Discover / Bureau Library / Create is finally the whole list.** `/dashboard/banks/new` takes either door — blank or CSV — and both land in the same editor, so the two paths converge one step in rather than forking the product. The draft state is stated on screen and Publish is disabled until there is a question to publish, which is the trap named in the brief: a bank is `status='draft'`, `session_bank_is_playable()` gates live play on `published`, and without that a teacher builds a bank and finds no *Start live* button with nothing explaining why. Deployed and verified: `/dashboard/banks/new` answers **307 to login rather than 404**, and that route did not exist before this push — a cached bundle could not produce it. **Unverified: everything behind the login.** Creating a bank against production, and `/import` landing on `?door=csv`, both need a signed-in session. *(WI.)*
-- `669e2f2` — **the student PIN door is a PIN door.** Six boxes in two groups of three, auto-advancing, backspace stepping back, paste of `940 118` filling forward — in the skin's palette, because `/live/join` is `data-skin="field-terminal"` and `brand.md` forbids the Bureau register on an activity surface. **Step 2 is `inert`, not merely faded** — a faded section that is still tabbable is a trap for a keyboard user, and it was tested by tabbing rather than by looking. The *easier to read* switch sits deliberately outside the lock: a child who needs it needs it to read step 1. Guest consequence moved onto the option itself. `ClearViewToggle` gained an optional `description` defaulting to its current sentence, and `/profile`'s label is asserted byte-identical rather than assumed. `globals.css` untouched, verified here. **The already-signed-in door was not exercised** — it needs a live agent session and a live game on one device. *(Not pushed.)*
-- `112d8eb` — **phase 2: the teacher dashboard wears the Bureau face, and finally leads somewhere.** `.shell` → `.surface` by **restating** every class name the dashboard already used in `site.module.css` rather than renaming them, so the face moved by changing an import across 29 files — and SchoolPicker's both-faces problem *stopped existing* rather than being worked around. `/dashboard` opens on Discover, Bureau Library and My banks with a live game as the primary action, and `▶ Start live` on each published bank lands on `/dashboard/live?bank=`. **§8's unreachable-Signal-Check defect is closed**: 31 links crawled from `/dashboard`, all 200. The handle is one component shared with signup so the required sentence cannot drift between copies, and `/api/handle` excludes the caller's own row — without which the account page tells a teacher their own handle is taken. 445 contrast pairs across seven teacher pages, none under AA; `components/student/Dashboard.tsx` byte-identical to `main`, verified here. **Not pushed.** *(WD.)*
 
 ## 8. Next up
 
@@ -208,8 +207,12 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-**Nothing.** `/join` stays Field — decided 31 Aug, recorded in
-`visual-identity.md` with why the *account is Bureau* row does not reach a door.
+1. **Deleting the two classes destroys every deployment on the platform.** The
+   cascade `classes → deployments → phase_progress / task_progress /
+   attempt_log` is verified here against the live foreign keys. On production: 3
+   `class_members`, **all 4 deployments including `OP-35HY`**, 7 progress rows.
+   Agents survive with their Intel. **WI deleted nothing, and the six-digit
+   change does not need it** — old codes answer *replaced* today.
 
 ## 10. Known silent failures
 

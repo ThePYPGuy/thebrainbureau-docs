@@ -669,6 +669,19 @@ what it **selects**, not what it prints — and when you find the gap, fix the
 output so the wrong reading is unavailable rather than merely discouraged.
 That script now marks every row `platform` or `teacher <id>`.
 
+**A pattern that runs after a normaliser must match the normalised form, not
+the form a human types.** `normaliseCode` strips dashes, so a legacy class code
+`C-6M01` reached `isLegacyCode` as `C6M01` and matched nothing. The failure was
+not an error: every child holding an old card would have been told *check the
+digits* — advice they cannot act on, because the digits were right. Caught by a
+router test driving real HTTP, and it would not have shown up in a unit test of
+either function, because **each was correct in isolation.**
+
+The generalisable half is where to look. When a value crosses a normaliser, every
+validator downstream is now written against a shape nobody types and nobody sees
+in the UI. Read the normaliser before writing the pattern, and test through the
+path rather than against the function.
+
 **A check chained to the action it guards is not a check.** On 31 August a
 session ran `git status` and `git merge` as one command against the **main**
 worktree, which held another session's uncommitted work. It fast-forwarded on
