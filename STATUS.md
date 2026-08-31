@@ -35,6 +35,8 @@ cheaper check is wrong.
 |---|---|---|---|
 | **Operation Builder** | Prime Directive + the Case File skin | own, on `case-file` + PD | n/a |
 | **Website Infrastructure** | Platform, engine, scripts, checks | own, on `platform` | n/a |
+| **Quiz Maker** | Signal Check and the live modes | own, on `signal-check` | n/a |
+| **Website Designer** | The Bureau face — marketing site, both dashboards | **`main`'s tree** | yes |
 | **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` — *not* `scripts/docs-sync.mjs`, which publishes them and is WI's | own, on `docs` | n/a — never in main's tree |
 
 **Before your first write, run `git status --porcelain`.**
@@ -53,17 +55,17 @@ mechanics in `CLAUDE.md`.
 
 | Stream | Branch | Uncommitted | Status |
 |---|---|---|---|
-| Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images |
+| Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images — dormant |
+| Website redesign | `main` | seal, plus a stray `:Zone.Identifier` | **phase 1, the public homepage** |
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | level with `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
 
-**Signal Check is merged and live** — §7 has it. Nothing is mid-flight; the next
-work is §8, and the redesign Maciej has queued behind it.
+**The redesign works in `main`'s tree**, which the dormant Case File stream also
+holds. Two sessions in one tree is the hazard, not two on one file.
 
-**Doc commits ride to `origin` on the next code push.** `docs:sync` publishes the
-public mirror, not `origin`, so they accumulate on `main`. That is the cycle, not
-a backlog — and they are not another session's to push.
+**Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
+mirror, not `origin`. The cycle, not a backlog, and not another session's to push.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -150,13 +152,13 @@ Verified against `package.json` directly, not against a summary of it.
 | Check | Command | State |
 |---|---|---|
 | Preflight | `npm run doctor` | built (`d446fb4`) |
-| Publish drift | `npm run deploy:check [-- --prod]` | built (`0760a88`); `--prod` fixed (`8839d38`) — exits rather than checking the wrong database |
+| Publish drift | `npm run deploy:check [-- --prod]`, `import:one` | built (`0760a88`); `--prod` fixed (`8839d38`) — exits rather than checking the wrong database. `import:one` sends one drifted file |
 | Line endings | `.gitattributes` | built (`f0563c2`) |
-| Skin variety | `npm run skins` | built — reads the DB, not content files (§10) |
+| Skin variety | `npm run skins` | built — counts authored files and names its scope |
 | Tests | `npm run test`, `npm run e2e` | vitest suite; 6 e2e scripts, incl. answer leak |
 | Importer safety | `npm run test:reimport` | built |
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
-| Bank checks | `test:columns`, `:insight`, `:images`, `:search`, `:edit-after-serve`, `:copy`, `check:alt`, `check:keys` | built, 8 scripts |
+| Bank checks | `test:columns`, `:insight`, `:images`, `:search`, `:edit-after-serve`, `:copy`, `check:alt`, `check:keys`, `check:tokens` | built, 9 scripts; `check:tokens` fails on a hex or font literal outside a token block |
 
 **Activity schema is locked at 0.4**, and `activity-schema-v0.4.md` now exists —
 written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 18 files**, run on `signal-check`
@@ -171,8 +173,6 @@ from `git log`; descriptions are each session's account of its own work.
 - `862fe7a` — **Signal Check is live.** The live whole-class mode: session lifecycle, six-digit PIN, host controls, reconnection, late joiners, three question types and Intel settlement with the first-completion rule. Transport behind an interface the engine never sees past, with an in-memory implementation passing the same contract suite. Proven at thirty concurrent players by `npm run loadtest` — **96 msg/s**, which is what settled the move to Pro. Migration 26 applied to production and `deploy:check --prod` green at 26, re-run here; `/live/join` answers 200. Sentry came with it and now covers every surface. **The first thing here that a class could play together** — and the first that would fail in front of one. *(QM; every check re-run by Doc Manager.)*
 - `b663ad3` — **the question bank refactor is live.** `training_sims` split into banks, questions, keys, sessions, snapshots, runs and responses, with mode config on the session and **none on the bank**. Three question types, CSV import, images with an alt-text check, per-year-group difficulty from raw serves, the insight view, search, question editing and *Take a copy*. 25 migrations and the storage bucket applied to production; `deploy:check --prod` clean before and after the re-import. **The new code is serving** — `/api/bank-template` answers `text/csv`, a route only it has. The backfill gave 4 banks, 66 questions and 66 keys, and turned one historical run into a session with 10 snapshot rows; the slugless teacher draft came across as `draft/private`, which is the row a title-join would have lost. *(WI; every check re-run by Doc Manager.)*
 - `2b6df67`, `4983d89` — **the two authoring gaps closed**. `npm run skins` counts content files rather than rows, so it answers about what you are writing instead of what you have imported. And **a task can price its own hint**: `config.hintPenalty` overrides the activity's, falling back when absent, so Prime Directive's factors-and-primes hint need no longer cost the same as its subtraction hint. Every existing task keeps the old number. *(WI.)*
-- `f7a33d6` — **`npm run import:one -- <slug|path>`**, so one drifted file can go to production without rewriting the other six; the `--prod --yes` passthrough is preserved. *(WI.)*
-- `be460dc`, `aec8557` — **`npm run check:tokens`**, which fails on a hex colour or `font-family` written outside a token block: 43 existing literals grandfathered by name so the check lands green, and the list only shrinks. Four black slabs reached a light skin this week and each was one of these. **`npm run import` walks the directory** instead of naming every file, so a new activity no longer conflicts in `package.json` on every merge. *(WI.)*
 
 ## 8. Next up
 
