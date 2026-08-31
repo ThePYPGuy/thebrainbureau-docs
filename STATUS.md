@@ -63,8 +63,8 @@ mechanics in `CLAUDE.md`.
 
 **The redesign works in `main`'s tree**, which the dormant Case File stream also
 holds. Two sessions in one tree is the hazard, not two on one file. **The Signal
-Check projector is commissioned** (31 Aug) — Website Designer's, by one named
-exception in `visual-identity.md`, and the homepage card waits on it.
+Check projector is commissioned** (31 Aug) and is **Quiz Maker's** — a Field
+surface stays with the session that built it. The homepage card waits on it.
 
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
 mirror, not `origin`. The cycle, not a backlog, and not another session's to push.
