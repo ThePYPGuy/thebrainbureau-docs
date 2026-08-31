@@ -207,18 +207,12 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-Both are cheaper to settle now than to retrofit onto a shipped schema.
-
-- **Can teachers share banks — with each other, or between schools?** It decides
-  the `owner` and `status` columns on `question_banks`, which the refactor
-  creates, so the answer wants to arrive before the migration does.
-- **`docs/roadmap.md` and `docs/question-banks.md` disagree about Stage 3.** The
-  roadmap stars *Mainframe Breach* as "Agent Training, live", carrying the
-  session lifecycle, game PIN and realtime transport; `question-banks.md` says
-  Maciej moved Mainframe Breach to single player on 2026-08-31 and that *Signal
-  Check* is the live mode. One of the two is stale. Not urgent for either build,
-  but the plan currently contradicts itself and Doc Manager will not pick the
-  winner. *[verify]*
+**Nothing.** Both decisions filed here on 31 August are answered and have moved
+into `docs/`, which is where a decision lives once it is taken: banks are public
+or private, public meaning everyone on the platform and searchable with a play
+count; and Signal Check ships before Mainframe Breach, both modes under Agent
+Training rather than either replacing the other. The roadmap no longer
+contradicts `question-banks.md`.
 
 ## 10. Known silent failures
 

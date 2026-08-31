@@ -239,9 +239,19 @@ students it had LOCKS. Zero Hour is now "Operation 01" as the only one.
 
 ## Stage 3 — Agent Training, live
 
-★ **Mainframe Breach.** Session lifecycle, game PIN, realtime transport, host
-controls, reconnection, late joiners. The async modes forgive dropped wifi and
-dead iPads; this does not, which is the bulk of the work.
+★ **Signal Check, then Mainframe Breach** (ordered 2026-08-31). Both are modes
+under Agent Training; neither replaces the other.
+
+Signal Check is first and deliberately thin — one question to the whole class,
+a fixed answer window, no leaderboard. Its job is the machinery: session
+lifecycle, game PIN, realtime transport, host controls, reconnection, late
+joiners. The async modes forgive dropped wifi and dead iPads; this does not,
+which is the bulk of the work, and doing it inside the thinnest possible game
+keeps a broken transport from looking like a broken game.
+
+Mainframe Breach follows, adding its token economy on top of a transport that
+has already carried a real class. This entry named it alone while it was the
+live mode; `question-banks.md` holds both modes in full.
 
 **AI-assisted bank generation**, teacher-reviewed before any child sees a
 question.

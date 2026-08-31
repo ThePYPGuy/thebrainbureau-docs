@@ -26,7 +26,7 @@ another mode without dragging one mode's settings along.
 ### Target shape
 
 ```
-question_banks        title, subject, owner, tags, status
+question_banks        title, subject, owner, tags, status, visibility
   └── bank_questions  prompt, options, explanation, position
         └── keys      the correct answer — server-only, as now
 
@@ -37,6 +37,23 @@ training_sessions     bank + mode + config + class + status + game PIN
 
 Mode configuration — how many questions a round serves, what a correct answer
 pays, whether attacks are enabled — belongs to the **session**, not the bank.
+
+### Sharing — decided 2026-08-31
+
+A bank is **public or private**, and nothing between. Private is the owner's
+alone. **Public means everyone on the platform**, across schools: one global
+pool, not a per-school setting and not a share list. So `visibility` is a flag
+on the bank, and there is no join table recording who a bank was shared with —
+which is the whole reason to settle this before the migration rather than after.
+
+Public banks are **searchable**, and the search screen shows a **play count**
+beside each, so a teacher can tell a bank that has been used from one that has
+only been published.
+
+**Derive that count from the sessions, never keep a running total on the bank.**
+A maintained counter drifts the first time a session is deleted or a run dies
+halfway, and it drifts *silently* — the stale number still looks like a number.
+Same rule as the per-year-group difficulty tracking, and for the same reason.
 
 ### Migration from what exists
 
@@ -60,7 +77,7 @@ that round.
 Kept as a mode because it is genuinely useful — a child can practise a bank
 alone, at home, without the class or the teacher.
 
-### Mainframe Breach (single player, for now)
+### Mainframe Breach (single player, and after Signal Check)
 
 Correct answers earn **access tokens**; tokens buy attacks, defences and
 intelligence moves. Originally specified as the live whole-class mode; **Maciej
@@ -68,7 +85,11 @@ moved it to single-player on 2026-08-31** so that the multiplayer problem is
 solved once, in one place, rather than inside a mode that also has to be
 designed. It keeps its token economy and its fiction.
 
-### Signal Check (Phase 2 — the live one)
+**It is built after Signal Check** (decided 2026-08-31). The two are both modes
+under Agent Training and neither replaces the other; Signal Check goes first
+because it is the thinner of the two and proves the transport they share.
+
+### Signal Check (Phase 2 — the live one, and the next one built)
 
 Live, whole-class, synchronous, and **the test for the multiplayer environment**
 rather than a game that happens to be multiplayer. That is its purpose: if
@@ -89,6 +110,11 @@ The async modes forgive all of this; synchronous play forgives none of it,
 which is why Signal Check is a larger build than its description suggests —
 and why it is worth building as the mode whose job is to prove the transport.
 
+**Keep it the thinnest thing that proves the transport** (decided 2026-08-31):
+one question to everyone at once, a fixed answer window, no speed bonus and no
+individual leaderboard. Every feature it does not have is one that cannot
+confuse a failure of the plumbing for a failure of the game.
+
 ---
 
 ## Authoring
@@ -103,9 +129,12 @@ the parsing. It is that **the answer key cannot live in the same place as the
 questions** — keys are in a table no client-facing role can read, and that rule
 holds for every mode. So a CSV either carries the key and is a file that must
 never be served back, or it does not and the teacher marks answers after
-import. Decide that before writing a parser. Also unsettled: the column
-contract, what happens to a malformed row (reject the file, or import the rest
-and report), and whether re-uploading a bank updates it or duplicates it.
+import. Decide that before writing a parser.
+
+**Malformed rows are settled**: the whole file is validated before any insert,
+so a bad row rejects the file rather than importing its neighbours and
+reporting. **Still unsettled**: where the key lives, the column contract, and
+whether re-uploading a bank updates it or duplicates it.
 
 **Not built:** AI-assisted generation from a topic or pasted text, with teacher
 review before use. This is in the locked overview and needs a model call, a
