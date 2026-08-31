@@ -61,10 +61,15 @@ mechanics in `CLAUDE.md`.
 
 **Signal Check has started.** Transport interface, two implementations behind one
 contract suite, the engine, the per-player shuffle, the telemetry scrubber, and
-**Signal Check is complete on the branch** — 14 commits, 395 tests across 18
-files and 45 e2e checks, all re-run here. The teacher session screen and the
-accessibility switch were the last two, and both landed. Migration 26 is still
-branch-only: not `main`, not production.
+**Signal Check is complete and the merge is authorised** (31 Aug) — 14 commits,
+395 tests across 18 files, 45 e2e checks, all re-run here. Not yet merged.
+
+**Order, and none of it is preference.** Migration 26 reaches production
+*before* `main` is pushed: it carries `submit_live_answer`, so code arriving
+first is broken rather than degraded. Then push — which deploys, **turns Sentry
+on for the whole app**, and carries 19 docs commits of mine. Then read the Vercel
+build log for the source-map upload, then `deploy:check -- --prod`, then confirm
+one stack trace. Production commands from `main`'s worktree only.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -205,12 +210,8 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-- **Merge `signal-check` and deploy?** Nothing waits on an agent: both pre-merge
-  screens landed, 395 tests and 45 e2e checks pass, `doctor` is green. Bigger
-  than the last merge in two ways — migration 26 carries `submit_live_answer`,
-  which the atomic write depends on, and merging **turns Sentry on for the whole
-  app**, not only this mode. Order: migrations first, then push, then read the
-  Vercel build log, then confirm one stack trace.
+**Nothing.** The `signal-check` merge and deployment were authorised 31 Aug; the
+order is in §2, and every other decision today has moved into `docs/`.
 
 ## 10. Known silent failures
 
