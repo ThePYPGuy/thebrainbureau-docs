@@ -59,6 +59,14 @@ installed, and where, is reported by `npm run doctor` — this file does not
 say, because a written claim about an environment is wrong the moment the
 environment changes and nothing announces it.
 
+**A file dragged from Windows arrives with a `:Zone.Identifier` companion.**
+Windows attaches an alternate data stream to anything downloaded; copying it into
+WSL turns that stream into a real file sitting beside the original — 25 bytes,
+untracked, and **not covered by `.gitignore`**, so a careless `git add public/`
+commits it. It is named after its partner and *survives a rename of it*, so it
+outlives the file it described and points at nothing. Delete it, and add
+`*:Zone.Identifier` to `.gitignore` — every asset dropped in this way brings one.
+
 **Use `-ic`.** Not `-lc`, and not a bare `-c`. `nvm` is sourced from
 `~/.bashrc`, which only an *interactive* shell reads — so any non-interactive
 shell has no `node` at all, `npm` falls through to the Windows `npm.exe` on the
