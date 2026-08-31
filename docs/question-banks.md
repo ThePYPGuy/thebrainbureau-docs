@@ -231,10 +231,22 @@ handles difficulty tags, the confidence threshold and a question-level image —
 but it does not edit questions, so **CSV import is currently the only authoring
 path for a bank**. The sim editor holds the model for closing this.
 
-Also outstanding on the bank screens: **per-option images**, which the columns
-and the CSV already carry, and the **Take a copy** action — both screens
-describe the ownership model in those words while the button does not exist, and
-`copied_from` sits in the schema waiting for it.
+**Take a copy** landed 2026-08-31. A copy is a fork and not a link: new question
+rows with new ids, no slug, no `content_hash`, no archived questions, and the
+statistics stay with the original by construction rather than by anything
+deleting them. `copied_from` is provenance only — nothing reads through it at
+runtime.
+
+Still outstanding: **per-option images in the editor**, and the gap is the
+interface alone. The columns carry them, the CSV parser reads `option1image` and
+`option1alt`, `check:alt` covers them, and editing a question **preserves** the
+ones it already has rather than dropping them. So a bank can hold per-option
+images that cannot be added or changed on screen; changing one means
+re-importing.
+
+Unlike *Take a copy*, nothing in the interface promises otherwise. It is an
+absence rather than a broken promise, which is the distinction that kept it from
+holding the merge.
 
 **Not built: CSV upload.** Requested 2026-08-31, and the design question is not
 the parsing. It is that **the answer key cannot live in the same place as the
