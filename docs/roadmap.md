@@ -291,8 +291,9 @@ schools ask during procurement.
 
 1. Should a Type 3 agent be barred from the front door, or is it one record
    with two doors? Recommended the latter.
-2. Do Agent Training **access tokens** convert to Intel, or stay in-round with
-   Intel awarded separately? Recommended separate.
+2. ~~Do Agent Training **access tokens** convert to Intel?~~ **Decided
+   2026-08-31: they convert.** Whether *earned* or *unspent* tokens convert is
+   open; see `intel-and-clearance.md`.
 3. Clearance thresholds and the three titles above Senior Analyst — proposals.
 4. Whether the crosswalk grows a Humanities section, or non-covered subjects
    carry plain-language tags with no framework mapping.

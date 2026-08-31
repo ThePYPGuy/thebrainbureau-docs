@@ -76,6 +76,19 @@ pool, not a per-school setting and not a share list. So `visibility` is a flag
 on the bank, and there is no join table recording who a bank was shared with —
 which is the whole reason to settle this before the migration rather than after.
 
+**Only the owner edits a bank. Everyone else copies it.** A public bank is not
+a shared object with several editors — a teacher who wants to use someone else's
+takes a copy, and that copy is theirs. So a bank has one owner and needs no
+permission model beyond `visibility`, and an owner editing their own bank can
+never change a lesson running in another teacher's class.
+
+The copy carries `copied_from` back to its source. That is not lineage for its
+own sake: without it, difficulty statistics fragment. Fifty teachers copying one
+bank produce fifty banks of under twenty plays each, the confidence threshold
+never trips anywhere, and a question answered a thousand times platform-wide
+still reads as *not enough to rate yet*. Keep the link so serves can be pooled
+across a lineage later, whether or not the first build pools them.
+
 Public banks are **searchable**, and the search screen shows a **play count**
 beside each, so a teacher can tell a bank that has been used from one that has
 only been published.

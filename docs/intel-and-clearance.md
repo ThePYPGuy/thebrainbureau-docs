@@ -158,8 +158,15 @@ Principles:
   retry, the currency is pay-to-win against children who find the work harder.
 - Prices are configuration.
 
-**OPEN:** whether Agent Training's in-game **access tokens** convert to Intel
-at the end of a session, or are purely in-round and Intel is awarded
-separately. Recommend the latter — tokens are a mechanic inside one game,
-Intel is the platform's currency, and conflating them makes every future mode
-an economy negotiation.
+**DECIDED 2026-08-31: access tokens convert to Intel** at the end of a session.
+This document recommended the opposite — keeping tokens in-round — on the
+grounds that conflating a mode's mechanic with the platform currency makes every
+future mode an economy negotiation. That cost is now accepted rather than
+unnoticed: each new mode has to state its conversion, and no mode may set one
+that makes an hour of it worth more Intel than an hour of anything else.
+
+**Still to settle: whether *earned* or *unspent* tokens convert.** Mainframe
+Breach spends tokens on attacks and defences, so converting only what is left
+pays a child for refusing to play the mechanic the mode is built on — the
+quietest kind of broken incentive, because the game still works and simply
+rewards not using it. Converting what was earned has no such pull.
