@@ -114,8 +114,15 @@ usually a re-import.
 
 **Live:** the platform, three activities, the Case File skin and its CSS, the
 evidence capability, and the `completion` gate. Prime Directive published at
-`bb7f9b2` and imported to production; its art is on `main` and serving. Nothing
-is built but unshipped.
+`bb7f9b2` and imported to production; its art is on `main` and serving. The
+question bank refactor is live at `b663ad3`.
+
+**Signal Check is built and unshipped, and that includes Sentry.** `next.config.ts`
+on `main` has no Sentry in it — checked, not assumed — so the production build
+does not include the SDK and `SENTRY_AUTH_TOKEN` in Vercel is **inert until
+`signal-check` merges**. Nothing is being monitored in production today, and the
+readable-stack-trace check cannot run until after that merge and the deploy that
+follows it.
 
 This paragraph said the opposite for several hours after the fact — *not live,
 art 404s, CSS styles nothing* — every clause true when written. The publish step
