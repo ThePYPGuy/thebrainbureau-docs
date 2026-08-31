@@ -176,8 +176,8 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **Retake the projector captures** — both show the bank as *SIGNAL CHECK
-   FIXTURE*, and the reveal carries the Next.js dev badge, so it cannot ship. *(QM.)*
+1. **Retake the projector captures and fill `/missions`** — both shots show
+   *SIGNAL CHECK FIXTURE*, the reveal has the dev badge, `/missions` has one image. *(WD.)*
 1. **Signal Check is unreachable from the interface.** `/dashboard/live` is linked
    from nothing and `/live/join` appears only as prose on the teacher's screen.
    Both were driven by URL in verification, which is how it passed. *(Quiz Maker.)*
