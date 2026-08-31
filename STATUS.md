@@ -174,16 +174,9 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-- **Four open class codes on production, two of them nobody's.** `OP-35HY`
-  (Prime Directive) and `OP-LNDV` sit on class **5B** and look deliberate.
-  `OP-YJV3` and `GL-4QDR` sit on a class named **`%B`** — created in the *same
-  microsecond* as 5B (`11:38:50.043033`, 24 Aug) under a different
-  `teacher_id`, which means a script made both, not a person. And `%` is
-  shift-`5`: `%B` is `5B` typed with the shift key held. Seed data, almost
-  certainly, wearing a name that looks like a bug. Nothing has been touched.
-  Decide whether to close the two stale codes and archive the class — and note
-  that `deploy:check` reads content, not deployments, so nothing would ever
-  have told you these were here.
+**Nothing.** Both classes and all four codes are Maciej's — `%B` was a misclick,
+not seed data. My inference that the identical microsecond timestamp proved a
+script was wrong, and confidently so.
 
 ## 10. Known silent failures
 

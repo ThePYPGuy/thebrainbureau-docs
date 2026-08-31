@@ -1,7 +1,9 @@
 # Question Banks and Game Modes
 
-**Status: structure decided 2026-08-24. Not yet implemented — what shipped
-conflates all three concepts below into one row.**
+**Status: structure decided 2026-08-24, modes revised 2026-08-31. Not yet
+implemented — what shipped conflates all three concepts below into one row.**
+Verified 2026-08-31: `training_sims` exists; `question_banks`, `bank_questions`,
+`training_sessions`, `runs` and `responses` do not.
 
 ---
 
@@ -58,10 +60,20 @@ that round.
 Kept as a mode because it is genuinely useful — a child can practise a bank
 alone, at home, without the class or the teacher.
 
-### Mainframe Breach (Phase 2, the real Agent Training)
+### Mainframe Breach (single player, for now)
 
-Live, whole-class, synchronous. Correct answers earn **access tokens**; tokens
-buy attacks, defences and intelligence moves against other agents.
+Correct answers earn **access tokens**; tokens buy attacks, defences and
+intelligence moves. Originally specified as the live whole-class mode; **Maciej
+moved it to single-player on 2026-08-31** so that the multiplayer problem is
+solved once, in one place, rather than inside a mode that also has to be
+designed. It keeps its token economy and its fiction.
+
+### Signal Check (Phase 2 — the live one)
+
+Live, whole-class, synchronous, and **the test for the multiplayer environment**
+rather than a game that happens to be multiplayer. That is its purpose: if
+synchronous play works here it works for any later mode, and if it does not,
+only one mode is affected.
 
 Needs, none of which exists yet:
 
@@ -74,7 +86,8 @@ Needs, none of which exists yet:
 - **Display-name moderation**, since names appear on a shared screen.
 
 The async modes forgive all of this; synchronous play forgives none of it,
-which is why Agent Training is a larger build than its description suggests.
+which is why Signal Check is a larger build than its description suggests —
+and why it is worth building as the mode whose job is to prove the transport.
 
 ---
 
@@ -84,6 +97,15 @@ Teachers build banks themselves — that was the reason the mode exists.
 
 **Built:** a manual editor. Add questions, two to six options, mark the correct
 one, add an explanation shown on the review screen. Publish to your classes.
+
+**Not built: CSV upload.** Requested 2026-08-31, and the design question is not
+the parsing. It is that **the answer key cannot live in the same place as the
+questions** — keys are in a table no client-facing role can read, and that rule
+holds for every mode. So a CSV either carries the key and is a file that must
+never be served back, or it does not and the teacher marks answers after
+import. Decide that before writing a parser. Also unsettled: the column
+contract, what happens to a malformed row (reject the file, or import the rest
+and report), and whether re-uploading a bank updates it or duplicates it.
 
 **Not built:** AI-assisted generation from a topic or pasted text, with teacher
 review before use. This is in the locked overview and needs a model call, a
