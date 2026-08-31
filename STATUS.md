@@ -180,6 +180,10 @@ from `git log`; descriptions are each session's account of its own work.
 
 1. **Delete WD's undo.** `a1da068` is in `main`, the bare rules are scoped, and
    the `currentColor` block in `site.module.css` now neutralises nothing. *(WD.)*
+1. **Re-mint the two classes and four deployments** with six-digit codes from
+   `access_codes`; **delete nothing**. The code is not a foreign key — progress
+   hangs off `deployment_id` — so the string changes and every row lives. Ends
+   with no legacy codes anywhere. *(WI. Maciej reprints and hands out.)*
 1. **Prime Directive's `_note` claims the `prefix` field is never rendered.**
    `Tasks.tsx:428` and `:583` draw it now. **Delete only the "never rendered"
    and "platform gap" clauses** — keep the rest: the answer is numeric `9`
@@ -207,12 +211,8 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-1. **Deleting the two classes destroys every deployment on the platform.** The
-   cascade `classes → deployments → phase_progress / task_progress /
-   attempt_log` is verified here against the live foreign keys. On production: 3
-   `class_members`, **all 4 deployments including `OP-35HY`**, 7 progress rows.
-   Agents survive with their Intel. **WI deleted nothing, and the six-digit
-   change does not need it** — old codes answer *replaced* today.
+**Nothing.** Old codes are **re-minted, not deleted** — decided 31 Aug, once the
+cascade was measured. §8 carries the job; nothing is lost.
 
 ## 10. Known silent failures
 

@@ -262,8 +262,15 @@ game is not a fault anyone diagnoses quickly.
 ### All three become six digits, in one namespace — decided 2026-08-31
 
 **Every code is six digits, and no two codes are ever the same, whatever kind
-they are.** Existing class codes are deleted rather than migrated; Maciej gave
-that explicitly, and there is one class locally and two on production.
+they are.** Existing classes and deployments are **re-minted, not deleted**.
+
+*That reverses the first version of this decision, which said deleted.* Deletion
+was agreed before anyone had followed the cascade: `classes → deployments →
+phase_progress / task_progress / attempt_log`, all `CASCADE`. On production it
+would have taken **all four deployments including the open code** and seven rows
+of children's progress. Re-minting costs nothing by comparison, **because the
+code is not a foreign key** — progress hangs off `deployment_id`, so the string
+changes and every row survives.
 
 The reason is not tidiness. It is that **uniform codes without a router make the
 confusion worse, not better** — three doors that each reject two-thirds of a
