@@ -13,9 +13,11 @@ the platform does.**
 | [product-overview.md](product-overview.md) | The four activity types, cross-cutting systems, entities. Canonical language. |
 | [identity-and-access.md](identity-and-access.md) | Student and teacher identity, the three student types, codes, subscription tiers. |
 | [intel-and-clearance.md](intel-and-clearance.md) | The two-number Intel economy, earning rules, the clearance ladder. |
-| [question-banks.md](question-banks.md) | Splitting banks from modes from sessions; what live Agent Training needs. |
+| [question-banks.md](question-banks.md) | Splitting banks from modes from sessions; the modes, and how a bank is reached. |
+| [activity-schema-v0.4.md](activity-schema-v0.4.md) | The activity contract. An activity is data; the engine renders anything conforming to it. |
 | [curriculum-tagging.md](curriculum-tagging.md) | Tagging tasks to one skill and resolving it into five frameworks; library search. |
 | [visual-identity.md](visual-identity.md) | The Bureau face and the Field face, skin archetypes, and how skins should be built. |
+| [brand.md](brand.md) | The Bureau face identity — palette, type, buttons, logo, voice. Adopted 2026-08-31. |
 | [roadmap.md](roadmap.md) | Dependency-ordered plan, what is settled, and the open questions. |
 
 ## Conventions
