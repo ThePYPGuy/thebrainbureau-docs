@@ -208,6 +208,9 @@ from `git log`; descriptions are each session's account of its own work.
    never lets the page idle. Carry a **rendered-width assertion per skin**: a
    known string in the display face against a nonexistent family, failing if
    they match — with a discriminating string, since a 10px gap proves nothing.
+   ***(Website Infrastructure, once `signal-check` merges — assigned 31 Aug.)***
+   It sat unowned from the day it was filed, and an item with no name against it
+   is a note rather than a plan. That is most of why it was deferrable.
 
 ## 9. Open decisions — waiting on Maciej
 
