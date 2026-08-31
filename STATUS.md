@@ -57,19 +57,9 @@ mechanics in `CLAUDE.md`.
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | level with `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
-| Signal Check | `signal-check` in `../tbb-quiz` | none | **complete on the branch** — 14 commits |
 
-**Signal Check has started.** Transport interface, two implementations behind one
-contract suite, the engine, the per-player shuffle, the telemetry scrubber, and
-**Signal Check is complete and the merge is authorised** (31 Aug) — 14 commits,
-395 tests across 18 files, 45 e2e checks, all re-run here. Not yet merged.
-
-**Order, and none of it is preference.** Migration 26 reaches production
-*before* `main` is pushed: it carries `submit_live_answer`, so code arriving
-first is broken rather than degraded. Then push — which deploys, **turns Sentry
-on for the whole app**, and carries 19 docs commits of mine. Then read the Vercel
-build log for the source-map upload, then `deploy:check -- --prod`, then confirm
-one stack trace. Production commands from `main`'s worktree only.
+**Signal Check is merged and live** — §7 has it. Nothing is mid-flight; the next
+work is §8, and the redesign Maciej has queued behind it.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -112,8 +102,9 @@ never asks Vercel which commit is serving. Confirmed *indirectly* 31 Aug:
 in the merged code, so the deployment is current. The SHA itself is still
 unasked — a route is evidence, not an identity.
 
-**Production matches the repo** — `--prod` green after `b663ad3`: 25 migrations
-applied, three activities and three training banks published, 73 skills, 20 tags. **Re-run after every
+**Production matches the repo** — `--prod` green after the Signal Check merge:
+**26 migrations applied**, three activities and three training banks published,
+73 skills, 20 tags. **Re-run after every
 publish**: `?` is not `DRIFT` — it means unconfirmable, and the answer is
 usually a re-import.
 
@@ -122,12 +113,12 @@ evidence capability, and the `completion` gate. Prime Directive published at
 `bb7f9b2` and imported to production; its art is on `main` and serving. The
 question bank refactor is live at `b663ad3`.
 
-**Signal Check is built and unshipped, and that includes Sentry.** `next.config.ts`
-on `main` has no Sentry in it — checked, not assumed — so the production build
-does not include the SDK and `SENTRY_AUTH_TOKEN` in Vercel is **inert until
-`signal-check` merges**. Nothing is being monitored in production today, and the
-readable-stack-trace check cannot run until after that merge and the deploy that
-follows it.
+**Sentry is now on for the whole app**, not only Signal Check — the dashboard,
+the terminal and the three activities that never had error monitoring. It
+arrived with this merge rather than being switched on deliberately, which is
+worth knowing the first time an unfamiliar error appears from an old surface.
+**Still unconfirmed: whether stack traces are legible.** The Vercel build log
+answers whether source maps uploaded; a real error answers the rest. *[verify]*
 
 The gate was **verified locally, not on production** *[verify — no session has
 re-checked this since 25 Aug]* — proving it there means
@@ -177,6 +168,7 @@ written. **`npm run test` is green — 395/395, 18 files**, run on `signal-check
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `862fe7a` — **Signal Check is live.** The live whole-class mode: session lifecycle, six-digit PIN, host controls, reconnection, late joiners, three question types and Intel settlement with the first-completion rule. Transport behind an interface the engine never sees past, with an in-memory implementation passing the same contract suite. Proven at thirty concurrent players by `npm run loadtest` — **96 msg/s**, which is what settled the move to Pro. Migration 26 applied to production and `deploy:check --prod` green at 26, re-run here; `/live/join` answers 200. Sentry came with it and now covers every surface. **The first thing here that a class could play together** — and the first that would fail in front of one. *(QM; every check re-run by Doc Manager.)*
 - `b663ad3` — **the question bank refactor is live.** `training_sims` split into banks, questions, keys, sessions, snapshots, runs and responses, with mode config on the session and **none on the bank**. Three question types, CSV import, images with an alt-text check, per-year-group difficulty from raw serves, the insight view, search, question editing and *Take a copy*. 25 migrations and the storage bucket applied to production; `deploy:check --prod` clean before and after the re-import. **The new code is serving** — `/api/bank-template` answers `text/csv`, a route only it has. The backfill gave 4 banks, 66 questions and 66 keys, and turned one historical run into a session with 10 snapshot rows; the slugless teacher draft came across as `draft/private`, which is the row a title-join would have lost. *(WI; every check re-run by Doc Manager.)*
 - `2b6df67`, `4983d89` — **the two authoring gaps closed**. `npm run skins` counts content files rather than rows, so it answers about what you are writing instead of what you have imported. And **a task can price its own hint**: `config.hintPenalty` overrides the activity's, falling back when absent, so Prime Directive's factors-and-primes hint need no longer cost the same as its subtraction hint. Every existing task keeps the old number. *(WI.)*
 - `f7a33d6` — **`npm run import:one -- <slug|path>`**, so one drifted file can go to production without rewriting the other six; the `--prod --yes` passthrough is preserved. *(WI.)*
@@ -208,13 +200,11 @@ from `git log`; descriptions are each session's account of its own work.
    It sat unowned from the day it was filed, and an item with no name against it
    is a note rather than a plan. That is most of why it was deferrable.
 
-   **A redesign follows, in three phases: public site, then teacher pages, then
-   student pages** (31 Aug). Build the check anyway. Phase one is not supposed to
-   reach activity chrome, and this is the only thing that would prove it did —
-   `globals.css` reaches every activity, and two separate invisible-text bugs
-   came out of token scoping today. Phases two and three change the faces on
-   purpose and will need a deliberate baseline regeneration, which is the moment
-   a real regression hides inside an intended one.
+   **A redesign follows in three phases — public site, then teacher, then student
+   pages** (31 Aug). Build the check anyway: phase one should not reach activity
+   chrome, and this is the only thing that would prove it did. Phases two and
+   three change the faces deliberately and need a planned baseline regeneration,
+   the one moment a real regression can hide inside an intended one.
 
 ## 9. Open decisions — waiting on Maciej
 
