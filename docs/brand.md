@@ -125,6 +125,43 @@ governs.
 
 ---
 
+## Page rhythm — every page, not just the homepage
+
+**A long page alternates light and dark bands.** Not light and lighter. The
+alternation is what tells a reader where one idea ends and the next begins, and
+it is as much the identity as the palette is.
+
+| Ground | Use |
+|---|---|
+| Cream `#f5f4f0` | The light band |
+| Navy `#14284A` | The dark band — nav, hero, CTA strip, footer |
+| Mid navy `#1A2035` | The dark band when navy is already adjacent |
+
+**White is not a section ground.** It is the utility bar and it is cards. Cream
+against white is **1.04:1** — two bands by the stylesheet and one band to the
+eye, which is the same as not alternating at all.
+
+**Bands are separated by an SVG wave, never a straight edge or a gradient.** The
+waves are load-bearing: they are the reason the page reads as one designed
+surface rather than a stack of coloured rectangles.
+
+```html
+<!-- light into dark: wrapper background is the dark colour -->
+<svg viewBox="0 0 1440 50" preserveAspectRatio="none">
+  <path d="M0,50 C480,0 960,0 1440,50 L1440,0 L0,0 Z" fill="#f5f4f0"/>
+</svg>
+
+<!-- dark into light: wrapper background is the light colour -->
+<svg viewBox="0 0 1440 50" preserveAspectRatio="none">
+  <path d="M0,0 C480,50 960,50 1440,0 L1440,50 L0,50 Z" fill="#1A2035"/>
+</svg>
+```
+
+The homepage runs navy → cream → mid navy → cream → navy. Any page with three or
+more sections follows the same shape. A page that ends up all one tone has lost
+the rhythm even if its stylesheet says otherwise — check it by looking, and by
+reading the computed backgrounds rather than the class names.
+
 ## Type scale
 
 | Element | Font | Size | Colour |
