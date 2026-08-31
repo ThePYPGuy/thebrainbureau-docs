@@ -62,9 +62,9 @@ mechanics in `CLAUDE.md`.
 
 **The refactor is close to whole on `platform`, still not on `main`.** 25
 migrations, four screens, 323/323 run here, mode config on
-`training_sessions.config` and none on the bank. **Still absent:** question
-editing — CSV import is a bank's only authoring path — per-option images, and
-the *Take a copy* button both screens describe in words.
+`training_sessions.config` and none on the bank. **Question editing blocks the
+merge** — decided 31 Aug, since a bank authored only by CSV is a real constraint
+on a teacher. Per-option images and *Take a copy* do not block it.
 
 **A pre-existing bug the screens exposed:** every `<strong>` on the Bureau face
 was white on off-white. Invisible, no error. Fixed `e74e085`; lesson in `CLAUDE.md`.
