@@ -402,6 +402,38 @@ they show as a count rather than a rating. This is correct rather than a defect
 to fix: a year group invented for them would be a guess presented as data, and
 per-year-group difficulty simply starts accumulating from the first live session.
 
+### Two kinds of bank, and only one is tagged in detail — decided 2026-08-31
+
+**Bureau banks are tagged in detail. Teacher banks may be, and are never made
+to be.**
+
+The two are already distinct in the schema rather than by convention: a Bureau
+bank carries a `slug` and a `content_hash`, because it came from a file the repo
+tracks. A teacher's carries an `owner_teacher_id` and neither.
+
+**Curriculum tagging is real work, and most teachers will not do it.** Requiring
+it would not produce tagged banks; it would produce fewer banks, which is worse
+than an untagged one. The Bureau library carries the tagging burden because
+being searchable by curriculum is the whole of its value — that is what a
+teacher comes to it for, and it is why the Bureau writes it rather than asking
+someone else to.
+
+The schema already behaves this way and should stay that way:
+`bank_question_skills` is a join table, so absence is the default, and the
+importer validates only what is supplied — a typo fails the whole file before
+anything is written, while supplying nothing is silent. **A tag that exists is
+trustworthy; a missing one costs nothing.**
+
+**The trade, stated so nobody later "fixes" it:** an untagged teacher bank will
+not appear in a curriculum search. It stays findable by subject, year group,
+title, tags and play count. That is the correct price and requiring tags is not
+the remedy.
+
+*Blocked in one direction:* the JSON importer that Bureau banks are authored
+through cannot write skills or difficulty at all — only the CSV path can. So
+"tagged in detail" is currently unimplementable for the library, and closing
+that is the work that has to come before authoring at scale.
+
 Teachers tag difficulty when authoring — **recall / apply / stretch**. Live data
 overrides that tag only above a confidence threshold, **starting at 20 plays for
 that year group**. Below it the editor shows the count instead — *answered 6
