@@ -208,6 +208,14 @@ from `git log`; descriptions are each session's account of its own work.
    It sat unowned from the day it was filed, and an item with no name against it
    is a note rather than a plan. That is most of why it was deferrable.
 
+   **A redesign follows, in three phases: public site, then teacher pages, then
+   student pages** (31 Aug). Build the check anyway. Phase one is not supposed to
+   reach activity chrome, and this is the only thing that would prove it did —
+   `globals.css` reaches every activity, and two separate invisible-text bugs
+   came out of token scoping today. Phases two and three change the faces on
+   purpose and will need a deliberate baseline regeneration, which is the moment
+   a real regression hides inside an intended one.
+
 ## 9. Open decisions — waiting on Maciej
 
 **Nothing.** The `signal-check` merge and deployment were authorised 31 Aug; the
