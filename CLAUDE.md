@@ -302,6 +302,15 @@ while `innerWidth === 0` as void, and refresh by navigating rather than
 scrolling. Both failures produce confident numbers rather than errors, which is
 why they cost hours rather than minutes.
 
+**The browser pane cannot reach the dev server on `127.0.0.1`.** The pane runs
+on Windows and the server runs in WSL2, which forwards `localhost` but not
+`127.0.0.1`. The pane then reports a *successful* navigation and renders a black
+page — indistinguishable from a component that throws on mount, and it has
+already cost one wrong conclusion. Use `localhost` from the pane. Note the
+asymmetry: `scripts/` run inside WSL, where `127.0.0.1` is correct and is what
+`BASE_URL` defaults to, so the two halves of this repo want different hosts for
+the same server.
+
 **The zoom overlay's skin is threaded by hand, at two mount sites.**
 `Frame.tsx` mounts `ZoomProvider` at :98 and :107, each passing `skin={resolved}`.
 The overlay is deliberately a *sibling* of the skinned viewport because
@@ -424,6 +433,22 @@ the selector matches, then decide.
 `--font-display` and `--font-body` on `<html>`, which sits above every
 `[data-skin]` block. An un-namespaced token therefore loses silently, and
 inherited prose wears the wrong face while headings look fine.
+
+**A token with a fallback, set by some faces and not others, fails invisibly.**
+`globals.css` paints every `<strong>` with `var(--ink-strong, #ffffff)`. Field
+Terminal and Case File set that token; the Bureau face never did, so emphasised
+text fell through to the fallback and rendered **white on off-white** — the DOM
+holding the text, the element having a box, `visibility: visible`, `opacity: 1`,
+and only the pixels missing. `SimEditor.tsx`'s question heading and the class
+panel's year label had been invisible on the dashboard for as long as they had
+existed. Fixed at `e74e085` in `brand.module.css`, where the face is defined.
+
+The fallback is the trap. Without one the text would have been unstyled and
+obvious; with one it is confidently wrong, and every programmatic check agrees
+it is fine. **When you give a token a fallback, check every face that does not
+set it** — and this was found by looking at a screenshot and noticing that
+"Answer:" had nothing after it, which is the third level in *Look at each
+activity in a browser before pushing*.
 
 **A fixed-height child in a flex parent with default `align-items` stretches
 the parent**, and the surplus renders as chrome. One such bug showed 167px of

@@ -222,8 +222,19 @@ confuse a failure of the plumbing for a failure of the game.
 
 Teachers build banks themselves — that was the reason the mode exists.
 
-**Built:** a manual editor. Add questions, two to six options, mark the correct
-one, add an explanation shown on the review screen. Publish to your classes.
+**Built, for `training_sims`.** The sim editor adds questions, two to six
+options, marks the correct one and adds an explanation shown on the review
+screen.
+
+**Not carried over to banks yet.** The bank editor built alongside the refactor
+handles difficulty tags, the confidence threshold and a question-level image —
+but it does not edit questions, so **CSV import is currently the only authoring
+path for a bank**. The sim editor holds the model for closing this.
+
+Also outstanding on the bank screens: **per-option images**, which the columns
+and the CSV already carry, and the **Take a copy** action — both screens
+describe the ownership model in those words while the button does not exist, and
+`copied_from` sits in the schema waiting for it.
 
 **Not built: CSV upload.** Requested 2026-08-31, and the design question is not
 the parsing. It is that **the answer key cannot live in the same place as the

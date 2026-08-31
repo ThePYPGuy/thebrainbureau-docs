@@ -60,14 +60,14 @@ mechanics in `CLAUDE.md`.
 | Question bank refactor | `platform` in `../tbb-platform` | none | **data layer done, no screens** — 13 commits from `6602bf0` |
 | Signal Check | `signal-check` in `../tbb-quiz` | not started | **blocked until the refactor is complete and on `main`** |
 
-**The data layer is complete on `platform`; the screens do not exist.** 25
-migrations, 312/312 run here, mode config on `training_sessions.config` and none
-on the bank. `git diff --name-only main..platform -- app components` returns
-nothing: the CSV preview, the editor threshold, the insight view, bank search
-and image upload each have a query layer and no surface.
+**The refactor is close to whole on `platform`, still not on `main`.** 25
+migrations, four screens, 323/323 run here, mode config on
+`training_sessions.config` and none on the bank. **Still absent:** question
+editing — CSV import is a bank's only authoring path — per-option images, and
+the *Take a copy* button both screens describe in words.
 
-**Those screens are the Bureau face, not Field Terminal** — administration, and
-`visual-identity.md` records a board once built inside the CRT and removed.
+**A pre-existing bug the screens exposed:** every `<strong>` on the Bureau face
+was white on off-white. Invisible, no error. Fixed `e74e085`; lesson in `CLAUDE.md`.
 
 **Signal Check waits for the whole refactor, not for the schema** — decided
 31 Aug, a choice and not a constraint: the schema alone would have been enough
@@ -171,7 +171,7 @@ Verified against `package.json` directly, not against a summary of it.
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
 
 **Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never
-written. **`npm run test` is green — 312/312, 13 files**, run on `platform`
+written. **`npm run test` is green — 323/323, 13 files**, run on `platform`
 31 Aug. Still no CI, so that number ages the moment anybody commits.
 
 ## 7. Recently completed
