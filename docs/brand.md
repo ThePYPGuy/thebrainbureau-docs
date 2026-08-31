@@ -145,17 +145,19 @@ eye, which is the same as not alternating at all.
 waves are load-bearing: they are the reason the page reads as one designed
 surface rather than a stack of coloured rectangles.
 
-```html
-<!-- light into dark: wrapper background is the dark colour -->
-<svg viewBox="0 0 1440 50" preserveAspectRatio="none">
-  <path d="M0,50 C480,0 960,0 1440,50 L1440,0 L0,0 Z" fill="#f5f4f0"/>
-</svg>
+**Use `components/site/Wave.tsx`. Do not hand-write a path.** The mechanism: the
+wrapper paints the band *above*, the path paints the band *below* and rises into
+it — so a wave sits at the **top of the section it introduces**, and the two
+colours it names are the two it sits between.
 
-<!-- dark into light: wrapper background is the light colour -->
-<svg viewBox="0 0 1440 50" preserveAspectRatio="none">
-  <path d="M0,0 C480,50 960,50 1440,0 L1440,50 L0,50 Z" fill="#1A2035"/>
-</svg>
-```
+There are two shapes, `swell` and `crest`, alternating so consecutive waves are
+not the same curve repeated. Both end flush at the foot of the viewBox so the
+path meets the section beneath with no seam.
+
+*This section carried literal path data until 2026-08-31, copied out of a build
+brief, and it was already wrong — a 50-unit viewBox and one symmetric curve
+against the component's 140 and two. A document holding a copy of a value the
+code owns will drift, and the copy is the one people paste. Name the component.*
 
 The homepage runs navy → cream → mid navy → cream → navy. Any page with three or
 more sections follows the same shape. A page that ends up all one tone has lost
