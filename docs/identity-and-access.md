@@ -96,6 +96,12 @@ organisation is created.
   Without it a production build still succeeds and silently skips source maps,
   so every stack trace arrives minified: installed, reporting, and useless.
 
+  **The build log says so before any error exists.** Source maps upload during
+  the build, so a wrong or missing token shows up in Vercel's log minutes after
+  a deploy — no need to wait for something to break and then read a stack trace
+  to find out. Read the log first; confirm with a real error second. The two
+  answer different questions, and only the first one is available immediately.
+
 Self-hosting is the eventual answer if schools press on it. It is a running
 service to maintain, and it is not needed yet.
 
