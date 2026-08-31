@@ -198,7 +198,7 @@ rather than letting a one-off slug slip in unnoticed.
 | `skin` | Name | Feel | Suits |
 |---|---|---|---|
 | `field-terminal` | **Field Terminal** *(built)* | CRT green, scanlines, monospace | Hacking, codes, systems, Agent Training |
-| `case-file` | **Case File** | Manila folder holding *typed sheets*; redaction bars, paperclips, photographs | Cases. Prints beautifully, which the Case dossier needs anyway |
+| `case-file` | **Case File** *(built to stage 2, in use)* | Manila folder holding *typed sheets*; redaction bars, paperclips, photographs | Cases. Prints beautifully, which the Case dossier needs anyway |
 | `archive` | **The Archive** | Artefact cards, museum labels, glass, aged paper | Objects and characters, history, cross-curricular |
 | `situation-room` | **Situation Room** | Wall maps, pins and string, briefing boards | Case openings, geography, anything spatial |
 | `surveillance-feed` | **Surveillance Feed** | Camera grid, timestamps, overlays, thermal | Observation, data, statistics |
