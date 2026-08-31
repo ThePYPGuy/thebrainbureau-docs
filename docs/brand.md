@@ -57,8 +57,10 @@ fallback face, found by eye after three programmatic checks reported fine. The
 activity faces — VT323, Special Elite, Courier Prime — must keep resolving inside
 `[data-skin]`.
 
-Six families now load rather than three. That is the price of running two
-registers honestly.
+Six families is the target and **eight load today** — Titan One and Nunito are
+still bound at the root for the pages phases 2 and 3 will replace. Count them
+again when the dashboards land; if it is still eight, something did not get
+removed.
 
 ---
 
@@ -71,7 +73,8 @@ registers honestly.
 | Mid navy | `#1A2035` | Dark section background |
 | Teal | `#00C9A7` | Primary CTAs, active states, links |
 | Blue | `#1D6EBF` | "Join a game" only — the student entry point |
-| Gold | `#C4A35A` | Eyebrow labels, decorative arrows, seal accent |
+| Gold | `#C4A35A` | Decorative only — arrows, rules, seal accent. **On dark grounds it is also text** (6.10:1 on navy) |
+| Gold ink | `#7C6222` | **Gold as letterforms on light grounds.** 5.26:1 on cream, 5.79:1 on white |
 | Cream | `#f5f4f0` | Light section background |
 | White | `#ffffff` | Utility bar, cards |
 | Body text | `#5A5550` | Body copy on light |
@@ -81,6 +84,17 @@ registers honestly.
 **Blue is reserved.** `#1D6EBF` marks the student's way in and nothing else. A
 teacher scanning the page should be able to find the one button that is not for
 them.
+
+**Gold is two colours, and the first draft of this file got it wrong.**
+`#C4A35A` on cream is **2.18:1** — it fails AA, and section eyebrows are 16px
+bold, which is not large text. It reads as gold because it is gold; it is simply
+not legible enough to carry words on a light ground. Use `#7C6222` wherever gold
+is *letterforms* on cream or white, and keep `#C4A35A` for rules, arrows and the
+seal. On navy the bright gold is fine at 6.10:1 and stays.
+
+Case File reached the same answer independently with `#734a12`. Measured, not
+judged by eye — this pair was specified wrong here and caught by a contrast pass
+in a rendered browser.
 
 ---
 
@@ -103,6 +117,12 @@ All buttons: `font-family: Space Mono`, `text-transform: uppercase`,
 Size column is `font-size / letter-spacing`. The secondary CTA is the only one
 without `font-weight: 700`.
 
+**There is no light-ground secondary button**, and that is deliberate rather than
+an omission: the secondary CTA above is specified for dark grounds only. The
+quieter action on a cream or white band is a **text link**, not an invented
+button — inventing one is how a fourth button spec appears that nothing here
+governs.
+
 ---
 
 ## Type scale
@@ -111,7 +131,7 @@ without `font-weight: 700`.
 |---|---|---|---|
 | H1 (hero) | DM Serif Display | 42px / 1.2 | `#F2EEE4` |
 | H2 (section) | DM Serif Display | 32px / 1.2 | `#14284A` light · `#F2EEE4` dark |
-| Section eyebrow | Space Mono | 16px / 0.18em, 700 | `#C4A35A` light · `#00C9A7` dark |
+| Section eyebrow | Space Mono | 16px / 0.18em, 700 | `#7C6222` light · `#00C9A7` dark |
 | Hero eyebrow | Space Mono | 10px / 0.22em | `#C4A35A` |
 | Body | Inter | 14px / 1.8 | `#5A5550` light · `rgba(255,255,255,0.6)` dark |
 

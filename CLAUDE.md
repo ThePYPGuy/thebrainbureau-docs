@@ -534,6 +534,14 @@ and only the pixels missing. `SimEditor.tsx`'s question heading and the class
 panel's year label had been invisible on the dashboard for as long as they had
 existed. Fixed at `e74e085` in `brand.module.css`, where the face is defined.
 
+**It is worse than one token.** `globals.css` styles bare `h2`, `h3`, `h4`, `p`,
+`strong`, `button` and `input` for the CRT, and its `:root` block gives those
+variables real values — `--body-text: #d0d0d0`. So the **Field face is the
+default for every element on every Bureau surface**, not an opt-in. A bare `<p>`
+on a cream page renders CRT grey at **1.40:1**. The `--ink-strong` fix treated
+one token; the shape is the whole block, and every form built on a Bureau
+surface meets it.
+
 The fallback is the trap. Without one the text would have been unstyled and
 obvious; with one it is confidently wrong, and every programmatic check agrees
 it is fine. **When you give a token a fallback, check every face that does not
