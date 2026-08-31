@@ -429,10 +429,11 @@ not appear in a curriculum search. It stays findable by subject, year group,
 title, tags and play count. That is the correct price and requiring tags is not
 the remedy.
 
-*Blocked in one direction:* the JSON importer that Bureau banks are authored
-through cannot write skills or difficulty at all — only the CSV path can. So
-"tagged in detail" is currently unimplementable for the library, and closing
-that is the work that has to come before authoring at scale.
+*Implemented 2026-08-31* (`35272de`): the JSON path reads `difficulty` and
+`skills`, which only the CSV importer could before. All three library banks were
+re-imported tagged and rated — 66 questions, every one of them. The rule the
+policy rests on is now stated where it is enforced: **a missing tag is a
+teacher's choice; a wrong one is a lie.**
 
 Teachers tag difficulty when authoring — **recall / apply / stretch**. Live data
 overrides that tag only above a confidence threshold, **starting at 20 plays for
