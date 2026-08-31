@@ -5,9 +5,10 @@
 See [README.md](README.md) first — architecture, the two rules that shape
 everything (answer keys never reach the browser; students hold no database
 session), and the recorded deviations from Activity Schema v0.4 under
-"Deviations from Activity Schema v0.4". The schema document itself is not in
-this repo — do not go looking for `activity-schema-v0.4.md`. This
-file covers what the README doesn't: workflow, deployment, and gotchas
+"Deviations from Activity Schema v0.4". The schema itself is
+[`docs/activity-schema-v0.4.md`](docs/activity-schema-v0.4.md) — written
+2026-08-31, after this file had spent weeks telling sessions it did not exist.
+This file covers what the README doesn't: workflow, deployment, and gotchas
 specific to working on this repo from outside it.
 
 ## Read the spec before building

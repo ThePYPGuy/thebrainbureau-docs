@@ -158,8 +158,8 @@ Verified against `package.json` directly, not against a summary of it.
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
 | Bank checks | `test:columns`, `:insight`, `:images`, `:search`, `:edit-after-serve`, `:copy`, `check:alt`, `check:keys` | built, 8 scripts |
 
-**Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never
-written. **`npm run test` is green — 395/395, 18 files**, run on `signal-check`
+**Activity schema is locked at 0.4**, and `activity-schema-v0.4.md` now exists —
+written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 18 files**, run on `signal-check`
 31 Aug. Still no CI, so that number ages the moment anybody commits.
 
 ## 7. Recently completed
