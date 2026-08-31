@@ -56,15 +56,13 @@ mechanics in `CLAUDE.md`.
 | Stream | Branch | Uncommitted | Status |
 |---|---|---|---|
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images — dormant |
-| Website redesign | `main` | seal, plus a stray `:Zone.Identifier` | **phase 1 held — needs `signal-check` merged** |
+| Website redesign | `main` | stray `:Zone.Identifier` | **phase 1 done, awaiting review** |
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | level with `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
 
-**The redesign works in `main`'s tree**, which the dormant Case File stream also
-holds. Two sessions in one tree is the hazard, not two on one file. **The Signal
-Check projector is built** (`1521d9c`, unmerged). The card waits on the merge:
-the two 1600×900 captures are on `signal-check`, so `main`'s tree cannot see them.
+**The redesign is in `main`'s tree**, shared with the dormant Case File stream —
+two sessions in one tree is the hazard, not two on one file. Projector merged.
 
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
 mirror, not `origin`. The cycle, not a backlog, and not another session's to push.
@@ -178,6 +176,8 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
+1. **Retake the projector captures** — both show the bank as *SIGNAL CHECK
+   FIXTURE*, and the reveal carries the Next.js dev badge, so it cannot ship. *(QM.)*
 1. **Signal Check is unreachable from the interface.** `/dashboard/live` is linked
    from nothing and `/live/join` appears only as prose on the teacher's screen.
    Both were driven by URL in verification, which is how it passed. *(Quiz Maker.)*

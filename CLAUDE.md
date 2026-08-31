@@ -363,6 +363,19 @@ score that never moved, the reveal counting one answer where there were two, and
 the misconception lost from the insight view. Check `error` on every call whose
 result you are about to report as success.
 
+**A capture made to prove something works is not a capture fit to publish.** The
+projector was screenshotted to show the commission was done; the homepage then
+needed an image of the same screen. Both files carried the bank name
+**SIGNAL CHECK FIXTURE**, and one had the Next.js dev badge baked into its
+corner — legitimate in a verification shot, and neither is acceptable on a
+marketing asset.
+
+Decide which kind you are taking *before* you take it. A publication capture
+wants a real bank, real-looking data, and the dev overlay hidden — the
+`nextjs-portal` hide that the capture scripts already carry. Cropping afterwards
+does not work: on this one it cost either the tick on the left edge or the counts
+on the right.
+
 **The surface that drives a session is assumed to know where it is.** Signal
 Check's projector held no state of its own and had no reconnection path, so a
 teacher reloading it mid-lesson — or opening it on a second screen — read
