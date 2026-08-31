@@ -172,8 +172,8 @@ Verified against `package.json` directly, not against a summary of it.
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
 
 **Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never
-written. **`npm run test` is green** — 131/131, 8/8 files, after running red
-from `735c6bb` to `01182fd` with no CI to say so.
+written. **`npm run test` is green — 243/243, 11 files**, run on `platform`
+31 Aug. Still no CI, so that number ages the moment anybody commits.
 
 ## 7. Recently completed
 

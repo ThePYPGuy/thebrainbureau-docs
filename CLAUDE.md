@@ -50,9 +50,17 @@ installed, and where, is reported by `npm run doctor` — this file does not
 say, because a written claim about an environment is wrong the moment the
 environment changes and nothing announces it.
 
-**Use `-ic`, not `-lc`.** A login shell resolves `npx` and `tsc` to the
-Windows binaries on the shared PATH, which then fail in ways that look like
-project errors rather than like the wrong executable.
+**Use `-ic`.** Not `-lc`, and not a bare `-c`. `nvm` is sourced from
+`~/.bashrc`, which only an *interactive* shell reads — so any non-interactive
+shell has no `node` at all, `npm` falls through to the Windows `npm.exe` on the
+shared PATH, and the failure arrives as a project error rather than as the wrong
+executable.
+
+Measured, not inferred: `bash -c 'npm run doctor'` in a worktree answers
+*UNC paths are not supported. Defaulting to Windows directory*, then
+*'vite-node' is not recognized*. The same command under `-ic` passes every check.
+The trap is worth naming precisely because `doctor` is what you would reach for
+to diagnose it, and `doctor` is the thing that cannot run.
 
 Commit messages with an apostrophe can break through nested `bash -ic '...'`
 quoting. Write the message to a scratch file and use `git commit -F <file>`

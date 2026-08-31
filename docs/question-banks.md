@@ -1,9 +1,10 @@
 # Question Banks and Game Modes
 
-**Status: structure decided 2026-08-24, modes revised 2026-08-31. Not yet
-implemented — what shipped conflates all three concepts below into one row.**
-Verified 2026-08-31: `training_sims` exists; `question_banks`, `bank_questions`,
-`training_sessions`, `runs` and `responses` do not.
+**Status: structure decided 2026-08-24, modes revised 2026-08-31, built on
+`platform` 2026-08-31 and not yet merged to `main`.**
+`git log main..platform` and `npm run deploy:check` say where it actually is —
+the previous version of this line listed which tables existed and was false
+within the afternoon.
 
 ---
 
@@ -26,7 +27,8 @@ another mode without dragging one mode's settings along.
 ### Target shape
 
 ```
-question_banks        title, subject, owner, year_group, tags, status, visibility
+question_banks        title, subject, owner, year_groups, tags, status,
+                      visibility, copied_from
   └── bank_questions  question_type, prompt, options, explanation, position,
                       image, option_images, alt_text
         └── keys      the correct answer — server-only, as now
@@ -40,11 +42,20 @@ training_sessions     bank + mode + config + class + status + game PIN +
 Mode configuration — how many questions a round serves, what a correct answer
 pays, whether attacks are enabled — belongs to the **session**, not the bank.
 
-**The two `year_group` columns mean different things.** On the bank it is the
-year the questions were written for: authoring metadata, for search and
-filtering. On the session it is the year group actually playing, and it is the
-only one the statistics read — sessions carry guests with no account, and every
-response needs a year group regardless of who gave it.
+**The two year-group columns mean different things, and differ in cardinality
+because of it.** `question_banks.year_groups` is a `text[]` — the years the
+questions were written for, authoring metadata for search and filtering, and
+plural because a bank is routinely authored for several: all three Bureau quizzes
+are, and `training_sims.year_groups` is already an array, so a singular column
+would have discarded authored data in a backfill this document requires to lose
+nothing. `training_sessions.year_group` is singular — the one year group
+actually playing — and it is the only one the statistics read, since sessions
+carry guests with no account and every response needs a year group regardless of
+who gave it.
+
+This document specified the bank side singular and the implementation deviated,
+with the reasoning recorded in `20260831000019_question_banks.sql`. The
+distinction the spec was drawing was *meaning*, not cardinality, and it survives.
 
 ### Question types — decided 2026-08-31
 
