@@ -127,6 +127,28 @@ Related: `npm run deploy:check -- --prod` answers the other half — whether a
 *database* matches the repo. Doctor is about this machine. Run it bare; it
 finds the production credentials itself.
 
+## Read STATUS.md before reporting on it
+
+**Open it. Do not report a section as missing something you have not looked
+for.** On 31 August one session reported four separate times that §4 carried no
+production URL. It was at line 70 the whole time, and that session had not read
+the file at all — every claim was sincere, none was checked, and each cost a
+round trip to disprove.
+
+The same session's other observations that day were accurate and valuable. This
+is not carelessness; it is what reporting from a model of a file rather than the
+file produces, and the failure is invisible from the inside because a
+recollection and a reading feel identical.
+
+**Cite by text, not by section number.** Numbers move — §8's items were
+renumbered three times in one day, and two §10 rows spent weeks pointing at §8.3
+and §8.4 after those items closed. The text survives a reorder; the number does
+not. Quote the sentence you mean.
+
+**Before saying a thing is recorded, read the line.** A `grep -c` returning 1
+proves a word appears somewhere, not that your sentence is there — Doc Manager
+signed off on a filed item that way and the match was an unrelated row.
+
 ## Two agents, one repo — use a worktree
 
 Only one branch can be checked out per folder. When a second session switches

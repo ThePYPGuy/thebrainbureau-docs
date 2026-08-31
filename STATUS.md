@@ -4,6 +4,10 @@ The coordination layer between parallel Claude Code sessions and the Claude
 chat conversations used for project management. It records what is moving
 *now*; permanent traps and conventions are in `CLAUDE.md`.
 
+**Read this file before reporting on it.** Four claims in one day that §4
+lacked things §4 contained, all from a session that had not opened it. Cite by
+quoting the text, never the section number — numbers move.
+
 **Not a record of environment or deployment state** — that rots silently. Every
 claim names the command producing it; **[verify]** means nobody has checked. If
 this file and the repo disagree, **the repo wins.**
