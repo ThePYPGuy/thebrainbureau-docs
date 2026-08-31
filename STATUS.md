@@ -85,11 +85,11 @@ Live collisions only; standing hazards are in `CLAUDE.md`.
   names three bank files by hand, so the bank refactor and every new bank collide
   there the way activities used to. Read both lines before assuming either —
   `"import"` runs `scripts/import-all.ts`, which walks both directories.
-- **A live session has nowhere to declare a skin.** `skin` is a NOT NULL column
-  on `activities` (`20260824000007_activity_skin.sql`), but a Signal Check
-  session is a bank plus a mode rather than an activity — and
-  `scripts/skin-check.ts` reads `content/activities` only, so `npm run skins`
-  cannot see one. **Unresolved: a risk, not a decision.**
+- **`npm run skins` answers about authored activities and does not say so.**
+  The live-session skin gap is **settled** — a mode declares its skin in code,
+  and `activities.skin` is unchanged; `docs/visual-identity.md` has the whole of
+  it. So the script's scope is right and its wording is not: it still reads as
+  an inventory of the platform. One line of output. *(WI.)*
 - **`bb49a62` duplicates `5fda3d3`** — verified; cherry-pick residue is inference. Likely to conflict on merge.
 
 ## 4. Publish state

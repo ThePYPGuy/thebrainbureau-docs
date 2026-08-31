@@ -269,6 +269,54 @@ point at which it stops being refactorable, and each one can independently
 fail contrast, so you would be auditing five designs instead of five token
 sets.
 
+### Where a live session's skin comes from — decided 2026-08-31
+
+`activities.skin` is a column on **activities**, and a live Agent Training
+session is a bank plus a mode, not an activity. So Signal Check appeared to have
+nowhere to declare a look. The answer is that it does not need a column.
+
+**A mode declares its skin in code.** `question-banks.md` already settles the
+half that decides this: a game mode is *"the rules — code, not data"*. Its look
+is part of it, so it is declared where the mode is declared.
+
+The two data answers are both wrong, and wrong in ways worth naming:
+
+- **Not on the bank.** A bank is subject matter, and the entire premise of the
+  question bank refactor is that a bank built for one mode runs in any future
+  mode without being rebuilt. A skin on the bank makes the questions carry one
+  mode's appearance to every other mode.
+- **Not on the session.** A session is *one playing*. Putting the skin there
+  makes the look a per-session setting, so two runs of the same mode could look
+  different and a teacher would be offered a choice nobody meant to give.
+
+`activities.skin` therefore stays exactly as it is. It answers what an authored
+Operation wears, which is a real question about authored content, and it was
+never the platform's skin registry.
+
+**`npm run skins` keeps its scope, and should say what it is.** It counts
+authored activities, to catch several shipping in a row wearing the same look.
+Modes are three things in code and do not proliferate, so they do not belong in
+that count — but the report reads as an inventory of the platform, and a
+diagnostic read outside the question it was built for has already cost this
+project a near-deletion. One line of output, not a change of scope.
+
+### The projector is a display context, not an eighth archetype
+
+Agent Training wears **Field Terminal**, which the table above already assigns
+it. A projected surface needs scanlines off — they alias — much higher contrast,
+larger type, and correctness signalled by shape or position as well as colour.
+
+That is a *variant of* Field Terminal, not a new archetype. The seven stay
+seven, and the constraint that forces the conversation stays unbothered. A
+projector is a rendering condition, the way print is.
+
+**Build it as the accessibility override with a second trigger, not as a second
+mechanism.** The list below — high contrast, plain typeface, no texture, motion
+off — is very nearly the projector list already; the difference is only that one
+is triggered by a person's setting and the other by the surface being projected.
+Two mechanisms doing one job will drift, and the one that must not drift is the
+accessibility one.
+
 ---
 
 ## The accessibility override
