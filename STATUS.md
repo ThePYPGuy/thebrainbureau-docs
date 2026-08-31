@@ -56,13 +56,15 @@ mechanics in `CLAUDE.md`.
 | Stream | Branch | Uncommitted | Status |
 |---|---|---|---|
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images — dormant |
-| Website redesign | `main` | seal, plus a stray `:Zone.Identifier` | **phase 1 done, awaiting review** |
+| Website redesign | `main` | seal, plus a stray `:Zone.Identifier` | **phase 1 held — the card needs the projector** |
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | level with `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
 
 **The redesign works in `main`'s tree**, which the dormant Case File stream also
-holds. Two sessions in one tree is the hazard, not two on one file.
+holds. Two sessions in one tree is the hazard, not two on one file. **The Signal
+Check projector is commissioned** (31 Aug) — Website Designer's, by one named
+exception in `visual-identity.md`, and the homepage card waits on it.
 
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
 mirror, not `origin`. The cycle, not a backlog, and not another session's to push.

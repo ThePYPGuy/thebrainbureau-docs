@@ -92,6 +92,24 @@ old three must keep resolving inside `[data-skin]`.
 Six families now load rather than three. That is a deliberate cost of running two
 registers, and it is a reason to scope rather than a reason to compromise.
 
+**One named exception: the Signal Check projector.** Commissioned 2026-08-31 and
+given to Website Designer, despite `/live/host` being a Field surface.
+
+It shipped deliberately undesigned — playable-but-ugly first, then commission the
+look, which is `CLAUDE.md`'s own rule and was the right call. The homepage card
+now needs a screenshot of it that survives being looked at, and plain
+black-on-white will not.
+
+It is a **projection variant of Field Terminal, not a new archetype**: scanlines
+off, much higher contrast, larger type, correctness carried by shape as well as
+colour — built as the accessibility override with its second trigger, which
+already exists. The archetype itself is untouched, and so are `/live/play`, Case
+File and every other activity.
+
+The fence moves by **one named surface** rather than becoming a judgement call.
+Design staying in one session is worth more than the boundary being tidy; a
+boundary that erodes by argument is worth less than one that moves by a sentence.
+
 ### Which surface is which
 
 The line is what a child is doing, not who they are.
