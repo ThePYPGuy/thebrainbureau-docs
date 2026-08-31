@@ -337,6 +337,22 @@ rule as the play count, for the same reason.
 no single difficulty; aggregating the two produces a middle that describes
 neither year and never separates back out.
 
+**Across every school, though — and that is why the stats views cross RLS on
+purpose.** `bank_question_stats` and `bank_play_counts` run as their owner
+rather than as the caller. Supabase's Advisor flags both as *Security Definer
+View*, correctly identifying the pattern and unable to see the intent.
+
+Leave them. They return counts, a year group label and a timestamp — no
+identity, no free text — and `anon` is revoked on both. The view that returns a
+child's typed answer is a different view and it *does* set `security_invoker`.
+
+**Making the Advisor green would break the threshold silently.** Scoped to the
+caller, the counts become per-teacher, never reach twenty plays for any year
+group, and the rating never lifts. Nothing errors; the editor simply says *not
+enough to rate yet* forever, which is indistinguishable from a class that has
+not played much. The reasoning is also written into
+`20260831000023_insight_views.sql` beside the views themselves.
+
 **Guest responses count.** The statistic is about the answer and not the
 account, and dropping guests skews the sample toward whoever happened to have a
 login.
