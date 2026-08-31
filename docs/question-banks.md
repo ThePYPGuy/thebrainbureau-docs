@@ -81,6 +81,32 @@ the premise of the refactor — which is why these two and not ordering or
 matching, both of which need drag interactions and do not fit a projector-paced
 answer window.
 
+### The bank is the page, and the modes are actions on it — decided 2026-08-31
+
+A live session is **started from a bank**, not from a separate part of the
+product. There is no *Live* section in the navigation.
+
+That is the interface saying what the schema already says. A bank is
+mode-agnostic; a session is a bank plus a mode. So the bank gets a page, and each
+mode is a button on it:
+
+- **Start live session** — Signal Check, the whole class, now.
+- **Play solo** — Solo Practice, async, one child.
+- **Assign to a class** — the existing deployment route.
+
+One page, three verbs, and a fourth mode later is a fourth button rather than a
+new area of the product. The alternative — a *Live* section beside the library —
+splits one bank across two places and has to answer *which bank* all over again.
+
+**Navigation:** *Discover* for banks other teachers have made public, *Bureau
+Library* for the official ones, *Create* for your own. Reference for layout and
+density is Blooket, which this shape is taken from; `docs/brand.md` carries how
+it looks, this file carries why it is arranged this way.
+
+Two things this makes real that are already decided: public banks are searchable
+with a **play count** beside each, and *Take a copy* is how a teacher gets an
+editable version of someone else's.
+
 ### Sharing — decided 2026-08-31
 
 A bank is **public or private**, and nothing between. Private is the owner's
