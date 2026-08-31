@@ -645,6 +645,18 @@ what it **selects**, not what it prints — and when you find the gap, fix the
 output so the wrong reading is unavailable rather than merely discouraged.
 That script now marks every row `platform` or `teacher <id>`.
 
+**A check chained to the action it guards is not a check.** On 31 August a
+session ran `git status` and `git merge` as one command against the **main**
+worktree, which held another session's uncommitted work. It fast-forwarded on
+disjoint files and nothing was lost, but that was luck: the status output existed
+only to be scrolled past, because the decision it was meant to inform had already
+been made when the command was typed. **Run the inspection, read it, then
+decide.** The `&&` is the bug — it turns a gate into a log line.
+
+This is recorded because the session reported it against itself, having lost
+nothing and being asked about neither. That is the only reason it is knowable,
+and it is worth more than the near-miss cost.
+
 **An empty box in a screenshot is more often a lazy image than a broken one.**
 `next/image` defers anything below the fold, so a full-page capture of a section
 the shutter never scrolled to gets `naturalWidth: 0` and renders black — which
