@@ -100,6 +100,51 @@ A maintained counter drifts the first time a session is deleted or a run dies
 halfway, and it drifts *silently* — the stale number still looks like a number.
 Same rule as the per-year-group difficulty tracking, and for the same reason.
 
+### Reproducibility — decided 2026-08-31
+
+**A session snapshots the questions it serves, at the moment it starts.** From
+then on the session is self-contained: what a class played is what the record
+says they played, and nothing the bank's owner does afterwards reaches into it.
+
+That is the whole reason for the snapshot. A bank can be used by teachers who do
+not own it, so without one an owner editing a question changes a game already
+running, and re-labels answers already given to different wording.
+
+`session_questions` holds the prompt, the options and the order actually served.
+`responses` point at the row that was served rather than at the bank's current
+one. Each snapshot row keeps `source_question_id`, so difficulty still
+aggregates across every session that ever served that question — the snapshot
+fixes history without fragmenting the statistics.
+
+**The snapshot must not become the leak.** The served key is snapshotted too,
+and it belongs in the same server-only place the bank's keys live, under the
+same grant. A copy of the answer in a table the client can read is the one way
+this design fails, and it would fail quietly.
+
+Two rules follow:
+
+- **Archive, never hard-delete.** A deleted question orphans every response that
+  answered it, and the teacher insight view loses data with nothing to say so.
+- **Turning a bank private stops new sessions only.** Sessions already running
+  or already finished are untouched — a teacher does not lose the lesson they
+  are halfway through because someone else changed their mind.
+
+### Status, and the room for moderation
+
+`status` is a constrained column, the way `skin` is on activities — a value is a
+decision, not a string anyone can invent. It carries `draft`, `published` and
+`archived` now, and **`pending_review` and `rejected` from the start**, though
+nothing sets them yet.
+
+They are there because adding a value to a CHECK constraint later is a
+migration, and having them costs nothing. Whether a bank going public should be
+reviewed by anyone is undecided; this makes that a change of application logic
+rather than a schema change under a live table.
+
+The gate is **playable if and only if `status` is `published`**. Written that
+way round, the two unused values are already safe: a bank in a state nothing
+handles is unplayable by construction rather than by having been remembered.
+
 ### Migration from what exists
 
 The three Bureau quizzes become banks; the solo game becomes the first mode.
