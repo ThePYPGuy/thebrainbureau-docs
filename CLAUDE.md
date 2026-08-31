@@ -367,6 +367,19 @@ secret also describes the shape of the transport carrying it**, so a deep walk
 over a payload you did not design will eventually redact the envelope. Redact
 named fields you chose. Never everything that looks like the thing.
 
+**And fixing the loud instances does not fix the quiet ones.** That first batch
+was found in an hour because Sentry answered 400 and dropped every event. The
+same pattern also eats `debug_meta.images[].debug_id` — a UUID by design, the id
+that joins a served bundle to its uploaded source map. Sentry discards it as an
+*invalid debug identifier*, accepts the event, and every stack trace arrives
+minified for ever. Nothing errors. The build log stays clean, the maps upload,
+and a check confirming the bundles carry matching debug ids passes — because
+they do, right up until the scrubber removes them from the payload.
+
+Enumerating the protocol fields to protect is losing by construction: the list
+grows with somebody else's SDK. Scrub the fields you named and leave the
+envelope alone.
+
 **Two Sentry config traps, both the same family.** `dataCollection: {}` is not
 the same as `dataCollection` absent — the SDK branches on the key's *presence*,
 so a block containing only comments enables `userInfo`, cookies, both header
