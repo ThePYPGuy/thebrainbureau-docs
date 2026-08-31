@@ -57,12 +57,12 @@ mechanics in `CLAUDE.md`.
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | level with `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
-| Signal Check | `signal-check` in `../tbb-quiz` | not started | **worktree ready, not started** |
+| Signal Check | `signal-check` in `../tbb-quiz` | none | **transport and engine landed** — 4 commits |
 
-**Signal Check is unblocked and its desk is built.** `../tbb-quiz` exists on
-`signal-check`, cut from `main`, `npm install` run — `git worktree list` confirms.
-No session has opened it. Its brief is `docs/local/briefs/signal-check.md`, and
-the one setup step left is `.env.local`, which `doctor` fails on until it exists.
+**Signal Check has started.** The transport interface, two implementations behind
+one contract suite, the engine, the per-player shuffle and the telemetry scrubber
+— 372/372 across 17 files. Still to build: session lifecycle and PIN, the HTTP
+routes, both surfaces, Intel settlement, the load harness, Sentry.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -159,7 +159,7 @@ Verified against `package.json` directly, not against a summary of it.
 | Bank checks | `test:columns`, `:insight`, `:images`, `:search`, `:edit-after-serve`, `:copy`, `check:alt`, `check:keys` | built, 8 scripts |
 
 **Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never
-written. **`npm run test` is green — 323/323, 13 files**, run on `platform`
+written. **`npm run test` is green — 372/372, 17 files**, run on `signal-check`
 31 Aug. Still no CI, so that number ages the moment anybody commits.
 
 ## 7. Recently completed
@@ -189,7 +189,11 @@ from `git log`; descriptions are each session's account of its own work.
    test: author a value in a new column, import, read it back. Cheap, and it
    closes the one failure mode that `deploy:check` actively disguises — the
    hash moves, so it reports clean. *(WI, whose own finding this is.)*
-2. **Visual regression check** — screenshot each activity, fail on change.
+2. **`runs.agent_id`'s comment says guests must "appear on the leaderboard".**
+   `20260831000020_training_sessions.sql`. Signal Check has no leaderboard on any
+   surface — the column is right, and the sentence records a design replaced
+   before it shipped. One line. *(WI's file.)*
+3. **Visual regression check** — screenshot each activity, fail on change.
    **Not polish.** It is the only thing that would ever cover the drawn work:
    sixteen hotspots, twelve plate forms, seven glyphs, all verified by hand
    once. Every other check on this project passes while a page renders wrong,

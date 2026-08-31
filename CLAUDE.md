@@ -338,6 +338,15 @@ lines of arithmetic.
 mid-run, that task keeps `hintPenalty: 40` in the local database. Local only, but
 it presents as a mystery rather than as damage.
 
+**There is one local Supabase stack, and every worktree shares it.**
+`docker ps` shows a single `supabase_db_thebrainbureau`, not one per folder. So
+`npm run setup`, `npm run db:setup`, `npm run db:test` and any bare
+`supabase db reset` **wipe the local database out from under every other
+session** — a worktree of your own is not a database of your own, and nothing
+warns you. Ask before resetting while anyone else is working, and prefer
+`npm run doctor` plus `npm run deploy:check` to find out whether your local
+database is already fine, which it usually is.
+
 None of these produces an error. Each has cost this project real time. They
 live here rather than in `STATUS.md` because they are properties of the system
 rather than things anyone is about to fix — `STATUS.md` section 10 tracks only

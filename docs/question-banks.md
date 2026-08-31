@@ -1,10 +1,12 @@
 # Question Banks and Game Modes
 
-**Status: structure decided 2026-08-24, modes revised 2026-08-31, built on
-`platform` 2026-08-31 and not yet merged to `main`.**
-`git log main..platform` and `npm run deploy:check` say where it actually is —
-the previous version of this line listed which tables existed and was false
-within the afternoon.
+**Status: structure decided 2026-08-24, modes revised 2026-08-31, built and
+merged 2026-08-31 — live in production at `b663ad3`.**
+Do not trust that either. `npm run deploy:check -- --prod`, from the main
+worktree, is what answers it. The first version of this line named which tables
+existed and was false within the afternoon; the second said *not yet merged* and
+was false within the hour. A status line about a moving thing is a dated claim,
+and this one is dated.
 
 ---
 
@@ -200,12 +202,17 @@ only one mode is affected.
 Needs, none of which exists yet:
 
 - A **session lifecycle** — lobby, start, rounds, end — with a game PIN.
-- **Realtime** transport for scores, attacks and the shared leaderboard.
+- **Realtime** transport for the question, the answered count and the reveal.
+  **No leaderboard on any surface, and no attacks** — attacks and tokens belong
+  to Mainframe Breach, and this list described that mode before Signal Check
+  took the live slot.
 - **Host controls** — start, pause, skip, kick, end.
 - **Reconnection**, because school wifi drops and iPads die mid-round. A child
-  who reconnects must return to their score and their tokens.
-- **Late joiners**, and a decision on whether they are allowed in.
-- **Display-name moderation**, since names appear on a shared screen.
+  who reconnects returns to their score and the current question.
+- **Late joiners**, allowed, entering at the next question.
+- **Guest nickname moderation at the lobby**, since a nickname is free text and
+  reaches a shared screen. There is no display-name entry for agents — they play
+  as their codename, and no real name exists anywhere to moderate.
 
 The async modes forgive all of this; synchronous play forgives none of it,
 which is why Signal Check is a larger build than its description suggests —
