@@ -35,7 +35,7 @@ cheaper check is wrong.
 |---|---|---|---|
 | **Operation Builder** | Prime Directive + the Case File skin | own, on `case-file` + PD | n/a |
 | **Website Infrastructure** | Platform, engine, scripts, checks | own, on `platform` | n/a |
-| **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` | own, on `docs` | n/a — never in main's tree |
+| **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/` — *not* `scripts/docs-sync.mjs`, which publishes them and is WI's | own, on `docs` | n/a — never in main's tree |
 
 **Before your first write, run `git status --porcelain`.**
 
@@ -57,17 +57,17 @@ mechanics in `CLAUDE.md`.
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | measure and CI exemption landed |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
-| Question bank refactor | `platform` in `../tbb-platform` | none | **two thirds built; stays on the branch until whole** — from `6602bf0` |
+| Question bank refactor | `platform` in `../tbb-platform` | none | **data layer done, no screens** — 13 commits from `6602bf0` |
 | Signal Check | `signal-check` in `../tbb-quiz` | not started | **blocked until the refactor is complete and on `main`** |
 
-**The refactor is two thirds built, on `platform` and not on `main`.** Read from
-the migrations rather than from a report: eight tables, **mode config on
-`training_sessions.config` with none on the bank** — the test its own spec says
-it fails if it misses — and the suite green at 243/243, run here.
+**The data layer is complete on `platform`; the screens do not exist.** 25
+migrations, 312/312 run here, mode config on `training_sessions.config` and none
+on the bank. `git diff --name-only main..platform -- app components` returns
+nothing: the CSV preview, the editor threshold, the insight view, bank search
+and image upload each have a query layer and no surface.
 
-**What is missing was missing from the spec, not from the work**: the
-recall/apply/stretch tags, the 20-play threshold, the insight view, image upload
-and bank search. All five are in `docs/question-banks.md` now, marked *Not built*.
+**Those screens are the Bureau face, not Field Terminal** — administration, and
+`visual-identity.md` records a board once built inside the CRT and removed.
 
 **Signal Check waits for the whole refactor, not for the schema** — decided
 31 Aug, a choice and not a constraint: the schema alone would have been enough
@@ -171,7 +171,7 @@ Verified against `package.json` directly, not against a summary of it.
 | Targeted | `test:dashboard`, `:signup`, `:school`, `:entitlements`, `:curriculum` | built, 5 scripts |
 
 **Activity schema is locked at 0.4**; `activity-schema-v0.4.md` was never
-written. **`npm run test` is green — 243/243, 11 files**, run on `platform`
+written. **`npm run test` is green — 312/312, 13 files**, run on `platform`
 31 Aug. Still no CI, so that number ages the moment anybody commits.
 
 ## 7. Recently completed
