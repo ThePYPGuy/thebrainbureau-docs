@@ -93,8 +93,7 @@ the `www` host.
 three older codes; two classes and three agents exist. Maciej is still the only
 person who has *played* anything, so far as the repo can tell — but the door is
 now open, and §10's rows about what would happen to a child stop being
-hypothetical the moment one uses that code. Verified against production, not
-assumed: `deployments` joined to `activities`.
+hypothetical the moment one uses that code.
 
 **Only the main worktree can reach production.** `--prod` elsewhere fails with
 *no linked Supabase project found*, which reads like a broken install and is a
@@ -131,6 +130,10 @@ real class code and check the ending stays absent until the last lock.
 `git diff --stat origin/main..main -- supabase/migrations/ content/`. Neither
 deploys itself and both fail silently when missed — and **this range needs a
 migration**, the first that has.
+
+**A range with more than one builder's code is Maciej's to push.** §1 names *the
+builder whose code goes out*, which answers nothing with two sessions in it —
+and only `main`'s tree reaches production, which is the tree WD works in.
 
 ## 5. Environment
 
@@ -170,7 +173,6 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
-- `9eb2071` — **the Bureau face is live, and the reveal is fixed.** Forty-four commits: the marketing site, `/missions`, `/pricing`, `/for-schools` and `/contact` on the new identity — DM Serif, Space Mono, Inter, navy against cream with a wave between every band — and **Signal Check's reveal off-by-one**, which had the board naming the *next* question's answer. **Half of that report is withdrawn:** the mis-scoring was WD's harness, not the game. No migrations, so the push was the whole deployment. Verified after: five public routes 200, `/missions` serving both CTAs, `deploy:check --prod` clean at 26 migrations. *(WD and QM; pushed and verified here.)*
 - `011afca` — **the two fixes rendered together, and the regression was found by measuring past the change.** All six `/signup` fields now paint identically — **0 of 8 differ from `input[type=email]`**, which is the field that escaped the CRT rule and so looked correct while the others were black boxes. Activities 0 of 6,033,920. The catch: `.navMuted` set a colour and nothing else, so on a `<button>` inside `.shell` the scoping swapped a documented black slab for an unstyled browser button. It now says what it means on either element. Found because WI measured the **dashboard**, which the merge was not about. *(WI.)*
 - `35272de` — **the Bureau library is tagged, and the policy is enforced where it is stated.** `import-training.ts` reads `difficulty` and `skills`, which only the CSV path could before — so *tagged in detail* stopped being a policy the library physically could not follow. All three banks re-imported at 100%: 66 questions, every one tagged and rated. The validation shape is the one the two-tier policy rests on and it survived intact — `if (wantedSkills.length)`, so an untagged bank imports silently while a mistyped id fails the whole file before a row is written. Its comment carries the reason better than `docs/` did: **a missing tag is a teacher's choice; a wrong one is a lie.** *(WI.)*
 - `b2d0049` — **the reveal capture is placed, and it makes a claim the site was not making.** Full width in `/missions`, Agent Training band, under the two mode rows. **Not the homepage** — that section argues *typed answers, not just multiple choice*, and a four-bar distribution would have sat directly beneath the sentence it undercuts. The pair earns its place because the row thumbnail is the room answering and this is the same board a minute later; neither picture holds the other's information. **The privacy claim in the copy is enforced rather than asserted** — `distribution` is null unless the handler `usesOptions` (`engine.ts:385`), so `HostBoard`'s branch cannot render a typed answer, and the answered line is a count with no names. Checked to source here, because it is a claim about children on a public page. *(WD.)*
