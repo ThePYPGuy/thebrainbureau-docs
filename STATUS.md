@@ -55,15 +55,17 @@ mechanics in `CLAUDE.md`.
 |---|---|---|---|
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images |
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
-| Platform | `main` | none | measure and CI exemption landed |
+| Platform | `platform` in `../tbb-platform` | none | measure and CI exemption landed |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
-| Question bank refactor | `main` | not started | **planned** — Website Infrastructure, implementing `docs/question-banks.md` |
+| Question bank refactor | `platform` in `../tbb-platform` | not started | **planned** — Website Infrastructure, implementing `docs/question-banks.md` |
 | Signal Check | `signal-check` in `../tbb-quiz` | not started | **planned, blocked** — see the dependency below |
 
 **Neither build has opened.** `git worktree list` shows no `../tbb-quiz` and
 `git branch` no `signal-check`; those two rows are a plan, not a state.
 **Signal Check builds against the bank schema, so it starts only once the
 refactor is pushed** — started earlier it builds on a moving target.
+**Build in `../tbb-platform`, taking `main` first; publish from `main`'s tree** —
+no other worktree can reach production.
 
 ## 3. Overlap risks — READ BEFORE ASSIGNING WORK
 
@@ -173,10 +175,8 @@ This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
 - `2b6df67`, `4983d89` — **the two authoring gaps closed**. `npm run skins` counts content files rather than rows, so it answers about what you are writing instead of what you have imported. And **a task can price its own hint**: `config.hintPenalty` overrides the activity's, falling back when absent, so Prime Directive's factors-and-primes hint need no longer cost the same as its subtraction hint. Every existing task keeps the old number. *(WI.)*
-- `bb7f9b2` — **Prime Directive is published** and imported to production; every line of the import said REMOTE, and `deploy:check --prod` reports 15 migrations, three activities, 73 skills, 20 tags. **Not deployed to a class** — that step mints the code and is Maciej's. Three stale `_note` sentences went out with it; a fourth, claiming the printable Suspect Log was never made, survived because Doc Manager vouched for it. *(OB.)*
 - `f7a33d6` — **`npm run import:one -- <slug|path>`**, so one drifted file can go to production without rewriting the other six; the `--prod --yes` passthrough is preserved. *(WI.)*
 - `be460dc`, `aec8557` — **`npm run check:tokens`**, which fails on a hex colour or `font-family` written outside a token block: 43 existing literals grandfathered by name so the check lands green, and the list only shrinks. Four black slabs reached a light skin this week and each was one of these. **`npm run import` walks the directory** instead of naming every file, so a new activity no longer conflicts in `package.json` on every merge. *(WI.)*
-- **`--fd-scale` replaced by explicit sizes** — the token is gone; only two comments naming it survive, both explaining why a scalar could not work. Case File states its display sizes outright rather than deriving them, so nineteen values that were each the smallest size that could not overflow are now each the size they should be. Training's six stay Field Terminal-only until that archetype has a skin. *(WI.)*
 
 ## 8. Next up
 
