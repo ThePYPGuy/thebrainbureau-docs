@@ -130,6 +130,24 @@ and the same procedure. That measures what your change moved, which is the actua
 question, and it does not touch the committed baselines. Website Designer did
 exactly this and could report the four activity surfaces at 0 pixels.
 
+## The capture path flakes, about one run in six
+
+**Measured 1 Sep.** Global Intel Cards came back **212,321 pixels different
+(4.61%)** on a commit that could not reach an activity. Diffing the page against
+itself settled it: pre-change against current, **0**; five further captures
+**byte-identical** at 456,984; the outlier against **both** sides, 212,321. **One
+capture in six was a bad frame** — spread across the whole CRT area rather than
+any element, invisible in a crop, and not reproducible on demand in four further
+attempts.
+
+**`scripts/visual-check.ts` shares that capture path** — same 3500ms wait, same
+`quiet()` — **so `check:visual` can produce a false red on an activity.**
+
+**Diff the page against itself first, every run.** The harness does this
+internally; what it does not do is **print those two numbers beside the baseline
+diff when a run fails**, which is the difference between recognising a flake and
+spending an hour proving one by hand. Worth adding.
+
 ## `profile.png` encodes database state, not just code
 
 Its classes list renders **whatever deployments the local database holds** — two
