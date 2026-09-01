@@ -208,11 +208,11 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-1. **Every open Operation now accepts guests, and a teacher cannot refuse them.**
-   The live side has `requireAccounts` per session; deployments have no
-   equivalent. WI built what was asked and flagged this rather than deciding —
-   rightly, because it changes what an open code *means*. **Does a teacher need
-   the switch?**
+1. **An open deployment code admits anyone, and always has.** `resolveAgent`
+   creates an agent for any unused codename; the only gate is `status = 'open'`.
+   Guests did not open that door — they shortened the queue and made entrants
+   **visible** for the first time. **Does a teacher need an allow-guests switch,
+   or is the real question that nothing but open/closed guards a code?**
 
 ## 10. Known silent failures
 
