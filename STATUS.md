@@ -89,7 +89,7 @@ does not import itself.** Both fail silently.
 bare 200-or-fail check reads a healthy site as down. Follow redirects, or check
 the `www` host.
 
-**A class code is open on production.** `OP-35HY` for Prime Directive, alongside
+**A deployment code is open on production.** `OP-35HY` → **`303616`** *[verify]*, alongside
 three older codes; two classes and three agents exist. Maciej is still the only
 person who has *played* anything, so far as the repo can tell — but the door is
 now open, and §10's rows about what would happen to a child stop being
