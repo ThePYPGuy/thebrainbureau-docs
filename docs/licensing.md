@@ -93,31 +93,48 @@ unrestricted"*. Keep that property.
 
 ## Admin
 
-**A flag on the teacher row is acceptable; a shared session is not.** If
-`is_admin` sits on `teachers` and admin routes only check it, the teacher's
-session cookie **is** the admin credential — so any weakness in teacher auth
-reaches the control that sets the free tier for every school.
+**A separate account with its own credentials** — decided 1 Sep. Stronger than
+an `is_admin` flag on a teacher row, because with a flag the teacher's session
+cookie *is* the admin credential, and any weakness in teacher auth would reach
+the control that sets the free tier for every school. A separate identity makes
+that failure impossible rather than mitigated.
 
-- `/admin/*` checked server-side per request. **Not a mode inside the teacher
-  dashboard**, and nothing in the teacher UI links to it.
-- **Re-enter the password to enter `/admin`**, so a stolen session is not admin.
-- Admin writes go through the **service role with an audit row**, never through
-  a teacher's RLS context. The schema is scoped by `teacher_id` throughout; a
-  session that reads across all teachers makes every later policy harder to
-  reason about.
+- `/admin/*` checked server-side per request. **Nothing in the teacher UI links
+  to it**, and it is not a mode inside the teacher dashboard.
+- **The admin account is not also a teacher account.** One person, two
+  identities, so ordinary work cannot wander onto an admin surface.
+- Admin writes go through the **service role with an audit row**, never a
+  teacher's RLS context — you want to know what changed the free tier and when,
+  even when only one person could have done it.
 
 ---
 
+## Settled 1 Sep
+
+**One class during the trial.** Paying unlocks more. **30 students per class**,
+which is also the cap the permanent per-activity grant carries.
+
+**Signal Check is free tier.** It is what the homepage sells, so it has to be
+reachable by someone who has bought nothing.
+
+**Work made during the trial stays visible. Capacity is what is withdrawn, not
+access.** *(Recommended, awaiting confirmation.)* Three reasons: it is a record
+of what children did, not merely a feature, and hiding it has a safeguarding
+flavour; a month of real results is the strongest argument for subscribing, so
+concealing it removes the evidence; and teachers show this to a head of
+department, so something that was on screen in a meeting and later vanished
+reads as *it deleted my data*, whatever the billing page says. **Keep what you
+made, lose the capacity to make more.**
+
 ## Open — not yet decided
 
-1. **One trial per teacher, or one per code?** Three purchases should probably
-   not buy three months.
-2. **What is "one class"?** Concurrent, or per year? A teacher running the same
-   activity with two classes at once — blocked, or allowed?
-3. **What happens at student 31?** Refused, or admitted with a warning to the
-   teacher? Refusing a child mid-lesson is the worse failure.
-4. **Is Signal Check in the free tier?** It is the headline feature and the
-   thing the homepage sells.
-5. **What happens to work made during the trial month?** Banks authored,
-   classes built, progress recorded. **Taking those away at day 31 would be
-   hostile and should not happen by accident** — decide it deliberately.
+1. **One trial per teacher, or one per code?** Three purchases should not buy
+   three months, or the trial becomes something to farm — and a second month
+   converts nobody the first did not. **Recommend one per teacher, ever.**
+2. **What happens at student 31?** A hard cap refuses a child mid-lesson, which
+   is the worse failure. Consider admitting and telling the teacher.
+3. **What happens when a subscriber lapses over the limit?** Four classes
+   built, a one-class allowance. Same shape as the trial-end question and
+   probably the same answer — visible and read-only, no new runs — but it is
+   currently undecided, and will otherwise be discovered by whoever it happens
+   to first.
