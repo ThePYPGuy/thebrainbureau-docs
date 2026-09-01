@@ -928,9 +928,26 @@ and it is the one to open the image for. **A self-diff of 0 means it is not
 flake**, which narrows it to stale-or-real and nothing else.
 
 **Two sessions can claim the same migration number in the same minute**, both
-untracked, neither able to see the other. It happened twice in one night. Check
-every branch, **every other worktree's uncommitted files**, and the local
-history table — `ls ~/tbb-*/supabase/migrations/` is the half people forget.
+untracked, neither able to see the other. It happened twice in one night, and
+the SECOND time the consequence was invisible: one session had already applied
+its 40 to the shared local database, and **the CLI decides what to run by
+VERSION NUMBER, not by file contents.** So the other session's differently-named
+40 would have been SKIPPED as already applied — tables never created, the
+command printing success, and the failure surfacing much later as *column does
+not exist* in code that looks correct. **A green migration run with nothing
+done, in somebody else's worktree.**
+
+**Files on disk tell you what has been WRITTEN. Only
+`supabase_migrations.schema_migrations` tells you what has been APPLIED** — and
+that is the half that fails silently. Check every branch, **every other
+worktree's uncommitted files** (`ls ~/tbb-*/supabase/migrations/`), and the
+history table.
+
+**AND CHECK AT THE MOMENT OF TAKING THE NUMBER.** The session that hit this had
+checked all seven worktrees before taking 39, recommended the habit to somebody
+else, and then took 40 forty minutes later without repeating it — because it
+had just done it. **A check performed once and relied on afterwards is not a
+check**, and the window between two sessions claiming a number is minutes.
 
 **A TEST CASE THAT SITS EXACTLY ON A THRESHOLD PROVES THE THRESHOLD AND SAYS
 NOTHING ABOUT THE MARGIN.** I asked for *ten consecutive wrong PINs, then in on
