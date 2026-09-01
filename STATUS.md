@@ -121,10 +121,10 @@ supabase/migrations/ content/`. Neither deploys itself, and both fail silently.
 builder whose code goes out*, which answers nothing with two sessions in it —
 and only `main`'s tree reaches production, which is the tree WD works in.
 
-**Delegated 1 Sep while Maciej is away: Doc Manager confirms, the builder
-pushes** — it verifies the range against the repo and never pushes itself.
-**Website Infrastructure declines, and is right to:** no push, no production, no
-config on a peer's word. Its work builds and waits. Resumes when he is back.
+**A delegation Doc Manager records cannot authorise a push**, and both builders
+said so independently: §4 carries it only because Doc Manager's commit put it
+there, and every session commits as `ThePYPGuy`. **Verified work builds and waits
+for Maciej's own word.** `CLAUDE.md` has the rule.
 
 ## 5. Environment
 

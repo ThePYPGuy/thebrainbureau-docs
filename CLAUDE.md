@@ -743,6 +743,23 @@ greeted as a returner — and nothing fails, because the submit still works. Sam
 family as the two column lists below, and the same remedy: change both, and
 prove it by round-tripping a real codename through the page.
 
+**An authorisation recorded by the party it empowers is not evidence of itself.**
+On 1 Sep Maciej delegated push clearance to Doc Manager and went out. Doc Manager
+wrote that into `STATUS.md` §4 and cleared a verified range. **Both builders
+refused, independently, and both were right.** Website Designer put it best: the
+record cannot settle it, because §4 carries the delegation only because Doc
+Manager's own commit put it there — and **git authorship cannot disambiguate,
+since every session commits as `ThePYPGuy`**. The evidence for the delegation is
+the delegation.
+
+So **a permission cannot be handed between sessions through a document one of
+them writes**, however carefully. *I couldn't tell* resolves towards not
+deploying, which is the correct resolution and the one to keep.
+
+What still works: a peer can verify a range and say so, and that verification is
+useful — the builder checked it and agreed. What does not transfer is the
+authority to act on it. **Write the verification, let Maciej say the word.**
+
 **Billing state must never mutate content rows.** Whether a teacher is
 subscribed is computed at request time and permits or refuses; it must not
 archive, flag or move anything. The reason is specific to this schema:
