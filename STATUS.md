@@ -170,6 +170,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `b107414` — **an anon read, alt text offered, resources modelled, a frozen clock.** The anon read needed a **GRANT as well as a policy**: RLS is only consulted once the role holds table-level SELECT, so the policy alone failed with *permission denied*, which never mentions policies. Alt text is now optional on import and strict in the other two places, checked separately. The clock is **frozen rather than masked**, so its colour, position and face stay compared — Zero Hour's unmasked self-diff falls 411 to 0, and the wait is 5000. *(WI.)*
 - `f0d3cb7` — **Cases and Operations get pages, and the prose has one copy.** Indexes at `/dashboard/cases` and `/operations`, a page per activity, `/missions` rewired to read `curriculum.marketing` rather than hardcode it. **The rewire found an RLS bug that would have shipped silently:** `activities` grants SELECT to `authenticated` only, so the public page rendered missing two thirds of its copy and looked fine. *(WD.)*
 - **Queue 1 shipped and is live** — `/join` rebuilt on one identity question, the homepage static behind `proxy.ts`, loading states in both faces, Signal Check's four playtest faults, speed-scaled points with a grace band and a top-three podium, the visual regression harness, and migration 31. Deployed 1 Sep at `26bcafe`; `/` went from `private, no-cache` MISS to **`public` HIT**. The lessons are in `CLAUDE.md`; git holds the rest.
 
@@ -181,19 +182,17 @@ from `git log`; descriptions are each session's account of its own work.
 1. **`app/brand.module.css` has zero importers**, but `check-tokens.ts` grandfathers
    six literals by it — deleting it changes what the checker enforces. *(WI.)*
 1. **`_note` says `prefix` is never rendered; `Tasks.tsx:428` draws it.** *(Op Builder.)*
-1. **Queue 2, in order** — `docs/local/briefs/queue-2.md`, with
-   `ui-pass-2.md` behind it. **1** layout pass *(WD)* · **2** sidebar and top bar
-   *(WD)* · **3** Signal Check phone type and projector grid *(QM)* · **4** Cases
-   and Operations pages *(WD)* · **5** question maker · **6** prices and purchase
-   routes *(WI, **with Maciej** — the only irreversible step)*. **1 and 3 run in
-   parallel**; 2 waits on 1 because it is the same session and the same files.
+1. **Queue 2 step 6 — prices and purchase routes.** *(WI, **with Maciej** — the
+   only irreversible step, and not to be started on a peer's brief.)* Steps 1–5
+   are done; `docs/local/briefs/queue-2.md` carries the rest.
 1. **Write the teacher-facing phase lines** — Zero Hour 5, Prime Directive 7.
    Only Global Intel Cards was written out in full. *(Maciej.)*
-1. **Four for WI.** `csv.ts:313` needs `altRequired: false`; the Bureau audit
-   stays strict. An **`anon` SELECT policy** on published activities, so
-   `/missions` drops its admin-client workaround. **Model `resources`**:
-   `{ path, kind: "print" | "evidence", label, gated }`. And **mask or freeze the
-   clock** in `check:visual`, raising the 3500ms wait with it.
+1. **`kind: "print"` can point at nothing, and the shape I ruled is why.** The
+   only printable is `app/terminal/print/page.tsx` — a **route** the browser
+   prints; `public/` holds no PDF. **A real file is the wrong fix**: `public/` is
+   served with no auth, so `gated: true` is unenforceable on the one kind sold.
+   Validate `print` as a route, `evidence` as a file. *(WI.)*
+   **`loadPublicCatalogueActivity` is now removable** — WD's to take.
 1. **Re-establish that the redesign never touched activity chrome.** Baselines
    are all dated 1 Sep, so they prove nothing about before. Capture a
    pre-redesign commit in a temporary worktree and diff.
@@ -248,3 +247,4 @@ table once. **Documentation does not fire at 11pm.**
 | **Throughput, not monthly volume, is the binding Realtime limit** | Measured 31 Aug against thirty real sockets: **96 msg/s peak**, 3.6 deliveries per player per question, 381 for a session. Supabase counts each delivery to each client, so one broadcast into a room of thirty is thirty events — which is why a monthly total was the wrong thing to worry about. Still does not error at the ceiling; it stops delivering | **measured**, and resolved by moving to Pro: 96 of 500 |
 | **A session desyncs and one player's score diverges from the server's** | Client and server both hold a score. They can drift apart with nothing comparing them, and the child sees only their own number — so it reads as correct until the review screen, or until a teacher is asked why two agents with the same answers finished apart | **candidate** · Quiz Maker |
 | Pruning a list by its length rather than its contents | This table was emptied over one session. Every removal was defensible alone — fixed, or recorded in `CLAUDE.md` — and nothing checked whether the section still said anything, because the number being watched was the line count | **fixed by rebuilding** — prune against what is still open, never against a budget |
+| **An emoji is interface chrome with no font behind it** | Zero Hour's clock glyph renders as a **missing-glyph box** in headless Chromium — the page's own rendering, not the harness's, proved by a byte-identical capture when only the digits were rewritten. Whether a child sees a clock or a tofu square depends on their device's emoji fonts, and nothing in the repo guarantees one. Found only because a baseline captured it | **open** · unowned — needs a glyph with a fallback, not a mask |

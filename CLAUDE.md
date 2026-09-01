@@ -861,6 +861,20 @@ captures minutes apart legitimately differ — 554 pixels in a 66×20 box readin
 *4:58*. **Zero-unmasked-by-quieting works for a pulsing LED and a blinking caret
 and cannot work for a clock:** mask it, or freeze it before the shutter.
 
+**RLS is only consulted AFTER the role holds table-level SELECT, so a policy
+without a grant is half a fix that looks whole.** It fails with *permission
+denied for table activities* — which is not an RLS message and never mentions
+policies, so it reads as a broken connection or a missing table and sends you
+looking at the wrong layer. `grant select on … to anon` and the policy are one
+change; `20260823000004_school_city.sql` is the existing pair. **Prove it against
+a draft actually sitting in the table** — anon seeing three published rows and
+not the draft tests the policy; anon seeing rows at all only tests the grant.
+
+**An emoji used as interface chrome has no font behind it.** The clock glyph
+renders as a missing-glyph box in headless Chromium, and whether a child sees a
+clock or a tofu square depends on their device's emoji fonts. Nothing in the
+repo guarantees one. It was found only because a baseline captured it.
+
 **A test that passes because the guard cannot fire is not a test of the guard.**
 Proving the alt-text leak check still worked, the first attempt used a fixture
 whose correct option is the single letter *"B"* — and the check deliberately
