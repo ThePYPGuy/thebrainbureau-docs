@@ -208,8 +208,8 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-1. **Five open questions on licensing** — `docs/licensing.md` lists them; the
-   sharpest is what happens to work made during the trial month. **An open
+1. **Four open questions on licensing** — `docs/licensing.md` lists them. The
+   sharpest: **a guest burns a seat**, and a child who rejoins burns two. **An open
    deployment code admits anyone and always has** — `resolveAgent` creates an
    agent for any unused codename. Parked under licensing: entitlements change
    what a code should guard.

@@ -111,8 +111,25 @@ that failure impossible rather than mitigated.
 
 ## Settled 1 Sep
 
-**One class during the trial.** Paying unlocks more. **30 students per class**,
-which is also the cap the permanent per-activity grant carries.
+**One class during the trial.** Paying unlocks more.
+
+**The seat cap is per activity per school year, not per class: 30 students, and
+they need not be members of any class.** That is a better meter than a class
+limit — it does not care how a teacher organises children, and it survives a
+teacher who runs the same activity twice with different groups.
+
+**Student 31 is refused.** The number is the number. Note where that failure
+lands: on a child, mid-lesson, arbitrarily whichever one is 31st through the
+door. **So the teacher has to see the count climbing well before it binds** — a
+cap that is only announced by refusing a child is a cap that will be discovered
+in front of a class.
+
+**One trial per teacher, ever.** A second purchase adds its activity to the
+account and grants no new month. Otherwise the trial is farmable, and a second
+month converts nobody the first did not.
+
+**Unsubscribing warns that all but one class will be lost.** *Which* class
+survives is not yet specified — see below.
 
 **Signal Check is free tier.** It is what the homepage sells, so it has to be
 reachable by someone who has bought nothing.
@@ -128,13 +145,19 @@ made, lose the capacity to make more.**
 
 ## Open — not yet decided
 
-1. **One trial per teacher, or one per code?** Three purchases should not buy
-   three months, or the trial becomes something to farm — and a second month
-   converts nobody the first did not. **Recommend one per teacher, ever.**
-2. **What happens at student 31?** A hard cap refuses a child mid-lesson, which
-   is the worse failure. Consider admitting and telling the teacher.
-3. **What happens when a subscriber lapses over the limit?** Four classes
-   built, a one-class allowance. Same shape as the trial-end question and
-   probably the same answer — visible and read-only, no new runs — but it is
-   currently undecided, and will otherwise be discovered by whoever it happens
-   to first.
+1. **A guest burns a seat, and the same child can burn several.** This is the
+   sharpest one, and it comes from two decisions made separately on the same
+   day. A guest is a fresh `agents` row every time — that is what makes the
+   guest route work. But the seat cap counts students, and a guest who loses
+   their cookie and rejoins is a *second* student against the 30. A class of 28
+   where a few rejoin can exhaust an activity's school year. **Decide what
+   counts:** distinct agents, or something a returning guest can be recognised
+   by. Nothing today can tell one guest from another.
+2. **When does the school year turn over?** The cap resets annually and no date
+   is set. Northern and southern hemispheres do not share one.
+3. **Which class survives unsubscribing?** Most recent, largest, or the
+   teacher's choice. Choosing for them will occasionally be wrong in a way they
+   cannot undo.
+4. **Does the count include a child who joined and never started?** A register
+   of 30 that includes three who opened the page and closed it is a cap that
+   binds early and reads as broken.
