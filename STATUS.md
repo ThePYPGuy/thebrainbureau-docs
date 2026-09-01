@@ -190,13 +190,17 @@ from `git log`; descriptions are each session's account of its own work.
 1. **`app/brand.module.css` has zero importers**, but `check-tokens.ts` grandfathers
    six literals by it — deleting it changes what the checker enforces. *(WI.)*
 1. **`_note` says `prefix` is never rendered; `Tasks.tsx:428` draws it.** *(Op Builder.)*
+1. **A UI pass, from playing Blooket and Signal Check** —
+   `docs/local/briefs/ui-pass-2.md`. **Use the whole screen, large type.** Image
+   on a question from the start; *Alt text (required)* is a label with nothing
+   behind it — **keep the leak check, a different thing**. Blue nav; **My banks →
+   My Quizzes**. Phone type too small; projector answers in a **grid**.
 1. **Re-establish that the redesign never touched activity chrome.** Every
    baseline is dated 1 Sep, so it proves *nothing changes from here* and nothing
    about before. Check out a pre-redesign commit into a temporary worktree,
    capture with `check:visual`, diff against today. **A task, not a footnote.**
-1. **Run `sudo npx playwright install-deps chromium` once.** WI could not — no
-   password — and worked around it by extracting four libraries into `~/.cache`.
-   None touch rasterisation, so captures are unaffected. *(Maciej.)*
+1. **Run `sudo npx playwright install-deps chromium` once** — WI had no password
+   and extracted four libraries into `~/.cache` instead. *(Maciej.)*
 
 ## 9. Open decisions — waiting on Maciej
 
