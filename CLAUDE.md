@@ -669,6 +669,31 @@ what it **selects**, not what it prints — and when you find the gap, fix the
 output so the wrong reading is unavailable rather than merely discouraged.
 That script now marks every row `platform` or `teacher <id>`.
 
+**Reading `window.location` during render is wrong for client-side navigation,
+and works when you test it.** `/live/join` seeded its PIN boxes from a `useState`
+initializer reading `window.location.search`. A `router.push` from `/join` renders
+the page *before* the address bar is the new address, so it read the old query and
+seeded nothing. **A direct load worked**, which is why it looked correct for as
+long as anyone tested it directly — and why STATUS asserted the handoff worked
+when only its API half did. Read a query in an effect, or from the framework's own
+hook. Never in a render-time initializer.
+
+**Only `access_codes` carries the six-digit CHECK, so a hand-written row is a
+broken row.** Anything inserting a `deployments` or `classes` row directly —
+seeds, fixtures, one-off scripts — must `registerCode` it and `releaseCode` on
+teardown. Without it the row inserts happily and the **router refuses it one
+layer away**, which reads as a routing bug rather than a fixture bug. That is
+exactly how `test-answer-leak.ts` broke (`c095ac1`). Current ranges: seed
+`100000–100100`, e2e `900001–900007`, answer-leak `9001xx`.
+
+**A component on two hosts must out-specify the globals on both.**
+`components/student/CodeEntry` renders inside `/join` and `/live/join`, and both
+hosts style bare inputs from globals at (0,1,1). Its rule is `.row .box` (0,2,0)
+rather than `.box` (0,1,0) for that reason. The version it replaced used
+`:global(.liveJoin)` prefixes — correct on the host it was written for, and
+**silently inert on the second one.** When a component moves to a second surface,
+check what beats it there, not what beat it where it came from.
+
 **A pattern that runs after a normaliser must match the normalised form, not
 the form a human types.** `normaliseCode` strips dashes, so a legacy class code
 `C-6M01` reached `isLegacyCode` as `C6M01` and matched nothing. The failure was

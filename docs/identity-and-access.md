@@ -248,6 +248,13 @@ Three distinct things, deliberately named apart.
 |---|---|---|
 | **Class code** | Join a class and stay in it | Persistent, per class |
 | **Deployment code** | Enter one assigned activity; the guest route | Persistent, per deployment |
+
+**A teacher sees *Activity code*, not *Deployment code*** (2026-08-31). A teacher
+assigns an *activity*; **deployment** is the model's word and appears nowhere a
+teacher looks. The divergence is deliberate — do not "correct" the UI to match
+this table. The phrase *join code* is retired from user-facing copy entirely: a
+class code answers to it as readily as an activity code, so it named both and
+distinguished neither, which is the whole problem six-digit codes created.
 | **Game PIN** | One live Agent Training session | Ephemeral, per session |
 
 A teacher normally shares the **class code** once. Deployment codes cover
