@@ -669,6 +669,22 @@ what it **selects**, not what it prints — and when you find the gap, fix the
 output so the wrong reading is unavailable rather than merely discouraged.
 That script now marks every row `platform` or `teacher <id>`.
 
+**An additive migration goes before the deploy; a destructive one goes after.**
+`STATUS.md` §4 states the additive half — *apply migrations first, then push* —
+because that is the case this project kept meeting: new code needing a column
+that is not there yet. **A migration that DROPS a column inverts it.** The
+running production code is the *old* code, and it still selects what you are
+about to remove.
+
+Concretely, on 1 Sep: migration 30 drops `agents.is_guest`, and the deployed
+`lib/server/intel.ts` selects it at `:31` and reads it at `:48`. Applied first,
+every Intel award on production queries a column that no longer exists —
+between the migration and the build finishing, in front of whoever is using the
+site.
+
+**So: adding, migrate then push. Removing, push then migrate.** The test is not
+what the migration does, it is which version of the code has to survive the gap.
+
 **`/api/agent/exists` and `resolveAgent` must scope a codename identically, and
 nothing audits the pair.** The endpoint decides whether `/join` says *Welcome
 back* or *Choose a PIN*; `resolveAgent` in `lib/server/agent.ts` decides which

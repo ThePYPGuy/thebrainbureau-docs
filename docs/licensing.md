@@ -228,8 +228,19 @@ months is a conversation, not a migration.
 ## Dormant, on purpose
 
 **`agents.is_guest`, its two check constraints and the reserved `GUEST-` prefix
-were built 1 Sep for guest access to activities, then superseded the same day**
-when Cases and Operations became account-only. Live guests never used any of it —
-they are run rows with a nickname. **Being removed by a forward migration, not a
-rollback.** Recorded here so nobody finds an orphan column and either deletes
-something load-bearing or builds on something abandoned.
+were built 1 Sep for guest access to activities, superseded the same day** when
+Cases and Operations became account-only, and **removed by migration 30** — a
+forward migration, not a rollback of 29. Live guests never used any of it: they
+are run rows with a nickname, and `e2e:signal-check` passed whole through the
+removal, including *a guest earns nothing*.
+
+**No child ever used the door.** Measured on production before the migration was
+written, counts only: 5 agent rows, 0 with a null `pin_hash`, 0 guests, 0
+`GUEST-` codenames. The `delete from agents where is_guest` in migration 30 is
+for the 26 rows a local test database held — a migration that only applies on
+one machine is not a migration.
+
+**`GUEST-` is choosable again**, since the reservation went with the path. Tested
+rather than assumed. Harmless today — no minter exists to collide with — but a
+real behaviour change, and there is no longer any code behind the reservation if
+it should ever come back.

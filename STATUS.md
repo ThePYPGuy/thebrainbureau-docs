@@ -126,6 +126,10 @@ re-checked this since 25 Aug]* — proving it there means
 creating a student agent in a live database. To confirm on the site, join a
 real class code and check the ending stays absent until the last lock.
 
+**A migration that DROPS goes AFTER the push, not before** — the running code is
+the old code and still selects what you are removing. §4's *migrate then push* is
+the additive case. `CLAUDE.md` carries the rule.
+
 **Before any push** run
 `git diff --stat origin/main..main -- supabase/migrations/ content/`. Neither
 deploys itself and both fail silently when missed — and **this range needs a
@@ -173,15 +177,12 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `bf52350` — **the agent-guest path is gone, and no child ever used it.** Migration 30 drops `is_guest`, both constraints and the reserved prefix; the server path, the four orphaned `globals.css` rules and a fifth orphan in `check-tokens.ts` went with it. **Production was measured before the migration was written**, counts only: 5 agents, **0 null `pin_hash`**, 0 guests — so `set not null` is safe there and nothing is deleted. The live guest was never coupled: `e2e:signal-check` passes whole, *a guest earns nothing* included. **`GUEST-` is choosable again** — tested, not assumed. *(WI.)*
 - `6184975` — **the door stops being a monitor.** `/join` drops `Frame` — no bezel, no glass, no scanlines — and reveals in three steps: code, then codename, then a PIN box that asks the right question. **The returning child is greeted rather than rejected**; the old path logged them in and told them *that codename is taken and the PIN doesn't match*. Needed a new endpoint, `/api/agent/exists`, **deliberately not a code oracle** — a game PIN and an unknown code both answer `exists:false`, identical to a valid code with a fresh codename, verified on production. Guest mode out of the UI. **The boot sequence moved rather than went**: once-per-device in `localStorage`, so the first *activity* now plays it. *(WD.)*
 - `1870524` — **a guest is an agent with no PIN, not an agent that is missing.** The live shape could not transfer — `runs.agent_id` is nullable, the four activity progress tables are not — so a guest is a real row and every constraint keeps working. Both directions are checked, and **`GUEST-` is reserved rather than merely minted**, making the namespaces disjoint by construction so nothing needs sweeping. The typed name seeds `roster_entries.real_name`, so a teacher sees a person and no second mechanism exists. **The landing was broken and only measuring found it:** `/profile` is class-driven and a guest joins no class, so they arrived at an empty list with a *Change my PIN* control and no link to the mission they had just typed a code for. 31 checks in `test:guest`, including the roster read back **as the teacher through RLS** — because *the row exists* and *the teacher can see it* are different claims. *(WI.)*
 
 ## 8. Next up
 
-1. **Remove the dormant guest-agent path** — server and schema; **the UI half
-   landed `6184975`**, so the server now accepts guests nothing offers. Take the
-   four rules WD found orphaned in `globals.css` with it: `.loginPanel`,
-   `.loginError`, `.loginHelp`, `.dossierBtn`, zero consumers. *(WI.)*
 1. **Phase 3: the student dashboard.** `/profile` wraps `StudentDashboard` in
    `.shell`; the same component renders at `/dashboard/agent/[agentId]`, so
    moving the child's host makes both Bureau. Last of the three. *(WD.)*
