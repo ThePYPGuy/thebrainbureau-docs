@@ -913,6 +913,27 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**A SELF-DIFF OF 0 PROVES THE TWO CAPTURES IN ONE RUN AGREE. IT SAYS NOTHING
+ABOUT THE ENVIRONMENT BEING RIGHT.** A machine with no emoji fonts photographs
+tofu boxes, agrees with itself perfectly, reports self-diff 0, and **commits the
+bug back as the standard.** Six of eight baselines were not stale — they were
+WRONG, and had been since they were made: padlocks, a stopwatch, a detective and
+three arrows, all captured as missing-glyph boxes. Every real browser has emoji
+coverage, so **no child ever saw what the baselines encoded**, and any correct
+render would have failed against them.
+
+**The command that made the harness runnable is the command that invalidated its
+baselines.** `playwright install-deps chromium` installs more than the four
+libraries `visual-check.ts` documents; at 01:13:49 it also brought
+`fonts-noto-color-emoji` and the rest of a font set. **Re-baseline after changing
+the machine, not only after changing the code.**
+
+**And falsify a correlation before acting on it.** *Glyph coverage is the cause*
+predicts that a surface containing none of the affected characters must PASS:
+`/pricing` and `/join` have none and both passed, `/` has six arrows and failed,
+and rewriting all eight left those two **byte-identical** — six modified files,
+not eight. That is the test that turns a plausible story into a proven one.
+
 **`check:visual` red does not imply the code changed.** The harness photographs
 pages rendered from THIS MACHINE'S LOCAL DATABASE, so **an import moves the
 baselines without a line of code moving**. Six of eight went red on a range whose
