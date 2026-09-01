@@ -106,10 +106,16 @@ Chrome at the committed baseline's exact viewport and scale differs from that
 baseline by **326,418 of 10,163,200 pixels** — same dimensions, same layout,
 **different rasterisation**.
 
-**So a baseline only means anything on the platform that made it.** The bundled
-Chromium was chosen so a baseline reproduces elsewhere, and that reasoning holds
-for *version* drift; it does not cross an operating system. Same browser, other
-OS, 3.2% different.
+**And it is not only rasterisation — it reaches layout.** Regenerated on Linux,
+`pricing` came out at 4560, the same height Windows measured. `home` and
+`profile` did not: 8042 against 7974, 3882 against 3828. **Different font metrics
+move where text wraps, and the page height moves with it.** So the two platforms
+do not render the same page differently; **they do not quite have the same
+page.**
+
+**A baseline therefore only means anything on the platform that made it.** The
+bundled Chromium was chosen so a baseline reproduces elsewhere — true for
+*version* drift, and it does not cross an operating system.
 
 **Which makes regeneration a privilege, not a step.** `chrome-headless-shell`
 dies in WSL on `libnspr4.so` without `sudo npx playwright install-deps chromium`,
@@ -123,6 +129,18 @@ Capture every surface **before and after** your own change with the same browser
 and the same procedure. That measures what your change moved, which is the actual
 question, and it does not touch the committed baselines. Website Designer did
 exactly this and could report the four activity surfaces at 0 pixels.
+
+## `profile.png` encodes database state, not just code
+
+Its classes list renders **whatever deployments the local database holds** — two
+or three per activity here, from seeding and re-minting, so each activity appears
+twice. Real rows, not a rendering fault.
+
+**So `profile` will go red after any re-seed, for a reason nobody changed in
+code.** The activity surfaces do not have this problem: they render from content
+JSON. **Left in and flagged rather than quietly dropped** — someone should decide
+whether that is acceptable or whether this surface wants a fixed fixture, and
+that is a decision rather than a defect.
 
 ## What it cannot see
 

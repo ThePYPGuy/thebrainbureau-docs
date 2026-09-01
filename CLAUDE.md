@@ -844,6 +844,22 @@ never fires a second one, so it hung 30 seconds on a login that had already
 succeeded. And reading `innerText` on `domcontentloaded` asserts against an empty
 body — it reported the homepage broken while the served HTML was complete.
 
+**The instrument that needs suspecting is sometimes the one doing the looking.**
+Reading a regenerated baseline, a session saw a stray *"© 2026 The Brain Bureau"*
+under the hero and began writing it up as a layout-pass defect. It checked first:
+the DOM has exactly one copyright element, in the footer at `y=2227`, static, no
+sticky ancestor; `elementFromPoint` there returns the hero; and cropping that
+region from the PNG **at full resolution** shows clean navy. **The artefact was
+its own viewer downscaling 2560px to 1123.** Crop at native resolution before
+believing anything you saw in a scaled view.
+
+**Falsify a check in both directions before trusting it.** `check-offsite` was
+proved by making it fail twice: a third-party image added to `/join` turned it red
+and named the URL, and dropping the session on `/profile` made it fail **as a
+redirect** rather than pass clean — which is the failure that matters, because a
+signed-out child surface redirects and a check that reads the redirect would pass
+happily forever.
+
 **A self-diff of zero can be the absence of the page.** On 1 Sep the visual
 regression harness reported 0 of 4,608,000 on Zero Hour — the cleanest possible
 result — and the baseline was an **empty CRT**. Bezel, status LED and brand plate
