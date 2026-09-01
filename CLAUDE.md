@@ -913,6 +913,25 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**`check:visual` red does not imply the code changed.** The harness photographs
+pages rendered from THIS MACHINE'S LOCAL DATABASE, so **an import moves the
+baselines without a line of code moving**. Six of eight went red on a range whose
+only relevant changes were three content files and a header component; no
+terminal component or `globals.css` line changed at all. First command, not last:
+
+    git diff --stat <last-green>..HEAD -- content/
+
+**And read the shapes.** A thin horizontal band 20-30px tall is text changing; a
+tiny diff spread over a very tall region — 329 pixels across 3,000 — is the
+shape of a one-pixel shift everywhere rather than a deliberate change somewhere,
+and it is the one to open the image for. **A self-diff of 0 means it is not
+flake**, which narrows it to stale-or-real and nothing else.
+
+**Two sessions can claim the same migration number in the same minute**, both
+untracked, neither able to see the other. It happened twice in one night. Check
+every branch, **every other worktree's uncommitted files**, and the local
+history table — `ls ~/tbb-*/supabase/migrations/` is the half people forget.
+
 **A TEST CASE THAT SITS EXACTLY ON A THRESHOLD PROVES THE THRESHOLD AND SAYS
 NOTHING ABOUT THE MARGIN.** I asked for *ten consecutive wrong PINs, then in on
 the eleventh*, against a limit somebody might have set at ten. It would have
