@@ -295,11 +295,11 @@ asserted of all.
 
 **What does not change, and is not softened by this decision:**
 
-- **A slower reader is not a slower thinker.** A dyslexic child spends their
-  first seconds reading. **Consider a grace band** — full marks inside the first
-  few seconds, decaying after — rather than decaying from zero the way Kahoot
-  does. It keeps the fluency signal and stops the scoring from measuring reading
-  speed.
+- **A grace band, decided 1 Sep.** Full marks inside the first few seconds, then
+  decaying — not decaying from zero the way Kahoot does. **A slower reader is not
+  a slower thinker**: a dyslexic child spends their first seconds reading, and
+  scoring from zero measures that rather than fluency. The band keeps the fluency
+  signal and moves the line to where thinking starts.
 - **Network lag becomes score.** Thirty devices on school wifi, 3.6 deliveries
   per player per question measured. A child whose question arrives 300ms late is
   300ms behind through nothing they did, and cannot see it. **Time from delivery,

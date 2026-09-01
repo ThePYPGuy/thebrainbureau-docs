@@ -171,18 +171,13 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **A top-three podium, and points that scale with speed** — both reversed
+1. **A top-three podium, and points that scale with speed** — plus **a grace
+   band before decay** and **the answer shown to a child who did not answer**,
+   both decided 1 Sep. Also auto-advance after the reveal, and ending a question
+   early once everyone has answered. — both reversed
    1 Sep. `docs/question-banks.md` has why, and names two fairness costs the
    decision does not cancel. The **NO SPEED BONUS** comment calls it a platform
    principle — that is the thing to replace. *(Quiz Maker.)*
-1. **A guest who never answers sees nothing at the reveal.** *Waiting for the
-   next question…* runs through the whole of it, while everyone who answered gets
-   the correct answer and the explanation. **The child who most needs the
-   explanation is the one who does not get it.** *(Quiz Maker; nothing named it.)*
-1. **A PIN minted before migration 28 is in no registry** — nothing backfilled
-   `access_codes` from open sessions, so `/api/join` answers *no code like that*
-   for a projector still showing one. **Whether a production session was open
-   when 28 applied is one query nobody has run.** *(Waits for Maciej.)*
 1. **The homepage is dynamic for one line.** `page.tsx:66` reads `cookies()`, so
    the route leaves static generation and every first-time visitor pays a server
    render for a check only a signed-in child needs. **Middleware first, then
