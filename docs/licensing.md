@@ -408,3 +408,51 @@ reaches it does.**
 *[verify]* No teacher printable exists in the repo yet — `find public -iname '*.pdf'`
 returns nothing. Maciej has made some and has not shared them; the site is being
 built to receive them.
+
+## Rotation, and the trial — decided 2 Sep
+
+**A code can be RETIRED, and that is what makes none of this irreversible.**
+Retiring closes the route for new redemptions and touches nothing already
+granted: an `entitlements` row records a teacher and an activity and **does not
+reference the code it came from**, so everyone who already redeemed keeps what
+they have. Maciej's case, in his words: *"if loads of people have used the prime
+directive code/link i can create a new one to close that route."*
+
+**So the shape is MANY codes per activity, one current** — not one code with an
+edit. Retrofitting the second shape onto the first is the awkward version, and
+the whole point is to have the option before it is needed.
+
+**Retire SOFTLY.** A retired code must not 404. The person holding it is most
+likely a paying teacher who bought in September and opened the pack in January,
+and the cost of a wrong refusal is a customer who gives up; the cost of a soft
+landing is one support message.
+
+**Which decides the delivery format.** A frozen PDF strands exactly that buyer,
+because the code printed in it is the retired one. **A live Google Slide shows
+whatever is current whenever they finally open it**, so the code belongs on the
+teacher-facing deck. Note that *File > Make a copy* freezes it again, and print
+freezes it hardest — **so the code stays OFF the pupil printable**, which gets
+photocopied and handed to children and has no business carrying one.
+
+**The format is `BUREAU-4K7M2`** — a word, then letters and digits. Deliberately
+unlike the six-digit game code a child types to join a lesson: same-shaped
+strings doing two unrelated jobs is how a teacher ends up typing one into the
+other's box, and neither error message would say so.
+
+### The trial
+
+| | |
+|---|---|
+| **Length** | One month |
+| **Starts** | The first time a class actually plays something — **not on redemption** |
+| **Ends** | Never mid-lesson |
+
+**Starting on first use rather than on redemption** is what stops a summer
+purchase burning the month before term begins, and it puts the trial where it
+can convert: after a teacher has watched it work with real children.
+
+**Ending never interrupts a live lesson.** A teacher halfway through with
+twenty-eight children in the room finishes; what they cannot do is start a new
+one on an activity they have not bought. Cutting off mid-flow in front of a
+class is the single worst advertisement this product could buy, and it is the
+moment a teacher would remember.
