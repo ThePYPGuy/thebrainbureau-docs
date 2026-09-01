@@ -743,6 +743,31 @@ greeted as a returner — and nothing fails, because the submit still works. Sam
 family as the two column lists below, and the same remedy: change both, and
 prove it by round-tripping a real codename through the page.
 
+**A self-diff of zero can be the absence of the page.** On 1 Sep the visual
+regression harness reported 0 of 4,608,000 on Zero Hour — the cleanest possible
+result — and the baseline was an **empty CRT**. Bezel, status LED and brand plate
+all present and perfect; the glass entirely black.
+
+**The cause was not the test.** The dev server had been up around twelve hours
+across hundreds of edits and two chunks were answering 403, so React never
+hydrated. `Frame` renders `booting === null ? null : …` and `booting` is set only
+in an effect — so **an unhydrated Field terminal renders nothing inside the
+monitor while every server-rendered part of the chrome looks right**. Two
+identical captures of that agree perfectly.
+
+**The 977 floor is what caught it**, on its first outing, against a failure
+nobody predicted: *any harness reporting under 977 unmasked is not measuring what
+it thinks it is*. Without that number a zero reads as success.
+
+So: **every surface must declare what proves it rendered** — a required selector
+and a minimum quantity of visible text, checked after quieting and immediately
+before the shutter, so a blank page throws rather than becoming a baseline. And
+**look at a baseline before accepting it.** A baseline nobody has opened is a bug
+promoted to a standard, which is the whole failure in one sentence.
+
+Restarting the dev server cleared the 403s. **A long-running dev server is itself
+a hazard** when what you are measuring is whether a page rendered.
+
 **"Landed" needs a branch, or it is not an answer.** On 1 Sep Website
 Infrastructure reported its work *"in at 7e4acee on platform, not pushed"*. Doc
 Manager relayed *"WI's half landed"* and told Website Designer to remove the

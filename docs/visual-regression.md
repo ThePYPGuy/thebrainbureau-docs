@@ -35,8 +35,10 @@ Zero Hour, at 2560×1800, `deviceScaleFactor` 2:
 - **Unmasked: 3,144**
 - **The page differs from *itself* by 977**, in the LED alone.
 
-**That last number is the floor.** Any harness reporting less than it on an
-unmasked self-comparison is not measuring what it thinks it is. Diff the page
+**That last number is the floor, and it has already caught something.** Any
+harness reporting less than it on an unmasked self-comparison is not measuring
+what it thinks it is — the first run to report a clean 0 was photographing an
+empty CRT. See `CLAUDE.md`. Diff the page
 against itself first, every run, and treat the result as the noise threshold.
 
 ## Three traps, each already paid for once
@@ -67,15 +69,20 @@ pixel diff catches a font that silently fell back; this explains it.
 
 Phases two and three changed Bureau surfaces, so those want regenerating.
 
-**Do not regenerate `field-terminal.png` or `case-file.png`.** Their whole worth
-is that they predate the redesign and both activities still match them — the only
-evidence three phases of visual work never touched activity chrome.
+**`field-terminal.png` and `case-file.png` do not exist** *(checked 1 Sep — not
+in either worktree, nowhere on disk, never committed)*. An earlier draft of this
+file told a session to preserve them, on a report Doc Manager recorded without
+verifying the files were there. **The evidence that three phases of visual work
+never touched activity chrome is therefore gone**, and it cannot be reconstructed
+after the fact — a baseline made now proves only that today matches today. Do not
+manufacture a replacement and do not describe one as predating anything.
 
 **Say exactly what was regenerated.** A baseline accepted without being looked at
 is a bug promoted to a standard.
 
 ## Scope
 
-Two activities are built — Zero Hour and Prime Directive — plus the Prime
-Directive print sheet. The other five archetypes do not exist. **Do not build a
-harness that assumes seven.**
+**Three** activities are published — Zero Hour, Prime Directive and Global Intel
+Cards — plus the Prime Directive print sheet. *(This file said two until 1 Sep.)*
+The other archetypes do not exist. **Do not build a harness that assumes seven** —
+drive it from a list, so a fourth is one line.
