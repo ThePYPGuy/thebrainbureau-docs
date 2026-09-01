@@ -208,11 +208,11 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-1. **An open deployment code admits anyone, and always has.** `resolveAgent`
-   creates an agent for any unused codename; the only gate is `status = 'open'`.
-   Guests did not open that door — they shortened the queue and made entrants
-   **visible** for the first time. **Does a teacher need an allow-guests switch,
-   or is the real question that nothing but open/closed guards a code?**
+1. **Five open questions on licensing** — `docs/licensing.md` lists them; the
+   sharpest is what happens to work made during the trial month. **An open
+   deployment code admits anyone and always has** — `resolveAgent` creates an
+   agent for any unused codename. Parked under licensing: entitlements change
+   what a code should guard.
 
 ## 10. Known silent failures
 
