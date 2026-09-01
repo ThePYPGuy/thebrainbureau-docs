@@ -164,6 +164,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `345d2f8` — **the homepage stops reading a cookie and goes back to being static.** `┌ ○ /` in the route table where it was dynamic. **The *before* is preserved because the deploy destroys it:** on production, `/` was `private, no-cache, no-store`, MISS, Age 0, while `/pricing` and `/contact` were `public, max-age=0`, HIT, Age ~5385. **The homepage was the only one of the three that could never be cached, and the only one that read a cookie.** The HIT itself still cannot be shown — it needs the deploy. *(WD; not pushed.)*
 - `30d9888` — **loading states, built around not moving.** Six route files, Bureau and Field. `globals.css` kills every animation under `[data-clear-view]` with `!important`, and reduced-motion does the same — **so a spinner is a frozen spinner and reads as a hung page.** The words carry the message and the movement is decoration; what each degrades to was chosen, so the Bureau dots settle into an ellipsis and the Field caret stops blinking and stays solid. Both are states a page might legitimately be in. Verified across both faces × normal, reduced-motion and clear-view. *(WD; not pushed.)*
 - `2756e01` — **the four faults the first real game found.** `ended` reached the device by **one broadcast and nothing else**, so a phone whose socket slept woke, resynced, and met a path that could not express it — three levels now can. **Faults 3 and 4 were one fault:** there was no selection state at all, only the browser's focus styling, which a touch does not reliably raise and which React left on the reused button at index 0 — so a tap sometimes showed nothing, and the last answer lit an option for a question nobody had read. **Colour is keyed to the option's canonical index, not its place on screen**, because every device shuffles: *the orange one* is the same answer on the wall and on thirty phones. Projector sized in `vmin`, fitting 800×600 to 1920×1080. **Not verified on a phone — Quiz Maker has no device and said so rather than calling emulation verification.** *(Not pushed.)*
 - `7e4acee` — **the homepage check moves to the proxy, and a stale cookie clears itself.** It went into the existing `proxy.ts`, whose matcher gained `"/"` beside `"/dashboard/:path*"` — **there is no `middleware.ts`, and one added beside it would not have run**, after a green build. The cookie *name* moved to `lib/auth/cookie.ts` rather than being repeated in the proxy, so the Edge can import it without `node:crypto` and nineteen importers are untouched — the *two definitions of one name* rule, applied one level down unprompted. **And it found the bug it caused:** redirecting on presence alone sent an unreadable cookie to `/profile`, which bounced it to `/join` without clearing it, so `/` bounced again, permanently. *(WI; not pushed.)*
@@ -178,12 +179,6 @@ from `git log`; descriptions are each session's account of its own work.
    1 Sep. `docs/question-banks.md` has why, and names two fairness costs the
    decision does not cancel. The **NO SPEED BONUS** comment calls it a platform
    principle — that is the thing to replace. *(Quiz Maker.)*
-1. **The homepage is dynamic for one line.** `page.tsx:66` reads `cookies()`, so
-   the route leaves static generation and every first-time visitor pays a server
-   render for a check only a signed-in child needs. **Middleware first, then
-   remove the page check** — the other order shows marketing to signed-in
-   students. **WI's half is `7e4acee` on `platform` — NOT in `main`**, where
-   `page.tsx:67` is still the only redirect. Merge first. *(WD, after.)*
 1. **Redemption: one `/redeem`, not a second signup.** Activities carry only a
    `slug`, so a code needs a home, and the route must serve signed-in and
    signed-out alike — the PDF link cannot change. **The only irreversible

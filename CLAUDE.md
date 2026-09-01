@@ -743,6 +743,28 @@ greeted as a returner — and nothing fails, because the submit still works. Sam
 family as the two column lists below, and the same remedy: change both, and
 prove it by round-tripping a real codename through the page.
 
+**A production build over a live dev server corrupts `.next`, and the damage
+looks like your code.** After `npm run build` with `npm run dev` still running,
+`/join` served **eleven** digit inputs and the first box swallowed all six digits
+— with nothing in the source changed. `rm -rf .next` and a restart fixed it.
+Website Designer nearly spent an afternoon debugging `CodeEntry`, which was fine.
+**Stop the dev server before building, and when a component misbehaves in a way
+its source cannot explain, suspect `.next` before the component.**
+
+**`curl` is the wrong instrument for a streamed redirect.** `/profile` answers
+**200** to `curl` with the redirect inside the payload — which reads as an
+authenticated page serving to an anonymous request, and *"auth page returns 200"*
+is not something to wave through. In a browser it lands on `/join` with nothing
+rendered. Check it in a browser before filing it, and before dismissing it.
+
+**Three probe faults in the same family, all measuring the instrument rather than
+the page.** `waitUntil: "networkidle"` never settles against a dev server holding
+an HMR socket — every `goto` timed out while `curl` fetched the same URL in 70ms.
+`waitForURL` waits for a `load` event by default, and a client-side transition
+never fires a second one, so it hung 30 seconds on a login that had already
+succeeded. And reading `innerText` on `domcontentloaded` asserts against an empty
+body — it reported the homepage broken while the served HTML was complete.
+
 **A self-diff of zero can be the absence of the page.** On 1 Sep the visual
 regression harness reported 0 of 4,608,000 on Zero Hour — the cleanest possible
 result — and the baseline was an **empty CRT**. Bezel, status LED and brand plate
