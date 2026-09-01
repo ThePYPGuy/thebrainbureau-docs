@@ -875,6 +875,14 @@ renders as a missing-glyph box in headless Chromium, and whether a child sees a
 clock or a tofu square depends on their device's emoji fonts. Nothing in the
 repo guarantees one. It was found only because a baseline captured it.
 
+**A grant fixes one table; a join reaches more than one.** Migration 32 gave
+`activities` an anon policy and an anon grant, and the catalogue query still
+failed — it selects `phases(...)`, and `phases` had neither. Nothing about
+fixing one table says anything about what a nested select needs. **And it fails
+as an ERROR, not as empty data:** `42501 permission denied for table phases`, so
+dropping the admin client would have broken the page harder than the bug the
+workaround was written for. Read the query's joins, not the table you fixed.
+
 **A check that refuses everything passes the same fixtures as a correct one.**
 Four deliberate breaks against `validateResources` all refused — and a validator
 that threw on any input whatsoever would have refused those four identically, so

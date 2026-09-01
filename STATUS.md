@@ -170,6 +170,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `325dbd0` — **the resources section is plumbed and rendered, and the empty case is written first.** All three branches seen: not-owned, owned with a real 3MB PDF fetching 200, and owned-with-nothing. **The admin-client removal was refused, and that is the finding** — the query joins `phases`, which migration 32 never touched, and it fails as an error rather than as missing data. *(WD.)*
 - `af3f59f` — **resources are the teacher's list, and nothing in the game is in it.** `{ path, label }` — `gated` dropped because the gate is the section, `kind` dropped because it had exactly one legal value. The six modelled entries were the child's own evidence, each duplicating a path the game already reads. **The existence check was re-proved with four refusals AND one acceptance** — the refusals alone would have passed a validator that threw on everything. *(WI.)*
 - `b107414` — **an anon read, alt text offered, resources modelled, a frozen clock.** The anon read needed a **GRANT as well as a policy**: RLS is only consulted once the role holds table-level SELECT, so the policy alone failed with *permission denied*, which never mentions policies. Alt text is now optional on import and strict in the other two places, checked separately. The clock is **frozen rather than masked**, so its colour, position and face stay compared — Zero Hour's unmasked self-diff falls 411 to 0, and the wait is 5000. *(WI.)*
 - `f0d3cb7` — **Cases and Operations get pages, and the prose has one copy.** Indexes at `/dashboard/cases` and `/operations`, a page per activity, `/missions` rewired to read `curriculum.marketing` rather than hardcode it. **The rewire found an RLS bug that would have shipped silently:** `activities` grants SELECT to `authenticated` only, so the public page rendered missing two thirds of its copy and looked fine. *(WD.)*
@@ -188,9 +189,10 @@ from `git log`; descriptions are each session's account of its own work.
    are done; `docs/local/briefs/queue-2.md` carries the rest.
 1. **Write the teacher-facing phase lines** — Zero Hour 5, Prime Directive 7.
    Only Global Intel Cards was written out in full. *(Maciej.)*
-1. **Render the teacher's resource list.** The shape is settled; the section
-   gates on `owned`, and **no file exists to fill it**, so the empty branch is the
-   only one that runs. **`loadPublicCatalogueActivity` is removable.** *(WD.)*
+1. **Teacher printables get a private bucket and an entitlement route.** Storage
+   not the repo, so replacing a PDF is an upload; **the route checks the
+   `entitlements` TABLE**, not `lib/entitlements.ts`, a dev stand-in. Plus
+   **`grant select on phases to anon`**, no wider. *(WI, then WD.)*
 1. **Re-establish that the redesign never touched activity chrome.** Baselines
    are all dated 1 Sep, so they prove nothing about before. Capture a
    pre-redesign commit in a temporary worktree and diff.
