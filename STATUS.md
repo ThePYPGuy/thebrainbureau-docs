@@ -166,9 +166,13 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **A top-three podium** — reversed 1 Sep; `docs/question-banks.md` has why.
-   Teacher sees every result, the class sees three. **§9 carries the tiebreak.**
-   *(Quiz Maker.)*
+1. **A top-three podium, and points that scale with speed** — both reversed
+   1 Sep; `docs/question-banks.md` has why. Teacher sees every result, the class
+   sees three, and speed settles ties as a side effect. **`engine.ts:558` calls
+   no-speed a platform principle** — that comment is now the thing to replace,
+   not just delete. Two fairness costs are named in the doc and neither is
+   cancelled by the decision: a grace band before decay, and timing from
+   delivery rather than broadcast. *(Quiz Maker.)*
 1. **Signal Check was played for the first time** — `docs/signal-check-playtest.md`
    has all eleven findings. **A child is stranded when the teacher ends early**:
    the phone stays on the last question, though `play/[sessionId]:198` already
@@ -200,11 +204,6 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-1. **How does the podium break a tie?** `engine.ts:562` is `score += 1` per
-   correct answer and nothing else, so thirty children over twenty questions will
-   tie constantly and a top three is routinely a top nine. **Shared places, or
-   speed back as a tiebreak** — the second reverses *no speed bonus* and changes
-   what the game rewards.
 1. **Two open questions on licensing** — `docs/licensing.md` has them, and
    neither blocks the redemption flow, which is the first build. **An open
    deployment code admits anyone and always has** — `resolveAgent` creates an

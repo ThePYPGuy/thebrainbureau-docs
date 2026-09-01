@@ -457,8 +457,8 @@ and they arrived in the opposite order to the one drafted here.
 
 **Signal Check** is built and live, and is the only mode the marketing site
 shows. Live, whole-class, synchronous: one question to everyone at once, a fixed
-answer window, three question types and **no speed bonus** — a **top-three
-podium** was added 2026-09-01, with full results to the teacher. It went first deliberately — it is the thinner of the two, and its job
+answer window, three question types, a **top-three podium** and **points that
+scale with speed** — both added 2026-09-01, with full results to the teacher. It went first deliberately — it is the thinner of the two, and its job
 was to prove the realtime transport that both modes need.
 
 **Mainframe Breach is next**, and the JSON below is its intended design, kept

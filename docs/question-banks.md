@@ -275,14 +275,38 @@ three names to the room is a moment. Thirty ranked names on a projector is a
 child seeing themselves last in front of their class every week, which is the
 thing that was actually worth avoiding.
 
-**Two things it collides with, both real:**
+### Points scale with speed — decided 2026-09-01
 
-**Ties are unbreakable as scored.** `engine.ts:562` does `score += 1` on a
-correct answer and nothing else — there is no speed component, by an earlier and
-separate decision. With thirty children and twenty questions a "top three" will
-routinely be a top nine. **Either shared places are the design** — which is
-kinder and needs saying out loud — **or speed comes back as a tiebreak**, which
-reverses a second decision and changes what the game rewards.
+**Signal Check scores faster answers higher.** This settles the podium's ties as
+a side effect; it was decided on its own merits.
+
+**The principle that changes is that there ever was a platform-wide one.**
+`engine.ts:558` reads *"NO SPEED BONUS… this is a platform principle, not a
+preference"*, and `activity-schema-v0.4.md` said *no leaderboard on any surface,
+in any mode*. **Different modes serve different purposes.** Multiplication
+Firewall is times tables, where recall fluency *is* the objective and a child
+taking fifteen seconds over 7×8 has not learned it. Signal Check is live and
+competitive and speed belongs in it. A Case is neither. **Speed is a mode's
+decision, not the platform's** — that is the replacement, and it is a better
+principle than the one it replaces because the old one was true of some modes and
+asserted of all.
+
+`elapsed_ms` is already on every response row, so nothing needs migrating.
+
+**What does not change, and is not softened by this decision:**
+
+- **A slower reader is not a slower thinker.** A dyslexic child spends their
+  first seconds reading. **Consider a grace band** — full marks inside the first
+  few seconds, decaying after — rather than decaying from zero the way Kahoot
+  does. It keeps the fluency signal and stops the scoring from measuring reading
+  speed.
+- **Network lag becomes score.** Thirty devices on school wifi, 3.6 deliveries
+  per player per question measured. A child whose question arrives 300ms late is
+  300ms behind through nothing they did, and cannot see it. **Time from delivery,
+  not from broadcast**, if the client can be trusted to report it honestly — and
+  decide deliberately whether it can.
+- **No ranking of a whole class.** Three names to the room, every result to the
+  teacher. That was never the speed decision and it still stands.
 
 **A guest's name goes on the projector in the largest type in the room.** Display
 names are free text, and `20260831000020_training_sessions.sql:207` already flags
