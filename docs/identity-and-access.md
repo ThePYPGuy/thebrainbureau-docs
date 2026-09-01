@@ -247,7 +247,14 @@ Three distinct things, deliberately named apart.
 | Code | Purpose | Lifetime |
 |---|---|---|
 | **Class code** | Join a class and stay in it | Persistent, per class |
-| **Deployment code** | Enter one assigned activity; the guest route | Persistent, per deployment |
+| **Deployment code** | Enter one assigned activity | Persistent, per deployment |
+
+**The guest route does not exist for activities** *(found 2026-08-31; this table
+claimed it did)*. Every file mentioning a guest is under `lib/live/` — guests are
+a **live-session** feature, where a nickname buys full gameplay and no Intel.
+`lib/server/agent.ts` has no nickname path at all, so a deployment code always
+demands a codename and a PIN. **Maciej wants activities reachable without an
+agent name**, so this is a build, not a correction to the table.
 
 **A teacher sees *Activity code*, not *Deployment code*** (2026-08-31). A teacher
 assigns an *activity*; **deployment** is the model's word and appears nowhere a
