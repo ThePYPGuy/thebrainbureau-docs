@@ -87,6 +87,18 @@ not describe any baseline as predating anything.
 **Say exactly what was regenerated.** A baseline accepted without being looked at
 is a bug promoted to a standard.
 
+## Its first real integration, 1 Sep
+
+Twelve commits landed ahead of the harness's merge, including changes to
+`app/globals.css` and `app/page.tsx` — both covered. **All eight surfaces still
+matched, self-diff 0 on every one.**
+
+That produced a result rather than an assumption: **the homepage renders
+identically for a signed-out visitor now that `app/page.tsx` has stopped reading
+the cookie.** Web Designer's half is pixel-neutral, evidenced instead of assumed —
+the first thing this check has been able to say about somebody else's change, and
+the reason it exists.
+
 ## Scope
 
 **Three** activities are published — Zero Hour, Prime Directive and Global Intel

@@ -167,6 +167,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `26bcafe` — **everything is merged, and the harness proved something on its first day.** Twelve commits landed ahead of the visual check's own merge, including `globals.css` and `app/page.tsx` — both covered by baselines — and **all eight surfaces matched, self-diff 0**. So the homepage renders *identically* for a signed-out visitor now that it has stopped reading the cookie: WD's half is **pixel-neutral, evidenced rather than assumed**. The first thing this check has said about somebody else's change.
 - `94ac7b2` — **points scale with speed, and three names go on the wall.** The curve is 1000 to 600, full marks for five seconds then decaying to a floor of **60% on purpose** — so *a child who answers everything correctly cannot be overtaken by one who answers fewer than 60% however fast* is arithmetic, with a test that fails if the floor is tidied to zero. **The two fairness costs turned out to be one fix:** the band absorbs network lag as well, so client-reported timing — score-determining input from the party with something to gain — is not needed and is not trusted. **`podium()` was leaking:** it filtered rows and returned them whole, and a declared type is not a filter at run time, so every run id and guest flag went out to every device. The end screen was also drawing the last reveal *underneath* the podium. *(WI's harness aside, this is the last of the queue.)*
 - `0f21791` — **a visual check that fails, proved by making it fail.** `npm run check:visual`, eight baselines committed to `tests/visual/baseline`. **Proved by breaking it:** `.brandPlate` `#8a8a90` → `#8a8a91`, one channel, invisible — red at 1024 pixels exactly where the plate sits, then reverted and green. Playwright's **bundled** Chromium, not the installed one, because a baseline has to reproduce elsewhere and an auto-updating Chrome would turn somebody's Tuesday red. **Full-page, not viewport** — the drawn work is nearly all below 900px, which is where lazy-loading bites, so any image left at `naturalWidth 0` throws rather than capturing black. Every run prints what the masks **hide** beside what they let through, so a mask cannot quietly become somewhere to put a regression. *(WI; not pushed.)*
 - `345d2f8` — **the homepage stops reading a cookie and goes back to being static.** `┌ ○ /` in the route table where it was dynamic. **The *before* is preserved because the deploy destroys it:** on production, `/` was `private, no-cache, no-store`, MISS, Age 0, while `/pricing` and `/contact` were `public, max-age=0`, HIT, Age ~5385. **The homepage was the only one of the three that could never be cached, and the only one that read a cookie.** The HIT itself still cannot be shown — it needs the deploy. *(WD; not pushed.)*
@@ -179,9 +180,10 @@ from `git log`; descriptions are each session's account of its own work.
 
 1. **Redemption: one `/redeem`, not a second signup.** Activities carry only a
    `slug`, so a code needs a home, and the route must serve signed-in and
-   signed-out alike — the PDF link cannot change. **The only irreversible
-   piece**, and phase 3 has landed so nothing blocks it. *(WI: code, route,
-   write. WD: the page.)*
+   signed-out alike — the PDF link cannot change. **The only irreversible piece,
+   so it starts with Maciej present rather than from a peer's brief** — four
+   briefs were wrong about the repo on 1 Sep and each was cheap only because the
+   work was reversible. *(WI: code, route, write. WD: the page.)*
 1. **`app/brand.module.css` has zero importers**, but `check-tokens.ts` grandfathers
    six literals by it — deleting it changes what the checker enforces. *(WI.)*
 1. **`_note` says `prefix` is never rendered; `Tasks.tsx:428` draws it.** *(Op Builder.)*

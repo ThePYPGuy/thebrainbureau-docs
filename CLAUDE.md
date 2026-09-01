@@ -756,6 +756,21 @@ greeted as a returner — and nothing fails, because the submit still works. Sam
 family as the two column lists below, and the same remedy: change both, and
 prove it by round-tripping a real codename through the page.
 
+**A brief written from a report is wrong about the repo roughly once a day, and
+the cost of that scales with how reversible the work is.** On 1 Sep alone, Doc
+Manager briefed: *add a `middleware.ts`* when `proxy.ts` was the root gate and a
+second file would silently not run; *`/profile` already clears a stale cookie*
+when it cleared a different failure that looked the same; *two activities are
+built* when three are published; and *preserve these baselines* when the files
+had never existed anywhere. **Every one was caught by the session doing the work,
+and every one was cheap — because the work was reversible.**
+
+**So verify a brief against the repo line by line before briefing anything that
+is not.** A redemption code ships inside a downloaded PDF and cannot be recalled;
+the same class of error there is not repaired by a commit. Website Infrastructure
+declined to start that build on a peer's brief for exactly this reason, and was
+right to.
+
 **A type is not a filter, and a test that asks *is this absent* asks the wrong
 question.** `podium()` filtered the teacher's rows and returned them **whole**.
 The declared return type names three fields, types are erased at run time, and
