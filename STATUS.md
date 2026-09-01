@@ -167,6 +167,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `e038b20` — **phase 3, and the redesign is finished.** `/profile` crosses to the Bureau face behind a **student variant of `SiteHeader`** — the mark and one link, reading *Have another code?* to a child and *Enter a code* to a visitor: the same door, worded for whoever is in front of it. Both hosts of `StudentDashboard` now resolve the same tokens from one `.surface`, so **phase 2's temporary `.shell` wrapper came off** rather than being kept. **No surface is left on the old chrome** — every `brand.module.css` mention in the app is now a comment explaining what used to be there. *(WD; the report did not arrive, so this is read from the repo.)*
 - `bf52350` — **the agent-guest path is gone, and no child ever used it.** Migration 30 drops `is_guest`, both constraints and the reserved prefix; the server path, the four orphaned `globals.css` rules and a fifth orphan in `check-tokens.ts` went with it. **Production was measured before the migration was written**, counts only: 5 agents, **0 null `pin_hash`**, 0 guests — so `set not null` is safe there and nothing is deleted. The live guest was never coupled: `e2e:signal-check` passes whole, *a guest earns nothing* included. **`GUEST-` is choosable again** — tested, not assumed. *(WI.)*
 
 ## 8. Next up
@@ -180,9 +181,6 @@ from `git log`; descriptions are each session's account of its own work.
    nothing until the page arrives. Warm TTFB 240–560ms; `/pricing` is already an
    edge-cache HIT, so some of that is distance. Needs **Bureau and Field**
    versions, respecting `clear-view` and `prefers-reduced-motion`. *(WD, after.)*
-1. **Phase 3: the student dashboard.** `/profile` wraps `StudentDashboard` in
-   `.shell`; the same component renders at `/dashboard/agent/[agentId]`, so
-   moving the child's host makes both Bureau. Last of the three. *(WD.)*
 1. **Redemption: one `/redeem`, not a second signup.** Activities carry only a
    `slug`, so a code needs a home, and the route must serve signed-in and
    signed-out alike — the PDF link cannot change. **The only irreversible
@@ -196,7 +194,7 @@ from `git log`; descriptions are each session's account of its own work.
    before capture** or the HUD timer never idles, and carry a **rendered-width
    assertion per skin** — a known string in the display face against a
    nonexistent family, failing if they match. Phases two and three need a
-   baseline regeneration. *(WI, after phase 3.)*
+   baseline regeneration. **Phase 3 has landed, so the surfaces have stopped moving — this is next.** *(WI.)*
 
 ## 9. Open decisions — waiting on Maciej
 
