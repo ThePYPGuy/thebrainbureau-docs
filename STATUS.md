@@ -174,26 +174,24 @@ This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
 - **the codes are one namespace, and the join box is one door.** `access_codes` (migration **28, not on production**) keys on the code itself, so minting is an insert and a collision is a unique violation rather than a race two teachers can both win — and the id is chosen in TypeScript so the code is claimed *before* the row exists. **Both lifetimes are held:** a PIN leaves the registry when its session ends so the space cannot narrow, while a permanent code refuses any string ever used as a PIN — so last term's projector photo can at worst reach another live game, which is what recycling already meant, and can never reach a class. `/api/join` resolves once and dispatches: a game PIN typed into the join box is handed to `/live/join?pin=` already filled, not refused. **The router test caught a real bug before it shipped** — `normaliseCode` strips dashes, so `C-6M01` reached `isLegacyCode` as `C6M01`, and every old card would have been told *check the digits* when the digits were right. *(WI; nothing deleted, nothing pushed.)*
-- `9de0d0b` — **Create exists, and Discover / Bureau Library / Create is finally the whole list.** `/dashboard/banks/new` takes either door — blank or CSV — and both land in the same editor, so the two paths converge one step in rather than forking the product. The draft state is stated on screen and Publish is disabled until there is a question to publish, which is the trap named in the brief: a bank is `status='draft'`, `session_bank_is_playable()` gates live play on `published`, and without that a teacher builds a bank and finds no *Start live* button with nothing explaining why. Deployed and verified: `/dashboard/banks/new` answers **307 to login rather than 404**, and that route did not exist before this push — a cached bundle could not produce it. **Unverified: everything behind the login.** Creating a bank against production, and `/import` landing on `?door=csv`, both need a signed-in session. *(WI.)*
 
 ## 8. Next up
 
 1. **Delete WD's undo.** `a1da068` is in `main`, the bare rules are scoped, and
    the `currentColor` block in `site.module.css` now neutralises nothing. *(WD.)*
+1. **The codes are unlabelled where it now matters.** `/dashboard/class/[classId]`
+   prints *Class join code 711918*, then a bare `303616` on every activity row —
+   same gold, same six digits, different kind. `C-RHUJ` against `OP-35HY` used to
+   say which; **the re-mint removed that and put nothing back.** *(WD.)*
 1. **Re-mint the two classes and four deployments** with six-digit codes from
    `access_codes`; **delete nothing**. The code is not a foreign key — progress
    hangs off `deployment_id` — so the string changes and every row lives. Ends
    with no legacy codes anywhere. *(WI. Maciej reprints and hands out.)*
-1. **Prime Directive's `_note` claims the `prefix` field is never rendered.**
-   `Tasks.tsx:428` and `:583` draw it now. **Delete only the "never rendered"
-   and "platform gap" clauses** — keep the rest: the answer is numeric `9`
-   because `validate.ts` `expectedValues()` coerces static answers to numbers
-   and throws on text, a live constraint naming live code. *(Operation Builder's
-   file; the fifth false sentence in that one note.)*
-2. **`runs.agent_id`'s comment says guests must "appear on the leaderboard".**
-   `20260831000020_training_sessions.sql`. Signal Check has no leaderboard on any
-   surface — the column is right, and the sentence records a design replaced
-   before it shipped. One line. *(WI's file.)*
+1. **Two comments assert things that are not true.** Prime Directive's `_note`
+   says `prefix` is never rendered — `Tasks.tsx:428` and `:583` draw it. Delete
+   that and the "platform gap" clause only; keep the numeric-`9` reasoning,
+   which names live code. And `runs.agent_id` says guests must "appear on the
+   leaderboard"; Signal Check has none, on any surface. *(Op Builder's, WI's.)*
 3. **Visual regression check** — screenshot each activity, fail on change.
    **Not polish.** It is the only thing that would ever cover the drawn work:
    sixteen hotspots, twelve plate forms, seven glyphs, all verified by hand
