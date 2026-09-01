@@ -51,15 +51,15 @@ mechanics in `CLAUDE.md`.
 
 ## 2. Active work
 
-**Only one row may show uncommitted files at a time**; §1 says how to check.
+**Which rows have uncommitted files is a fact about right now, not a decision**, so it is not written here; §1 names the command. Only one row may show any.
 
-| Stream | Branch | Uncommitted | Status |
-|---|---|---|---|
-| Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images — dormant |
-| Website redesign | `main` | stray `:Zone.Identifier` | **all three phases live** — no surface left on the old chrome |
-| Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
-| Platform | `platform` in `../tbb-platform` | one migration | scoping and importer both merged to `main` |
-| Docs | `docs` | none | own worktree; merges to `main` `--ff-only` |
+| Stream | Branch | Status |
+|---|---|---|
+| Case File skin | `main` | Stages 1–2 done; 3 blocked on images — dormant |
+| Website redesign | `main` | **all three phases live** — no surface left on the old chrome |
+| Prime Directive | `operation-prime-directive` | **identical to `main`** at `cac3f44` |
+| Platform | `platform` in `../tbb-platform` | scoping and importer both merged to `main` |
+| Docs | `docs` | own worktree; merges to `main` `--ff-only` |
 
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
 mirror, not `origin`. The cycle, not a backlog, and not another session's to push.
@@ -170,10 +170,10 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `49e2fcb` — **the catalogue reads the entitlements table, not the seeding constants.** Three pages gated on `lib/entitlements.ts`, which seeds rows at sign-in and is not a source of truth — so `teacher@brainbureau.test` owned all three activities in the library and was locked out on the same account's activity page. **A second bug sat in the same lines:** `lockedReason(tier, false)` was hardcoded, telling a teacher who owns two titles that their account has no access at all. *(WD.)*
 - `325dbd0` — **the resources section is plumbed and rendered, and the empty case is written first.** All three branches seen: not-owned, owned with a real 3MB PDF fetching 200, and owned-with-nothing. **The admin-client removal was refused, and that is the finding** — the query joins `phases`, which migration 32 never touched, and it fails as an error rather than as missing data. *(WD.)*
 - `af3f59f` — **resources are the teacher's list, and nothing in the game is in it.** `{ path, label }` — `gated` dropped because the gate is the section, `kind` dropped because it had exactly one legal value. The six modelled entries were the child's own evidence, each duplicating a path the game already reads. **The existence check was re-proved with four refusals AND one acceptance** — the refusals alone would have passed a validator that threw on everything. *(WI.)*
 - `b107414` — **an anon read, alt text offered, resources modelled, a frozen clock.** The anon read needed a **GRANT as well as a policy**: RLS is only consulted once the role holds table-level SELECT, so the policy alone failed with *permission denied*, which never mentions policies. Alt text is now optional on import and strict in the other two places, checked separately. The clock is **frozen rather than masked**, so its colour, position and face stay compared — Zero Hour's unmasked self-diff falls 411 to 0, and the wait is 5000. *(WI.)*
-- `f0d3cb7` — **Cases and Operations get pages, and the prose has one copy.** Indexes at `/dashboard/cases` and `/operations`, a page per activity, `/missions` rewired to read `curriculum.marketing` rather than hardcode it. **The rewire found an RLS bug that would have shipped silently:** `activities` grants SELECT to `authenticated` only, so the public page rendered missing two thirds of its copy and looked fine. *(WD.)*
 - **Queue 1 shipped and is live** — `/join` rebuilt on one identity question, the homepage static behind `proxy.ts`, loading states in both faces, Signal Check's four playtest faults, speed-scaled points with a grace band and a top-three podium, the visual regression harness, and migration 31. Deployed 1 Sep at `26bcafe`; `/` went from `private, no-cache` MISS to **`public` HIT**. The lessons are in `CLAUDE.md`; git holds the rest.
 
 ## 8. Next up

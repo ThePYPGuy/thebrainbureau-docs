@@ -875,6 +875,21 @@ renders as a missing-glyph box in headless Chromium, and whether a child sees a
 clock or a tofu square depends on their device's emoji fonts. Nothing in the
 repo guarantees one. It was found only because a baseline captured it.
 
+**A function that takes an argument for a case, called with that argument
+hardcoded, is that case shipped broken.** `lockedReason(tier, ownsAnything)`
+exists precisely to distinguish *you own nothing* from *you own things, not this
+one*; the activity page passed `false` regardless, so a teacher holding two
+titles was told their account has no access to the library at all — with two
+titles that are theirs on the same screen. **The argument's existence is the
+evidence the case is real**, and a literal at the call site is where it dies.
+
+**A helper's safety can depend on which client it is handed, and its signature
+does not say so.** `ownedSlugs(supabase, teacherId)` is safe because
+`entitlements_own` is `using (teacher_id = auth.uid())` and the callers pass the
+user-scoped client. Hand the same function an admin client and RLS is bypassed,
+leaving only its own `.eq` between one teacher and another's rows. Nothing in the
+type stops that.
+
 **A grant fixes one table; a join reaches more than one.** Migration 32 gave
 `activities` an anon policy and an anon grant, and the catalogue query still
 failed — it selects `phases(...)`, and `phases` had neither. Nothing about
