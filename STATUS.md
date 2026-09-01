@@ -179,6 +179,12 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
+1. **`/join` still wears the CRT.** It renders `Frame` — bezel and boot sequence
+   — while `/live/join` is the plain Field page. Replace it with the simpler
+   one, revealing codename and PIN only once the code is in. Also frame an
+   existing member's class code as *welcome back*, not as joining: it already
+   logs them in and lands on `/profile`, but reads as a first arrival.
+   *(WD, after the guest route — the screen should not be built twice.)*
 1. **Two comments assert things that are not true.** Prime Directive's `_note`
    says `prefix` is never rendered — `Tasks.tsx:428` and `:583` draw it. Delete
    that and the "platform gap" clause only; keep the numeric-`9` reasoning,

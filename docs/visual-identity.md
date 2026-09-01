@@ -176,11 +176,20 @@ answered elsewhere — clear view beats every skin and is remembered per student
 so no child is stuck reading a terminal they cannot read. And moving it would
 have changed a written decision rather than fixed a defect.
 
-**The two student doors are not uniform, and that is not yet deliberate.**
-`/live/join` is `data-skin="field-terminal"` with no bezel and no boot sequence;
-`/join` has both. Field either way, so nothing here is wrong — but if phase 2
-wants one student entry style, that is the difference to settle, and it is a
-different question from this one.
+**Settled 2026-08-31: both student doors take the simpler Field page.** They had
+diverged — `/live/join` is `data-skin="field-terminal"` with no bezel and no boot
+sequence, `/join` renders `Frame` with both. `/join` drops the CRT chrome and
+matches it. *(Queued for WD behind the guest route.)*
+
+**The face decision above is unchanged; only the chrome moved.** `/join` is still
+Field — dark, mono, the skin's palette, not Bureau. What goes is the monitor
+bezel and the boot sequence.
+
+That does spend the most vivid argument for keeping it Field: that the theatre
+starts at the door, and the boot sequence is what says so. Maciej weighed it
+against a child on a shared iPad wanting to type six digits and get to the
+lesson. Recorded rather than quietly dropped, because the *rest* of that argument
+is still why the page is not Bureau.
 
 ---
 
