@@ -184,9 +184,9 @@ from `git log`; descriptions are each session's account of its own work.
    existing member's class code as *welcome back*, not as joining: it already
    logs them in and lands on `/profile`, but reads as a first arrival.
    *(WD. The guest route landed `1870524`, so this is unblocked.)*
-1. **Remove the dormant guest-agent path.** `agents.is_guest`, its constraints
-   and the `GUEST-` prefix were superseded the day they landed — Cases and
-   Operations are account-only. **Forward migration, not a rollback of 29.**
+1. **Remove the dormant guest-agent path** — **server and schema only**; WD
+   strips the guest mode from `Login.tsx` with the `/join` rebuild, and **the UI
+   goes first**, or the page offers a door the server has already shut. *(WI.)*
 1. **Two comments assert things that are not true.** Prime Directive's `_note`
    says `prefix` is never rendered — `Tasks.tsx:428` and `:583` draw it. Delete
    that and the "platform gap" clause only; keep the numeric-`9` reasoning,
