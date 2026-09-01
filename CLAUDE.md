@@ -913,6 +913,27 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**A SESSION RUNNING INSIDE WSL AND ONE RUNNING ON WINDOWS CANNOT SEE EACH
+OTHER.** The Windows transport is a named pipe; a WSL-native session is not on
+it. `ListAgents` from Windows lists the Windows sessions and **cannot show that a
+sixth exists**, so an absence there is not evidence of absence. Two sessions
+spent an hour trying to identify a third that was working normally the whole
+time. **The instrument that answers it is the process table:**
+
+    ls -l /proc/*/cwd | grep <worktree>
+    ps -eo pid,ppid,etime,cmd | grep claude
+
+**And a name is not an address.** Two sessions answered to *Operation Builder*
+because a brief naming a ROLE was pasted into two terminals; three facts were
+attributed to one author. Address a session by what `ListAgents` returns, and
+when a report arrives with no session name on it, **treat the author as unknown
+rather than inferring it from the content** — that inference stood the wrong
+session down, twice in one night.
+
+**A clean worktree one commit ahead is equally consistent with *the session
+ended after committing* and *the session is still here*.** I reported the first
+and it was the second.
+
 **Adding a column to `activities` is FOUR coordinated edits, and the fourth
 fails later than the others.** The migration, the payload in
 `import-activity.ts`, the `insert into activities (...)` list in
