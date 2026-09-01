@@ -185,9 +185,8 @@ from `git log`; descriptions are each session's account of its own work.
    signed-out alike — the PDF link cannot change. **The only irreversible
    piece**, and phase 3 has landed so nothing blocks it. *(WI: code, route,
    write. WD: the page.)*
-1. **`app/brand.module.css` has zero importers**, but `check-tokens.ts`
-   grandfathers six literals by that filename — deleting it silently changes
-   what the checker enforces. Its own decision. *(WI.)*
+1. **`app/brand.module.css` has zero importers**, but `check-tokens.ts` grandfathers
+   six literals by it — deleting it changes what the checker enforces. *(WI.)*
 1. **Two false comments** — Prime Directive's `_note` on `prefix` (`Tasks.tsx:428`
    draws it) and `runs.agent_id` on a leaderboard. *(Op Builder's, WI's.)*
 1. **Visual regression check** — screenshot each activity, fail on change. The
@@ -197,8 +196,9 @@ from `git log`; descriptions are each session's account of its own work.
    before capture** or the HUD timer never idles, and carry a **rendered-width
    assertion per skin** — a known string in the display face against a
    nonexistent family, failing if they match. Phases two and three need a
-   baseline regeneration — but **not** `field-terminal.png` or `case-file.png`,
-   whose worth is predating the redesign; both still match. WD measured Zero
+   baselines — **`out/` is `.gitignore`d**, so nothing is committed to regress
+   against. Keep `field-terminal.png`/`case-file.png`: they predate the redesign
+   and still match. WD measured Zero
    Hour's animated regions at 2560×1800 dSF2: LED `x 2080–2160, y 220–290`,
    countdown `x 1360–1640, y 290–380`, caret `x 690–830, y 510–610`. **Masked,
    0 of 4,608,000; unmasked, 3,144; and the page differs from itself by 977 in
