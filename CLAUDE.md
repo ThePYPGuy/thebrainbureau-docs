@@ -743,6 +743,28 @@ greeted as a returner — and nothing fails, because the submit still works. Sam
 family as the two column lists below, and the same remedy: change both, and
 prove it by round-tripping a real codename through the page.
 
+**"Landed" needs a branch, or it is not an answer.** On 1 Sep Website
+Infrastructure reported its work *"in at 7e4acee on platform, not pushed"*. Doc
+Manager relayed *"WI's half landed"* and told Website Designer to remove the
+matching lines from `main`. **On `main` those two lines were the only redirect
+there was** — `proxy.ts` there still matched `/dashboard/:path*` and mentioned
+`/profile` nowhere — so the change would have sent every signed-in student to the
+marketing page. WD checked `git branch --contains` and refused.
+
+A commit existing is not a commit being available. **When a two-sided change is
+split across sessions, say which branch each side is on, every time.**
+
+**Loading states must be tested with prefetch ON.** Next serves the loading
+boundary through prefetch, so blocking prefetch to force a wait destroys the
+mechanism under test — a harness that did exactly that reported the feature
+absent in five of six runs. Throttle the wire instead. Measured: prefetch
+blocked with a 5s payload delay paints at +5104ms against an arrival of +5105ms,
+a 1ms flash; prefetch allowed and throttled, it paints at +1.1s and stays.
+
+Two smaller traps in the same corner: `[class*='caret']` collides with globals'
+own `.caret`, and a click **before hydration** is a plain document navigation
+that renders no `loading.tsx` at all.
+
 **A state the UI can render must be reachable by every path that learns of it,
 not only by the one that announces it.** Signal Check's `ended` was carried by
 exactly one broadcast. The *Session complete* view existed and was correct. But a
