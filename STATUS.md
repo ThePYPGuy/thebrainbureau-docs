@@ -170,6 +170,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `af3f59f` — **resources are the teacher's list, and nothing in the game is in it.** `{ path, label }` — `gated` dropped because the gate is the section, `kind` dropped because it had exactly one legal value. The six modelled entries were the child's own evidence, each duplicating a path the game already reads. **The existence check was re-proved with four refusals AND one acceptance** — the refusals alone would have passed a validator that threw on everything. *(WI.)*
 - `b107414` — **an anon read, alt text offered, resources modelled, a frozen clock.** The anon read needed a **GRANT as well as a policy**: RLS is only consulted once the role holds table-level SELECT, so the policy alone failed with *permission denied*, which never mentions policies. Alt text is now optional on import and strict in the other two places, checked separately. The clock is **frozen rather than masked**, so its colour, position and face stay compared — Zero Hour's unmasked self-diff falls 411 to 0, and the wait is 5000. *(WI.)*
 - `f0d3cb7` — **Cases and Operations get pages, and the prose has one copy.** Indexes at `/dashboard/cases` and `/operations`, a page per activity, `/missions` rewired to read `curriculum.marketing` rather than hardcode it. **The rewire found an RLS bug that would have shipped silently:** `activities` grants SELECT to `authenticated` only, so the public page rendered missing two thirds of its copy and looked fine. *(WD.)*
 - **Queue 1 shipped and is live** — `/join` rebuilt on one identity question, the homepage static behind `proxy.ts`, loading states in both faces, Signal Check's four playtest faults, speed-scaled points with a grace band and a top-three podium, the visual regression harness, and migration 31. Deployed 1 Sep at `26bcafe`; `/` went from `private, no-cache` MISS to **`public` HIT**. The lessons are in `CLAUDE.md`; git holds the rest.
@@ -187,12 +188,9 @@ from `git log`; descriptions are each session's account of its own work.
    are done; `docs/local/briefs/queue-2.md` carries the rest.
 1. **Write the teacher-facing phase lines** — Zero Hour 5, Prime Directive 7.
    Only Global Intel Cards was written out in full. *(Maciej.)*
-1. **Resources are two populations and they never mix.** In-game assets print
-   because they are in the game; the teacher's list is what ownership buys. The
-   six modelled entries are the child's evidence duplicated, and
-   `/terminal/print` is in-game too — its mission-state gate is right after all.
-   `{ path, label }`, gated by the **section**, not the item. *(WI; then WD
-   renders it.)* **`loadPublicCatalogueActivity` is removable** — WD's to take.
+1. **Render the teacher's resource list.** The shape is settled; the section
+   gates on `owned`, and **no file exists to fill it**, so the empty branch is the
+   only one that runs. **`loadPublicCatalogueActivity` is removable.** *(WD.)*
 1. **Re-establish that the redesign never touched activity chrome.** Baselines
    are all dated 1 Sep, so they prove nothing about before. Capture a
    pre-redesign commit in a temporary worktree and diff.

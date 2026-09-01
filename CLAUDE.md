@@ -875,6 +875,14 @@ renders as a missing-glyph box in headless Chromium, and whether a child sees a
 clock or a tofu square depends on their device's emoji fonts. Nothing in the
 repo guarantees one. It was found only because a baseline captured it.
 
+**A check that refuses everything passes the same fixtures as a correct one.**
+Four deliberate breaks against `validateResources` all refused — and a validator
+that threw on any input whatsoever would have refused those four identically, so
+the set proves nothing on its own. **Only the pair discriminates: the refusals,
+plus one case that must be ACCEPTED.** A suite of negative fixtures measures that
+the function runs, not that it tells the cases apart. Same family as a guard that
+cannot fire, arrived at from the opposite end.
+
 **A test that passes because the guard cannot fire is not a test of the guard.**
 Proving the alt-text leak check still worked, the first attempt used a fixture
 whose correct option is the single letter *"B"* — and the check deliberately
