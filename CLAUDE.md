@@ -913,6 +913,26 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**A DELAY IS A COST THE DEFENDER PAYS, so a delay-only limiter converts a
+credential attack into a billing attack.** Ten thousand requests held three
+seconds each is eight hours of serverless function time somebody else chose to
+spend. Slowing an attacker has to be capped by something CHEAP above it, or the
+mitigation is the new attack.
+
+**Count FAILURES, not requests, and key on the thing being attacked, not the
+network.** Per-IP limiting is loosest for the attacker — one target, few
+requests — and tightest for a class of thirty behind one school NAT. Keying on
+the codename inverts it: an attacker concentrates on one counter and trips;
+thirty children spread across thirty counters that each sit at zero. **Thirty
+correct joins must produce ZERO counter writes**, so the classroom is safe by
+construction rather than by a threshold somebody tuned.
+
+**And the threshold is the safety, not the switch.** A limiter's existence is not
+what reaches a child; its NUMBER is. A child guessing their own forgotten PIN is
+a real event in a real lesson, so the test that matters is **eleven tries, tenth
+wrong, eleventh right, still gets in** — not merely *nobody was blocked*, which a
+limiter passes right up until the day a class has thirty-five children.
+
 **Being unable to measure does not stop you being right, and this is the
 qualification on every *measure it* rule above.** The four-list finding — that
 `import_activity()` carries a separate `on conflict do update set` list, that

@@ -208,6 +208,8 @@ from `git log`; descriptions are each session's account of its own work.
    agent for any unused codename. Parked under licensing: entitlements change
    what a code should guard.
 
+1. **May the platform ever tell a child to wait?** The rate-limit refusal band's threshold is set where no child reaches it and `resetAgentPin` clears it in the room, but saying no at all is a posture rather than a mechanism. One constant either way.
+
 ## 10. Known silent failures
 
 Open items. Standing traps are in `CLAUDE.md`; prune a row only when it is
