@@ -913,6 +913,16 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**`sudo` does not inherit your PATH, and says *command not found* right after
+asking for a password.** `sudo npx playwright install-deps chromium` fails with
+`sudo: 'npx': command not found` because node here is an **nvm** install under
+`~/.nvm/versions/node/<v>/bin`, and root uses `secure_path`. **It reads as a
+rejected password** — the prompt is the last thing you saw. Use
+`sudo env "PATH=$PATH" npx ...` rather than the absolute path, which bakes in a
+node version and breaks on the next upgrade. Same family as `doctor` reporting
+`uv` missing under `bash -c`: **a tool resolved by bare name reports the calling
+shell's PATH, and every shell has a different one.**
+
 **Before reporting an ABSENCE, establish that your instrument could have seen a
 presence.** Vercel Analytics was reported broken twice and was working the whole
 time. `curl` said absent because the script is injected by the CLIENT; a headless
