@@ -913,6 +913,26 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**Every server-side `redirect()` in this app reports 200 to a non-browser
+client.** With any `loading.tsx` above the route, Next streams the response and
+the redirect arrives INSIDE a 200 document as its own marker:
+
+    <meta id="__next-page-redirect" http-equiv="refresh" content="1;url=/join">
+
+Measured, not reasoned: move `app/loading.tsx` and `app/terminal/loading.tsx`
+aside and the same request answers `307 /profile`; either boundary alone is
+enough. **So any check reading a STATUS to decide *was this allowed* misreads
+it** — and it cuts both ways. A test asserting a 3xx fails on a guard that
+fired correctly; a script asserting `status !== 200` means *failure* now sails
+past a redirect and parses the marker stub as if it were the page. The second is
+worse, because it is a false pass. Read the marker, or read where you landed.
+
+**A guard that still fires can start reporting differently, and the report is
+not the guard.** The session was never wrong here `deploymentId: null`,
+decoded from the cookie, which is the measurement that ruled it out in one step.
+Three red checks and a live production commit in the frame, and the code was
+correct throughout.
+
 **A grant fixes one table; a join reaches more than one.** Migration 32 gave
 `activities` an anon policy and an anon grant, and the catalogue query still
 failed — it selects `phases(...)`, and `phases` had neither. Nothing about
