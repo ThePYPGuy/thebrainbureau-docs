@@ -82,6 +82,34 @@ already exists for it.
 
 ---
 
+## Prices — decided 1 Sep
+
+**A Case is $5. An Operation is $3.** Provisional, and meant to be changed.
+
+**Price is per activity TYPE, not per activity.** `activities.activity_type`
+already carries a CHECK over `operation`, `case`, `training`, `fieldOp`, so the
+set is closed and a map over it cannot silently miss one.
+
+**The activity page shows its own price and links to `/pricing` for the
+subscription.** Subscription figures live in exactly one place, which is what
+`/pricing` already says about itself.
+
+**One function, `priceFor(type)`, and nothing else knows where the number comes
+from.** Today it returns a constant. When `/admin` exists it reads a table
+instead and no caller changes — the same move the free tier needs, and for the
+same reason: both are commercial config that must change without a deploy.
+
+**Three things that are cheap now and expensive later:**
+
+- **Integers in minor units.** `500`, not `5.00`. Money in floats is a classic
+  and it is free to avoid on day one.
+- **State the currency.** `$` is ambiguous; TPT settles in USD, so say USD
+  rather than leaving it to be inferred.
+- **Record what was paid on the entitlement, at purchase.** A price is a lookup
+  *today* and a fact *forever*. If `entitlements` does not carry the amount, then
+  raising a Case to $6 silently rewrites every receipt that ever said $5 —
+  including for a teacher asking their school to reimburse it.
+
 ## The free tier must be data, not code
 
 Its contents change without a deploy. Whatever holds it, `lib/entitlements.ts`
