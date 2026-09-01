@@ -172,11 +172,16 @@ from `git log`; descriptions are each session's account of its own work.
 
 - `90772aa` — **50 commits live, and the first paid resource is in production storage.** `deploy:check --prod` found no drift either way; `--verify` found the PDF under its real label and nothing unclaimed beside it. **`supabase db push` applied nothing** — 32, 33 and 34 were already on production before the run, confirmed with `migration list --linked`, and nobody has said who put them there. *(WI ran it on Maciej's word.)*
 - `254ef63` + `d9009f8` + `ca03a46` — **teacher printables are served through a route that checks the `entitlements` table, and the admin client comes off the public page.** A private bucket, a streaming route (**a signed URL is a bearer token**), an upload script, and ten tests. `phases` got the anon grant migration 32 needed, proved against a draft phase in the table, so `/missions` runs on the ordinary client. **The 403 probe first passed without testing anything** — a failed sign-in answered 401, which reads like a refusal. *(WI, WD.)*
-- `49e2fcb` — **the catalogue reads the entitlements table, not the seeding constants.** Three pages gated on `lib/entitlements.ts`, which seeds rows at sign-in and is not a source of truth — so `teacher@brainbureau.test` owned all three activities in the library and was locked out on the same account's activity page. **A second bug sat in the same lines:** `lockedReason(tier, false)` was hardcoded, telling a teacher who owns two titles that their account has no access at all. *(WD.)*
 - **Queue 1 shipped and is live** — `/join` rebuilt on one identity question, the homepage static behind `proxy.ts`, loading states in both faces, Signal Check's four playtest faults, speed-scaled points with a grace band and a top-three podium, the visual regression harness, and migration 31. Deployed 1 Sep at `26bcafe`; `/` went from `private, no-cache` MISS to **`public` HIT**. The lessons are in `CLAUDE.md`; git holds the rest.
 
 ## 8. Next up
 
+1. **Operation Tailwind** — the handoff is in Maciej's Documents;
+   `operation-tailwind-build-instructions.md` is the entry. **Game first, class
+   mode deferred, printables gated rather than `public/`.** *(Op Builder.)*
+   **Called reuse, absent from the repo:** `drag-to-sequence` (Encore is coming,
+   so it is new work), a `structure` column, anywhere for board state, `styles/`,
+   a credits surface, a bucket that takes the ZIP. One wrong entry voids the list.
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. **Rotation took
    the irreversibility out of it** — a code can be retired, so no decision here
    is frozen in a download. *(WI: table, route, write. WD: the page.)*
@@ -186,20 +191,16 @@ from `git log`; descriptions are each session's account of its own work.
 1. **Queue 2 step 6 — prices and purchase routes.** *(WI, **with Maciej** — the
    only irreversible step, and not to be started on a peer's brief.)* Steps 1–5
    are done; `docs/local/briefs/queue-2.md` carries the rest.
-1. **Write the teacher-facing phase lines** — Zero Hour 5, Prime Directive 7.
-   Only Global Intel Cards was written out in full. *(Maciej.)*
 1. **A narrow-viewport pass on the two newest surfaces.** The catalogue tiles
    and the activity page **have never been rendered below 1280** — the breakpoints
    were written from the layout pass's rules, unobserved. *(WD, unqueued.)*
 1. **Re-establish that the redesign never touched activity chrome.** Baselines
    are all dated 1 Sep, so they prove nothing about before. Capture a
    pre-redesign commit in a temporary worktree and diff.
-1. **Run `sudo npx playwright install-deps chromium` once.** Not housekeeping:
-   without it `check:visual` cannot run, so **a session cannot gate its own
-   work** — WD had to substitute a before/after capture for the real check. And
-   **baselines cannot be made from Windows**: an unchanged page differs by
-   326,418 pixels across platforms, so today only WI can regenerate them.
-   *(Maciej.)*
+1. **Run `sudo npx playwright install-deps chromium` once.** Without it
+   `check:visual` cannot run, so **a session cannot gate its own work**. And
+   **baselines cannot be made from Windows** — an unchanged page differs by
+   326,418 pixels across platforms, so only WI can regenerate them. *(Maciej.)*
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -246,5 +247,4 @@ table once. **Documentation does not fire at 11pm.**
 | **A session desyncs and one player's score diverges from the server's** | Client and server both hold a score. They can drift apart with nothing comparing them, and the child sees only their own number — so it reads as correct until the review screen, or until a teacher is asked why two agents with the same answers finished apart | **candidate** · Quiz Maker |
 | Pruning a list by its length rather than its contents | This table was emptied over one session. Every removal was defensible alone — fixed, or recorded in `CLAUDE.md` — and nothing checked whether the section still said anything, because the number being watched was the line count | **fixed by rebuilding** — prune against what is still open, never against a budget |
 | **An emoji is interface chrome with no font behind it** | Zero Hour's clock glyph renders as a **missing-glyph box** in headless Chromium — the page's own rendering, not the harness's, proved by a byte-identical capture when only the digits were rewritten. Whether a child sees a clock or a tofu square depends on their device's emoji fonts, and nothing in the repo guarantees one. Found only because a baseline captured it | **open** · unowned — needs a glyph with a fallback, not a mask |
-| **Vercel Analytics is deployed and collecting nothing** | The package is installed, the code shipped at `bfc601b`, and `/_vercel/insights/script.js` returns 200 — and **no script tag reaches the DOM** on `/` or `/pricing`, checked in a browser after networkidle plus three seconds. Absent before this deploy too, so nothing broke it. It cannot be diagnosed from the repo: WI used it as a build fingerprint and read zero, which is also what a working client-injected script looks like to `curl`. **The child surfaces are clean either way** — `/join` and `/live/join` load no analytics at all | **open** — needs the project's Analytics tab *(Maciej)* |
 | **A redirect now reports 200, and a script read that as success** | `e2e-class-join` went red on three checks and **the code was correct throughout** — a `loading.tsx` above the route makes Next stream the redirect inside a 200 document. Ruled out by decoding the signed cookie: `deploymentId: null`, so the guard fired every time. `e2e` now asserts **where a request lands**, which also catches a 200 that served a mission — something the old check would have passed. `print-proof` had the opposite exposure, a false PASS, **and its existing no-stylesheet backstop would not have caught it: a redirect stub carries two stylesheet links.** `scripts/lib/redirect.ts` is now the one place that knows the two encodings | **fixed** `ff6bc0a`, `f3442d7` — proved by pointing the script at a route that redirects: exit 1, **zero bytes written** |

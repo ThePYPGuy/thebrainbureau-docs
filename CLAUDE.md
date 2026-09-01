@@ -913,6 +913,21 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**Before reporting an ABSENCE, establish that your instrument could have seen a
+presence.** Vercel Analytics was reported broken twice and was working the whole
+time. `curl` said absent because the script is injected by the CLIENT; a headless
+browser then said absent because the script **deliberately no-ops for
+automation** — `navigator.webdriver || userAgent.includes("Headless")`, near
+the top of the brotli-compressed bundle. Two instruments, both structurally
+incapable of seeing the thing, both read as evidence. The dashboard settled it in
+one glance: **1 visitor, 1 page view.**
+
+**The second reading was taken after being warned about exactly this**, which is
+the part worth keeping: knowing the rule does not apply it. Ask what a POSITIVE
+result would have looked like on this instrument, and if you cannot say, the
+negative means nothing. *(The pipeline is proven on `/` only; the other seven
+mounts have simply never had a human on them.)*
+
 **A backstop is only a backstop if the bad output fails its test.**
 `print-proof` already refused to render a page with no stylesheet, which looked
 like an accidental net under the redirect problem. It is not: **a redirect stub
