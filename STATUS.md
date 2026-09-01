@@ -89,11 +89,9 @@ does not import itself.** Both fail silently.
 bare 200-or-fail check reads a healthy site as down. Follow redirects, or check
 the `www` host.
 
-**A deployment code is open on production.** `OP-35HY` → **`303616`** *[verify]*, alongside
-three older codes; two classes and three agents exist. Maciej is still the only
-person who has *played* anything, so far as the repo can tell — but the door is
-now open, and §10's rows about what would happen to a child stop being
-hypothetical the moment one uses that code.
+**Codes are open on production and nobody has played through one**, so far as the
+repo can tell. §10's rows about what happens to a child stop being hypothetical
+the moment one does. Read live codes from the dashboard, not from here.
 
 **Only the main worktree can reach production.** `--prod` elsewhere fails with
 *no linked Supabase project found*, which reads like a broken install and is a
@@ -102,31 +100,21 @@ production commands from the main worktree. (Why, and the override, in §5's
 file.)
 
 **What is proven is the database, not the running code.** `deploy:check --prod`
-never asks Vercel which commit is serving. Confirmed *indirectly* 31 Aug:
-for a *removal*, **fingerprint the served CSS**: the deployed bundle holds
-`crtViewport` and `hudBar` and **zero `.loginPanel`**, so that commit's
-`intel.ts` is live. Read-only — the obvious probe was poisoned, since a guest
-POST would have created the row being checked as impossible. The SHA itself is still
-unasked — a route is evidence, not an identity.
+never asks which commit is serving. **Fingerprint the served CSS** — a bundle
+holding `crtViewport` but zero `.loginPanel` proves that commit's `intel.ts` is
+live, without a write probe that would create the row it checks for.
 
-**`--prod` was clean at `ee7a8d2`**, 1 Sep: **30 migrations**, three activities,
-three banks, 73 skills, 20 tags, and `agents.is_guest` gone. **Re-run it; do
-not read this line as current.** The order that got there, and the one to reuse:
-**migration, importer, re-check, then push** — the check gates the push, so a
-drifted database cannot deploy. `?` is not `DRIFT`: it means unconfirmable, and
-the answer is usually a re-import.
-
-**Live:** the platform, three activities, the Case File skin, the evidence
-capability and the `completion` gate. Prime Directive `bb7f9b2` imported to
-production; the question bank refactor `b663ad3`. §6 carries the detail.
+**`--prod` was clean at `ee7a8d2`**, 1 Sep: **30 migrations**, all in step.
+**Re-run it; do not read this as current.** Additive order: migration, importer,
+re-check, push — the check gates the push. `?` is not `DRIFT`; it means
+unconfirmable, and the answer is usually a re-import.
 
 **Sentry covers the whole app**, not only Signal Check — so the first unfamiliar
 error from an old surface is newly visible rather than new.
 
-The gate was **verified locally, not on production** *[verify — no session has
-re-checked this since 25 Aug]* — proving it there means
-creating a student agent in a live database. To confirm on the site, join a
-real class code and check the ending stays absent until the last lock.
+The `completion` gate is **verified locally, not on production** *[verify — none
+since 25 Aug]*. Confirming it means joining a real code and watching the ending
+stay absent until the last lock.
 
 **A migration that DROPS goes AFTER the push, not before** — the running code is
 the old code and still selects what you are removing. §4's *migrate then push* is
@@ -180,11 +168,18 @@ This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
 - `bf52350` — **the agent-guest path is gone, and no child ever used it.** Migration 30 drops `is_guest`, both constraints and the reserved prefix; the server path, the four orphaned `globals.css` rules and a fifth orphan in `check-tokens.ts` went with it. **Production was measured before the migration was written**, counts only: 5 agents, **0 null `pin_hash`**, 0 guests — so `set not null` is safe there and nothing is deleted. The live guest was never coupled: `e2e:signal-check` passes whole, *a guest earns nothing* included. **`GUEST-` is choosable again** — tested, not assumed. *(WI.)*
-- `6184975` — **the door stops being a monitor.** `/join` drops `Frame` — no bezel, no glass, no scanlines — and reveals in three steps: code, then codename, then a PIN box that asks the right question. **The returning child is greeted rather than rejected**; the old path logged them in and told them *that codename is taken and the PIN doesn't match*. Needed a new endpoint, `/api/agent/exists`, **deliberately not a code oracle** — a game PIN and an unknown code both answer `exists:false`, identical to a valid code with a fresh codename, verified on production. Guest mode out of the UI. **The boot sequence moved rather than went**: once-per-device in `localStorage`, so the first *activity* now plays it. *(WD.)*
-- `1870524` — **a guest is an agent with no PIN, not an agent that is missing.** The live shape could not transfer — `runs.agent_id` is nullable, the four activity progress tables are not — so a guest is a real row and every constraint keeps working. Both directions are checked, and **`GUEST-` is reserved rather than merely minted**, making the namespaces disjoint by construction so nothing needs sweeping. The typed name seeds `roster_entries.real_name`, so a teacher sees a person and no second mechanism exists. **The landing was broken and only measuring found it:** `/profile` is class-driven and a guest joins no class, so they arrived at an empty list with a *Change my PIN* control and no link to the mission they had just typed a code for. 31 checks in `test:guest`, including the roster read back **as the teacher through RLS** — because *the row exists* and *the teacher can see it* are different claims. *(WI.)*
 
 ## 8. Next up
 
+1. **The homepage is dynamic for one line.** `page.tsx:66` reads `cookies()`, so
+   the route leaves static generation and every first-time visitor pays a server
+   render for a check only a signed-in child needs. **Middleware first, then
+   remove the page check** — the other order shows marketing to signed-in
+   students. *(WI: middleware. WD: the two lines.)*
+1. **No loading state exists** — no `loading.tsx` anywhere, so a click shows
+   nothing until the page arrives. Warm TTFB 240–560ms; `/pricing` is already an
+   edge-cache HIT, so some of that is distance. Needs **Bureau and Field**
+   versions, respecting `clear-view` and `prefers-reduced-motion`. *(WD, after.)*
 1. **Phase 3: the student dashboard.** `/profile` wraps `StudentDashboard` in
    `.shell`; the same component renders at `/dashboard/agent/[agentId]`, so
    moving the child's host makes both Bureau. Last of the three. *(WD.)*
@@ -192,10 +187,8 @@ from `git log`; descriptions are each session's account of its own work.
    `slug`, so a code needs a home, and the route must serve signed-in and
    signed-out alike — the PDF link cannot change. **The only irreversible
    piece.** *(WI: code, route, write. WD: the page. After phase 3.)*
-1. **Two comments assert things that are not true.** Prime Directive's `_note`
-   says `prefix` is never rendered — `Tasks.tsx:428`/`:583` draw it; delete that
-   and the "platform gap" clause only. `runs.agent_id` claims a leaderboard
-   Signal Check has never had. *(Op Builder's, WI's.)*
+1. **Two false comments** — Prime Directive's `_note` on `prefix` (`Tasks.tsx:428`
+   draws it) and `runs.agent_id` on a leaderboard. *(Op Builder's, WI's.)*
 1. **Visual regression check** — screenshot each activity, fail on change. The
    only thing that would ever cover the drawn work: sixteen hotspots, twelve
    plate forms, seven glyphs, verified by hand once. Every other check here
