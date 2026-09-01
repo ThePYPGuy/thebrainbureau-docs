@@ -170,6 +170,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `9ae8f62` — **one frame token and nine type steps, where there were a hundred and eight.** `--bb-max` becomes `clamp(1160px, 92vw, 1600px)` — side margin at 1920 falls from 380px to 160px — and **prose is untouched**, because the reading measures are their own caps. Nine clamped type steps now carry **all 121 declarations** that were set in place, including thirteen in `page.module.css` that my brief never named and which were why the homepage kept 9px labels. The dashboard rendered **fifteen sizes from 9px to 34px**; it renders seven, none below 13px at 1440. Every `var()` keeps its old literal as a fallback and the tokens live on `.surface`, not `:root`, **so nothing here can reach an activity** — confirmed at 0 pixels on all four activity surfaces. *(WD.)*
 - **Queue 1 shipped and is live** — `/join` rebuilt on one identity question, the homepage static behind `proxy.ts`, loading states in both faces, Signal Check's four playtest faults, speed-scaled points with a grace band and a top-three podium, the visual regression harness, and migration 31. Deployed 1 Sep at `26bcafe`; `/` went from `private, no-cache` MISS to **`public` HIT**. The lessons are in `CLAUDE.md`; git holds the rest.
 
 ## 8. Next up
@@ -193,8 +194,12 @@ from `git log`; descriptions are each session's account of its own work.
    baseline is dated 1 Sep, so it proves *nothing changes from here* and nothing
    about before. Check out a pre-redesign commit into a temporary worktree,
    capture with `check:visual`, diff against today. **A task, not a footnote.**
-1. **Run `sudo npx playwright install-deps chromium` once** — WI had no password
-   and extracted four libraries into `~/.cache` instead. *(Maciej.)*
+1. **Run `sudo npx playwright install-deps chromium` once.** Not housekeeping:
+   without it `check:visual` cannot run, so **a session cannot gate its own
+   work** — WD had to substitute a before/after capture for the real check. And
+   **baselines cannot be made from Windows**: an unchanged page differs by
+   326,418 pixels across platforms, so today only WI can regenerate them.
+   *(Maciej.)*
 
 ## 9. Open decisions — waiting on Maciej
 

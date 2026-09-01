@@ -99,6 +99,31 @@ the cookie.** Web Designer's half is pixel-neutral, evidenced instead of assumed
 the first thing this check has been able to say about somebody else's change, and
 the reason it exists.
 
+## Baselines are machine-specific, and only one machine here can make them
+
+**Measured 1 Sep, on an unchanged page.** `/pricing` captured with Windows
+Chrome at the committed baseline's exact viewport and scale differs from that
+baseline by **326,418 of 10,163,200 pixels** — same dimensions, same layout,
+**different rasterisation**.
+
+**So a baseline only means anything on the platform that made it.** The bundled
+Chromium was chosen so a baseline reproduces elsewhere, and that reasoning holds
+for *version* drift; it does not cross an operating system. Same browser, other
+OS, 3.2% different.
+
+**Which makes regeneration a privilege, not a step.** `chrome-headless-shell`
+dies in WSL on `libnspr4.so` without `sudo npx playwright install-deps chromium`,
+and this machine has no passwordless sudo. **A session that cannot run the check
+must not regenerate baselines from somewhere else** — Windows-rasterised PNGs
+would break the check for everyone who can run it, and would look like a normal
+update in the diff.
+
+**What to do instead when you cannot run it:** hold the instrument constant.
+Capture every surface **before and after** your own change with the same browser
+and the same procedure. That measures what your change moved, which is the actual
+question, and it does not touch the committed baselines. Website Designer did
+exactly this and could report the four activity surfaces at 0 pixels.
+
 ## What it cannot see
 
 **A third party that injects only a script is invisible to a pixel diff.**
