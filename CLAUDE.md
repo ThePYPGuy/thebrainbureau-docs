@@ -844,6 +844,23 @@ never fires a second one, so it hung 30 seconds on a login that had already
 succeeded. And reading `innerText` on `domcontentloaded` asserts against an empty
 body — it reported the homepage broken while the served HTML was complete.
 
+**`activities` is readable by `authenticated` only, so a public page reading it
+gets nothing — silently.** The single policy is `for select to authenticated
+using (status = 'published')`; there is no `anon` grant. Rewiring `/missions` to
+read its copy from the database rendered a page that **looked fine and was
+missing two thirds of its text.**
+
+**It was caught by checking the page against the DATABASE rather than against
+itself** — pulling the paragraph and specific phase lines out of postgres and
+grepping the anonymous HTML for each. **A page compared only with its own
+previous render agrees with itself perfectly while serving nothing.**
+
+**A clock is not an animation, and quieting cannot settle one.** `quiet()` stops
+the countdown *advancing*; it does not change the value already reached, so two
+captures minutes apart legitimately differ — 554 pixels in a 66×20 box reading
+*4:58*. **Zero-unmasked-by-quieting works for a pulsing LED and a blinking caret
+and cannot work for a clock:** mask it, or freeze it before the shutter.
+
 **A test that passes because the guard cannot fire is not a test of the guard.**
 Proving the alt-text leak check still worked, the first attempt used a fixture
 whose correct option is the single letter *"B"* — and the check deliberately

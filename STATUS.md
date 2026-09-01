@@ -170,8 +170,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
-- `553f9d1` — **the question maker is shaped like the question, and the image comes first.** The file is held in the form and posted the moment `saveBankQuestion` returns an id — the same two writes in the other order, needing no server change, and **reported separately**, because *could not save* would be a lie about the half that worked. **Alt text had two gates, not the one the brief named**, and the second runs after the bytes are in the bucket. Options render in the four canonical colours, so *the orange one* means one thing in the editor, on the phone and on the wall. **Found unnamed:** the alt input had a fixed `id`, repeated once per question, so every label pointed at whichever copy the browser met first. *(WD.)*
-- `1b01e1b`, `ec40653` — **the teacher-facing copy is data, and Signal Check got its quadrants.** The block is `curriculum.marketing`, nested in an existing `jsonb` — **an `activities.marketing` column would have cost the same migration and the same two column lists** as the per-phase field it was chosen to avoid. The import refuses on count, on an unknown slug, on a blank line **and on order**: two lines swapped pass a count and a set check while the page describes phase three under phase two. Broken four ways to prove it, each refusing before a row was written. *(WI.)* Plus the projector grid keyed to the canonical index and phone type 17px → 31.5px. *(QM.)*
+- `f0d3cb7` — **Cases and Operations get pages, and the prose has one copy.** Indexes at `/dashboard/cases` and `/operations`, a page per activity, `/missions` rewired to read `curriculum.marketing` rather than hardcode it. **The rewire found an RLS bug that would have shipped silently:** `activities` grants SELECT to `authenticated` only, so the public page rendered missing two thirds of its copy and looked fine. *(WD.)*
 - **Queue 1 shipped and is live** — `/join` rebuilt on one identity question, the homepage static behind `proxy.ts`, loading states in both faces, Signal Check's four playtest faults, speed-scaled points with a grace band and a top-three podium, the visual regression harness, and migration 31. Deployed 1 Sep at `26bcafe`; `/` went from `private, no-cache` MISS to **`public` HIT**. The lessons are in `CLAUDE.md`; git holds the rest.
 
 ## 8. Next up
@@ -190,9 +189,11 @@ from `git log`; descriptions are each session's account of its own work.
    parallel**; 2 waits on 1 because it is the same session and the same files.
 1. **Write the teacher-facing phase lines** — Zero Hour 5, Prime Directive 7.
    Only Global Intel Cards was written out in full. *(Maciej.)*
-1. **CSV import still requires alt text; the form no longer does.** Same teacher,
-   two answers. `csv.ts:313` needs `altRequired: false`; the Bureau audit stays
-   strict. *(WI.)*
+1. **Four for WI.** `csv.ts:313` needs `altRequired: false`; the Bureau audit
+   stays strict. An **`anon` SELECT policy** on published activities, so
+   `/missions` drops its admin-client workaround. **Model `resources`**:
+   `{ path, kind: "print" | "evidence", label, gated }`. And **mask or freeze the
+   clock** in `check:visual`, raising the 3500ms wait with it.
 1. **Re-establish that the redesign never touched activity chrome.** Baselines
    are all dated 1 Sep, so they prove nothing about before. Capture a
    pre-redesign commit in a temporary worktree and diff.
