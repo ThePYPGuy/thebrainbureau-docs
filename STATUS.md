@@ -187,12 +187,12 @@ from `git log`; descriptions are each session's account of its own work.
    are done; `docs/local/briefs/queue-2.md` carries the rest.
 1. **Write the teacher-facing phase lines** — Zero Hour 5, Prime Directive 7.
    Only Global Intel Cards was written out in full. *(Maciej.)*
-1. **`kind: "print"` can point at nothing, and the shape I ruled is why.** The
-   only printable is `app/terminal/print/page.tsx` — a **route** the browser
-   prints; `public/` holds no PDF. **A real file is the wrong fix**: `public/` is
-   served with no auth, so `gated: true` is unenforceable on the one kind sold.
-   Validate `print` as a route, `evidence` as a file. *(WI.)*
-   **`loadPublicCatalogueActivity` is now removable** — WD's to take.
+1. **Resources are two populations and they never mix.** In-game assets print
+   because they are in the game; the teacher's list is what ownership buys. The
+   six modelled entries are the child's evidence duplicated, and
+   `/terminal/print` is in-game too — its mission-state gate is right after all.
+   `{ path, label }`, gated by the **section**, not the item. *(WI; then WD
+   renders it.)* **`loadPublicCatalogueActivity` is removable** — WD's to take.
 1. **Re-establish that the redesign never touched activity chrome.** Baselines
    are all dated 1 Sep, so they prove nothing about before. Capture a
    pre-redesign commit in a temporary worktree and diff.

@@ -381,3 +381,30 @@ one machine is not a migration.
 rather than assumed. Harmless today — no minter exists to collide with — but a
 real behaviour change, and there is no longer any code behind the reservation if
 it should ever come back.
+
+## Resources: two populations that never mix
+
+**Anything a child meets during a case or an operation prints because it is in
+the game.** Evidence images, the dossier sheet at `/terminal/print` — no
+entitlement check, ever. `/terminal/print` gates on the child's own session and
+mission state (mid-mission, dossier issued) and that is the correct axis for it.
+
+**The teacher's resources are reached through the activity's own page, and those
+are what ownership or a subscription buys.** One gate, on the section: the page
+already computes `owned` from `entitledSlugs(teacher.email)`.
+
+**So `resources` on an activity describes the teacher's list only, and carries no
+gate of its own** — `{ path, label }`. A per-item `gated` flag was ruled and
+withdrawn: it lets a page gate one file and not its neighbour, and it is a second
+gate derived from nothing, which is worse than one.
+
+**The distinction is invisible in the paths.** The six entries first modelled on
+Prime Directive were the child's evidence images, every one duplicating a path
+already in the same file where the game reads it — so a "Printable resources"
+section would have offered a teacher the pictures their class was about to be
+shown. **Nothing in a path says which population a file belongs to; only what
+reaches it does.**
+
+*[verify]* No teacher printable exists in the repo yet — `find public -iname '*.pdf'`
+returns nothing. Maciej has made some and has not shared them; the site is being
+built to receive them.
