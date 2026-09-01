@@ -913,6 +913,35 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**A migration version can be taken by a branch you cannot see, and the CLI
+reports success.** `supabase migration up --local` answered
+`{"applied":[],"message":"Migrations applied"}` and created nothing:
+`20260902000035` was already in the shared local history, from a file on
+**`platform`**. `main` ended at 34, so nothing in the builder's branch showed the
+collision. **The local database's history table outranks your branch.** Before
+taking a number, check every branch:
+
+    git ls-tree -r --name-only <branch> -- supabase/migrations
+
+Renumbering then produced the opposite failure, `LegacyMigrationMissingLocalError`,
+because the shared history holds a migration the branch does not.
+**`supabase migration repair --local` rewrites another session's history row** —
+applying the DDL with `psql` and leaving shared history untouched is the move.
+On production, where history is clean, the files apply normally.
+
+**A worktree created by `git worktree add` has no `.env.local`.** It is
+gitignored, so a fresh worktree cannot run `test:columns` or anything else that
+talks to the database, and the failure looks like a broken script. Generate it
+from `supabase status`.
+
+**On sessions seeing each other: record the OBSERVATION, not a mechanism.** A
+WSL-native session and a Windows session did not appear in each other's
+`ListAgents`, and *pipe versus socket* is a tidy story that **does not fit all
+of it** — the WSL session saw two Windows peers early and none later. The
+process table answers what the registry cannot:
+
+    ls -l /proc/*/cwd | grep <worktree>
+
 **A branch level with `main` is a tree that looks innocuous to push from.**
 `signal-check` fast-forwarded to `main`, so `git log origin/main..signal-check`
 lists eighteen commits belonging to four sessions — every doc commit, the
