@@ -875,6 +875,29 @@ renders as a missing-glyph box in headless Chromium, and whether a child sees a
 clock or a tofu square depends on their device's emoji fonts. Nothing in the
 repo guarantees one. It was found only because a baseline captured it.
 
+**Comparing database text against a page means comparing it against ESCAPED
+HTML.** A phase title reading `Ranking & Comparing` in postgres is served as
+`Ranking &amp; Comparing`, so a raw grep reports it missing — and **one title
+absent out of six reads exactly like a partial render**, which is the very fault
+the check exists to find. Unescape, or compare against the RSC payload. The
+ampersand is the character that catches it.
+
+**RLS on a storage object makes it INVISIBLE, not forbidden.** A protected file
+and a genuinely missing one answer identically — `Object not found`,
+`NoSuchKey`, an empty `list()`. Good for not confirming what exists; the reason
+someone debugging a real absence one day will not believe the error.
+
+**A signed URL is a bearer token.** For its lifetime it works for anybody holding
+it with no session at all, so one pasted into a staffroom chat is a copy of a
+paid file that no longer knows who is asking. Streaming keeps every byte behind
+the check on every request; signing is the escape hatch for something large, and
+should be taken knowingly rather than by default.
+
+**A refusal for the wrong reason reads as the refusal you were testing for.** A
+403 probe signed in with a guessed password, the sign-in failed, and the route
+answered 401 — close enough to a refusal to be mistaken for one. Prove the
+session first (fetch a page that needs it), then test what you meant to test.
+
 **A function that takes an argument for a case, called with that argument
 hardcoded, is that case shipped broken.** `lockedReason(tier, ownsAnything)`
 exists precisely to distinguish *you own nothing* from *you own things, not this

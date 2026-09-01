@@ -170,6 +170,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `254ef63` + `d9009f8` + `ca03a46` — **teacher printables are served through a route that checks the `entitlements` table, and the admin client comes off the public page.** A private bucket, a streaming route (**a signed URL is a bearer token**), an upload script, and ten tests. `phases` got the anon grant migration 32 needed, proved against a draft phase in the table, so `/missions` runs on the ordinary client. **The 403 probe first passed without testing anything** — a failed sign-in answered 401, which reads like a refusal. *(WI, WD.)*
 - `49e2fcb` — **the catalogue reads the entitlements table, not the seeding constants.** Three pages gated on `lib/entitlements.ts`, which seeds rows at sign-in and is not a source of truth — so `teacher@brainbureau.test` owned all three activities in the library and was locked out on the same account's activity page. **A second bug sat in the same lines:** `lockedReason(tier, false)` was hardcoded, telling a teacher who owns two titles that their account has no access at all. *(WD.)*
 - `325dbd0` — **the resources section is plumbed and rendered, and the empty case is written first.** All three branches seen: not-owned, owned with a real 3MB PDF fetching 200, and owned-with-nothing. **The admin-client removal was refused, and that is the finding** — the query joins `phases`, which migration 32 never touched, and it fails as an error rather than as missing data. *(WD.)*
 - `af3f59f` — **resources are the teacher's list, and nothing in the game is in it.** `{ path, label }` — `gated` dropped because the gate is the section, `kind` dropped because it had exactly one legal value. The six modelled entries were the child's own evidence, each duplicating a path the game already reads. **The existence check was re-proved with four refusals AND one acceptance** — the refusals alone would have passed a validator that threw on everything. *(WI.)*
@@ -189,10 +190,9 @@ from `git log`; descriptions are each session's account of its own work.
    are done; `docs/local/briefs/queue-2.md` carries the rest.
 1. **Write the teacher-facing phase lines** — Zero Hour 5, Prime Directive 7.
    Only Global Intel Cards was written out in full. *(Maciej.)*
-1. **Teacher printables get a private bucket and an entitlement route.** Storage
-   not the repo, so replacing a PDF is an upload; **the route checks the
-   `entitlements` TABLE**, not `lib/entitlements.ts`, a dev stand-in. Plus
-   **`grant select on phases to anon`**, no wider. *(WI, then WD.)*
+1. **A narrow-viewport pass on the two newest surfaces.** The catalogue tiles
+   and the activity page **have never been rendered below 1280** — the breakpoints
+   were written from the layout pass's rules, unobserved. *(WD, unqueued.)*
 1. **Re-establish that the redesign never touched activity chrome.** Baselines
    are all dated 1 Sep, so they prove nothing about before. Capture a
    pre-redesign commit in a temporary worktree and diff.
