@@ -342,10 +342,20 @@ why they cost hours rather than minutes.
 on Windows and the server runs in WSL2, which forwards `localhost` but not
 `127.0.0.1`. The pane then reports a *successful* navigation and renders a black
 page — indistinguishable from a component that throws on mount, and it has
-already cost one wrong conclusion. Use `localhost` from the pane. Note the
-asymmetry: `scripts/` run inside WSL, where `127.0.0.1` is correct and is what
-`BASE_URL` defaults to, so the two halves of this repo want different hosts for
-the same server.
+already cost one wrong conclusion. Use `localhost` from the pane.
+
+**The split is fetch versus browser, not pane versus script** *(corrected 1
+Sep — this said `scripts/` always want `127.0.0.1`)*. Fetch-based scripts do, and
+`BASE_URL` defaults to it. **A script that drives a browser does not:** Next 16
+answers **403** for `/_next/static` chunks when the page origin is not one it
+recognises, and `127.0.0.1` is refused where `localhost` is served. `curl` gets
+200 on the identical URLs, so nothing fetch-based ever sees it.
+
+**The symptom is a black page again** — React never hydrates, so a Field terminal
+draws its bezel from server HTML with nothing inside. That is now three distinct
+causes with one appearance: the pane's host, a stale optimiser, and this. **A
+blank render is never self-explaining; find which of the three before fixing
+anything.**
 
 **The zoom overlay's skin is threaded by hand, at two mount sites.**
 `Frame.tsx` mounts `ZoomProvider` at :98 and :107, each passing `skin={resolved}`.
@@ -742,6 +752,13 @@ prompt starts lying** — a returning child told to choose a PIN, or a new one
 greeted as a returner — and nothing fails, because the submit still works. Same
 family as the two column lists below, and the same remedy: change both, and
 prove it by round-tripping a real codename through the page.
+
+**A check that has only ever passed has not been tested.** The visual harness
+was proved by breaking it: `.brandPlate` `#8a8a90` → `#8a8a91`, one channel
+value, invisible to a person. It went red at **1024 of 4,608,000 pixels, at
+x 1058–1496, y 1544–1557** — exactly where the brand plate sits. Then reverted,
+and green. **Do that to every check that guards something you cannot see**, and
+say in the report what you broke and what it reported.
 
 **A production build over a live dev server corrupts `.next`, and the damage
 looks like your code.** After `npm run build` with `npm run dev` still running,

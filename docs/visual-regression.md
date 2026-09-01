@@ -70,12 +70,19 @@ pixel diff catches a font that silently fell back; this explains it.
 Phases two and three changed Bureau surfaces, so those want regenerating.
 
 **`field-terminal.png` and `case-file.png` do not exist** *(checked 1 Sep — not
-in either worktree, nowhere on disk, never committed)*. An earlier draft of this
-file told a session to preserve them, on a report Doc Manager recorded without
-verifying the files were there. **The evidence that three phases of visual work
-never touched activity chrome is therefore gone**, and it cannot be reconstructed
-after the fact — a baseline made now proves only that today matches today. Do not
-manufacture a replacement and do not describe one as predating anything.
+in either worktree, nowhere on disk, never committed)*. An earlier draft told a
+session to preserve them, on a report Doc Manager recorded without verifying the
+files were there.
+
+**So the claim that three phases of visual work never touched activity chrome is
+currently unevidenced.** Every baseline in `tests/visual/baseline` is dated 1 Sep
+and post-redesign: it can prove *nothing changes from here*, and cannot prove
+anything about what came before.
+
+**It can be re-established, and that is a task rather than a footnote.** Check out
+a pre-redesign commit into a temporary worktree, capture with this harness, and
+diff against today. Until someone does, do not manufacture a replacement and do
+not describe any baseline as predating anything.
 
 **Say exactly what was regenerated.** A baseline accepted without being looked at
 is a bug promoted to a standard.
