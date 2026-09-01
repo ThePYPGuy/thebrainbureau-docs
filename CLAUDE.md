@@ -844,6 +844,19 @@ never fires a second one, so it hung 30 seconds on a login that had already
 succeeded. And reading `innerText` on `domcontentloaded` asserts against an empty
 body — it reported the homepage broken while the served HTML was complete.
 
+**A masked number and an unmasked one are not comparable, and the mistake reads
+as a working feature.** The visual harness gained a verdict — *is this red a real
+change or a bad frame?* — which compared the baseline diff against the
+**unmasked** self-diff. The baseline comparison is masked; the self-diff was not,
+so it counted the countdown. Tested against a genuine 1,024-pixel edit it
+announced **SUSPECT THE CAPTURE**, because the clock had ticked 411 pixels'
+worth between frames. Apples against oranges, in a feature written that same
+hour to prevent exactly this confusion.
+
+**It was only visible because the author made it fail on purpose before believing
+it.** Falsify your own fix, not just the thing it fixes — a guard that has only
+ever agreed with you has not been tested either.
+
 **The instrument that needs suspecting is sometimes the one doing the looking.**
 Reading a regenerated baseline, a session saw a stray *"© 2026 The Brain Bureau"*
 under the hero and began writing it up as a layout-pass defect. It checked first:

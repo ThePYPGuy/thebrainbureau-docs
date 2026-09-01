@@ -143,10 +143,27 @@ attempts.
 **`scripts/visual-check.ts` shares that capture path** — same 3500ms wait, same
 `quiet()` — **so `check:visual` can produce a false red on an activity.**
 
-**Diff the page against itself first, every run.** The harness does this
-internally; what it does not do is **print those two numbers beside the baseline
-diff when a run fails**, which is the difference between recognising a flake and
-spending an hour proving one by hand. Worth adding.
+**Fixed 1 Sep (`99bb732`).** A failing surface now prints the baseline diff and
+the self-diff **side by side, with a reading** — *the captures agreed exactly, so
+this is a real change*, or the reverse. Both numbers are shown so the reader can
+check the verdict rather than take its word.
+
+**And the bad frame is caught, not merely explained.** When two captures
+disagree, a third is taken and the two that agree are used: a bad frame disagrees
+with both good ones while they agree with each other, which identifies it without
+anyone knowing what causes it. **The discarded frame is always announced** — a
+retry that hides itself is how a genuinely unstable page gets mistaken for a
+settled one. If no two of three agree, it still fails.
+
+**Proved by making both cases happen:** a one-channel `.brandPlate` edit went red
+at 1,024px with a self-diff of 0 and read *real change*; a deliberately corrupted
+first frame was discarded, announced, and the surface then passed. The injection
+method is in the commit so anyone can repeat it.
+
+**Unproven, and worth knowing:** nobody has seen this catch a *real* flake. It was
+proved against injected corruption, and WD's bad frame was never reproducible on
+demand. **Three captures is a judgement, not a bound** — two consecutive frames
+bad in the same way would agree with each other and be believed.
 
 ## `profile.png` encodes database state, not just code
 
@@ -156,9 +173,20 @@ twice. Real rows, not a rendering fault.
 
 **So `profile` will go red after any re-seed, for a reason nobody changed in
 code.** The activity surfaces do not have this problem: they render from content
-JSON. **Left in and flagged rather than quietly dropped** — someone should decide
-whether that is acceptable or whether this surface wants a fixed fixture, and
-that is a decision rather than a defect.
+JSON. **Left in and flagged rather than quietly dropped.** The weighing, from the
+session that owns the harness: **do not give it a fixed fixture yet.** The cost
+today is one regeneration after a re-seed — **visible and cheap**. A fixture is a
+second definition of what a child's assignments look like, maintained by hand,
+and it would drift from the seed **silently**: a loud small cost traded for a
+quiet larger one.
+
+**The question underneath is what this baseline is FOR.** Narrowing it — capture
+`/profile` at a viewport that excludes the classes list, or accept it as a
+*Bureau-chrome* check rather than a *content* check — answers that, and a fixture
+does not.
+
+**And it makes CI a real decision rather than an obvious win:** a CI runner is a
+**third platform**, and its baselines would agree with neither of the two here.
 
 ## What it cannot see
 
