@@ -1350,11 +1350,21 @@ and updates in place — it will not wipe existing student progress by
 deleting and recreating phases/tasks. `npm run test:reimport` guards this;
 don't remove that test when touching the importer.
 
-**Content changes do not deploy with the code.** `npm run import` writes to
-whatever database the environment points at, and Vercel does not run it. A
-pushed content change is live in the repo and absent from production until
-someone imports it — the same trap as migrations, with no error to announce
-it: the app reads the old row and carries on.
+**Content changes do not deploy with the code, and there are two ways to leave
+production stale.** Vercel does not run the importer, so a pushed content change
+is live in the repo and absent from production until someone imports it. And
+`npm run import` **writes to the local database** — it does *not* follow
+`SUPABASE_URL`. `scripts/target.ts` ignores a remote one unless `--prod` is
+passed, exactly so a bare run cannot update the laptop while printing its usual
+cheerful success lines. So `npm run import` and `npm run import -- --prod` are
+different commands, and only the second one is a deploy. Neither failure errors:
+the app reads the old row and carries on.
+
+**This doc said *whatever database the environment points at* until 1 Sep, which
+was true of the code target.ts replaced.** It was read, and turned into a set of
+instructions that would have written to a laptop and reported success. **A trap
+recorded from behaviour that has since been fixed is worse than no entry**, since
+its confidence is what gets trusted.
 
 **Except notes: editing a `_` key never needs an import.** `lib/content-notes.ts`
 holds the `_`-prefix rule in one function, and four places call it —
