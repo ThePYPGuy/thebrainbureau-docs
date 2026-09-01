@@ -844,6 +844,13 @@ never fires a second one, so it hung 30 seconds on a login that had already
 succeeded. And reading `innerText` on `domcontentloaded` asserts against an empty
 body — it reported the homepage broken while the served HTML was complete.
 
+**"Move it, do not rewrite it" is easy to honour for a list and easy to breach
+for a paragraph.** A session copying marketing copy between files caught itself
+about to type Prime Directive's paragraph **from memory of the page** before
+going back for the real one. Six bullet points are obviously a thing to copy; one
+paragraph you think you remember feels like a thing to write. **Open the source
+even when you are sure.**
+
 **An overflow test that measures the document cannot see a page that got
 taller.** `.livePlay` was `min-height: 100dvh` — *at least* the screen — so three
 full-height option tiles grew the page and the third sat below the fold on a

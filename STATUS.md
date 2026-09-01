@@ -170,8 +170,8 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `1b01e1b`, `ec40653` — **the teacher-facing copy is data, and Signal Check got its quadrants.** The block is `curriculum.marketing`, nested in an existing `jsonb` — **an `activities.marketing` column would have cost the same migration and the same two column lists** as the per-phase field it was chosen to avoid. The import refuses on count, on an unknown slug, on a blank line **and on order**: two lines swapped pass a count and a set check while the page describes phase three under phase two. Broken four ways to prove it, each refusing before a row was written. *(WI.)* Plus the projector grid keyed to the canonical index and phone type 17px → 31.5px. *(QM.)*
 - `ac0bcf2` — **the sidebar splits by what a thing IS, not by who owns it.** Bureau Library goes as a top-level entry and **costs nothing** — read from the database, all three Bureau banks are `public`/`published`, which is exactly what `?scope=public` already selected. **Classes could not be fixed by repointing** because there was no list of classes: `/dashboard/classes` is new, and *Your classes* on `/dashboard` became **Assigned work**, since it was competing with a real page for the same word. Cases and Operations point at `/missions#cases` and `#operations` — **true today and replaced by step 4 rather than contradicted by it**. All ten entries clicked, not read. *(WD.)*
-- `05dc179`, `bbf98f7`, `7c7e7b5` — **three baselines regenerated and five held**, so two rasterisers on two operating systems agree the layout pass never reached the terminal. Plus `check-offsite`, **falsified both ways**: a third-party image on `/join` turned it red naming the URL, and dropping the session on `/profile` made it fail *as a redirect* rather than pass clean. *(WI.)*
 - `9ae8f62` — **one frame token and nine type steps, where there were a hundred and eight.** `--bb-max` becomes `clamp(1160px, 92vw, 1600px)` — side margin at 1920 falls from 380px to 160px — and **prose is untouched**, because the reading measures are their own caps. Nine clamped type steps now carry **all 121 declarations** that were set in place, including thirteen in `page.module.css` that my brief never named and which were why the homepage kept 9px labels. The dashboard rendered **fifteen sizes from 9px to 34px**; it renders seven, none below 13px at 1440. Every `var()` keeps its old literal as a fallback and the tokens live on `.surface`, not `:root`, **so nothing here can reach an activity** — confirmed at 0 pixels on all four activity surfaces. *(WD.)*
 - **Queue 1 shipped and is live** — `/join` rebuilt on one identity question, the homepage static behind `proxy.ts`, loading states in both faces, Signal Check's four playtest faults, speed-scaled points with a grace band and a top-three podium, the visual regression harness, and migration 31. Deployed 1 Sep at `26bcafe`; `/` went from `private, no-cache` MISS to **`public` HIT**. The lessons are in `CLAUDE.md`; git holds the rest.
 
@@ -192,10 +192,11 @@ from `git log`; descriptions are each session's account of its own work.
    and Operations pages *(WD)* · **5** question maker · **6** prices and purchase
    routes *(WI, **with Maciej** — the only irreversible step)*. **1 and 3 run in
    parallel**; 2 waits on 1 because it is the same session and the same files.
-1. **Re-establish that the redesign never touched activity chrome.** Every
-   baseline is dated 1 Sep, so it proves *nothing changes from here* and nothing
-   about before. Check out a pre-redesign commit into a temporary worktree,
-   capture with `check:visual`, diff against today. **A task, not a footnote.**
+1. **Write the teacher-facing phase lines** — Zero Hour 5, Prime Directive 7.
+   Only Global Intel Cards was ever written out in full. *(Maciej.)*
+1. **Re-establish that the redesign never touched activity chrome.** Baselines
+   are all dated 1 Sep, so they prove nothing about before. Capture a
+   pre-redesign commit in a temporary worktree and diff.
 1. **Run `sudo npx playwright install-deps chromium` once.** Not housekeeping:
    without it `check:visual` cannot run, so **a session cannot gate its own
    work** — WD had to substitute a before/after capture for the real check. And
