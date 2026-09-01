@@ -117,6 +117,19 @@ page.**
 bundled Chromium was chosen so a baseline reproduces elsewhere — true for
 *version* drift, and it does not cross an operating system.
 
+**And the check cannot start on this machine as shipped.** Playwright's Chromium
+wants `libnspr4`, `libnss3`, `libasound2` and a dozen more; `ldconfig` finds
+none. `npm run check:visual` dies before the first capture. **Two sessions have
+since built two different workarounds** — one extracting into `~/.cache`, one
+`apt-get download` + `dpkg -x` into `~/.local/pwlibs` with `LD_LIBRARY_PATH` —
+and **the repo knows about neither.**
+
+**So this document overstates itself, and so does STATUS.** Both describe the
+check as covering the drawn surfaces. It does, *when it runs*. **A check that
+cannot start is not a check**, and someone will cite it as having looked at a
+change it never saw. One `sudo npx playwright install-deps chromium` removes the
+whole problem.
+
 **Which makes regeneration a privilege, not a step.** `chrome-headless-shell`
 dies in WSL on `libnspr4.so` without `sudo npx playwright install-deps chromium`,
 and this machine has no passwordless sudo. **A session that cannot run the check

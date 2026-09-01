@@ -844,6 +844,31 @@ never fires a second one, so it hung 30 seconds on a login that had already
 succeeded. And reading `innerText` on `domcontentloaded` asserts against an empty
 body — it reported the homepage broken while the served HTML was complete.
 
+**An overflow test that measures the document cannot see a page that got
+taller.** `.livePlay` was `min-height: 100dvh` — *at least* the screen — so three
+full-height option tiles grew the page and the third sat below the fold on a
+phone. **`document.scrollHeight > clientHeight` was FALSE at all four sizes**,
+because nothing overflowed the document: a flex child grew and took the document
+with it. The check reported clean while a whole answer was off screen, and only a
+screenshot showed it. **Scrolling to find an answer is the one thing you cannot
+ask of a child with fifteen seconds on the clock.**
+
+**A new rule can be silently overridden by an older one further down the file.**
+Three blocks targeted `.liveHost[data-clear-view="projected"] .liveHostOptions
+li` at identical specificity, so source order decided and the last won. It set
+16px type on an 800×600 projector over the larger type quadrants need — and
+`border-color: transparent`, which cancelled an edge added **in the same commit**
+to stop a black tile reading as a missing answer. **So that fix landed on the
+phone and never on the wall.** The specificity warning below is the general
+shape; the sharper case is this one, where the loser was the *newer* rule.
+
+**A plausible zero reads exactly like a finding.** `$(…)` inside
+`wsl -e bash -ic '…'` is expanded by the **outer** shell, where the file does not
+exist, so `grep -c` prints `0`. A session nearly reported that the deployed
+stylesheet was missing every live rule. The nesting warning below says the
+substitution does not survive; **the danger is that it fails as a credible
+number rather than as an error.**
+
 **A masked number and an unmasked one are not comparable, and the mistake reads
 as a working feature.** The visual harness gained a verdict — *is this red a real
 change or a bad frame?* — which compared the baseline diff against the
