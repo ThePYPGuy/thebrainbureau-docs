@@ -669,6 +669,54 @@ what it **selects**, not what it prints — and when you find the gap, fix the
 output so the wrong reading is unavailable rather than merely discouraged.
 That script now marks every row `platform` or `teacher <id>`.
 
+**To tell which build is live, fingerprint the served CSS — never probe with a
+write.** `deploy:check --prod` reads the database and never asks Vercel which
+commit is serving, so before a destructive migration you need independent proof
+the new code has landed.
+
+The obvious probe is usually the poisoned one. On 1 Sep the question was whether
+the guest removal had deployed, and the natural test — POST a guest request to
+the live `/api/join` — **would have created the first guest row production ever
+had**, which is precisely the thing being checked as impossible.
+
+The read-only answer: a commit that removes a rule from `globals.css` changes the
+served bundle. Fetch it, confirm it is the right bundle by a class you know is
+still there (`crtViewport`, `monitorFrame`, `hudBar`), then confirm the removed
+ones are absent. **CSS and server functions ship in one atomic Vercel
+deployment**, so a bundle missing `.loginPanel` proves the same build's
+`intel.ts` is live. Works for removals, where a route probe cannot: a route
+answering proves something was *added*, and nothing proves an absence.
+
+**And do not write `--ff-only` into a push instruction.** Doc Manager commits to
+`main` continuously; between writing an instruction and a session running it, the
+branches will often have diverged. Say *merge `main` into your branch first, then
+fast-forward* — which is the standing order anyway, and which a session following
+`--ff-only` literally will hit as a failure rather than as a step.
+
+**To tell which build is live, fingerprint the served CSS — never probe with a
+write.** `deploy:check --prod` reads the database and never asks Vercel which
+commit is serving, so before a destructive migration you need independent proof
+the new code has landed.
+
+The obvious probe is usually the poisoned one. On 1 Sep the question was whether
+the guest removal had deployed, and the natural test — POST a guest request to
+the live `/api/join` — **would have created the first guest row production ever
+had**, which is precisely the thing being checked as impossible.
+
+The read-only answer: a commit that removes a rule from `globals.css` changes the
+served bundle. Fetch it, confirm it is the right bundle by a class you know is
+still there (`crtViewport`, `monitorFrame`, `hudBar`), then confirm the removed
+ones are absent. **CSS and server functions ship in one atomic Vercel
+deployment**, so a bundle missing `.loginPanel` proves the same build's
+`intel.ts` is live. Works for removals, where a route probe cannot: a route
+answering proves something was *added*, and nothing proves an absence.
+
+**And do not write `--ff-only` into a push instruction.** Doc Manager commits to
+`main` continuously; between writing an instruction and a session running it, the
+branches will often have diverged. Say *merge `main` into your branch first, then
+fast-forward* — which is the standing order anyway, and which a session following
+`--ff-only` literally will hit as a failure rather than as a step.
+
 **An additive migration goes before the deploy; a destructive one goes after.**
 `STATUS.md` §4 states the additive half — *apply migrations first, then push* —
 because that is the case this project kept meeting: new code needing a column

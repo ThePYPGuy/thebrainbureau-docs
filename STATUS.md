@@ -103,12 +103,14 @@ file.)
 
 **What is proven is the database, not the running code.** `deploy:check --prod`
 never asks Vercel which commit is serving. Confirmed *indirectly* 31 Aug:
-`/api/handle?handle=…` answers `{"ok":true,…}` in production and exists only in
-the `d669a13` range, so that deployment is current. The SHA itself is still
+for a *removal*, **fingerprint the served CSS**: the deployed bundle holds
+`crtViewport` and `hudBar` and **zero `.loginPanel`**, so that commit's
+`intel.ts` is live. Read-only — the obvious probe was poisoned, since a guest
+POST would have created the row being checked as impossible. The SHA itself is still
 unasked — a route is evidence, not an identity.
 
-**`--prod` was clean at `d669a13`**, 31 Aug, before the push and again after: 27
-migrations, three activities, three banks, 73 skills, 20 tags. **Re-run it; do
+**`--prod` was clean at `ee7a8d2`**, 1 Sep: **30 migrations**, three activities,
+three banks, 73 skills, 20 tags, and `agents.is_guest` gone. **Re-run it; do
 not read this line as current.** The order that got there, and the one to reuse:
 **migration, importer, re-check, then push** — the check gates the push, so a
 drifted database cannot deploy. `?` is not `DRIFT`: it means unconfirmable, and
