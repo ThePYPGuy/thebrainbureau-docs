@@ -152,6 +152,14 @@ archive, flag or move content. So there is no cascade to get wrong, nothing to
 restore on resubscribing, and no code path that could delete a child's progress
 for a billing reason.
 
+**Already enforced, not merely intended** —
+`20260824000012_deployment_requires_entitlement.sql` splits the deployments RLS
+policy by operation: `select` returns a teacher's deployments *including any
+whose activity they no longer hold*; `update` keeps working when a subscription
+lapses, because *"locking that would trap a teacher with a live join code they
+cannot turn off"*; only `insert` requires an entitlement. The application check
+in `actions.ts` stays as the clear message, with the policy as the backstop.
+
 **This is not a preference, it is the difference between a paused class and a
 deleted one.** `deployments.class_id` is `on delete cascade`, and
 `phase_progress`, `task_progress`, `attempt_log` and `agent_selections` all
@@ -190,6 +198,32 @@ nullable and schoolless teachers exist from before signup required one.
 2. **Nothing writes an entitlement yet.** The redemption flow is the first
    build, and it needs no further decisions: one code per activity, one trial
    per teacher ever, grant on redeem.
+
+## What must exist before the first TPT listing
+
+**Only one thing is irreversible: the code in the download.** A published PDF
+cannot be recalled, so the code's format must be final and redemption must work
+*before* anything is listed — otherwise the first buyers hold a string that does
+nothing, and no server-side dial fixes that.
+
+That means: somewhere to store a per-activity code (`activities` carries a `slug`
+and no code today), the format settled, and a redemption route that writes an
+`entitlements` row.
+
+**Everything else can follow a first sale, and can be applied retroactively.**
+
+| Missing | Why it can wait |
+|---|---|
+| Trial expiry | `entitlements.granted_at` already records when. Expiry can be computed later and applied correctly to rows granted before it existed. |
+| Seat counting | Reconstructible from `task_progress` / `phase_progress` — `agent_id`, `deployment_id` and timestamps are all recorded. |
+| `schools.year_start_month` | Only binds when a cap does, which is 30 students in. |
+| Free tier as data | `lib/entitlements.ts` holds a development policy keyed on email domain, and **fails closed** — its own test names the danger: *no entitlements read as unrestricted*. |
+| Admin dashboard | Nothing depends on it. |
+
+**The one thing to avoid is selling before expiry exists and forgetting.** The
+trial would not end, and early buyers would hold Full Access indefinitely.
+`granted_at` makes that recoverable, but clawing back access someone has had for
+months is a conversation, not a migration.
 
 ## Dormant, on purpose
 
