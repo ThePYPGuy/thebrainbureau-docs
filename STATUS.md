@@ -99,31 +99,26 @@ boundary: you cannot write to production from a branch by accident. Run
 production commands from the main worktree. (Why, and the override, in §5's
 file.)
 
-**What is proven is the database, not the running code.** `deploy:check --prod`
-never asks which commit is serving. **Fingerprint the served CSS** — a bundle
-holding `crtViewport` but zero `.loginPanel` proves that commit's `intel.ts` is
-live, without a write probe that would create the row it checks for.
+**What is proven is the database, not the running code.** `--prod` never asks
+which commit is serving. **Fingerprint the served CSS** — a bundle holding
+`crtViewport` but no `.loginPanel` proves that commit is live, with no write.
 
 **`--prod` was clean at `ee7a8d2`**, 1 Sep: **30 migrations**, all in step.
-**Re-run it; do not read this as current.** Additive order: migration, importer,
-re-check, push — the check gates the push. `?` is not `DRIFT`; it means
+**Re-run it; do not read this as current.** `?` is not `DRIFT` — it means
 unconfirmable, and the answer is usually a re-import.
 
 **Sentry covers the whole app**, not only Signal Check — so the first unfamiliar
 error from an old surface is newly visible rather than new.
 
 The `completion` gate is **verified locally, not on production** *[verify — none
-since 25 Aug]*. Confirming it means joining a real code and watching the ending
-stay absent until the last lock.
+since 25 Aug]*: join a real code, watch the ending stay absent until the last lock.
 
-**A migration that DROPS goes AFTER the push, not before** — the running code is
-the old code and still selects what you are removing. §4's *migrate then push* is
-the additive case. `CLAUDE.md` carries the rule.
+**Adding: migrate, import, re-check, push — the check gates the push. Removing:
+push first**, because the running code is the old code and still selects what you
+are dropping. `CLAUDE.md` carries the rule.
 
-**Before any push** run
-`git diff --stat origin/main..main -- supabase/migrations/ content/`. Neither
-deploys itself and both fail silently when missed — and **this range needs a
-migration**, the first that has.
+**Before any push** run `git diff --stat origin/main..main --
+supabase/migrations/ content/`. Neither deploys itself, and both fail silently.
 
 **A range with more than one builder's code is Maciej's to push.** §1 names *the
 builder whose code goes out*, which answers nothing with two sessions in it —
@@ -171,6 +166,11 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
+1. **Signal Check was played for the first time** — `docs/signal-check-playtest.md`
+   has all eleven findings. **A child is stranded when the teacher ends early**:
+   the phone stays on the last question, though `play/[sessionId]:198` already
+   renders *Session complete*, so the fault is delivery. **The projector does not
+   fit the screen.** *(Quiz Maker.)*
 1. **The homepage is dynamic for one line.** `page.tsx:66` reads `cookies()`, so
    the route leaves static generation and every first-time visitor pays a server
    render for a check only a signed-in child needs. **Middleware first, then
