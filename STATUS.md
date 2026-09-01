@@ -58,8 +58,8 @@ mechanics in `CLAUDE.md`.
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images — dormant |
 | Website redesign | `main` | stray `:Zone.Identifier` | **all three phases live** — no surface left on the old chrome |
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
-| Platform | `platform` in `../tbb-platform` | none | scoping and importer both merged to `main` |
-| Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
+| Platform | `platform` in `../tbb-platform` | one migration | scoping and importer both merged to `main` |
+| Docs | `docs` | none | own worktree; merges to `main` `--ff-only` |
 
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
 mirror, not `origin`. The cycle, not a backlog, and not another session's to push.
