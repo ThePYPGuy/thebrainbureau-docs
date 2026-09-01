@@ -913,6 +913,23 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**Adding a column to `activities` is FOUR coordinated edits, and the fourth
+fails later than the others.** The migration, the payload in
+`import-activity.ts`, the `insert into activities (...)` list in
+`20260831000016`, **and its separate `on conflict (slug) do update set` list.**
+The repo's own comment names three — *a migration, the SQL function and the
+TypeScript* — and does not split the two lists inside "the SQL function".
+
+**Miss the ON CONFLICT list and the column populates correctly on first import,
+then silently stops updating on every re-import.** And `content_hash` IS in the
+update list, so the hash still moves, and **`deploy:check` reports the database
+matches the repo** while the column holds its original value forever. The first
+import working is exactly what stops anyone looking.
+
+**Prove `test:columns` catches it by omitting list 4 on purpose**, editing the
+value and re-importing: if the check passes, it is not testing the round trip it
+claims to. A guard written for a trap is not evidence against the trap.
+
 **`sudo` does not inherit your PATH, and says *command not found* right after
 asking for a password.** `sudo npx playwright install-deps chromium` fails with
 `sudo: 'npx': command not found` because node here is an **nvm** install under
