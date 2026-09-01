@@ -913,6 +913,30 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**A TEST CASE THAT SITS EXACTLY ON A THRESHOLD PROVES THE THRESHOLD AND SAYS
+NOTHING ABOUT THE MARGIN.** I asked for *ten consecutive wrong PINs, then in on
+the eleventh*, against a limit somebody might have set at ten. It would have
+passed, green, sitting precisely on the line — and the twelfth fumble a week
+later would have failed with a passing suite behind it. **Derive the limit from
+the legitimate worst case and leave a factor between them**, then test inside the
+margin rather than on the edge.
+
+**Derive a threshold from what the legitimate case can actually produce, not
+from what feels safe.** Enumeration went from 60 to 200 for exactly this: thirty
+children mistyping their own codename twice is sixty misses from one school NAT,
+which would have put a real classroom within touching distance of the line.
+
+**A FLAT COOLDOWN LOSES; ESCALATION IS WHAT BOUNDS AN ATTACK.** The threshold
+caps a burst, the RATE bounds the attack. 40 guesses per trip against a
+four-digit PIN needs 250 trips: at a flat 15 minutes that is **2.6 days**, and no
+flat number is both kind to a child and hard for an attacker. Doubling from 15
+minutes, capped at 24h, gives **244 days** — and note the cap makes the total
+LINEAR rather than exponential, which is why the figure is 0.67 years and not
+the "past a year by trip twenty" it is tempting to claim. **Check the arithmetic
+under a decision before it becomes the reason nobody revisits it** — a wrong
+number beside a right decision is how the decision gets reversed by whoever
+checks it.
+
 **A DELAY IS A COST THE DEFENDER PAYS, so a delay-only limiter converts a
 credential attack into a billing attack.** Ten thousand requests held three
 seconds each is eight hours of serverless function time somebody else chose to
