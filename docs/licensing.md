@@ -110,6 +110,46 @@ same reason: both are commercial config that must change without a deploy.
   raising a Case to $6 silently rewrites every receipt that ever said $5 —
   including for a teacher asking their school to reimburse it.
 
+## Measuring the funnel — decided 1 Sep
+
+**Analytics runs on the Bureau face only.** Not `/join`, not `/live/*`, not
+`/profile`. The root layout wraps every one of those, so mounting below it is the
+whole of the difference.
+
+**Not squeamishness — the questions are not there.** Everything worth knowing
+about a child-facing surface is already in the database and answered better:
+whether a signed-up teacher ever assigns anything, whether an assignment is ever
+played, **which phase children stop at**, whether a teacher returns weeks later.
+Those are outcomes; a pageview is not. Adding a third party to a child's screen
+to learn less than a query already tells you is a bad trade at any privacy cost.
+
+**And this project has been wrong about that before.** The Sentry contract says
+identifiers are stripped at the client — then records that `user.geo` at city
+level and `contexts.culture` including timezone arrive anyway, and that *stripped
+at the client* was an incomplete frame. Second third party, same caution.
+
+**What analytics does answer, and nothing else can:** the pre-account surfaces.
+Where a visitor arrives, which page they leave from, whether TPT traffic
+converts, and **which Cases and Operations draw interest** — including from
+people who will never appear in the database because they never sign up.
+
+**What it will not answer, and what to build when it matters:** *which teacher
+looked and did not buy.* Analytics gives counts, not people; the database records
+purchases and assignments but **never records that an activity page was viewed**.
+One row — teacher, activity, timestamp — turns *40 views* into *eleven teachers
+looked and two bought*, which is the number that says whether the price or the
+preview is wrong. **Worth building after the purchase routes ship, not before:**
+it is meaningless without sales to attribute, and it should be shaped by the
+question it is finally asked.
+
+## What is recorded about a child, since the question gets asked
+
+Mostly pseudonymous: codename, PIN hash, Intel, clearance, answers, elapsed
+times, progress. **One field is not.** `roster_entries.real_name` is `not null`,
+one per agent — a teacher fills it in so a class list is readable, and progress
+links to it through `agent_id`. **A school will ask; the answer is that you hold
+one real name per pupil and everything else hangs off a codename.**
+
 ## The free tier must be data, not code
 
 Its contents change without a deploy. Whatever holds it, `lib/entitlements.ts`
