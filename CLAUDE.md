@@ -913,6 +913,21 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**A backstop is only a backstop if the bad output fails its test.**
+`print-proof` already refused to render a page with no stylesheet, which looked
+like an accidental net under the redirect problem. It is not: **a redirect stub
+carries two stylesheet links.** Measured. So the stub would have passed the
+status check, passed the stylesheet check, had its stylesheets inlined and come
+out as a finished proof. **Nothing about its SHAPE distinguishes it from the real
+page** — only the marker does. Before crediting a guard you did not write for
+this, feed it the bad input and watch.
+
+**And the guard was not firing for a reason that hides it:** `/terminal/print`
+has four ways to redirect — no session, no deployment, no state, no dossier —
+and none fires today only because the script issues itself a session with a real
+`deploymentId`. A guard that stops working under a setup that never exercises it
+is indistinguishable from one that works.
+
 **Every server-side `redirect()` in this app reports 200 to a non-browser
 client.** With any `loading.tsx` above the route, Next streams the response and
 the redirect arrives INSIDE a 200 document as its own marker:
