@@ -61,9 +61,6 @@ mechanics in `CLAUDE.md`.
 | Platform | `platform` in `../tbb-platform` | none | scoping and importer both merged to `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
 
-**The redesign is in `main`'s tree**, shared with the dormant Case File stream —
-two sessions in one tree is the hazard, not two on one file. Projector merged.
-
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
 mirror, not `origin`. The cycle, not a backlog, and not another session's to push.
 
@@ -123,6 +120,11 @@ supabase/migrations/ content/`. Neither deploys itself, and both fail silently.
 **A range with more than one builder's code is Maciej's to push.** §1 names *the
 builder whose code goes out*, which answers nothing with two sessions in it —
 and only `main`'s tree reaches production, which is the tree WD works in.
+
+**Delegated 1 Sep while Maciej is away: Doc Manager confirms, the builder
+pushes.** Doc Manager still never pushes — it verifies the range against the repo
+and clears it. **A session cleared this way may push its own work**; the rule
+above resumes when he is back.
 
 ## 5. Environment
 
