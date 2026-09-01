@@ -913,6 +913,13 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**A branch level with `main` is a tree that looks innocuous to push from.**
+`signal-check` fast-forwarded to `main`, so `git log origin/main..signal-check`
+lists eighteen commits belonging to four sessions — every doc commit, the
+dashboard work, the engine design. **Anyone pushing from that worktree publishes
+all of it and deploys to production**, from a branch whose name says otherwise.
+Check what a push would carry, not which branch you are on.
+
 **A SESSION RUNNING INSIDE WSL AND ONE RUNNING ON WINDOWS CANNOT SEE EACH
 OTHER.** The Windows transport is a named pipe; a WSL-native session is not on
 it. `ListAgents` from Windows lists the Windows sessions and **cannot show that a
