@@ -249,12 +249,31 @@ Three distinct things, deliberately named apart.
 | **Class code** | Join a class and stay in it | Persistent, per class |
 | **Deployment code** | Enter one assigned activity | Persistent, per deployment |
 
-**The guest route does not exist for activities** *(found 2026-08-31; this table
-claimed it did)*. Every file mentioning a guest is under `lib/live/` — guests are
-a **live-session** feature, where a nickname buys full gameplay and no Intel.
-`lib/server/agent.ts` has no nickname path at all, so a deployment code always
-demands a codename and a PIN. **Maciej wants activities reachable without an
-agent name**, so this is a build, not a correction to the table.
+**The guest route was claimed by this table long before it existed** — corrected
+1 Sep, then built the same day (`1870524`, migration 29).
+
+**A guest is a real `agents` row with no PIN**, not an absent agent. The live
+shape could not transfer: `runs.agent_id` is nullable, but the four activity
+progress tables are `not null` and three carry unique constraints keyed on it.
+Two check constraints hold both directions — a guest has no PIN and earns no
+Intel, an account must have one — and `awardIntel` refuses at the choke point, so
+the constraint is the backstop rather than the mechanism.
+
+**`GUEST-` is a reserved prefix, not a minting convention.** No chosen codename
+may start with it, which makes the two namespaces disjoint by construction rather
+than by retry — so guests never contend for a name a child wants, and nothing
+has to be swept later. The refusal deliberately does not say *taken*, which would
+send a child off inventing `GUEST-4822`.
+
+**A guest is not added to the class, and lands in the mission rather than on
+`/profile`.** Membership is an ongoing relationship and a guest cannot return.
+`/profile` is class-driven, so a guest sent there saw an empty assignments list,
+a clearance ladder, a *Change my PIN* control for an agent with no PIN, and no
+link to the activity whose code they had just typed — stranded one click after
+arriving. Found by walking it, not by reasoning about it.
+
+**Cases are still refused** (the rule below): a guest cannot come back, so
+starting a Case is losing a term of work when the cookie expires.
 
 **A teacher sees *Activity code*, not *Deployment code*** (2026-08-31). A teacher
 assigns an *activity*; **deployment** is the model's word and appears nowhere a
