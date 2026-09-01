@@ -166,6 +166,9 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
+1. **A top-three podium** — reversed 1 Sep; `docs/question-banks.md` has why.
+   Teacher sees every result, the class sees three. **§9 carries the tiebreak.**
+   *(Quiz Maker.)*
 1. **Signal Check was played for the first time** — `docs/signal-check-playtest.md`
    has all eleven findings. **A child is stranded when the teacher ends early**:
    the phone stays on the last question, though `play/[sessionId]:198` already
@@ -187,25 +190,21 @@ from `git log`; descriptions are each session's account of its own work.
    write. WD: the page.)*
 1. **`app/brand.module.css` has zero importers**, but `check-tokens.ts` grandfathers
    six literals by it — deleting it changes what the checker enforces. *(WI.)*
-1. **Two false comments** — Prime Directive's `_note` on `prefix` (`Tasks.tsx:428`
-   draws it) and `runs.agent_id` on a leaderboard. *(Op Builder's, WI's.)*
-1. **Visual regression check** — screenshot each activity, fail on change. The
-   only thing that would ever cover the drawn work: sixteen hotspots, twelve
-   plate forms, seven glyphs, verified by hand once. Every other check here
-   passes while a page renders wrong. **Clear intervals and cancel animations
-   before capture** or the HUD timer never idles, and carry a **rendered-width
-   assertion per skin** — a known string in the display face against a
-   nonexistent family, failing if they match. Phases two and three need a
-   baselines — **`out/` is `.gitignore`d**, so nothing is committed to regress
-   against. Keep `field-terminal.png`/`case-file.png`: they predate the redesign
-   and still match. WD measured Zero
-   Hour's animated regions at 2560×1800 dSF2: LED `x 2080–2160, y 220–290`,
-   countdown `x 1360–1640, y 290–380`, caret `x 690–830, y 510–610`. **Masked,
-   0 of 4,608,000; unmasked, 3,144; and the page differs from itself by 977 in
-   the LED alone** — that last number is the floor. *(WI.)*
+1. **One false comment** — Prime Directive's `_note` says `prefix` is never
+   rendered; `Tasks.tsx:428` draws it. *(Operation Builder's.)* **`runs.agent_id`
+   is no longer wrong**: its leaderboard line is true again as of 1 Sep.
+1. **Visual regression check** — the only thing that would ever cover the drawn
+   work, deferred four times. `docs/visual-regression.md` carries the traps, the
+   measurements and the floor. **`out/` is `.gitignore`d, so nothing is
+   committed to regress against** — that is the first thing to fix. *(WI.)*
 
 ## 9. Open decisions — waiting on Maciej
 
+1. **How does the podium break a tie?** `engine.ts:562` is `score += 1` per
+   correct answer and nothing else, so thirty children over twenty questions will
+   tie constantly and a top three is routinely a top nine. **Shared places, or
+   speed back as a tiebreak** — the second reverses *no speed bonus* and changes
+   what the game rewards.
 1. **Two open questions on licensing** — `docs/licensing.md` has them, and
    neither blocks the redemption flow, which is the first build. **An open
    deployment code admits anyone and always has** — `resolveAgent` creates an

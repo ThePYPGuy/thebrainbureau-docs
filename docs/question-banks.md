@@ -259,6 +259,36 @@ one question to everyone at once, a fixed answer window, no speed bonus and no
 individual leaderboard. Every feature it does not have is one that cannot
 confuse a failure of the plumbing for a failure of the game.
 
+### The podium — reversed 2026-09-01
+
+**A podium of the top three. The teacher sees every result; the class sees three.**
+
+*This reverses the line above, and the reason it reverses is that the reason has
+expired.* "No leaderboard" was never about ranking being wrong — it was about
+keeping the mode thin enough that a transport failure could not be mistaken for a
+game failure. **The transport is now proven**: 96 msg/s across thirty real
+sockets, and a full game played end to end. The condition the absence rested on
+is met.
+
+**The split is the whole design.** Every result to the teacher is assessment;
+three names to the room is a moment. Thirty ranked names on a projector is a
+child seeing themselves last in front of their class every week, which is the
+thing that was actually worth avoiding.
+
+**Two things it collides with, both real:**
+
+**Ties are unbreakable as scored.** `engine.ts:562` does `score += 1` on a
+correct answer and nothing else — there is no speed component, by an earlier and
+separate decision. With thirty children and twenty questions a "top three" will
+routinely be a top nine. **Either shared places are the design** — which is
+kinder and needs saying out loud — **or speed comes back as a tiebreak**, which
+reverses a second decision and changes what the game rewards.
+
+**A guest's name goes on the projector in the largest type in the room.** Display
+names are free text, and `20260831000020_training_sessions.sql:207` already flags
+moderation as needed for exactly this reason. A podium sharpens it from a lobby
+concern to a front-of-class one.
+
 ---
 
 ## Authoring

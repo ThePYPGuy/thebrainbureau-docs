@@ -243,7 +243,7 @@ students it had LOCKS. Zero Hour is now "Operation 01" as the only one.
 under Agent Training; neither replaces the other.
 
 Signal Check is first and deliberately thin — one question to the whole class,
-a fixed answer window, no leaderboard. Its job is the machinery: session
+a fixed answer window, a top-three podium. Its job is the machinery: session
 lifecycle, game PIN, realtime transport, host controls, reconnection, late
 joiners. The async modes forgive dropped wifi and dead iPads; this does not,
 which is the bulk of the work, and doing it inside the thinnest possible game

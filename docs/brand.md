@@ -220,8 +220,8 @@ something that is not for sale. They take `RUN THIS WITH YOUR CLASS` instead —
 same destination, honest verb.
 
 **Do not market what is not built.** No tokens, no attacks, no AI-assisted
-authoring, no leaderboard — the first three are unbuilt and the fourth never
-will be.
+authoring — all three unbuilt. The **top-three podium** was decided 2026-09-01
+and is not built yet either; there is still no ranking of a whole class.
 
 ---
 

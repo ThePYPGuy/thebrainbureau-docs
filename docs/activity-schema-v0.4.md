@@ -457,8 +457,8 @@ and they arrived in the opposite order to the one drafted here.
 
 **Signal Check** is built and live, and is the only mode the marketing site
 shows. Live, whole-class, synchronous: one question to everyone at once, a fixed
-answer window, three question types, **no speed bonus and no leaderboard on any
-surface**. It went first deliberately — it is the thinner of the two, and its job
+answer window, three question types and **no speed bonus** — a **top-three
+podium** was added 2026-09-01, with full results to the teacher. It went first deliberately — it is the thinner of the two, and its job
 was to prove the realtime transport that both modes need.
 
 **Mainframe Breach is next**, and the JSON below is its intended design, kept
@@ -469,9 +469,11 @@ the config is corrected to match:
   once, in Signal Check, rather than inside a mode that also has a game to
   design. It keeps its token economy and its fiction; attacks and defences run
   against simulated nodes, as Solo Practice already does.
-- **`podiumBonus` is gone.** It ranked the top three, which needs several players
-  and a leaderboard — and there is no leaderboard on any surface, in any mode.
-  Recorded here rather than deleted silently, because it was a real intention.
+- **`podiumBonus` is gone; the podium came back without it.** *(Reversed
+  2026-09-01 — see `docs/question-banks.md`.)* Signal Check now ends on a top
+  three, with every result to the teacher and three names to the room. The
+  *bonus* stays gone: it awarded extra Intel for placing, which is a scoring
+  change, where the podium is a display of scores already kept.
 
 `docs/question-banks.md` is the fuller account of both modes.
 
