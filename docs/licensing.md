@@ -112,9 +112,31 @@ same reason: both are commercial config that must change without a deploy.
 
 ## Measuring the funnel — decided 1 Sep
 
-**Analytics runs on the Bureau face only.** Not `/join`, not `/live/*`, not
-`/profile`. The root layout wraps every one of those, so mounting below it is the
-whole of the difference.
+**Analytics runs on teacher and visitor surfaces only** — *not* on the seven a
+child uses: `/join`, `/terminal`, `/training`, `/live/join`, `/live/host`,
+`/live/play`, `/profile`.
+
+**"Bureau face" is the wrong test and an earlier draft of this line used it.**
+`/profile` wears the Bureau face deliberately and renders the same header and
+footer as the marketing pages — so one line in `SiteFooter` would have covered
+the marketing site *and* a child's assignments page, while looking like the
+tidiest possible fix. **The axis is who uses a page, not which skin it wears.**
+
+**Mounted page by page** (`2997224`, `bfc601b`), not below a shared layout: there
+is no layout between the root and the marketing pages, and the structural answer —
+a route group — would move seven of Website Designer's files mid-work. **The
+trade was chosen for its failure mode:** a forgotten Bureau page is
+under-measured, where a path list in the root layout would silently give a new
+child page a third party.
+
+**Verified by served HTML, not by the visual check** — `@vercel/analytics` renders
+nothing, so `check:visual` was green and could not have caught this. `/profile`
+and `/terminal` were re-checked **with a session**, because signed out they merely
+redirect and a clean result would have proved nothing.
+
+**Still unexamined: what the script sends.** Where it is has been verified;
+what it transmits has not. That is precisely the half the Sentry contract got
+wrong.
 
 **Not squeamishness — the questions are not there.** Everything worth knowing
 about a child-facing surface is already in the database and answered better:

@@ -756,6 +756,27 @@ greeted as a returner — and nothing fails, because the submit still works. Sam
 family as the two column lists below, and the same remedy: change both, and
 prove it by round-tripping a real codename through the page.
 
+**The axis is who USES a page, not which skin it wears.** Doc Manager briefed
+*mount analytics on the Bureau face* and listed five child surfaces to exclude.
+The list was right and **the phrasing pointed at the wrong axis**: `/profile`
+wears the Bureau face by deliberate decision — `visual-identity.md` draws the line
+at what a child is *doing*, so assignments are administration — and it renders
+`SiteHeader` and `SiteFooter` exactly as the marketing pages do. **The tidiest
+implementation was one line in `SiteFooter`**, which serves those pages *plus*
+`/profile`. That would have put a third party on a child's assignments page while
+looking like the cleanest fix available.
+
+**Seven child surfaces, not five:** `/join`, `/terminal`, `/training`,
+`/live/join`, `/live/host`, `/live/play`, `/profile`. The brief named five.
+
+**And when a page-list and a shared layout disagree, take the failure that
+under-measures.** There is no layout between the root and the marketing pages, so
+the structural answer is a route group — which would move seven of another
+session's files while it works in them. Mounted page by page instead: **a new
+Bureau page that forgets the line is a reporting gap; a path list in the root
+layout fails the other way, and a new child page silently acquires a third
+party.** A missing measurement is a smaller thing to get wrong than a present one.
+
 **A brief written from a report is wrong about the repo roughly once a day, and
 the cost of that scales with how reversible the work is.** On 1 Sep alone, Doc
 Manager briefed: *add a `middleware.ts`* when `proxy.ts` was the root gate and a

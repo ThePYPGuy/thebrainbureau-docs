@@ -99,6 +99,15 @@ the cookie.** Web Designer's half is pixel-neutral, evidenced instead of assumed
 the first thing this check has been able to say about somebody else's change, and
 the reason it exists.
 
+## What it cannot see
+
+**A third party that injects only a script is invisible to a pixel diff.**
+`check:visual` went green on all eight surfaces when Vercel Analytics was mounted,
+and that is not a pass — `@vercel/analytics` renders nothing. **The check could
+not have caught it landing on a child's screen.** Served HTML is what answers
+that question, and a green visual run should never be read as *nothing was
+added*.
+
 ## Scope
 
 **Three** activities are published — Zero Hour, Prime Directive and Global Intel
