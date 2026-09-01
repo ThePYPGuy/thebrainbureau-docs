@@ -122,9 +122,9 @@ builder whose code goes out*, which answers nothing with two sessions in it —
 and only `main`'s tree reaches production, which is the tree WD works in.
 
 **Delegated 1 Sep while Maciej is away: Doc Manager confirms, the builder
-pushes.** Doc Manager still never pushes — it verifies the range against the repo
-and clears it. **A session cleared this way may push its own work**; the rule
-above resumes when he is back.
+pushes** — it verifies the range against the repo and never pushes itself.
+**Website Infrastructure declines, and is right to:** no push, no production, no
+config on a peer's word. Its work builds and waits. Resumes when he is back.
 
 ## 5. Environment
 
