@@ -164,8 +164,8 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `7e4acee` — **the homepage check moves to the proxy, and a stale cookie clears itself.** It went into the existing `proxy.ts`, whose matcher gained `"/"` beside `"/dashboard/:path*"` — **there is no `middleware.ts`, and one added beside it would not have run**, after a green build. The cookie *name* moved to `lib/auth/cookie.ts` rather than being repeated in the proxy, so the Edge can import it without `node:crypto` and nineteen importers are untouched — the *two definitions of one name* rule, applied one level down unprompted. **And it found the bug it caused:** redirecting on presence alone sent an unreadable cookie to `/profile`, which bounced it to `/join` without clearing it, so `/` bounced again, permanently. *(WI; not pushed.)*
 - `e948f96` — **one arrival, one identity question.** `/join` resolves on the sixth digit and branches: a game PIN goes straight to `/live/join?pin=` with the digits filled and **is never asked for a codename**, because `/live/join` already owns that question and asks it three ways. **The class-code constraint is met by shape, not by trust** — `/api/code` reports one bit, *is this a live game*, so a class code, an activity code, a retired PIN and a number nobody minted all return `live: false`. No answer it can give distinguishes a real class code from a guess. While resolving, the codename field is **absent rather than shown and withdrawn**. *(WD.)*
-- `e038b20`, `490c66a` — **phase 3, and the redesign is finished** — deployed, `--prod` clean at 30. `/profile` crosses to the Bureau face behind a **student `SiteHeader`**, and phase 2's temporary `.shell` wrapper came off. **A specificity tie was painting the wrong things loudest:** `.btnGhost` and `.btnSmall` both sat at (0,2,0), so source order decided and *Leave*, *Change my PIN* and *Sign out* rendered as the three most prominent controls on a child's own page — now `.btnGhost.btnGhost` at (0,3,0), which nothing added below can undo. `/profile` crosses to the Bureau face behind a **student variant of `SiteHeader`** — the mark and one link, reading *Have another code?* to a child and *Enter a code* to a visitor: the same door, worded for whoever is in front of it. Both hosts of `StudentDashboard` now resolve the same tokens from one `.surface`, so **phase 2's temporary `.shell` wrapper came off** rather than being kept. **No surface is left on the old chrome** — every `brand.module.css` mention in the app is now a comment explaining what used to be there. *(WD; the report did not arrive, so this is read from the repo.)*
 
 ## 8. Next up
 
@@ -186,7 +186,7 @@ from `git log`; descriptions are each session's account of its own work.
    the route leaves static generation and every first-time visitor pays a server
    render for a check only a signed-in child needs. **Middleware first, then
    remove the page check** — the other order shows marketing to signed-in
-   students. *(WI: middleware. WD: the two lines.)*
+   students. **WI's half is in at `7e4acee`** — `proxy.ts`, not `middleware.ts`. *(WD.)*
 1. **No loading state exists** — no `loading.tsx` anywhere, so a click shows
    nothing until the page arrives. Warm TTFB 240–560ms; `/pricing` is already an
    edge-cache HIT, so some of that is distance. Needs **Bureau and Field**

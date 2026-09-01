@@ -743,6 +743,29 @@ greeted as a returner — and nothing fails, because the submit still works. Sam
 family as the two column lists below, and the same remedy: change both, and
 prove it by round-tripping a real codename through the page.
 
+**The root request gate is `proxy.ts`, not `middleware.ts`, and adding the wrong
+one fails silently.** Next.js 16 deprecated and renamed the convention — the file
+says so at `proxy.ts:5` — and only one is supported. A `middleware.ts` added
+beside it **would not run**, after a green build and a clean suite: the symptom
+is a redirect that quietly does nothing. Doc Manager briefed *"there is no
+middleware.ts today, add one"* on 1 Sep and Website Infrastructure caught it
+before writing a line.
+
+**Rotating `SESSION_SECRET` would bounce every visitor off the homepage, and it
+would look like the site being down.** `proxy.ts` redirects on cookie
+*presence* — deliberately, because verifying the signature there needs
+`node:crypto`, which the Edge runtime lacks. So an unreadable cookie still
+reaches `/profile`. Until 1 Sep `/profile` sent it to `/join` **without clearing
+it**, so the next visit to `/` bounced again: a permanent two-hop redirect away
+from the marketing page for as long as the cookie lived. A secret rotation does
+that to everyone at once.
+
+It now goes to `/api/leave`, which deletes the cookie and lands on `/join`. Note
+the near-miss's shape: `/profile` already had an `/api/leave` recovery, for a
+*valid* session naming a missing agent. **Two failures that look alike and only
+one was handled**, which is why the brief's claim that it *"already sends it to
+`/api/leave`"* read as true.
+
 **An authorisation recorded by the party it empowers is not evidence of itself.**
 On 1 Sep Maciej delegated push clearance to Doc Manager and went out. Doc Manager
 wrote that into `STATUS.md` §4 and cleared a verified range. **Both builders
