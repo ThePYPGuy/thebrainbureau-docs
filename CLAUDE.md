@@ -669,6 +669,16 @@ what it **selects**, not what it prints — and when you find the gap, fix the
 output so the wrong reading is unavailable rather than merely discouraged.
 That script now marks every row `platform` or `teacher <id>`.
 
+**`/api/agent/exists` and `resolveAgent` must scope a codename identically, and
+nothing audits the pair.** The endpoint decides whether `/join` says *Welcome
+back* or *Choose a PIN*; `resolveAgent` in `lib/server/agent.ts` decides which
+agent a join actually resolves to. Both look a codename up against `school_id`,
+falling back to `teacher_id` where a class has no school. **Change one and the
+prompt starts lying** — a returning child told to choose a PIN, or a new one
+greeted as a returner — and nothing fails, because the submit still works. Same
+family as the two column lists below, and the same remedy: change both, and
+prove it by round-tripping a real codename through the page.
+
 **Billing state must never mutate content rows.** Whether a teacher is
 subscribed is computed at request time and permits or refuses; it must not
 archive, flag or move anything. The reason is specific to this schema:

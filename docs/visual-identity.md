@@ -183,7 +183,14 @@ matches it. *(Queued for WD behind the guest route.)*
 
 **The face decision above is unchanged; only the chrome moved.** `/join` is still
 Field — dark, mono, the skin's palette, not Bureau. What goes is the monitor
-bezel and the boot sequence.
+bezel.
+
+**The boot sequence did not go — it moved.** It is once-per-device in
+`localStorage`, and `/join` used to spend it; the first *activity* now plays it
+instead. So the theatre still happens, one screen later, where a child is
+arriving somewhere rather than typing six digits. Recorded because an earlier
+draft of this section said the boot sequence was dropped, and because reversing
+it would mean putting `Frame` back on the door.
 
 That does spend the most vivid argument for keeping it Field: that the theatre
 starts at the door, and the boot sequence is what says so. Maciej weighed it
