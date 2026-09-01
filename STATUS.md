@@ -164,6 +164,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `e948f96` — **one arrival, one identity question.** `/join` resolves on the sixth digit and branches: a game PIN goes straight to `/live/join?pin=` with the digits filled and **is never asked for a codename**, because `/live/join` already owns that question and asks it three ways. **The class-code constraint is met by shape, not by trust** — `/api/code` reports one bit, *is this a live game*, so a class code, an activity code, a retired PIN and a number nobody minted all return `live: false`. No answer it can give distinguishes a real class code from a guess. While resolving, the codename field is **absent rather than shown and withdrawn**. *(WD.)*
 - `e038b20`, `490c66a` — **phase 3, and the redesign is finished** — deployed, `--prod` clean at 30. `/profile` crosses to the Bureau face behind a **student `SiteHeader`**, and phase 2's temporary `.shell` wrapper came off. **A specificity tie was painting the wrong things loudest:** `.btnGhost` and `.btnSmall` both sat at (0,2,0), so source order decided and *Leave*, *Change my PIN* and *Sign out* rendered as the three most prominent controls on a child's own page — now `.btnGhost.btnGhost` at (0,3,0), which nothing added below can undo. `/profile` crosses to the Bureau face behind a **student variant of `SiteHeader`** — the mark and one link, reading *Have another code?* to a child and *Enter a code* to a visitor: the same door, worded for whoever is in front of it. Both hosts of `StudentDashboard` now resolve the same tokens from one `.surface`, so **phase 2's temporary `.shell` wrapper came off** rather than being kept. **No surface is left on the old chrome** — every `brand.module.css` mention in the app is now a comment explaining what used to be there. *(WD; the report did not arrive, so this is read from the repo.)*
 
 ## 8. Next up
@@ -177,10 +178,10 @@ from `git log`; descriptions are each session's account of its own work.
    the phone stays on the last question, though `play/[sessionId]:198` already
    renders *Session complete*, so the fault is delivery. **The projector does not
    fit the screen.** *(Quiz Maker.)*
-1. **`/join` asks for an agent name, then asks again.** A game PIN reveals
-   codename and PIN, takes them, then hands off to `/live/join` which asks for a
-   display name. **Resolve the code first and branch** — decided 1 Sep, reversing
-   *count six digits, resolve nothing*. Reveal less about a class code. *(WD.)*
+1. **A PIN minted before migration 28 is in no registry** — nothing backfilled
+   `access_codes` from open sessions, so `/api/join` answers *no code like that*
+   for a projector still showing one. **Whether a production session was open
+   when 28 applied is one query nobody has run.** *(Waits for Maciej.)*
 1. **The homepage is dynamic for one line.** `page.tsx:66` reads `cookies()`, so
    the route leaves static generation and every first-time visitor pays a server
    render for a check only a signed-in child needs. **Middleware first, then
@@ -197,8 +198,7 @@ from `git log`; descriptions are each session's account of its own work.
    write. WD: the page.)*
 1. **`app/brand.module.css` has zero importers**, but `check-tokens.ts` grandfathers
    six literals by it — deleting it changes what the checker enforces. *(WI.)*
-1. **One false comment** — Prime Directive's `_note` says `prefix` is never
-   rendered; `Tasks.tsx:428` draws it. *(Operation Builder's.)*
+1. **`_note` says `prefix` is never rendered; `Tasks.tsx:428` draws it.** *(Op Builder.)*
 1. **Visual regression check** — the only thing that would ever cover the drawn
    work, deferred four times. `docs/visual-regression.md` carries the traps, the
    measurements and the floor. **`out/` is `.gitignore`d, so nothing is
