@@ -669,6 +669,19 @@ what it **selects**, not what it prints — and when you find the gap, fix the
 output so the wrong reading is unavailable rather than merely discouraged.
 That script now marks every row `platform` or `teacher <id>`.
 
+**Billing state must never mutate content rows.** Whether a teacher is
+subscribed is computed at request time and permits or refuses; it must not
+archive, flag or move anything. The reason is specific to this schema:
+`deployments.class_id` is `on delete cascade`, and `phase_progress`,
+`task_progress`, `attempt_log` and `agent_selections` all cascade from
+`deployments`. **So "remove their classes when they lapse" deletes every child's
+progress** — and *set `archived_at` on lapse* reads as the careful version of the
+same idea while putting a delete-shaped operation on the billing path.
+
+Computed instead, lapsing touches zero rows: nothing cascades, nothing needs
+restoring when they resubscribe, and a paused class is visibly a paused class
+rather than an absence.
+
 **Reading `window.location` during render is wrong for client-side navigation,
 and works when you test it.** `/live/join` seeded its PIN boxes from a `useState`
 initializer reading `window.location.search`. A `router.push` from `/join` renders

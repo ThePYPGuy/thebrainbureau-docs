@@ -174,8 +174,6 @@ This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
 - `1870524` — **a guest is an agent with no PIN, not an agent that is missing.** The live shape could not transfer — `runs.agent_id` is nullable, the four activity progress tables are not — so a guest is a real row and every constraint keeps working. Both directions are checked, and **`GUEST-` is reserved rather than merely minted**, making the namespaces disjoint by construction so nothing needs sweeping. The typed name seeds `roster_entries.real_name`, so a teacher sees a person and no second mechanism exists. **The landing was broken and only measuring found it:** `/profile` is class-driven and a guest joins no class, so they arrived at an empty list with a *Change my PIN* control and no link to the mission they had just typed a code for. 31 checks in `test:guest`, including the roster read back **as the teacher through RLS** — because *the row exists* and *the teacher can see it* are different claims. *(WI.)*
-- `8a5bf54` — **the router is reachable, and every code says what it is.** Header, footer *and* `contact/page.tsx:82` now point at `/join`, labelled **Enter a code**: *Join* alone is SaaS for create-an-account, so on a bar of teacher CTAs a teacher reads it as signup and a child cannot tell it is theirs. Codes labelled at six displays — one more than the item named, including `Panels.tsx`'s *Running now*, whose own comment says the code is why that section sits at the top. **The phrase *join code* is retired**: a class code answers to it as much as an activity code does, so it named both and distinguished neither. *(WD.)*
-- `a71a2cd` — **the scoping pass finished, in two parts.** The last two bare element rules lived inside `@media (max-width: 640px)` and every check that caught the first seven ran at 1280, where **neither rule exists**. `body { padding }` is gone rather than moved; `h2 { font-size: 27px }` was overriding the Bureau type scale on every phone-width heading without a class. *(WI.)*
 - **the codes are one namespace, and the join box is one door.** `access_codes` (migration **28, live**) keys on the code itself, so minting is an insert and a collision is a unique violation rather than a race two teachers can both win — and the id is chosen in TypeScript so the code is claimed *before* the row exists. **Both lifetimes are held:** a PIN leaves the registry when its session ends so the space cannot narrow, while a permanent code refuses any string ever used as a PIN — so last term's projector photo can at worst reach another live game, which is what recycling already meant, and can never reach a class. `/api/join` resolves once and dispatches: a game PIN typed into the join box is handed to `/live/join?pin=` already filled. **That last clause was false when written** — the receiving page read the query in a `useState` initializer, which during a client transition runs before the address bar updates. Fixed `8a5bf54`. **The router test caught a real bug before it shipped** — `normaliseCode` strips dashes, so `C-6M01` reached `isLegacyCode` as `C6M01`, and every old card would have been told *check the digits* when the digits were right. *(WI; nothing deleted, nothing pushed.)*
 
 ## 8. Next up
@@ -186,6 +184,9 @@ from `git log`; descriptions are each session's account of its own work.
    existing member's class code as *welcome back*, not as joining: it already
    logs them in and lands on `/profile`, but reads as a first arrival.
    *(WD. The guest route landed `1870524`, so this is unblocked.)*
+1. **Remove the dormant guest-agent path.** `agents.is_guest`, its constraints
+   and the `GUEST-` prefix were superseded the day they landed — Cases and
+   Operations are account-only. **Forward migration, not a rollback of 29.**
 1. **Two comments assert things that are not true.** Prime Directive's `_note`
    says `prefix` is never rendered — `Tasks.tsx:428` and `:583` draw it. Delete
    that and the "platform gap" clause only; keep the numeric-`9` reasoning,
@@ -194,9 +195,8 @@ from `git log`; descriptions are each session's account of its own work.
 3. **Visual regression check** — screenshot each activity, fail on change.
    **Not polish.** It is the only thing that would ever cover the drawn work:
    sixteen hotspots, twelve plate forms, seven glyphs, all verified by hand
-   once. Every other check on this project passes while a page renders wrong,
-   because nothing is broken — it just looks it. Doc Manager recommended
-   deferring this three times and was reading it as finish rather than cover.
+   once. Every other check here passes while a page renders wrong, because
+   nothing *is* broken — it just looks it.
    **Clear intervals and cancel animations before capture** or the HUD timer
    never lets the page idle. Carry a **rendered-width assertion per skin**: a
    known string in the display face against a nonexistent family, failing if
@@ -208,8 +208,8 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 9. Open decisions — waiting on Maciej
 
-1. **Four open questions on licensing** — `docs/licensing.md` lists them. The
-   sharpest: **a guest burns a seat**, and a child who rejoins burns two. **An open
+1. **Two open questions on licensing** — `docs/licensing.md` has them, and
+   neither blocks the redemption flow, which is the first build. **An open
    deployment code admits anyone and always has** — `resolveAgent` creates an
    agent for any unused codename. Parked under licensing: entitlements change
    what a code should guard.

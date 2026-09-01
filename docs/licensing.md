@@ -113,8 +113,11 @@ that failure impossible rather than mitigated.
 
 **One class during the trial.** Paying unlocks more.
 
-**The seat cap is per activity per school year, not per class: 30 students, and
-they need not be members of any class.** That is a better meter than a class
+**The seat cap is per activity per school year: 30 STUDENTS, not 30 uses**, and
+they need not be members of any class. *Use it as often as you like, with up to
+30 children a year.* Metering uses would be renting, which `/pricing` says this
+is not, and would punish a teacher for running the same activity twice with the
+same class — which is ordinary teaching. That is a better meter than a class
 limit — it does not care how a teacher organises children, and it survives a
 teacher who runs the same activity twice with different groups.
 
@@ -128,8 +131,38 @@ in front of a class.
 account and grants no new month. Otherwise the trial is farmable, and a second
 month converts nobody the first did not.
 
-**Unsubscribing warns that all but one class will be lost.** *Which* class
-survives is not yet specified — see below.
+**Guests play Signal Check and nothing else.** Cases and Operations require an
+Agent account. A live guest picks a name for the game and it goes when the game
+does — that is `lib/live/identify.ts`, a run row with a `nickname` and **no
+`agents` row at all**, which is what Signal Check has always used.
+
+**This is what makes the seat cap countable.** Everything metered now requires a
+stable identity, so 30 students means 30 students. The earlier collision — a
+guest rejoining and spending a second seat — stops existing rather than being
+managed.
+
+**Signal Check is free tier, so nothing about it is capped**, and the limit that
+matters there is how many *play*, not how many arrive.
+
+### Lapsing never deletes anything
+
+**Entitlement is computed at request time. Lapsing changes zero rows.** The
+server asks what a teacher is entitled to now and permits or refuses; it does not
+archive, flag or move content. So there is no cascade to get wrong, nothing to
+restore on resubscribing, and no code path that could delete a child's progress
+for a billing reason.
+
+**This is not a preference, it is the difference between a paused class and a
+deleted one.** `deployments.class_id` is `on delete cascade`, and
+`phase_progress`, `task_progress`, `attempt_log` and `agent_selections` all
+cascade from `deployments`. *Set `archived_at` on lapse* looks just as reasonable
+and puts a delete-shaped operation on the billing path.
+
+**Lapsing reverts to activity level with no classes** — earlier drafts kept one,
+which is superseded. **The paused classes stay visible, read-only**, with one
+line saying they are paused and resubscribing restores them. Hiding them
+produces the exact impression — *it deleted my data* — that all of this exists to
+avoid, and an empty dashboard produces it fastest.
 
 **Signal Check is free tier.** It is what the homepage sells, so it has to be
 reachable by someone who has bought nothing.
@@ -145,19 +178,24 @@ made, lose the capacity to make more.**
 
 ## Open — not yet decided
 
-1. **A guest burns a seat, and the same child can burn several.** This is the
-   sharpest one, and it comes from two decisions made separately on the same
-   day. A guest is a fresh `agents` row every time — that is what makes the
-   guest route work. But the seat cap counts students, and a guest who loses
-   their cookie and rejoins is a *second* student against the 30. A class of 28
-   where a few rejoin can exhaust an activity's school year. **Decide what
-   counts:** distinct agents, or something a returning guest can be recognised
-   by. Nothing today can tell one guest from another.
-2. **When does the school year turn over?** The cap resets annually and no date
-   is set. Northern and southern hemispheres do not share one.
-3. **Which class survives unsubscribing?** Most recent, largest, or the
-   teacher's choice. Choosing for them will occasionally be wrong in a way they
-   cannot undo.
-4. **Does the count include a child who joined and never started?** A register
-   of 30 that includes three who opened the page and closed it is a cap that
-   binds early and reads as broken.
+**The school year turns over on a declared month**, held on `schools` so one
+school has one year — with a fallback on `teachers`, because `school_id` is
+nullable and schoolless teachers exist from before signup required one.
+
+## Open — not yet decided
+
+1. **Does the count include a child who joined and never started?** A register
+   of 30 holding three who opened the page and closed it binds early and reads
+   as broken. The cap is on who *plays*, so the count probably should be too.
+2. **Nothing writes an entitlement yet.** The redemption flow is the first
+   build, and it needs no further decisions: one code per activity, one trial
+   per teacher ever, grant on redeem.
+
+## Dormant, on purpose
+
+**`agents.is_guest`, its two check constraints and the reserved `GUEST-` prefix
+were built 1 Sep for guest access to activities, then superseded the same day**
+when Cases and Operations became account-only. Live guests never used any of it —
+they are run rows with a nickname. **Being removed by a forward migration, not a
+rollback.** Recorded here so nobody finds an orphan column and either deletes
+something load-bearing or builds on something abandoned.
