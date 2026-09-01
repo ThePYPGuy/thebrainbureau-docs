@@ -176,12 +176,12 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **Operation Tailwind** — the handoff is in Maciej's Documents;
+1. **Operation Tailwind** — handoff in Maciej's Documents;
    `operation-tailwind-build-instructions.md` is the entry. **Game first, class
-   mode deferred, printables gated rather than `public/`.** *(Op Builder.)*
-   **Called reuse, absent from the repo:** `drag-to-sequence` (Encore is coming,
-   so it is new work), a `structure` column, anywhere for board state, `styles/`,
-   a credits surface, a bucket that takes the ZIP. One wrong entry voids the list.
+   mode deferred, printables gated not `public/`.** *(Op Builder.)* **Called
+   reuse, absent from the repo:** `drag-to-sequence`, `structure`, anywhere for
+   board state, `styles/`, a credits surface, a bucket that takes the ZIP. **The
+   bible's reuse table is wrong in 3 of 7** — `docs/components-built.md` is true.
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. **Rotation took
    the irreversibility out of it** — a code can be retired, so no decision here
    is frozen in a download. *(WI: table, route, write. WD: the page.)*
