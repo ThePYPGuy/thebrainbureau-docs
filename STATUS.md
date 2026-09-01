@@ -164,6 +164,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `2756e01` — **the four faults the first real game found.** `ended` reached the device by **one broadcast and nothing else**, so a phone whose socket slept woke, resynced, and met a path that could not express it — three levels now can. **Faults 3 and 4 were one fault:** there was no selection state at all, only the browser's focus styling, which a touch does not reliably raise and which React left on the reused button at index 0 — so a tap sometimes showed nothing, and the last answer lit an option for a question nobody had read. **Colour is keyed to the option's canonical index, not its place on screen**, because every device shuffles: *the orange one* is the same answer on the wall and on thirty phones. Projector sized in `vmin`, fitting 800×600 to 1920×1080. **Not verified on a phone — Quiz Maker has no device and said so rather than calling emulation verification.** *(Not pushed.)*
 - `7e4acee` — **the homepage check moves to the proxy, and a stale cookie clears itself.** It went into the existing `proxy.ts`, whose matcher gained `"/"` beside `"/dashboard/:path*"` — **there is no `middleware.ts`, and one added beside it would not have run**, after a green build. The cookie *name* moved to `lib/auth/cookie.ts` rather than being repeated in the proxy, so the Edge can import it without `node:crypto` and nineteen importers are untouched — the *two definitions of one name* rule, applied one level down unprompted. **And it found the bug it caused:** redirecting on presence alone sent an unreadable cookie to `/profile`, which bounced it to `/join` without clearing it, so `/` bounced again, permanently. *(WI; not pushed.)*
 - `e948f96` — **one arrival, one identity question.** `/join` resolves on the sixth digit and branches: a game PIN goes straight to `/live/join?pin=` with the digits filled and **is never asked for a codename**, because `/live/join` already owns that question and asks it three ways. **The class-code constraint is met by shape, not by trust** — `/api/code` reports one bit, *is this a live game*, so a class code, an activity code, a retired PIN and a number nobody minted all return `live: false`. No answer it can give distinguishes a real class code from a guess. While resolving, the codename field is **absent rather than shown and withdrawn**. *(WD.)*
 
@@ -171,13 +172,12 @@ from `git log`; descriptions are each session's account of its own work.
 
 1. **A top-three podium, and points that scale with speed** — both reversed
    1 Sep. `docs/question-banks.md` has why, and names two fairness costs the
-   decision does not cancel. **`engine.ts:558` calls no-speed a platform
-   principle** — that comment is the thing to replace. *(Quiz Maker.)*
-1. **Signal Check was played for the first time** — `docs/signal-check-playtest.md`
-   has all eleven findings. **A child is stranded when the teacher ends early**:
-   the phone stays on the last question, though `play/[sessionId]:198` already
-   renders *Session complete*, so the fault is delivery. **The projector does not
-   fit the screen.** *(Quiz Maker.)*
+   decision does not cancel. The **NO SPEED BONUS** comment calls it a platform
+   principle — that is the thing to replace. *(Quiz Maker.)*
+1. **A guest who never answers sees nothing at the reveal.** *Waiting for the
+   next question…* runs through the whole of it, while everyone who answered gets
+   the correct answer and the explanation. **The child who most needs the
+   explanation is the one who does not get it.** *(Quiz Maker; nothing named it.)*
 1. **A PIN minted before migration 28 is in no registry** — nothing backfilled
    `access_codes` from open sessions, so `/api/join` answers *no code like that*
    for a projector still showing one. **Whether a production session was open

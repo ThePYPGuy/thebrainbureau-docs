@@ -743,6 +743,39 @@ greeted as a returner — and nothing fails, because the submit still works. Sam
 family as the two column lists below, and the same remedy: change both, and
 prove it by round-tripping a real codename through the page.
 
+**A state the UI can render must be reachable by every path that learns of it,
+not only by the one that announces it.** Signal Check's `ended` was carried by
+exactly one broadcast. The *Session complete* view existed and was correct. But a
+phone's socket sleeps when its screen does, so the device missed that single
+delivery, woke, asked `/api/live/state` where it was — **and the resync path
+could not express `ended`.** It returned a `results` field nothing read and a
+status the surface ignored, so the phone kept the last question it had been
+handed and sat on it in front of the class.
+
+**Broadcast is the fast path; resync is the correct one.** A state that exists
+only in the broadcast strands every client that missed the broadcast in the
+previous state — **and no test catches it, because tests never sleep.** Fixed at
+three levels so no single path is load-bearing: `summary()` split out of `end()`
+so any caller can say what the end was, the state route returns it, and a status
+of `ended` clears the question on its own.
+
+**Third time on this mode that the surface was verified and the delivery was
+broken.** 404 tests, an e2e suite and a thirty-socket load harness all passed on
+a mode that stranded a child within ten minutes of real play.
+
+**An option's colour belongs to the option, not to its position on screen.**
+Every device shuffles its own order — that is `shuffle.ts`, and it is deliberate.
+So colouring by *render* index makes *"the orange one"* a different answer on
+every phone in the room. Both surfaces set `data-option` from the **canonical**
+index, so the orange one is the same answer on the wall and on all thirty
+devices while the positions still differ. **Simplifying this to the render index
+turns the mode into something that actively misleads a class** — the same trap
+that took the A/B/C letters off the projector.
+
+Related, and easy to lose: **ink is part of the colour**, not a detail — white on
+blue, black on orange. And **every tile carries an edge drawn from its own ink**,
+because black on a near-black terminal ground is not a tile, it is a hole.
+
 **The root request gate is `proxy.ts`, not `middleware.ts`, and adding the wrong
 one fails silently.** Next.js 16 deprecated and renamed the convention — the file
 says so at `proxy.ts:5` — and only one is supported. A `middleware.ts` added

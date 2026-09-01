@@ -82,8 +82,12 @@ twenty times while also teaching.
 
 ---
 
-## Not clear from the report
+## Answered
 
-**Ending early showed a list of questions and how many answered each correctly.**
-Whether that is the intended end screen or a fallback nobody designed is not
-stated. Worth asking before anyone changes it.
+**The end screen is not a fallback.** It is `EndedEvent.accuracy` — per question,
+how many of the class got it right out of how many answered — and it is
+deliberate. It is the brief's flow item 7, *"projector shows class accuracy per
+question"*, which the 1 Sep edit kept and added the podium **alongside**. It
+answers *which questions did the class get wrong*: the aggregate a teacher can
+act on, and the one nobody else was building. The podium is the second clause and
+is still unbuilt.
