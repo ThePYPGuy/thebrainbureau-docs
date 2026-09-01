@@ -913,6 +913,20 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**Being unable to measure does not stop you being right, and this is the
+qualification on every *measure it* rule above.** The four-list finding — that
+`import_activity()` carries a separate `on conflict do update set` list, that
+`content_hash` sits inside it, and that missing the fourth list makes a column
+populate once and then freeze while `deploy:check` stays quiet — was written by
+a session that **could not run one command against this repo.** It read the SQL.
+It then specified the experiment that proved it, and every instrument in the
+repo *had* been run and *had* said the arrangement was fine.
+
+**So: measurement outranks inference about STATE** — is this session alive, is
+this tree dirty, did that check pass. **Reading outranks nothing when the
+question is what a check does not look at.** An instrument cannot report a case
+nobody taught it to consider, and only reading the code finds those.
+
 **Widening a guard without widening what it guards turns a clean refusal into
 a silent wrong result.** Adding ZIP support looked like two edits — the bucket's
 `allowed_mime_types` and the validator — because those are the two that REFUSE,
