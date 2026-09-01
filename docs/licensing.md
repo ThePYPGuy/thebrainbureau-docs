@@ -134,9 +134,56 @@ nothing, so `check:visual` was green and could not have caught this. `/profile`
 and `/terminal` were re-checked **with a session**, because signed out they merely
 redirect and a clean result would have proved nothing.
 
-**Still unexamined: what the script sends.** Where it is has been verified;
-what it transmits has not. That is precisely the half the Sentry contract got
-wrong.
+**What the script sends, measured 1 Sep.** The SDK composes exactly `{ o: page
+URL, sv, sdkn, sdkv, ts }` and posts it to `/_vercel/insights/view`. **No
+identifier, no cookie, no user id, no referrer** — the page URL is essentially the
+whole content, plus version strings and a clock. **Child pages send nothing**:
+zero analytics requests and zero off-host requests of any kind.
+
+**In production no third-party domain is contacted at all.** Dev pulls the script
+from `va.vercel-scripts.com`, which is a genuine third-party origin and looks
+alarming in a network log; **that is a dev artefact.** Production serves
+`/_vercel/insights/script.js` same-origin, so script and beacon are both ours and
+Vercel receives the data **because it is the host, not because a third party is
+dialled.**
+
+### But Vercel observes every request anyway, and that is a different question
+
+**Yes — at the hosting layer, independent of the script.** Every request to every
+page, child pages included, reaches Vercel's edge and is assigned an
+`X-Vercel-Id`. The analytics *product* does not run there and was verified not
+to. **Vercel as host observes regardless, because it is the thing serving the
+page.**
+
+So mounting page by page does exactly what it was meant to and **nothing a
+component tree could ever do more of.** It controls the product; it cannot
+control the host.
+
+**Two sentences, and only one of them is true:**
+
+- *"No third-party script runs on the children's screens."* — **true, measured.**
+- *"No third party receives data about the children."* — **not true in the way a
+  head teacher means it.** Vercel processes every request a pupil's browser
+  makes: URL, IP, user agent, timing, for `/terminal` exactly as for `/pricing`.
+
+**That is a processor relationship, and what answers it is a contract rather than
+a component.** Which sentence to use is Maciej's decision and it is worth taking
+properly — a school's data officer will ask, and the honest answer is available
+now rather than under pressure. *(Doc Manager is not the right source of advice
+on what the obligation actually is.)*
+
+**Also true and worth knowing before being asked:**
+`/_vercel/insights/script.js` answers 200 on production whether or not any page
+references it, so Web Analytics is enabled at project level. Serving an endpoint
+is not collecting from it — nothing on a child page loads it — but a school
+reading the network tab would find the URL reachable on the domain.
+
+**Not measured, and it matters:** nobody has observed a real transmission. Dev
+disables sending (*"Debug mode is enabled by default in development. No requests
+will be sent"*), and production does not yet carry the analytics commit. **The
+payload shape is from the SDK's own debug output and its source — good evidence,
+not a captured request.** Nor is it known what Vercel *retains* from hosting:
+`X-Vercel-Id` shows a request is traced, not what is kept.
 
 **Not squeamishness — the questions are not there.** Everything worth knowing
 about a child-facing surface is already in the database and answered better:
