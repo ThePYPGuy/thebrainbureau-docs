@@ -174,7 +174,6 @@ This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
 - `1870524` — **a guest is an agent with no PIN, not an agent that is missing.** The live shape could not transfer — `runs.agent_id` is nullable, the four activity progress tables are not — so a guest is a real row and every constraint keeps working. Both directions are checked, and **`GUEST-` is reserved rather than merely minted**, making the namespaces disjoint by construction so nothing needs sweeping. The typed name seeds `roster_entries.real_name`, so a teacher sees a person and no second mechanism exists. **The landing was broken and only measuring found it:** `/profile` is class-driven and a guest joins no class, so they arrived at an empty list with a *Change my PIN* control and no link to the mission they had just typed a code for. 31 checks in `test:guest`, including the roster read back **as the teacher through RLS** — because *the row exists* and *the teacher can see it* are different claims. *(WI.)*
-- **the codes are one namespace, and the join box is one door.** `access_codes` (migration **28, live**) keys on the code itself, so minting is an insert and a collision is a unique violation rather than a race two teachers can both win — and the id is chosen in TypeScript so the code is claimed *before* the row exists. **Both lifetimes are held:** a PIN leaves the registry when its session ends so the space cannot narrow, while a permanent code refuses any string ever used as a PIN — so last term's projector photo can at worst reach another live game, which is what recycling already meant, and can never reach a class. `/api/join` resolves once and dispatches: a game PIN typed into the join box is handed to `/live/join?pin=` already filled. **That last clause was false when written** — the receiving page read the query in a `useState` initializer, which during a client transition runs before the address bar updates. Fixed `8a5bf54`. **The router test caught a real bug before it shipped** — `normaliseCode` strips dashes, so `C-6M01` reached `isLegacyCode` as `C6M01`, and every old card would have been told *check the digits* when the digits were right. *(WI; nothing deleted, nothing pushed.)*
 
 ## 8. Next up
 
@@ -187,24 +186,25 @@ from `git log`; descriptions are each session's account of its own work.
 1. **Remove the dormant guest-agent path** — **server and schema only**; WD
    strips the guest mode from `Login.tsx` with the `/join` rebuild, and **the UI
    goes first**, or the page offers a door the server has already shut. *(WI.)*
+1. **Phase 3: the student dashboard.** `/profile` wraps `StudentDashboard` in
+   `.shell`; the same component renders at `/dashboard/agent/[agentId]`, so
+   moving the child's host makes both Bureau. Last of the three. *(WD.)*
+1. **Redemption: one `/redeem`, not a second signup.** Activities carry only a
+   `slug`, so a code needs a home, and the route must serve signed-in and
+   signed-out alike — the PDF link cannot change. **The only irreversible
+   piece.** *(WI: code, route, write. WD: the page. After phase 3.)*
 1. **Two comments assert things that are not true.** Prime Directive's `_note`
-   says `prefix` is never rendered — `Tasks.tsx:428` and `:583` draw it. Delete
-   that and the "platform gap" clause only; keep the numeric-`9` reasoning,
-   which names live code. And `runs.agent_id` says guests must "appear on the
-   leaderboard"; Signal Check has none, on any surface. *(Op Builder's, WI's.)*
-3. **Visual regression check** — screenshot each activity, fail on change.
-   **Not polish.** It is the only thing that would ever cover the drawn work:
-   sixteen hotspots, twelve plate forms, seven glyphs, all verified by hand
-   once. Every other check here passes while a page renders wrong, because
-   nothing *is* broken — it just looks it.
-   **Clear intervals and cancel animations before capture** or the HUD timer
-   never lets the page idle. Carry a **rendered-width assertion per skin**: a
-   known string in the display face against a nonexistent family, failing if
-   they match — with a discriminating string, since a 10px gap proves nothing.
-   ***(Website Infrastructure, once `signal-check` merges — assigned 31 Aug.)***
-
-   **Phase one shipped without touching activity chrome** — both activities
-   diffed at 0 pixels. Phases two and three will need a baseline regeneration.
+   says `prefix` is never rendered — `Tasks.tsx:428`/`:583` draw it; delete that
+   and the "platform gap" clause only. `runs.agent_id` claims a leaderboard
+   Signal Check has never had. *(Op Builder's, WI's.)*
+1. **Visual regression check** — screenshot each activity, fail on change. The
+   only thing that would ever cover the drawn work: sixteen hotspots, twelve
+   plate forms, seven glyphs, verified by hand once. Every other check here
+   passes while a page renders wrong. **Clear intervals and cancel animations
+   before capture** or the HUD timer never idles, and carry a **rendered-width
+   assertion per skin** — a known string in the display face against a
+   nonexistent family, failing if they match. Phases two and three need a
+   baseline regeneration. *(WI, after phase 3.)*
 
 ## 9. Open decisions — waiting on Maciej
 
