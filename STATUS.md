@@ -208,7 +208,7 @@ from `git log`; descriptions are each session's account of its own work.
    agent for any unused codename. Parked under licensing: entitlements change
    what a code should guard.
 
-1. **May the platform ever tell a child to wait?** The rate-limit refusal band's threshold is set where no child reaches it and `resetAgentPin` clears it in the room, but saying no at all is a posture rather than a mechanism. One constant either way.
+1. **May the platform ever tell a child to wait, and at what number?** One decision, not two — the threshold is the half that can hurt somebody. Forty consecutive failures assumes a child asks the teacher long before; that is a typical child in a typical lesson, and **not obviously a child who is anxious, distracted or working alone**. WI raised it and is right that it is a judgement about children rather than attackers. `resetAgentPin` clears it in the room. One constant either way.
 
 ## 10. Known silent failures
 

@@ -913,6 +913,20 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**BREAK YOUR OWN SUITE AND WATCH IT GO RED.** Four of five rate-limit tests
+were classroom cases — and every one of them would pass against a limiter that
+did nothing at all. The check: raise both thresholds to 100,000, re-run, and
+confirm the ATTACK assertions fail while the classroom ones stay green. **A test
+that cannot fail is not evidence**, and the only way to know which you have is
+to break the thing it watches.
+
+**"Pre-existing" is a claim about a BASELINE, and a stale branch has a stale
+baseline.** A session reported three e2e failures as pre-existing, *confirmed
+identical before and after*, and it was true of its tree and false of the
+project: its branch was 29 commits behind the fix. The check was done correctly
+and answered a narrower question than the words suggested. **Say which commit
+you are pre-existing against.**
+
 **A SELF-DIFF OF 0 PROVES THE TWO CAPTURES IN ONE RUN AGREE. IT SAYS NOTHING
 ABOUT THE ENVIRONMENT BEING RIGHT.** A machine with no emoji fonts photographs
 tofu boxes, agrees with itself perfectly, reports self-diff 0, and **commits the
