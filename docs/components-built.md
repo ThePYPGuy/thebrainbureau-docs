@@ -33,3 +33,32 @@ authority.** Re-run them rather than trusting the table below.
 `Facsimile` are built for the terminal's case-file chassis; anything else here
 is an extraction job, and an extraction with three existing callers is a
 refactor, not a reuse.
+
+## Two rulings on pointer-only interactions
+
+**This project has now turned down the same class of interaction three times,
+and the reasoning is written in the code each time.** Recorded together because
+the fourth request will arrive looking different again.
+
+**HOVER: refused.** `Zoom.tsx:16` and `Tasks.tsx:323` — *`mouseenter` either
+never fires or fires once on tap and then sticks* on the tablets and interactive
+whiteboards these children use.
+
+**DRAG IN A PACED WINDOW: refused.** `lib/banks/question-types.ts:9` — ordering
+and matching question types are absent because *both need drag interactions, and
+neither fits a projector-paced answer window.*
+
+**DRAG AS A PRIMARY INPUT: refused, 2 Sep.** Tailwind's route sequencer is
+specified as *drag-to-sequence*. **Build it as an ordering component that also
+accepts drag, not a drag component with a fallback.** Tap a tile, tap a slot;
+arrow keys move a focused tile; drag layered on afterwards and droppable if it
+costs anything. Drag is imprecise across a large IWB, fights page scroll on a
+tablet, and does not exist at all for a keyboard.
+
+**The test is the repo's own sentence:** *the affordance that everybody has is
+the one worth having.* And **a name in a spec is not an interaction decision** —
+"drag-to-sequence" is what the component was called in a table whose stated
+first user has never been built.
+
+**None of these removes anything.** Drag can still be layered on; hover cannot,
+which is why only one of the three is permanent.
