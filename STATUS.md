@@ -167,8 +167,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
-- `e038b20` — **phase 3, and the redesign is finished** — deployed and verified: 30 migrations, `--prod` matches the repo, `/`, `/join` and `/missions` 200. `/profile` crosses to the Bureau face behind a **student variant of `SiteHeader`** — the mark and one link, reading *Have another code?* to a child and *Enter a code* to a visitor: the same door, worded for whoever is in front of it. Both hosts of `StudentDashboard` now resolve the same tokens from one `.surface`, so **phase 2's temporary `.shell` wrapper came off** rather than being kept. **No surface is left on the old chrome** — every `brand.module.css` mention in the app is now a comment explaining what used to be there. *(WD; the report did not arrive, so this is read from the repo.)*
-- `bf52350` — **the agent-guest path is gone, and no child ever used it.** Migration 30 drops `is_guest`, both constraints and the reserved prefix; the server path, the four orphaned `globals.css` rules and a fifth orphan in `check-tokens.ts` went with it. **Production was measured before the migration was written**, counts only: 5 agents, **0 null `pin_hash`**, 0 guests — so `set not null` is safe there and nothing is deleted. The live guest was never coupled: `e2e:signal-check` passes whole, *a guest earns nothing* included. **`GUEST-` is choosable again** — tested, not assumed. *(WI.)*
+- `e038b20`, `490c66a` — **phase 3, and the redesign is finished** — deployed, `--prod` clean at 30. `/profile` crosses to the Bureau face behind a **student `SiteHeader`**, and phase 2's temporary `.shell` wrapper came off. **A specificity tie was painting the wrong things loudest:** `.btnGhost` and `.btnSmall` both sat at (0,2,0), so source order decided and *Leave*, *Change my PIN* and *Sign out* rendered as the three most prominent controls on a child's own page — now `.btnGhost.btnGhost` at (0,3,0), which nothing added below can undo. `/profile` crosses to the Bureau face behind a **student variant of `SiteHeader`** — the mark and one link, reading *Have another code?* to a child and *Enter a code* to a visitor: the same door, worded for whoever is in front of it. Both hosts of `StudentDashboard` now resolve the same tokens from one `.surface`, so **phase 2's temporary `.shell` wrapper came off** rather than being kept. **No surface is left on the old chrome** — every `brand.module.css` mention in the app is now a comment explaining what used to be there. *(WD; the report did not arrive, so this is read from the repo.)*
 
 ## 8. Next up
 
@@ -186,6 +185,9 @@ from `git log`; descriptions are each session's account of its own work.
    signed-out alike — the PDF link cannot change. **The only irreversible
    piece**, and phase 3 has landed so nothing blocks it. *(WI: code, route,
    write. WD: the page.)*
+1. **`app/brand.module.css` has zero importers**, but `check-tokens.ts`
+   grandfathers six literals by that filename — deleting it silently changes
+   what the checker enforces. Its own decision. *(WI.)*
 1. **Two false comments** — Prime Directive's `_note` on `prefix` (`Tasks.tsx:428`
    draws it) and `runs.agent_id` on a leaderboard. *(Op Builder's, WI's.)*
 1. **Visual regression check** — screenshot each activity, fail on change. The
@@ -195,7 +197,12 @@ from `git log`; descriptions are each session's account of its own work.
    before capture** or the HUD timer never idles, and carry a **rendered-width
    assertion per skin** — a known string in the display face against a
    nonexistent family, failing if they match. Phases two and three need a
-   baseline regeneration. **Phase 3 has landed, so the surfaces have stopped moving — this is next.** *(WI.)*
+   baseline regeneration — but **not** `field-terminal.png` or `case-file.png`,
+   whose worth is predating the redesign; both still match. WD measured Zero
+   Hour's animated regions at 2560×1800 dSF2: LED `x 2080–2160, y 220–290`,
+   countdown `x 1360–1640, y 290–380`, caret `x 690–830, y 510–610`. **Masked,
+   0 of 4,608,000; unmasked, 3,144; and the page differs from itself by 977 in
+   the LED alone** — that last number is the floor. *(WI.)*
 
 ## 9. Open decisions — waiting on Maciej
 
@@ -217,6 +224,7 @@ table once. **Documentation does not fire at 11pm.**
 | A check that resolves a tool by bare name | It reports the launching shell's `PATH` as the machine's state. `uv` is installed and `doctor` passes interactively and fails under `bash -c`, because `~/.local/bin` comes from `~/.profile`. Reported as *not installed*, which is a different problem with a different fix | **fixed** `84138c5` — it now names the path it found and says which of the two it means |
 | A check that fires on every call is one nobody reads | The aspect-ratio check first compared reduced fractions and flagged a genuine 4:3 response of 1200×896 — 75:56, 0.45% out. Decimals within 2% now, tested against six cases including that one. Same lesson `doctor` already carries about its anchored `/images/` pattern | **fixed** in the art skill |
 | Sentry stored city-level location and a timezone, and the client could strip only one | `user.geo` is derived from the connecting IP **at ingest**; `contexts.culture` — locale, calendar, timezone — was collected in the browser. Two fields, two different fixes, and *stripped at the client* could only ever promise the second | **`culture` fixed**, verified on a production event: Additional Context now holds `react` and `trace` only, with `trace_id` intact and frames still mapped. **IP storage turned off 31 Aug — unverified**, because the newest event predates the change and an old event cannot answer it. The next one will |
+| **The accessibility override does nothing on a Bureau surface** | `globals.css:1981` redefines **skin** tokens — `--surface`, `--ground`, `--ink`, `--edge`, `--skin-font-body`. The Bureau face reads `--bb-*` and it touches none of them, so *easier to read* changes nothing on `/profile`, the dashboard or the marketing site. **Not a regression** — the old `.shell` never responded either — and it works on every Field surface. But it now sits **visibly on a child's own page doing nothing**, which is worse than not being there | **open** · needs a high-contrast Bureau palette, so a build rather than a fix |
 | **Nothing on the platform is rate limited** | Not one route: not `/api/join`, not `/api/agent/login`, not `/api/agent/exists` — which is public and unauthenticated by necessity, because a child has no session when they type a codename. A four-digit PIN against a known codename is ten thousand guesses and nothing counts them. No incident; the platform has almost no users. **It stops being theoretical on the day one class uses it** | **open** · unowned — a platform-wide posture, not one route's bug |
 | **A phone joining a game got a light border down both edges** | `globals.css:1710` sets `body { padding: 10px 6px }` under 640px, next to `.monitorFrame` — it is chrome for the CRT bezel. On a full-bleed page like `/live/join` there is no bezel, so the padding shows the page ground through it. Reads as a design choice rather than a fault, on the surface a child actually uses, and no contrast or pixel check looks at `body` padding | **fixed** `a71a2cd` — by **deleting** the rule, not moving it: `.crtViewport` (`globals.css:1068`) already draws the monitor's gap at `30px 16px`, so `body` was laying a second one over it on every page |
 | **The Field face is the default for every Bureau element** | `globals.css` styles bare `h2`/`h3`/`h4`/`p`/`strong`/`button`/`input` for the CRT *and* gives those variables real values in `:root` — `--body-text: #d0d0d0`. So a bare `<p>` on a cream page renders at **1.40:1**, and the hero once rendered at 1.99:1; both screenshotted fine and were found only by measuring. Website Designer neutralised it inside `.surface` rather than editing a file it does not own. The fix is scoping those selectors at source, and **every form in phases 2 and 3 meets this** | **fixed**, in `main` at `5bfbfc7` · `:where([data-skin], .zoomBackdrop)` adds no specificity, so nothing that beat these stops beating them |

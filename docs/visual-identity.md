@@ -436,6 +436,19 @@ If skins vary, the escape hatch must be global and must win over every skin:
 high contrast, plain readable typeface, no texture, motion off. A student
 setting, remembered across sessions, honoured everywhere.
 
+> **It is not honoured everywhere, and that sentence was aspirational** *(found
+> 1 Sep)*. The override at `globals.css:1981` redefines **skin** tokens —
+> `--surface`, `--ground`, `--ink`, `--edge`, `--skin-font-body` — and the Bureau
+> face reads `--bb-*`. It touches none of them. Measured on `/profile`: the
+> switch sets `data-clear-view="on"` and leaves ground, ink, typeface and size
+> identical.
+>
+> **Not a regression** — the `.shell` it replaced used `--bg`/`--text` and never
+> responded either — and it works on every Field surface, which is where missions
+> are read. But the control now sits **visibly on a child's own page appearing to
+> do nothing**, which is worse than its absence. Fixing it means a full
+> high-contrast Bureau palette across the marketing site and teacher dashboard.
+
 Green-on-black with a pixel font and red/green correctness feedback is a hard
 read for dyslexic and colour-blind pupils. That is survivable as one theme
 among several with an override available; it is not survivable as the only
