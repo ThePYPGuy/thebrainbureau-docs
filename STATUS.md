@@ -184,7 +184,8 @@ from `git log`; descriptions are each session's account of its own work.
 1. **Redemption: one `/redeem`, not a second signup.** Activities carry only a
    `slug`, so a code needs a home, and the route must serve signed-in and
    signed-out alike — the PDF link cannot change. **The only irreversible
-   piece.** *(WI: code, route, write. WD: the page. After phase 3.)*
+   piece**, and phase 3 has landed so nothing blocks it. *(WI: code, route,
+   write. WD: the page.)*
 1. **Two false comments** — Prime Directive's `_note` on `prefix` (`Tasks.tsx:428`
    draws it) and `runs.agent_id` on a leaderboard. *(Op Builder's, WI's.)*
 1. **Visual regression check** — screenshot each activity, fail on change. The
