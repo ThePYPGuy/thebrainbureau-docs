@@ -185,8 +185,6 @@ from `git log`; descriptions are each session's account of its own work.
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. **Rotation took
    the irreversibility out of it** — a code can be retired, so no decision here
    is frozen in a download. *(WI: table, route, write. WD: the page.)*
-1. **`app/brand.module.css` has zero importers**, but `check-tokens.ts` grandfathers
-   six literals by it — deleting it changes what the checker enforces. *(WI.)*
 1. **`_note` says `prefix` is never rendered; `Tasks.tsx:428` draws it.** *(Op Builder.)*
 1. **Queue 2 step 6 — prices and purchase routes.** *(WI, **with Maciej** — the
    only irreversible step, and not to be started on a peer's brief.)* Steps 1–5

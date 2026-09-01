@@ -913,6 +913,26 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**Widening a guard without widening what it guards turns a clean refusal into
+a silent wrong result.** Adding ZIP support looked like two edits — the bucket's
+`allowed_mime_types` and the validator — because those are the two that REFUSE,
+and a refusal is visible. Two more ACCEPTED it and got it wrong:
+`upload-resource.ts` declared `application/pdf` for whatever it was handed, so
+the archive would have been stored mislabelled (**the bucket checks what is
+DECLARED, not what the bytes are**), and the route returned `application/pdf`
+inline unconditionally, so a teacher clicking a ZIP would get a PDF viewer
+trying to render an archive. **That presents as a corrupt file and is a
+header.** Count the places that accept, not only the places that refuse.
+
+**A header describing the file wrongly is the failure being tested for, so it
+cannot also be the evidence.** The ZIP was proved by reading `PK` out of
+the RESPONSE BODY, not by trusting the `content-type` it came with. Same family
+as a guard that must not share its subject's source.
+
+**Migration numbers are claimed before they are committed** — and before another
+branch merges. `ls supabase/migrations` in your own worktree is not enough, and
+neither is `main`: check every branch AND every other worktree's working tree.
+
 **A migration version can be taken by a branch you cannot see, and the CLI
 reports success.** `supabase migration up --local` answered
 `{"applied":[],"message":"Migrations applied"}` and created nothing:
