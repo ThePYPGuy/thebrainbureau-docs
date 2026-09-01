@@ -56,7 +56,7 @@ mechanics in `CLAUDE.md`.
 | Stream | Branch | Uncommitted | Status |
 |---|---|---|---|
 | Case File skin | `main` | none | Stages 1–2 done; 3 blocked on images — dormant |
-| Website redesign | `main` | stray `:Zone.Identifier` | **phase 1 and the doors live** at `d669a13` |
+| Website redesign | `main` | stray `:Zone.Identifier` | **all three phases live** — no surface left on the old chrome |
 | Prime Directive | `operation-prime-directive` | none | **identical to `main`** at `cac3f44` |
 | Platform | `platform` in `../tbb-platform` | none | scoping and importer both merged to `main` |
 | Docs | `docs` | `STATUS.md`, `CLAUDE.md` | own worktree; merges to `main` `--ff-only` |
@@ -167,7 +167,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
-- `e038b20` — **phase 3, and the redesign is finished.** `/profile` crosses to the Bureau face behind a **student variant of `SiteHeader`** — the mark and one link, reading *Have another code?* to a child and *Enter a code* to a visitor: the same door, worded for whoever is in front of it. Both hosts of `StudentDashboard` now resolve the same tokens from one `.surface`, so **phase 2's temporary `.shell` wrapper came off** rather than being kept. **No surface is left on the old chrome** — every `brand.module.css` mention in the app is now a comment explaining what used to be there. *(WD; the report did not arrive, so this is read from the repo.)*
+- `e038b20` — **phase 3, and the redesign is finished** — deployed and verified: 30 migrations, `--prod` matches the repo, `/`, `/join` and `/missions` 200. `/profile` crosses to the Bureau face behind a **student variant of `SiteHeader`** — the mark and one link, reading *Have another code?* to a child and *Enter a code* to a visitor: the same door, worded for whoever is in front of it. Both hosts of `StudentDashboard` now resolve the same tokens from one `.surface`, so **phase 2's temporary `.shell` wrapper came off** rather than being kept. **No surface is left on the old chrome** — every `brand.module.css` mention in the app is now a comment explaining what used to be there. *(WD; the report did not arrive, so this is read from the repo.)*
 - `bf52350` — **the agent-guest path is gone, and no child ever used it.** Migration 30 drops `is_guest`, both constraints and the reserved prefix; the server path, the four orphaned `globals.css` rules and a fifth orphan in `check-tokens.ts` went with it. **Production was measured before the migration was written**, counts only: 5 agents, **0 null `pin_hash`**, 0 guests — so `set not null` is safe there and nothing is deleted. The live guest was never coupled: `e2e:signal-check` passes whole, *a guest earns nothing* included. **`GUEST-` is choosable again** — tested, not assumed. *(WI.)*
 
 ## 8. Next up
