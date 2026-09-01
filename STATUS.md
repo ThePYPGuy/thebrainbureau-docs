@@ -116,6 +116,9 @@ are dropping. `CLAUDE.md` carries the rule.
 
 **Before any push** run `git diff --stat origin/main..main --
 supabase/migrations/ content/`. Neither deploys itself, and both fail silently.
+**This range carries migration `20260901000031`, unapplied on production** — and
+it is the *safe in either order* case: it replaces a function both versions call,
+`p_points` defaults, so applied first or deployed first, nothing breaks.
 
 **A range with more than one builder's code is Maciej's to push.** §1 names *the
 builder whose code goes out*, which answers nothing with two sessions in it —
@@ -164,6 +167,7 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
 from `git log`; descriptions are each session's account of its own work.
 
+- `94ac7b2` — **points scale with speed, and three names go on the wall.** The curve is 1000 to 600, full marks for five seconds then decaying to a floor of **60% on purpose** — so *a child who answers everything correctly cannot be overtaken by one who answers fewer than 60% however fast* is arithmetic, with a test that fails if the floor is tidied to zero. **The two fairness costs turned out to be one fix:** the band absorbs network lag as well, so client-reported timing — score-determining input from the party with something to gain — is not needed and is not trusted. **`podium()` was leaking:** it filtered rows and returned them whole, and a declared type is not a filter at run time, so every run id and guest flag went out to every device. The end screen was also drawing the last reveal *underneath* the podium. *(WI's harness aside, this is the last of the queue.)*
 - `0f21791` — **a visual check that fails, proved by making it fail.** `npm run check:visual`, eight baselines committed to `tests/visual/baseline`. **Proved by breaking it:** `.brandPlate` `#8a8a90` → `#8a8a91`, one channel, invisible — red at 1024 pixels exactly where the plate sits, then reverted and green. Playwright's **bundled** Chromium, not the installed one, because a baseline has to reproduce elsewhere and an auto-updating Chrome would turn somebody's Tuesday red. **Full-page, not viewport** — the drawn work is nearly all below 900px, which is where lazy-loading bites, so any image left at `naturalWidth 0` throws rather than capturing black. Every run prints what the masks **hide** beside what they let through, so a mask cannot quietly become somewhere to put a regression. *(WI; not pushed.)*
 - `345d2f8` — **the homepage stops reading a cookie and goes back to being static.** `┌ ○ /` in the route table where it was dynamic. **The *before* is preserved because the deploy destroys it:** on production, `/` was `private, no-cache, no-store`, MISS, Age 0, while `/pricing` and `/contact` were `public, max-age=0`, HIT, Age ~5385. **The homepage was the only one of the three that could never be cached, and the only one that read a cookie.** The HIT itself still cannot be shown — it needs the deploy. *(WD; not pushed.)*
 - `30d9888` — **loading states, built around not moving.** Six route files, Bureau and Field. `globals.css` kills every animation under `[data-clear-view]` with `!important`, and reduced-motion does the same — **so a spinner is a frozen spinner and reads as a hung page.** The words carry the message and the movement is decoration; what each degrades to was chosen, so the Bureau dots settle into an ellipsis and the Field caret stops blinking and stays solid. Both are states a page might legitimately be in. Verified across both faces × normal, reduced-motion and clear-view. *(WD; not pushed.)*
@@ -173,13 +177,6 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **A top-three podium, and points that scale with speed** — plus **a grace
-   band before decay** and **the answer shown to a child who did not answer**,
-   both decided 1 Sep. Also auto-advance after the reveal, and ending a question
-   early once everyone has answered. — both reversed
-   1 Sep. `docs/question-banks.md` has why, and names two fairness costs the
-   decision does not cancel. The **NO SPEED BONUS** comment calls it a platform
-   principle — that is the thing to replace. *(Quiz Maker.)*
 1. **Redemption: one `/redeem`, not a second signup.** Activities carry only a
    `slug`, so a code needs a home, and the route must serve signed-in and
    signed-out alike — the PDF link cannot change. **The only irreversible

@@ -314,7 +314,10 @@ both, and prove it by round-tripping a value through an import.
 `test:answer-leak` fetches `BASE_URL`, defaulting to `127.0.0.1:3000`. Across
 four worktrees that is whichever session started a server there first — which on
 31 August was `tbb-platform`, not the worktree running the test. It passes, and
-it has proved nothing about your branch. Before trusting a run, confirm the
+it has proved nothing about your branch. **This is recorded and it still caught a
+session on 1 Sep**, which is the measure of how easy it is: assume the default is
+wrong whenever more than one worktree is live, and set `BASE_URL` before running
+rather than after being surprised. Before trusting a run, confirm the
 server on 3000 is yours, or set `BASE_URL` to a port you started. The same shape
 as the shared-working-tree hazard: the thing answering is not the thing you
 think you are asking.
@@ -752,6 +755,29 @@ prompt starts lying** — a returning child told to choose a PIN, or a new one
 greeted as a returner — and nothing fails, because the submit still works. Same
 family as the two column lists below, and the same remedy: change both, and
 prove it by round-tripping a real codename through the page.
+
+**A type is not a filter, and a test that asks *is this absent* asks the wrong
+question.** `podium()` filtered the teacher's rows and returned them **whole**.
+The declared return type names three fields, types are erased at run time, and
+**every run id and guest flag went out in the payload broadcast to every device
+in the room.** The unit test asserted that a name which should not be there was
+absent — and it was. **Nobody asked what else had come along.**
+
+**Project a payload field by field when it crosses a trust boundary, and assert
+its SHAPE rather than the absence of the one value you happened to think of.**
+Both tests now compare sorted key lists. The reveal's exhaustive key list has
+been in that file all along, and it is the one that worked — it caught
+`revealedAt` the moment it was added.
+
+**A third migration case: safe in either order.** The add/remove rule above
+assumes one version of the code has to survive the gap. `20260901000031` replaces
+a function **both** versions call, so neither ordering does. `p_points` carries a
+DEFAULT, PostgREST resolves an RPC by the argument *names* supplied, and the
+deployed eight-argument call lands on the new function scoring exactly as before.
+**The old eight-argument function is dropped rather than left beside it** — two
+overloads differing only by a defaulted argument make the call ambiguous, and
+Postgres reports that at call time, which would be the first answer of the first
+lesson.
 
 **A check that has only ever passed has not been tested.** The visual harness
 was proved by breaking it: `.brandPlate` `#8a8a90` → `#8a8a91`, one channel

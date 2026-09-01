@@ -295,11 +295,29 @@ asserted of all.
 
 **What does not change, and is not softened by this decision:**
 
-- **A grace band, decided 1 Sep.** Full marks inside the first few seconds, then
-  decaying — not decaying from zero the way Kahoot does. **A slower reader is not
-  a slower thinker**: a dyslexic child spends their first seconds reading, and
-  scoring from zero measures that rather than fluency. The band keeps the fluency
-  signal and moves the line to where thinking starts.
+- **A grace band, decided 1 Sep. 1000 falling to 600**, full marks for the first
+  five seconds — capped at half the window — then decaying to the floor at the
+  deadline. **A slower reader is not a slower thinker**: a dyslexic child spends
+  their first seconds reading, and scoring from zero measures that rather than
+  fluency.
+- **The floor is 60% of the maximum on purpose.** It makes *a child who answers
+  everything correctly cannot be overtaken by one who answers fewer than 60% of
+  them, however fast* **arithmetic rather than a feeling**, and a test fails if
+  the floor is ever tidied towards zero.
+- **The band answers the network cost too, so the two fairness costs were one
+  fix.** Timing from delivery was the other, and the client cannot be trusted
+  with it — a client-reported duration is score-determining input from the party
+  with something to gain, on the same footing as an answer key. It does not need
+  to be: at 300ms of lag a child is 300ms into a five-second band where every
+  answer scores the same, so the lag costs nothing. Only a device *seconds*
+  behind the room is scored for its network, and that device has a problem the
+  scoring is the wrong place to fix.
+- **The band and the tiebreak pull against each other, and the band wins.**
+  Everyone answering inside five seconds ties exactly — a scripted four-player
+  game returned 1000/1000/1000 across three places. So speed dissolves ties in
+  real play and **not** in easy questions answered instantly, which is what makes
+  **shared places** necessary rather than a fallback. A three-way first place is
+  the design working.
 - **Network lag becomes score.** Thirty devices on school wifi, 3.6 deliveries
   per player per question measured. A child whose question arrives 300ms late is
   300ms behind through nothing they did, and cannot see it. **Time from delivery,
