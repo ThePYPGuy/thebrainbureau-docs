@@ -179,14 +179,16 @@ from `git log`; descriptions are each session's account of its own work.
 
 1. **Delete WD's undo.** `a1da068` is in `main`, the bare rules are scoped, and
    the `currentColor` block in `site.module.css` now neutralises nothing. *(WD.)*
+1. **A class code cannot be used from the site's own *Join a game* link.**
+   `SiteHeader:43` and `SiteFooter:38` point at `/live/join`, which posts to
+   `/api/live/join` — **game PINs only**. A class code there answers *No game is
+   running with that PIN*, which a child reads as *not started yet*. The router
+   that handles all three kinds is `/join` → `/api/join`, and **nothing links to
+   it.** Point the header and footer at `/join`. *(WD's files; WI's router.)*
 1. **The codes are unlabelled where it now matters.** `/dashboard/class/[classId]`
    prints *Class join code 711918*, then a bare `303616` on every activity row —
    same gold, same six digits, different kind. `C-RHUJ` against `OP-35HY` used to
    say which; **the re-mint removed that and put nothing back.** *(WD.)*
-1. **Re-mint the two classes and four deployments** with six-digit codes from
-   `access_codes`; **delete nothing**. The code is not a foreign key — progress
-   hangs off `deployment_id` — so the string changes and every row lives. Ends
-   with no legacy codes anywhere. *(WI. Maciej reprints and hands out.)*
 1. **Two comments assert things that are not true.** Prime Directive's `_note`
    says `prefix` is never rendered — `Tasks.tsx:428` and `:583` draw it. Delete
    that and the "platform gap" clause only; keep the numeric-`9` reasoning,
