@@ -844,6 +844,25 @@ never fires a second one, so it hung 30 seconds on a login that had already
 succeeded. And reading `innerText` on `domcontentloaded` asserts against an empty
 body — it reported the homepage broken while the served HTML was complete.
 
+**A test that passes because the guard cannot fire is not a test of the guard.**
+Proving the alt-text leak check still worked, the first attempt used a fixture
+whose correct option is the single letter *"B"* — and the check deliberately
+ignores single letters as unmatched. It passed, meaninglessly. **Choose an input
+the guard can actually reject**, and confirm it rejects it, before believing a
+green.
+
+**When you lift a rule, count the gates.** *Alt text is required* was enforced in
+**two** places: `bank-actions.ts:397` refuses the upload, and `validateImages`
+refuses *has an image but no alt* — and the second runs **after the bytes are in
+the bucket**, so removing only the first would have moved the failure later and
+left an orphaned object behind it. Doc Manager's brief named one.
+
+**And relax a rule with a parameter that defaults to the strict answer.**
+`validateImages` now takes `altRequired`, defaulting **true**, so the CSV path and
+the Bureau audit keep the rule **by omission** and only the teacher's own form
+passes `false`. A flag defaulting the other way silently relaxes every caller
+that was written before it existed.
+
 **"Move it, do not rewrite it" is easy to honour for a list and easy to breach
 for a paragraph.** A session copying marketing copy between files caught itself
 about to type Prime Directive's paragraph **from memory of the page** before
