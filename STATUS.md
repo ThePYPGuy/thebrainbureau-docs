@@ -167,17 +167,18 @@ from `git log`; descriptions are each session's account of its own work.
 ## 8. Next up
 
 1. **A top-three podium, and points that scale with speed** — both reversed
-   1 Sep; `docs/question-banks.md` has why. Teacher sees every result, the class
-   sees three, and speed settles ties as a side effect. **`engine.ts:558` calls
-   no-speed a platform principle** — that comment is now the thing to replace,
-   not just delete. Two fairness costs are named in the doc and neither is
-   cancelled by the decision: a grace band before decay, and timing from
-   delivery rather than broadcast. *(Quiz Maker.)*
+   1 Sep. `docs/question-banks.md` has why, and names two fairness costs the
+   decision does not cancel. **`engine.ts:558` calls no-speed a platform
+   principle** — that comment is the thing to replace. *(Quiz Maker.)*
 1. **Signal Check was played for the first time** — `docs/signal-check-playtest.md`
    has all eleven findings. **A child is stranded when the teacher ends early**:
    the phone stays on the last question, though `play/[sessionId]:198` already
    renders *Session complete*, so the fault is delivery. **The projector does not
    fit the screen.** *(Quiz Maker.)*
+1. **`/join` asks for an agent name, then asks again.** A game PIN reveals
+   codename and PIN, takes them, then hands off to `/live/join` which asks for a
+   display name. **Resolve the code first and branch** — decided 1 Sep, reversing
+   *count six digits, resolve nothing*. Reveal less about a class code. *(WD.)*
 1. **The homepage is dynamic for one line.** `page.tsx:66` reads `cookies()`, so
    the route leaves static generation and every first-time visitor pays a server
    render for a check only a signed-in child needs. **Middleware first, then
@@ -195,8 +196,7 @@ from `git log`; descriptions are each session's account of its own work.
 1. **`app/brand.module.css` has zero importers**, but `check-tokens.ts` grandfathers
    six literals by it — deleting it changes what the checker enforces. *(WI.)*
 1. **One false comment** — Prime Directive's `_note` says `prefix` is never
-   rendered; `Tasks.tsx:428` draws it. *(Operation Builder's.)* **`runs.agent_id`
-   is no longer wrong**: its leaderboard line is true again as of 1 Sep.
+   rendered; `Tasks.tsx:428` draws it. *(Operation Builder's.)*
 1. **Visual regression check** — the only thing that would ever cover the drawn
    work, deferred four times. `docs/visual-regression.md` carries the traps, the
    measurements and the floor. **`out/` is `.gitignore`d, so nothing is

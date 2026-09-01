@@ -44,12 +44,16 @@ first, so it cannot know a game PIN from a class code and shows the fields for t
 commoner case. The reason was to stop the box becoming an oracle for which codes
 exist.
 
-**Maciej wants the code resolved first, then the right second step.** That is the
-reversal, and the argument for it is now empirical rather than theoretical: the
-oracle risk is small — a game PIN is explicitly *a room number on a whiteboard* —
-and `/api/agent/exists` already resolves a code before answering, so the
-principle is half-conceded already. **The class code is the sensitive one**, and
-whatever is built should reveal less about that than about a PIN.
+**Decided 1 Sep: resolve the code first, then show the right second step.** The
+argument that beat the original is empirical rather than theoretical — the oracle
+risk was never measured and the confusion was, in ten minutes of play. And
+`/api/agent/exists` already resolves a code before answering, so the principle
+was half-conceded before this.
+
+**The constraint that survives:** reveal less about a class code than about a game
+PIN. A PIN is explicitly *a room number on a whiteboard*; a class code keeps a
+child in a class. If the two must differ, err on the side of telling a stranger
+nothing about which class codes exist.
 
 ---
 
