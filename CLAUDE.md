@@ -964,6 +964,34 @@ greens, both found only by the mirror run:
 **Interleaving a legitimate actor into an attack test can neutralise the
 attack.** Run the attack to a real trip with nobody clearing it, THEN ask.
 
+**CHECK AGAINST THE SOURCE'S OWN INDEPENDENT STATEMENTS, NOT AGAINST MORE
+POINTS ON THE LINE YOU WERE GIVEN.** I said *two points define a line, so any
+linear error passes both* and told a session to add more. **That reasoning is
+wrong:** for a one-dimensional affine map two points define it UNIQUELY, and a
+wrong origin with a compensating scale cannot satisfy both — proven by mutation,
+shifting the origin one pixel turned the two named-point tests red on its own.
+
+**The instruction was right for a different reason.** The two named points check
+the ARITHMETIC against numbers you were handed. The card's eight easting labels
+and six northing labels check the FRAME against the artwork — and a frame typed
+by hand out of a `<rect>` is the mistake actually available. **Different error
+class, so add checks of a different KIND rather than more of the same.**
+
+**The strongest check was of the SPACE, not of any position in it:** one grid
+unit east and one grid unit north must both be 68px — the equality the artwork
+was corrected to have. It is the only test that fails if the source was never
+really re-derived, whatever the named points say.
+
+**A READOUT THAT ROUNDS CONTRADICTS WHAT THE USER CAN SEE.** A grid reference
+names the cell you are IN, so at 41.79 the child is still inside the tenth
+beginning at 41.7 — rounding would print `418` while the crosshair sits visibly
+inside the 417 cell. **Truncate**, and have the grader compare the same
+truncated reading, so the display and the answer cannot disagree.
+
+**AND THE INPUT'S PRECISION MUST MATCH THE READOUT'S.** Arrow keys step a tenth
+of a unit because that is what the readout shows; without it a keyboard user can
+READ the target and have no way to LAND on it — visible and unusable.
+
 **EXPRESS AN ANSWER IN THE DOMAIN'S UNITS AND THE ARTWORK CAN CHANGE UNDER
 IT.** Map A was redrawn — every pixel moved — and **not one number in the code or
 the tests changed**, because the target is a GRID REFERENCE and not a position
