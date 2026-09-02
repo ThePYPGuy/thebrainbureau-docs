@@ -177,9 +177,9 @@ this is the section that pays for the cap. Each description is its own session's
 1. **Many age bands and year groups per activity, not one.** `activities.age_band`
    is a single FK; needs a join table, and the importer must DELETE removed rows.
 1. **Codenames go globally unique with no school**, and `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide. `docs/identity-and-access.md`.
-1. **The ZIP deploy step is the last acceptance item with no code, and it is
-   UNOWNED** — Tailwind Support is closed. Prebuilt at deploy, never on request;
-   `upload-resource.ts` mentions zip in a comment only. `docs/tailwind-acceptance.md`.
+1. **The ZIP is SUPPLIED, not built** — rebuilt 2 Sep with the corrected pack,
+   at `printables/operation-tailwind-printables.zip`. Upload with `upload:resource`.
+1. **The Lock Library** — `docs/lock-library-plan.md` (waves, contract, operating model); `docs/lock-library-review.md` (the spec's defects).
 1. **The school gap** — capture it at signup verified against the email domain, an admin page to fix it after the fact, and a **Students page** above Classes. *(WD.)*
 1. **Migrations interleave, so MERGE BEFORE THE NEXT PRODUCTION PUSH.** Prod 34;
    `main` 35, 38, 39, 41; `tailwind` 36, 37, 40, 42; `tailwind-support` none.

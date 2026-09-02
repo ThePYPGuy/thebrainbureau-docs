@@ -49,6 +49,31 @@ accepted. Item 3 has the same shape from the other side: the gate has so far
 only been exercised at zero findings, where refusing is correct, and *refusing
 when it should refuse is half a test.*
 
+## The ZIP was supplied, and it carried the superseded pack
+
+**Item 10 does not need a deploy step that zips a folder.** Maciej supplied the
+ZIP; it needed uploading, not building, and I was wrong to queue it as unbuilt.
+
+It did need one substitution. Two ZIPs exist in Downloads and they are not the
+same file: one is **missing `clue-card-pack.pdf` entirely** and carries a
+different answer key; the complete one is dated 1 Sep 23:33 and carries
+`clue-card-pack.pdf` at md5 `35059091…` — **the pre-correction print**, the same
+file swapped out of `printables/` that afternoon.
+
+Uploaded as it stood, *Download all* would have handed a teacher the 80x68
+Map A while the individual download handed them the corrected one: **the two
+halves of the same page disagreeing with each other**, and acceptance item 8
+false for anyone who used the ZIP.
+
+Rebuilt at `printables/operation-tailwind-printables.zip`, which is the name
+the overview page already expects. **One file replaced, five byte-identical to
+Maciej's, his `student-printables/` and `teacher-materials/` structure and his
+README kept.** Verified: the pack inside is `7ec00074…`, the corrected one.
+
+It is served through `/api/resources/<slug>/<file>` like the five PDFs and
+never from `public/` — a public zip of a gated answer key is the gate with an
+unlocked back door.
+
 ## The one place paper and screen MUST NOT agree
 
 **The standing rule is that the printed pack and the screen give the same
