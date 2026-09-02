@@ -913,6 +913,22 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**`git add -A` IS WHAT MAKES A COLLISION EXPENSIVE. STAGE BY EXPLICIT PATH.**
+A subagent was sent into a worktree I believed was idle, and 36 seconds after it
+copied its file in, the session actually working there committed under it. It
+staged one file by name, so nothing of the other session's was swept into its
+commit and both trees stayed clean. **The collision still happened; only the
+blast radius was chosen in advance.** Same for `git checkout --` and `git
+stash`: name the path.
+
+**AND THAT WAS THE FOURTH TIME IN A DAY I CONCLUDED A SESSION HAD ENDED FROM ITS
+ABSENCE.** `ListAgents` had stopped showing it; it was working normally, three
+commits ahead, and had never left. Names rotate per connection, WSL and Windows
+sessions cannot see each other, and a cwd cannot tell one worktree's session
+from another's. **There is no instrument here that reports a session's absence.
+Ask, or assume it is there.** Recorded four times now because knowing the rule
+has not once been enough to apply it.
+
 **WHEN A LAYOUT RESTACKS, THE FAULT IS IN WHAT THE OLD DIRECTION ASSUMED —
 not in what was added since.** The narrow block turned the sidebar from a column
 into a row correctly and never cleared two things only a COLUMN wants:
