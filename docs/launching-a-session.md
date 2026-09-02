@@ -19,37 +19,39 @@ Operation Builder is the worked example of both: launched in `tbb-quiz`, working
 in `tbb-tailwind`, addressed `tbb-quiz-44`, and invisible to anyone searching
 for a tailwind name. It cost six misidentifications and three stalls.
 
+## One command, because two boxes is two chances to get it wrong
+
+**Put the whole prompt inside `claude "..."` so there is nothing to paste
+anywhere.** On 2026-09-02 the instructions said *run this, then paste that*, and
+the prompt went into bash, which answered ``Command 'You' not found``. The shell
+cannot tell that text was meant for a different program.
+
+Chain with `&&` so a failure stops the run.
+
 ## A new worktree
 
-    cd ~/thebrainbureau
-    scripts/new-worktree.sh --role 'Operation Builder' tailwind tailwind
+    cd ~/thebrainbureau && scripts/new-worktree.sh --role 'Tailwind Support' support tailwind-support && cd ~/tbb-support && claude "You are Tailwind Support. You work only in ~/tbb-support, on branch tailwind-support. That folder is yours; no other worktree is. Read docs/local/briefs/tailwind-support.md -- it is written for you. Report by appending to docs/local/briefs/tailwind-support-progress.md and then starting the next piece of work in the same turn. Never end a turn on a report. Do not push -- Maciej pushes."
 
-It creates the worktree, copies `.env.local`, hard-links `node_modules`, reports
-the next free migration number, and prints the launch line and opening prompt.
-Then, in a WSL terminal:
-
-    cd ~/tbb-tailwind && claude
-
-and paste the prompt it printed.
+The script creates the worktree, copies `.env.local`, hard-links `node_modules`
+and reports the next free migration number. It refuses if the worktree or the
+branch already exists, which is why the `&&` matters — a refusal must stop the
+chain rather than launch a session in the wrong place.
 
 ## A worktree that already exists
 
-No script needed — it is the launch line and the prompt on their own:
+Drop the script; everything else is the same one command.
 
-    cd ~/tbb-tailwind && claude
+    cd ~/tbb-support && claude "You are Tailwind Support. You work only in ~/tbb-support, on branch tailwind-support. ..."
 
-Then paste, filling in the three names:
+## What the prompt has to say
 
-    You are <ROLE>. You work only in ~/tbb-<name>, on branch <branch>.
-    That folder is yours; no other worktree is. Commits you make land on
-    <branch> because that is what this folder has checked out.
-    Read docs/local/briefs/<branch>.md -- it is written for you. If it is
-    not there, ask rather than assume there is one.
-    Report to Doc Manager by appending to
-    docs/local/briefs/<branch>-progress.md and then starting the next piece
-    of work in the same turn. Never end a turn on a report.
-    Do not push -- Maciej pushes.
+The ROLE, the FOLDER and the BRANCH; that commits land on that branch because
+that is what the folder has checked out; where the brief is; **do not push**;
+and the reporting rule — append to a progress file and start the next piece of
+work in the same turn.
 
 **The reporting line is not a formality.** A peer session ends its turn when it
 reports and does not resume until something addresses it, so a report that needs
-a reply is a stall waiting to happen. Appending to a file is not.
+a reply is a stall waiting to happen. Appending to a file is not. And the rule
+is really *do not stop while there is a next piece of work*: a blocker on one
+item is not a blocker on the build.
