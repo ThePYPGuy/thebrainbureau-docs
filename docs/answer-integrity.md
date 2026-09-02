@@ -52,6 +52,62 @@ marker for code entry — he said *entering a code*, not *keypad true* — and
 whether the condition should key on the code or on the `exact` tolerance, since
 a code with a relative tolerance would leak the same way.
 
+### THE FIX CLOSED THE SLOW ROUTE AND LEFT THE FAST ONE OPEN
+
+**`fix-code-oracle` is cut, verified and NOT complete.** Do not merge it and
+call the oracle closed.
+
+`isCodeEntry` keys on `config.keypad === true`, which appears exactly once in
+all content. But **four other published Zero Hour tasks each carry one digit of
+the restore code**, none has `keypad`, and all still return `offBy` per field:
+
+    unjam-the-archive        {valueA, positionB, digit1: 7}
+    lock-the-telescope       {roundA, signal,    digit2: 2}
+    stabilise-the-gauges     {g1,g2,g3,g4,       digit3: 8}
+    decode-the-inscriptions  {yearA, yearB, difference, digit4: 5}
+
+Measured with the engine's own functions, **one probe of `1` into every field**
+recovers all four digits exactly. **Four probes, four tasks, the whole code, and
+the vault is never touched.** `stabilise-the-gauges` surrenders five fields in a
+single POST. The vault was the SLOW route.
+
+### THE AXIS IS MAGNITUDE, AND MACIEJ NAMED IT FIRST
+
+*"off by is to help students when they are calculating large numbers."* The
+measurement agrees with him exactly:
+
+    roundA 4400000 -> recovered null     signal 3720 -> null
+    digit1 7 -> 7      g1 28 -> 28       difference 175 -> 167
+
+**Large numbers do not leak; small ones surrender exactly.** With `pctOff`
+rounded to one decimal, a large value's percentage is coarse relative to its
+magnitude while a single digit is fully determined. **The mechanic is safe
+precisely where he says it is useful and unsafe everywhere else.**
+
+So the condition wants to be **per-FIELD and on magnitude**, with `keypad` kept
+as a second independent reason — `restoreCode` is 7285, and magnitude alone
+would not withhold it.
+
+**Open, and Maciej's: it is a policy change on published content.**
+
+### And a content-design property that no fix to `offBy` reaches
+
+**Each of the four digits is recoverable from the task that produces it.** So
+even with `offBy` entirely closed, a child who can read four tasks' responses
+assembles the restore code without doing the fourth task. That is how the
+Operation is authored rather than a defect in the engine, and it is worth
+knowing before the next Operation reuses the shape.
+
+### How the narrow answer happened, because it is the useful part
+
+I asked whether `keypad` was the only marker for code entry. It was, and that
+answer was correct. **The question that mattered was not *which tasks are code
+entry* but *which answers does a distance give away*, and those are different
+sets.** A well-answered narrow question came back clean, and clean is what
+stopped either of us looking further.
+
+---
+
 ---
 
 ## 2. ORDER, which a key-name guard cannot see

@@ -32,6 +32,13 @@
 > `withoutDistance` present on the branch and absent from `main`, merges clean.
 > **`operation-zero-hour` is PUBLISHED, so this one is live today.**
 >
+> **BUT IT IS NOT THE WHOLE FIX.** Four other published Zero Hour tasks each
+> carry one digit of the restore code, none has `keypad`, and one probe per
+> field recovers all four — **the whole code in four probes without touching
+> the vault.** The condition wants to be per-field and on MAGNITUDE, which is
+> the axis Maciej named. Merging this branch is still an improvement; it does
+> not close the hole. `docs/answer-integrity.md`.
+>
 > Found by an ACCEPTANCE case and by nothing else: every refusal test passed
 > before and after. `docs/answer-integrity.md`.
 
