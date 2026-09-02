@@ -964,6 +964,21 @@ greens, both found only by the mirror run:
 **Interleaving a legitimate actor into an attack test can neutralise the
 attack.** Run the attack to a real trip with nobody clearing it, THEN ask.
 
+**A LOOKUP THAT CANNOT FIND A ROW WILL HAPPILY CREATE A SECOND ONE.** The
+sign-in scoping bug was worse than diagnosed: with the old `resolveAgent`, once
+a teacher acquires a school, **a class code no longer finds their existing
+null-school child and forks a duplicate beside them.** Measured — agent count
+went to 2. A child's whole history sits behind an empty namesake and nothing
+errors. **Wherever a find-or-create keys on a field that can change under it,
+the create branch is the bug**, not the find.
+
+**A CHECK THAT IS ALWAYS RED IS A CHECK EVERYONE LEARNS TO IGNORE — so scope a
+new guard to what is AUTHORED, not to what is declared.** `text`, `choice`,
+`assembly` and `open` have sat in the `TaskType` union without renderers since
+they existed. A guard on *declared but unrendered* goes red on four pre-existing
+types before it ever catches a new one; a guard on *authored by a content file*
+is green today and turns red the instant anything uses one.
+
 **A CHECK THAT PASSES MAY BE ANSWERING A DIFFERENT QUESTION.** The mobile
 layout had a gap down the right AND too little margin on the left — one
 declaration, `padding-right` only, correct while the sidebar is flush and wrong

@@ -208,7 +208,7 @@ from `git log`; descriptions are each session's account of its own work.
    agent for any unused codename. Parked under licensing: entitlements change
    what a code should guard.
 
-1. **May the platform ever tell a child to wait, and at what number?** One decision, not two — the threshold is the half that can hurt somebody. Forty consecutive failures assumes a child asks the teacher long before; that is a typical child in a typical lesson, and **not obviously a child who is anxious, distracted or working alone**. WI raised it and is right that it is a judgement about children rather than attackers. `resetAgentPin` now genuinely clears it (`21f3c47`) — but **only the agent's OWN teacher can reset**, so the adult in the room has to be the RIGHT adult, and a second teacher at the same school cannot free the child. Pre-existing; it narrows the mitigation the threshold rests on. One constant either way.
+1. **DECIDED 2 Sep: yes, at 40, the teacher resets.** *(Was: may the platform ever tell a child to wait, and at what number?)* One decision, not two — the threshold is the half that can hurt somebody. Forty consecutive failures assumes a child asks the teacher long before; that is a typical child in a typical lesson, and **not obviously a child who is anxious, distracted or working alone**. WI raised it and is right that it is a judgement about children rather than attackers. `resetAgentPin` now genuinely clears it (`21f3c47`) — but **only the agent's OWN teacher can reset**, so the adult in the room has to be the RIGHT adult, and a second teacher at the same school cannot free the child. Pre-existing; it narrows the mitigation the threshold rests on. One constant either way.
 
 ## 10. Known silent failures
 
