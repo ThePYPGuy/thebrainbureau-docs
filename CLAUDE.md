@@ -964,6 +964,19 @@ greens, both found only by the mirror run:
 **Interleaving a legitimate actor into an attack test can neutralise the
 attack.** Run the attack to a real trip with nobody clearing it, THEN ask.
 
+**A PROPERTY TEST FINDS EVERYTHING WITH THAT PROPERTY, NOT THE THING YOU
+MEANT.** Measuring the pinboard in a scene by scanning for cream pixels returned
+a board 87% of the frame wide — the ring binders, the mug, the framed photo and
+the console dial are all cream too. **The board is the CONNECTED region under
+the middle of the frame**, and a flood fill finds that where a colour test
+cannot. *The wrong answer looked entirely plausible*, which is the whole
+hazard: it was the right order of magnitude and in the right place.
+
+**AND SAY WHEN A RULE HAS NO GUARD BEHIND IT.** *No text anywhere in the frame*
+was confirmed by a person looking at the file. The blank-prop rule has no
+automated check, so that confirmation is **as good as an eye and no better** —
+worth stating every time rather than letting it read like a passing test.
+
 **CHECK AGAINST THE SOURCE'S OWN INDEPENDENT STATEMENTS, NOT AGAINST MORE
 POINTS ON THE LINE YOU WERE GIVEN.** I said *two points define a line, so any
 linear error passes both* and told a session to add more. **That reasoning is

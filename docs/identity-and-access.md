@@ -170,6 +170,33 @@ field; it becomes mandatory. This is what makes school-scoped agents possible
 and what the subscription model needs anyway, and it costs a teacher nothing
 at the one moment they expect to be filling in details.
 
+### Where an agent actually lives
+
+Requiring a school at signup does not make `agents.school_id` non-null, and it
+never has been. Both partial unique indexes say so:
+`agents_school_codename_key` on `(school_id, codename)` where the school is
+set, and `agents_teacher_codename_key` on `(teacher_id, codename)` where it is
+not. `school_id` is **copied at creation and never re-derived** — from the
+class, which copied it from the teacher — so a teacher who sets their school
+after making a class leaves that class and every child in it holding null
+forever. On 2026-09-02 that was every agent on production.
+
+So a codename resolves through **one function, `candidateAgents` in
+lib/server/agent.ts, and every door calls it**:
+
+- the school's own namespace, `school_id = $1`; and
+- school-less agents belonging to a teacher **in that school** — the teacher a
+  code names outright, or any teacher at the school the front door was given.
+
+Where both produce a row the codename is ambiguous and the PIN decides. If two
+candidates open on the same PIN, nobody is signed in.
+
+An agent whose teacher has no school is reachable **only through a code**.
+There is no school they belong to, so no selected school may claim them —
+matching them at a chosen school would let any school claim any unattached
+codename. `npm run backfill:school` gives the rows that can have a school the
+one their teacher has; the rest stay null and are listed by it.
+
 ---
 
 ## The three student types
