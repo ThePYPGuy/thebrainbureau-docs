@@ -507,24 +507,3 @@ no-school front door.** Three pieces, in order:
 
 Note that `candidateAgents` itself is written but **not deployed** — check with
 `git merge-base --is-ancestor $(git log -1 --format=%H -- lib/server/agent.ts) origin/main`.
-
-## Launching a session so it can be found
-
-**Claude must be started from INSIDE WSL, in the worktree.** `new-worktree.sh`
-says so at step 5, and it is right for a second reason it does not give: the
-session's ADDRESS is taken from where it connected. Start it anywhere else and
-the address names that place forever, whatever the session is retitled to and
-whatever worktree it goes on to work in.
-
-    cd ~/thebrainbureau
-    scripts/new-worktree.sh --role 'Name' <short> <branch>
-    # then, in a WSL terminal:
-    cd ~/tbb-<short> && claude
-    # then paste the opening prompt the script printed
-
-**Do not use the Claude Desktop folder picker against `\wsl.localhost\`.** The
-script's own words: such a session *can read files and can run neither npm nor
-git*. It survives by shelling out through `wsl -e bash -ic`, which is slower and
-which leaves its address pointing at the wrong worktree. Operation Builder is
-that case — launched in `tbb-quiz`, working in `tbb-tailwind`, addressed
-`tbb-quiz-44`, and unfindable by anyone looking for a tailwind name.

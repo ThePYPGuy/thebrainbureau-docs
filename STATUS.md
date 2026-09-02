@@ -174,8 +174,8 @@ this is the section that pays for the cap. Each description is its own session's
 
 ## 8. Next up
 
-1. **Set a school on `maciejborucki@googlemail.com`** at `/dashboard/account` (live),
-   **then** re-run the backfill — it wrote 0 of 4 on 2 Sep, correctly refusing to invent one.
+1. **Many age bands and year groups per activity, not one.** `activities.age_band`
+   is a single FK; needs a join table, and the importer must DELETE removed rows.
 1. **Codenames go globally unique with no school** — one index swap, making
    *No school* selectable. Decided 2 Sep, `docs/identity-and-access.md`. **And
    `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide.**

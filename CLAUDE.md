@@ -280,6 +280,21 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### A join table re-imports by ADDING, unless you make it delete
+
+The four-edit rule for a new COLUMN on `activities` is elsewhere in this file.
+A many-to-many table is a different shape with a worse failure. There is no
+`on conflict do update` to forget, so nothing looks missing — but re-importing
+an activity whose tags were REMOVED leaves the removed rows in place, because
+an insert of the current set cannot know what is no longer in it.
+
+The result is a row that only ever grows, and `content_hash` still moves, so
+`deploy:check` reports the database matches the repo. **Delete the activity's
+rows and re-insert the set, inside the same transaction as everything else.**
+
+Prove it by removing a tag and re-importing, not by adding one.
+
+
 ### `state.ts` and `check.ts` import each other, and typecheck cannot see it
 
 Verified on `main` as well as `tailwind`, so this is everyone's: `state.ts:5`
