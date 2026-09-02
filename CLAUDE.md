@@ -983,6 +983,20 @@ as safe. `lib/server/live-play.ts:320` sends `p_points`; a default on the
 function parameter does not help, because the failure is name RESOLUTION, before
 any default applies.
 
+**TELL A NEW SESSION WHAT A COMMIT MADE IN ITS FOLDER DOES, not just which
+folder is its own.** `scripts/new-worktree.sh` now prints an opening prompt
+carrying the line *commits you make land on `<branch>` because that is what this
+folder has checked out* — Quiz Maker's addition, and its reasoning is the whole
+of it: **knowing the folder is not quite the same as knowing what a commit in it
+does.** Every confusion on 2 Sep started with a paste that named a ROLE and not
+a PLACE, and three sessions answered to *Operation Builder* in one night.
+
+**A path that does not exist is worse than no path.** The same prompt names a
+brief only if the file is really there, and otherwise says *no brief exists at
+X, ask before assuming there is one* — because a session sent to a missing file
+has to decide whether the instruction is wrong or it is in the wrong folder,
+which is the confusion the line exists to end.
+
 **`git add -A` IS WHAT MAKES A COLLISION EXPENSIVE. STAGE BY EXPLICIT PATH.**
 A subagent was sent into a worktree I believed was idle, and 36 seconds after it
 copied its file in, the session actually working there committed under it. It
