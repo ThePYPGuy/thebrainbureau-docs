@@ -313,6 +313,42 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### EVERY LAYER STOPS ONE SHORT OF A PERSON. Three times in one day.
+
+    2 Sep 16:00  agent_findings      table, index, RLS  — and no writer
+    2 Sep 16:05  agent_board_state   table, index, RLS  — and no writer
+    2 Sep 17:45  /api/board          route + server lib — and no client
+
+**Each layer was correct. Each was complete in isolation. Each stopped one layer
+below a human being.** No test failed, because every layer's tests test that
+layer. `deploy:check` was green. Typecheck was green. 551 tests were green.
+
+And each fix REVEALED the next gap rather than ending the sequence: giving the
+table a writer left a route nothing called; giving the board a writer left the
+board unreadable. **Fixing one layer moves the boundary; it does not close it.**
+
+What each one cost, stated in terms of a child rather than a schema:
+
+- findings never posted — **the console could not open however many items were
+  solved**
+- board state never written — **a child logging out mid-Operation lost their pins,
+  their arrow trail and their eliminated candidates**
+- the route never called — **the board saved and never came back**, which is the
+  same loss with an extra table in the way
+
+**THE CHECK: for every table, writer and route, name the thing ABOVE it that
+consumes it. If you cannot name one, it is not built — it is scaffolding that
+looks like a feature.** A table nobody writes to, a writer nobody reads from and
+a route nobody calls are indistinguishable from working code at every level
+except the one where somebody uses it.
+
+**And prove it from the top.** Log out and log back in. Do not read the row — the
+row was never the thing in doubt. This is why the Lock Library contract carries
+*persistence proven by a round trip* as its own item
+(`docs/lock-library-plan.md`): it is the only contract clause that cannot be
+satisfied one layer down.
+
+
 ### A reference image at the SAME aspect ratio hands over the composition
 
 Generating Operation Tailwind's twelve props against Maciej's situation room,
