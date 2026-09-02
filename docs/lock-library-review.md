@@ -131,10 +131,20 @@ things that read as done — which is precisely the trap already sitting in
 Tailwind's checklist, where *board state survives logout/login (both modes)*
 does not read as a class-mode line and would be ticked by anyone testing solo.
 
-**Recommendation:** pick one. Either teacher entry is out of scope for wave one
-and the contract says so in writing, or it is in and one type is played on a
-projector before the other nineteen are written. Do not build twenty and test
-none.
+**DECIDED 2 Sep: teacher-panel entry is OUT of wave one.** So contract item 3
+drops to *solo delivery only* for the twenty, and the projector path becomes a
+second wave with its own contract item and its own proof.
+
+**Write that down in the spec rather than leaving it understood.** A type whose
+config carries a `teacher entry` line that nothing implements is a claim, and
+this document's §1 is about what claims cost. Either strike the teacher-entry
+line from all twenty type definitions, or keep it and mark the whole column
+**wave two** at the top of §2 so no one reads it as built.
+
+The reason this matters more than it sounds: Tailwind's own acceptance list has
+*board state survives logout/login (both modes)* sitting in it, and the half
+that defers is invisible in the wording. **A deferred half hides inside a line
+that does not mention it.**
 
 ---
 
