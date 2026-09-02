@@ -49,6 +49,38 @@ accepted. Item 3 has the same shape from the other side: the gate has so far
 only been exercised at zero findings, where refusing is correct, and *refusing
 when it should refuse is half a test.*
 
+## The one place paper and screen MUST NOT agree
+
+**The standing rule is that the printed pack and the screen give the same
+answer.** It is why the inset maps are extracted from the pack's source rather
+than redrawn, and why item 8 asks that MAPs A and B agree with their screen
+versions. Any future session finding a divergence will assume it is a bug.
+
+**Here is one that is not.** Tailwind Support checked the photo credits against
+the licence pages themselves rather than against the documents, using the
+Commons API's `extmetadata`. Both `assets/CREDITS.txt` and printable R6 are
+wrong, and wrong in the same way, which is why they agree with each other:
+
+- the **phytoplankton** image is public domain with `AttributionRequired:
+  false`; both documents call it a Creative Commons attribution licence and so
+  **overstate the obligation**
+- the **herring** is **CC BY 2.0**; both say "Creative Commons attribution
+  licence" with no version, and a licence without its version does not
+  identify terms
+- both licence pages name an **individual author** that neither document
+  carries, which `operation-tailwind-reference-files.md:129` had already asked
+  for in writing
+
+**So the site will deliberately not match R6 until R6 is reprinted.** A credit
+is a legal statement, and knowingly reproducing a wrong one to preserve
+agreement is the wrong trade. **Do not reconcile the site to the PDF.** If they
+still disagree, the PDF is the one that has not been fixed yet.
+
+The general form, worth carrying into the Lock Library: *paper and screen must
+agree* assumes both were derived from one source. When one of them was derived
+from a document rather than from the thing itself, agreement is not evidence —
+**two documents copied from each other agree perfectly and can both be wrong.**
+
 ## Where the source of truth lives
 
 The handoff moved when Maciej reorganised the Operations folder:
