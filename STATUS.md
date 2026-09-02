@@ -176,17 +176,17 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **Rate limiting has three defects and no owner** — WI's session ended
-   and **none of it is live**: `resetAgentPin` must clear the counter (none
-   exists, and the cooldown precedes the PIN check, so 24h of waiting is the only
-   way out); `limitKey` must carry **school_id**; join and login must key alike.
+1. **Rate limiting: three defects, a subagent on them.** `resetAgentPin` must
+   clear the counter (none exists, and the cooldown precedes the PIN check);
+   `limitKey` must carry **school_id**; join and login must key alike. **None is
+   live; none may merge until all three land.**
 1. **Migrations interleave, so MERGE BOTH BRANCHES BEFORE THE NEXT
    PRODUCTION PUSH.** Prod 34; `platform` 35, 38, 39, 41; `tailwind` 36, 37, 40.
    Push after only one lands and the other's files arrive numbered BELOW ones
    already applied. Merge both first and it is 35–41 in order. *(Maciej.)*
-1. **Operation Tailwind** — `docs/local/briefs/tailwind-build.md` is the
-   brief and carries the rulings; `docs/components-built.md` says what the
-   series bible claims is reusable and is not. *(Op Builder.)*
+1. **The dashboard shell** — navy top bar out, logo and sign-out into the sidebar, sticky made to hold, hamburger below the breakpoint. *(WD, briefed.)*
+1. **Operation Tailwind** — `docs/local/briefs/tailwind-build.md` carries the
+   brief and the rulings; `docs/components-built.md` corrects the bible. *(Op Builder.)*
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. **Rotation took
    the irreversibility out of it** — a code can be retired, so no decision here
    is frozen in a download. *(WI: table, route, write. WD: the page.)*
