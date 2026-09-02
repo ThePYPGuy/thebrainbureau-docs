@@ -964,6 +964,30 @@ greens, both found only by the mirror run:
 **Interleaving a legitimate actor into an attack test can neutralise the
 attack.** Run the attack to a real trip with nobody clearing it, THEN ask.
 
+**EXPRESS AN ANSWER IN THE DOMAIN'S UNITS AND THE ARTWORK CAN CHANGE UNDER
+IT.** Map A was redrawn — every pixel moved — and **not one number in the code or
+the tests changed**, because the target is a GRID REFERENCE and not a position
+on a drawing. The only stale things were comments citing the old pixel sizes.
+That is the pixel-tolerance rule as evidence rather than argument.
+
+**A CELL IS A BOX, NOT A CIRCLE.** A grid reference names a square, so a
+radius of the same number accepts a diagonal miss that no square on the card
+contains. The test asserts that exact corner: circle refuses, box accepts.
+**And an exact-equality acceptance carries no number at all** — a value would
+imply slack it does not have.
+
+**PROVE "UNCHANGED" BY HASHING IT, NOT BY READING IT BACK.** Map B was
+confirmed identical across a source update by extracting its `<svg>` block from
+each file and comparing sha256 — `543b6eef18924f7a` both sides. **Stronger than
+re-reading the values, because it covers the parts nobody looks at.**
+
+**A REFUSALS-ONLY SUITE PASSES A FUNCTION THAT REFUSES EVERYTHING — here is the
+instance.** `bearingGap` subtracted its result from 180 on top of a formula that
+already returned the gap, so two IDENTICAL bearings scored 180 apart and every
+Map B case failed. **The acceptance test caught it.** Every refusal test passed
+perfectly, because a function that believes everything is 180 degrees off
+refuses everything correctly.
+
 **A TOLERANCE IN PIXELS IS TWO TOLERANCES WEARING ONE NUMBER.** The printed
 pack's Map A has grid squares of 80x68 px — not square — so a pixel radius is a
 wider allowance east-west than north-south while presenting itself as a single
