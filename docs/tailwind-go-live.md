@@ -1,5 +1,29 @@
 # Getting Operation Tailwind live
 
+> ## STOP — DO NOT RUN `npm run import -- --prod`
+>
+> **Maciej played it on 2 Sep and found four defects, three of them blocking.**
+> Everything else in this file has been done: both branches merged, 569 tests
+> green, typecheck clean. **Production is untouched — still at migration 34, and
+> the Operation does not exist there because the import has not run.** That is
+> the only thing standing between these defects and a classroom.
+>
+> 1. **Item 5, the daylight chart, has NO ROWS.** The task authors `rankValues`;
+>    the `ordering` path reads `loadSelectionRows(config.selectionId ?? "countries")`
+>    at `check.ts:198`, falls back to `countries`, and renders Global Intel
+>    Cards' headers with nothing under them.
+> 2. **Both matching items show the answer**, each left card printing the feature
+>    and its function together. There is nothing to match.
+> 3. **Item 10, the console, does not work** — six numbered text boxes rather than
+>    an ordering control. The finale: exhaustively graded, never drawn.
+> 4. **The room does not render.** Skin applied, scene absent.
+>
+> **Items 1, 6 and 7 — the wall map and both insets — work and are good.**
+>
+> Operation Builder is fixing them. **Each fix is proven by opening it in a
+> browser, not by a passing test**, for the reason below.
+
+
 > ## The grid-exact blocker is CLEARED — verified 2 Sep
 >
 > `tailwind` shipped a grader that **refused 75% of correct clicks on item 6**:

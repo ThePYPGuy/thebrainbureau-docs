@@ -313,6 +313,34 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### THE ENTIRE SUITE PASSED AND FOUR OF TEN ITEMS WERE BROKEN
+
+On 2026-09-02 Operation Tailwind was declared built at ten of eleven acceptance
+items. **569 tests green, typecheck clean, `npm run locks` green, both merges
+verified conflict-free, migrations checked against three sources.** Doc Manager
+reported it verified.
+
+**Maciej then opened it and found four defects in one playthrough:** a ranking
+item with no rows to rank, two matching items printing the answer beside the
+question, a finale that does not work, and the room scene absent behind a skin
+that reported itself worn.
+
+**Not one of them was findable by anything that had been run.** Every defect was
+in the seam between a renderer and its content, or between a check and a pixel —
+places where both halves are individually correct and never meet.
+
+**The warning was already written down and was accurate.** The build session's
+own stand-down report said *six of the nine items never opened; the console
+never drawn, only exhaustively graded.* It was recorded faithfully, in STATUS
+and in the acceptance doc — **and then the build was still described in terms of
+what the tests said.**
+
+**So: a caveat recorded is not a caveat applied.** When a report says an item
+has never been opened, the honest summary is *not proven*, not *ten of eleven
+with a note*. And **an activity is not built until somebody has played it** —
+every item, in a browser, as a child.
+
+
 ### A VISUAL BASELINE COUPLED TO SHARED MUTABLE DATA IS NOT A BASELINE
 
 `/profile` failed its comparison on 2026-09-02 — not by differing, but by
