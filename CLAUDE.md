@@ -964,6 +964,30 @@ greens, both found only by the mirror run:
 **Interleaving a legitimate actor into an attack test can neutralise the
 attack.** Run the attack to a real trip with nobody clearing it, THEN ask.
 
+**A TOLERANCE IN PIXELS IS TWO TOLERANCES WEARING ONE NUMBER.** The printed
+pack's Map A has grid squares of 80x68 px — not square — so a pixel radius is a
+wider allowance east-west than north-south while presenting itself as a single
+figure. Express a spatial tolerance in the unit the CHILD is working in.
+
+**AND "THE INSETS USE PACK COORDINATES" IS ONE SENTENCE DESCRIBING TWO SPACES.**
+Map A has a grid (one square = 2 km); **Map B has no grid at all** — a
+lighthouse, a scale bar and a ruler. Unifying them would have invented a grid
+the printed card does not have, and paper and screen would then disagree while
+each looked right on its own. **Read the source, not the summary of it:** these
+came from `clue-card-pack-source.html`, the pack's own machine-readable SVG,
+rather than from the PDF or from anyone's description.
+
+**WIDENING A UNION BREAKS ITS CONSUMERS SILENTLY, AND THE TYPECHECKER MAY BE THE
+ONLY THING THAT SAYS SO.** Adding spatial units to `Tolerance` stopped an
+exhaustive `switch` in `withinTolerance` being exhaustive. **No test would have
+caught it**, because nothing authors that combination — the compiler was the only
+reporter. It now throws rather than guessing that *within 5 km* means *within 5*.
+
+**PROVING THE ACCEPTANCE HALF HAS SIDE EFFECTS THE REFUSAL HALF DOES NOT.** A
+refusal test leaves nothing behind; the good case **imports for real** and left a
+row after its fixture was deleted. `deploy:check` caught it. Expect to clean up
+after the half that succeeds.
+
 **A LOOKUP THAT CANNOT FIND A ROW WILL HAPPILY CREATE A SECOND ONE.** The
 sign-in scoping bug was worse than diagnosed: with the old `resolveAgent`, once
 a teacher acquires a school, **a class code no longer finds their existing
@@ -1003,13 +1027,22 @@ If the label says where it goes, the label is a promise the mechanism must keep.
 
 **A CHECK CONSTRAINT IS A PERMISSION, NOT AN IMPLEMENTATION.** Adding `point`
 and `matching` to `tasks.task_type` made them LEGAL and not one of them
-PLAYABLE. **Adding a task type is at least four coordinated edits:**
+PLAYABLE. **Adding a task type is FIVE coordinated edits** (I filed four; the session
+doing it found the fifth by reading the loop it was wiring into):
 
   1. the CHECK constraint
-  2. `lib/engine/types.ts` — the `TaskType` union (eight members, no new ones)
+  2. `lib/engine/types.ts` — the `TaskType` union
   3. `lib/server/check.ts` — a grading branch
   4. `components/terminal/Tasks.tsx` — a dispatch case and a renderer
+  5. `scripts/import-activity.ts` — its own `TASK_TYPES` list
   (+ a validator in `lib/engine/validate.ts`)
+
+**And 5 and 4 fail differently, which is why the ORDER between them matters.**
+Missing from `TASK_TYPES`: refused at import, message names the legal types —
+loud, safe, self-correcting. Present there without a renderer: imports cleanly
+and draws *this task type isn't supported on the terminal yet*. **So the importer
+must never run ahead of `Tasks.tsx`**, and that is the one direction worth
+asserting.
 
 **And the failure is SOFT, which is the whole danger.** A task of an unimplemented
 type imports without complaint, `doctor` passes, `deploy:check` reports the
