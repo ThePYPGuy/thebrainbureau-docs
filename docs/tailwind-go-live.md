@@ -1,51 +1,39 @@
 # Getting Operation Tailwind live
 
-> ## STOP — DO NOT RUN `npm run import -- --prod`
+> ## WHERE THIS STANDS — 2 Sep, late
 >
-> **Maciej played it on 2 Sep and found four defects, three of them blocking.**
-> Everything else in this file has been done: both branches merged, 569 tests
-> green, typecheck clean. **Production is untouched — still at migration 34, and
-> the Operation does not exist there because the import has not run.** That is
-> the only thing standing between these defects and a classroom.
+> **Steps 1 to 6 are ready and worth running. STEP 7, THE IMPORT, IS NOT** — and
+> that is now a design matter rather than a defect.
 >
-> 1. **Item 5, the daylight chart, has NO ROWS.** The task authors `rankValues`;
->    the `ordering` path reads `loadSelectionRows(config.selectionId ?? "countries")`
->    at `check.ts:198`, falls back to `countries`, and renders Global Intel
->    Cards' headers with nothing under them.
-> 2. **Both matching items show the answer**, each left card printing the feature
->    and its function together. There is nothing to match.
-> 3. **Item 10, the console, does not work** — six numbered text boxes rather than
->    an ordering control. The finale: exhaustively graded, never drawn.
-> 4. **The room does not render.** Skin applied, scene absent.
+> **The Operation's board is the wrong shape.** It was specified as nine document
+> hotspots pinned around a room — click one, zoom to the document, work it — plus
+> five flavour hotspots. **It was built as a numbered list**, with the room added
+> behind it as wallpaper. Maciej: *this is a terminal on top of the image of the
+> room.* `docs/tailwind-acceptance.md` has the spec quote and the three loose ends
+> it explains. **The import is the step that puts Tailwind in front of children,
+> so it waits for the board.**
 >
-> **Items 1, 6 and 7 — the wall map and both insets — work and are good.**
+> **Everything else should still go.** Steps 1 to 6 ship the platform work, the
+> Students and Builder pages, the PIN limiter with its table, and two verified
+> grader fixes — none of which depends on Tailwind appearing.
 >
-> Operation Builder is fixing them. **Each fix is proven by opening it in a
-> browser, not by a passing test**, for the reason below.
-
-
-> ## The grid-exact blocker is CLEARED — verified 2 Sep
+> ### The two grader fixes, both verified here rather than relayed
 >
-> `tailwind` shipped a grader that **refused 75% of correct clicks on item 6**:
-> `validate.ts` compared `round1()` while the crosshair readout the child looks
-> at TRUNCATES, so a click at 41.75 to 41.79 displayed `417` above their finger
-> and was graded 41.8. The task's own hint says *easting 41.7, northing 26.8*,
-> so a child following it exactly had a one-in-four chance of being believed.
+> **GRID-EXACT — CLOSED, already on `main`.** `tailwind` shipped a grader comparing
+> `round1()` while the crosshair readout TRUNCATES, so **7,500 of 10,000 clicks
+> whose readout showed the target reference were refused** — and the task's own
+> hint gave that reference, so a child following it exactly had a one-in-four
+> chance of being believed. `main` now grades by `gridReading`. Confirmed twice.
 >
-> **Fixed on `fix-grid-exact` at `060ccff`.** Verified here, not relayed:
+> **CODE ORACLE — fixed on `fix-code-oracle`, ready to merge.** `offBy` returned a
+> percentage on a wrong keypad code, so a guess plus its percentage narrowed a
+> 10,000-way code to a handful in three or four submissions, with no lockouts to
+> slow it. Verified: three engine files, one commit, nothing from `lib/locks`,
+> `withoutDistance` present on the branch and absent from `main`, merges clean.
+> **`operation-zero-hour` is PUBLISHED, so this one is live today.**
 >
->     round1(gx) in validate.ts                0
->     files vs tailwind                        point-space.ts, point.test.ts, validate.ts
->     anything from lib/locks/                 none
->     merges into main                         clean
->
-> **The branch was empty for a window and I nearly cleared it too early.** If
-> you ever need to re-check it, those first three lines are the test — a branch
-> named for a fix merges just as cleanly when it carries nothing.
->
-> Found by an ACCEPTANCE case and findable by nothing else: every refusal test
-> passed before and after, because a grader one tenth out refuses wrong answers
-> perfectly well. The item had been played in a browser and signed off.
+> Found by an ACCEPTANCE case and by nothing else: every refusal test passed
+> before and after. `docs/answer-integrity.md`.
 
 ---
 
@@ -83,10 +71,11 @@ local mess is not evidence of a deployment risk.
 
 ## 1. Merge both branches — ordinary merges, not fast-forwards
 
-    cd ~/thebrainbureau && git merge --no-edit fix-grid-exact && git merge --no-edit tailwind-support && git log --oneline -1
+    cd ~/thebrainbureau && git merge --no-edit fix-code-oracle && git merge --no-edit tailwind-support && git log --oneline -1
 
-**`fix-grid-exact` CONTAINS `tailwind`**, so merging it brings the Operation and
-the grader fix together — you do not merge `tailwind` separately.
+**`tailwind` and `fix-grid-exact` are ALREADY MERGED into `main`** — done 2 Sep
+and verified: `main` grades `grid-exact` by truncation. So the only code left to
+bring is `fix-code-oracle` and `tailwind-support`.
 
 **An earlier version of this file said both were fast-forwards. That was true
 when it was written and I invalidated it myself**, with 22 docs commits to
