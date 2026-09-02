@@ -313,6 +313,24 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### A file-mtime watcher cannot see a session that is READING
+
+Doc Manager watches each worktree and reports when nothing has been written for
+ten minutes. It caught three real stalls. **It also reported a session as having
+produced nothing for three hours while that session was working the whole time**
+ — auditing two branches, reading a 2,000-line CLAUDE.md, and asking four peers
+their roles. **An audit phase is all reads, and reads leave no mtime.**
+
+Worse, the baseline was wrong in a way that looked precise. *Nothing written
+since 16:58* took the WORKTREE's creation time for the SESSION's start time. The
+session began later; a ninety-minute silence was really about twenty.
+
+**So quiet is a prompt to ASK, never a conclusion, and the number attached to it
+is not evidence either.** The reliable probe is a message: it wakes an idle
+session and queues for a busy one, and either way the answer comes from the
+session rather than from a filesystem.
+
+
 ### The local database, `schema_migrations` and the FILES all disagree
 
 Measured 2026-09-02, all three directions at once:

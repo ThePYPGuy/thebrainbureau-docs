@@ -43,6 +43,22 @@ Drop the script; everything else is the same one command.
 
     cd ~/tbb-support && claude "You are Tailwind Support. You work only in ~/tbb-support, on branch tailwind-support. ..."
 
+## The prompt names the worktree. The SHELL is wherever the launcher left it.
+
+**Being told which folder is yours is not the same as being in it.** On
+2026-09-02 Lock Library was launched into `~/tbb-quiz` — Quiz Maker's live
+worktree, on `signal-check` — while its prompt told it that `~/tbb-locks` was
+its own. It wrote nothing there and said so, which is the only reason this was
+cheap; four collisions on 2026-08-25 destroyed work in two of them.
+
+**So the first thing a session should do is check where it actually is**, not
+where it was told it is:
+
+    pwd && git branch --show-current
+
+If that disagrees with the prompt, the prompt is describing an intention and
+the shell is describing a fact. **Move; do not write.**
+
 ## What the prompt has to say
 
 The ROLE, the FOLDER and the BRANCH; that commits land on that branch because
