@@ -964,6 +964,24 @@ greens, both found only by the mirror run:
 **Interleaving a legitimate actor into an attack test can neutralise the
 attack.** Run the attack to a real trip with nobody clearing it, THEN ask.
 
+**A CHECK CONSTRAINT IS A PERMISSION, NOT AN IMPLEMENTATION.** Adding `point`
+and `matching` to `tasks.task_type` made them LEGAL and not one of them
+PLAYABLE. **Adding a task type is at least four coordinated edits:**
+
+  1. the CHECK constraint
+  2. `lib/engine/types.ts` — the `TaskType` union (eight members, no new ones)
+  3. `lib/server/check.ts` — a grading branch
+  4. `components/terminal/Tasks.tsx` — a dispatch case and a renderer
+  (+ a validator in `lib/engine/validate.ts`)
+
+**And the failure is SOFT, which is the whole danger.** A task of an unimplemented
+type imports without complaint, `doctor` passes, `deploy:check` reports the
+database matches the repo — and a child gets a grey line reading *this task type
+isn't supported on the terminal yet*, while `check.ts` tries to grade a map click
+as a numeric field. Nothing throws and nothing goes red. Same family as the
+importer's four column lists: several places that must agree, no audit over the
+set, and the failure landing later and quieter than the change.
+
 **AN ADDITIVE COLUMN AND AN ADDITIVE FUNCTION PARAMETER ARE NOT THE SAME KIND
 OF ADDITIVE, and *additive* is the word doing the damage.** PostgREST resolves an
 RPC by the NAMES of the arguments in the body:
