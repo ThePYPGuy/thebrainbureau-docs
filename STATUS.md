@@ -61,7 +61,7 @@ Say so when you commit. Four collisions on 2026-08-25, two destroying work.
 | Website redesign | `main` | **all three phases live** — no surface left on the old chrome |
 | Prime Directive | `operation-prime-directive` | dormant; holds nothing `main` lacks — §3 names the command |
 | Platform | `platform` in `../tbb-platform` | scoping and importer both merged to `main` |
-| Operation Tailwind | `tailwind` + `tailwind-support` | **eleven of twelve built** — needs the resource upload, then both merges, then the push |
+| Operation Tailwind | `tailwind` + `tailwind-support` | **built, ten of eleven** — Op Builder stood down 2 Sep. Upload, two merges, push: all Maciej's |
 | Docs | `docs` | own worktree; merges to `main` `--ff-only` |
 
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
@@ -209,6 +209,8 @@ this is the section that pays for the cap. Each description is its own session's
 1. **DECIDED 2 Sep: yes, at 40, the teacher resets.** *(Was: may the platform ever tell a child to wait, and at what number?)* One decision, not two — the threshold is the half that can hurt somebody. Forty consecutive failures assumes a child asks the teacher long before; that is a typical child in a typical lesson, and **not obviously a child who is anxious, distracted or working alone**. WI raised it and is right that it is a judgement about children rather than attackers. `resetAgentPin` now genuinely clears it (`21f3c47`) — but **only the agent's OWN teacher can reset**, so the adult in the room has to be the RIGHT adult, and a second teacher at the same school cannot free the child. Pre-existing; it narrows the mitigation the threshold rests on. One constant either way.
 
 ## 10. Known silent failures
+
+- **Tailwind: console never drawn, six of nine items never opened, hard-navigation `Loading` unexplained.** `docs/tailwind-acceptance.md`.
 
 Open items. Standing traps are in `CLAUDE.md`; prune a row only when it is
 closed there or here, and **never to hit a line count** — that emptied this

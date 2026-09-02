@@ -313,6 +313,22 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### A peer's name for a third party is not an address you can use
+
+The naming hazard is worse than *addresses rotate*. **The registry view DIFFERS
+BETWEEN SESSIONS.** On 2026-09-02 Website Designer routed Operation Builder to
+`claude-s-folder-f7`; from OB's connection that name did not exist at all, which
+listed only `2a` and `35`.
+
+So **an address is only meaningful to the session that read it.** Relaying one —
+*message X, it is called Y* — hands over something that may name nothing, or
+worse, name somebody else.
+
+Combined with the rule that a name comes from where a session CONNECTED rather
+than where it works, this is why `/home/maciej/tbb-inbox/<name>.md` exists. **A
+file needs no address, does not rotate, and reads the same from every session.**
+
+
 ### EVERY LAYER STOPS ONE SHORT OF A PERSON. Three times in one day.
 
     2 Sep 16:00  agent_findings      table, index, RLS  — and no writer

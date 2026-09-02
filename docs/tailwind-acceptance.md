@@ -114,6 +114,32 @@ agree* assumes both were derived from one source. When one of them was derived
 from a document rather than from the thing itself, agreement is not evidence —
 **two documents copied from each other agree perfectly and can both be wrong.**
 
+## What was never seen to work, recorded rather than smoothed over
+
+Operation Builder stood down on 2 Sep having written this down itself. **It is
+worth more than a claim of completeness would have been**, and it is the shape
+Maciej's own check should cover before he pushes.
+
+**Six of the nine items were never opened in a browser.** Items 1 and 9 were
+played end to end — a real click on the wall map returning *POSITION CONFIRMED*,
+and a `choice` completing a phase and posting `richest-feeding`. The other
+seven are proven by unit tests and by the fixed-facts script, **not by use.**
+
+**The console has never been DRAWN.** All 480 combinations are enumerated and
+graded — one accepted, 479 refused, one distinct refusal shape — and the thing
+has not appeared on a screen. That is stronger evidence than most UI ever
+gets, and it is not the same evidence. `matching` was unit-proven,
+guard-proven and never drawn too, and that was found by drawing it.
+
+**A hard navigation to `/terminal` can serve `Loading` for ever.** 200, no
+console error, nothing logged, no request reaching the server. **The
+click-through path works, which is the route a child takes**, so it has never
+blocked play. Unexplained rather than fixed: breaking the `state`/`check`
+import cycle in one direction did not settle it.
+
+**The class half of item 6 is not testable from one session** — two agents on
+one deployment holding separate boards. It stays deferred with item 9.
+
 ## Where the source of truth lives
 
 The handoff moved when Maciej reorganised the Operations folder:
