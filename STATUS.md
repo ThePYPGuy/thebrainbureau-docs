@@ -176,12 +176,15 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **Operation Tailwind** — handoff in Maciej's Documents;
-   `operation-tailwind-build-instructions.md` is the entry. **Game first, class
-   mode deferred, printables gated not `public/`.** *(Op Builder.)* **Called
-   reuse, absent from the repo:** `drag-to-sequence`, `structure`, anywhere for
-   board state, `styles/`, a credits surface, a bucket that takes the ZIP. **The
-   bible's reuse table is wrong in 3 of 7** — `docs/components-built.md` is true.
+1. **Rate limiting has three defects and no owner** — WI's session ended
+   and **none of it is live**: `resetAgentPin` must clear the counter (none
+   exists, and the cooldown precedes the PIN check, so 24h of waiting is the only
+   way out); `limitKey` must carry **school_id**; join and login must key alike.
+1. **Migrations interleave** — prod 34; `platform` 35, 38, 39, 41; `tailwind`
+   36, 37, 40. Merge order is set by numbering, not readiness. *(Maciej.)*
+1. **Operation Tailwind** — `docs/local/briefs/tailwind-build.md` is the
+   brief and carries the rulings; `docs/components-built.md` says what the
+   series bible claims is reusable and is not. *(Op Builder.)*
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. **Rotation took
    the irreversibility out of it** — a code can be retired, so no decision here
    is frozen in a download. *(WI: table, route, write. WD: the page.)*
@@ -192,9 +195,6 @@ from `git log`; descriptions are each session's account of its own work.
 1. **A narrow-viewport pass on the two newest surfaces.** The catalogue tiles
    and the activity page **have never been rendered below 1280** — the breakpoints
    were written from the layout pass's rules, unobserved. *(WD, unqueued.)*
-1. **Re-establish that the redesign never touched activity chrome.** Baselines
-   are all dated 1 Sep, so they prove nothing about before. Capture a
-   pre-redesign commit in a temporary worktree and diff.
 1. **Run `sudo npx playwright install-deps chromium` once.** Without it
    `check:visual` cannot run, so **a session cannot gate its own work**. And
    **baselines cannot be made from Windows** — an unchanged page differs by

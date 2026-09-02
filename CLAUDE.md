@@ -913,6 +913,50 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**THREE SOURCES, AND TONIGHT ALL THREE DISAGREED. Files say what has been
+WRITTEN. `schema_migrations` says what has been RECORDED. Only the schema says
+what IS.** Verified: history held 35, 38, 39, 41 with **no 36 and no 37**, while
+`agent_board_state`, `agent_findings` and `activities.structure` all existed —
+because a session applied 36 and 37 as raw DDL and deliberately left the shared
+history alone, which was the right call and has this cost. **`supabase migration
+up --local` will now try to run them and fail on objects that already exist** —
+a different failure from `LegacyMigrationMissingLocalError`, reached from the
+opposite direction. Query the schema before believing either of the other two.
+
+**INFERRING AN AUTHOR FROM CONTENT FAILED THREE TIMES IN ONE NIGHT** — a session
+stood down for a transcript that was not its, a session told to carry on in a
+worktree it had never written in, and a session's own new file assigned to a
+dead predecessor on the strength of a timestamp and an untracked flag. Every
+observable detail was right each time and the author was wrong. **Content is
+always to hand; an address has to be asked for**, which is why the rule does not
+stick on its own. Ask.
+
+**A stale branch has a stale RULEBOOK.** A session worked for an hour quoting
+CLAUDE.md rules it did not have — the merge brought 115 new lines of it. Merge
+before quoting the rules, not only before writing code.
+
+**A RATE-LIMIT KEY MUST CARRY EVERY FIELD THAT MAKES THE SUBJECT UNIQUE.**
+`limitKey` was the codename alone, and codenames are scoped PER SCHOOL —
+`resolveAgent` matches on codename x school_id. So forty failures in school A
+put a child in school B **with the same codename** into cooldown, and the adult
+beside the locked-out child is not the adult who could fix it. The comment above
+that line reasons carefully about codename-versus-IP and stops one field short:
+**a well-argued key can still be an incomplete one.**
+
+**And derive the key the same way in every route.** login used
+`normaliseCodename(codename)`; `/api/join` used `codename` raw. The same child
+is counted under two keys, so failures never accumulate — and an attacker
+halves their count by alternating doors.
+
+**A guard's ESCAPE HATCH is part of the guard and needs its own test.**
+`resetAgentPin` never cleared the counter; `rate-limit.ts` exported no clear at
+all, so there was nothing it *could* call. The cooldown is checked BEFORE the
+PIN, and only a successful sign-in clears — so a child in cooldown could not
+sign in, could not clear, and had no way out but waiting up to 24h, while the
+design's own comment said a teacher rescued them in seconds. **Test the recovery
+path, both directions:** the teacher's reset must clear it, and nothing a child
+can do alone may.
+
 **BREAK YOUR OWN SUITE AND WATCH IT GO RED.** Four of five rate-limit tests
 were classroom cases — and every one of them would pass against a limiter that
 did nothing at all. The check: raise both thresholds to 100,000, re-run, and
