@@ -173,9 +173,9 @@ guard.
 Real code exists nearby; none of it is a library type yet.
 
 `text-entry` · `keypad-code` · `table-lookup` (inline JSX in `Tasks.tsx`) ·
-`drag-sequence` (**`OrderingTask` is the starting point — already tap-first,
-which the drag ruling requires; its dataset was hardwired and needs the fix OB
-made**) · `rank-order` · `sort-bins` · `branching-key`
+`drag-sequence` (**`OrderingTask` gives you the DATA path and none of the
+interaction** — it renders numeric rank boxes at `Tasks.tsx:512`, not drag and
+not tap-to-reorder, so the mechanic is new work. Corrected 2 Sep) · `rank-order` · `sort-bins` · `branching-key`
 
 One subagent per type. Each ships its reference instance, which is what the
 teacher-facing page renders for that type.

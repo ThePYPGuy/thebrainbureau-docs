@@ -313,6 +313,35 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### ORDER IS INFORMATION, AND A KEY-NAME GUARD CANNOT SEE IT
+
+`assertNoAnswer` reads key NAMES, so it cannot see the ORDER of an array. A
+config whose list is written in the order it is meant to end in **has shipped
+the answer to every browser** — no forbidden key, nothing the answer table holds,
+and the guard passes while working exactly as designed.
+
+**This is not hypothetical. It happened three times in one activity:**
+
+- two `matching` tasks where the answer key was the identity mapping of the two
+  authored columns — every row sat beside its own partner
+- the finale's `console.route`, authored in `answer.order` exactly, so a child
+  typing 1 to 6 straight down the list **won the Operation without reading one
+  piece of evidence**
+
+All three passed every test. All three were found by a person looking at the
+screen.
+
+**Every type whose config carries an ordered list has this hole** —
+`drag-sequence`, `sort-bins`, `rank-order`, any finale. The fix that works is an
+import-time assertion handed the config and the answer **separately**, never
+deriving one from the other, and falsified by making it derive its expectation
+from the thing it guards and watching the tests go red.
+
+**And the deeper rule: content can leak an answer without containing it.**
+Adjacency, order and position are all answers. Look at what is on the screen,
+not at what is in the keys.
+
+
 ### A GUARD READING `content/` CANNOT FAIL ON THE STATE THE CHILD IS IN
 
 Two matching tasks handed the child their answers — every row sat beside its own

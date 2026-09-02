@@ -26,9 +26,16 @@ rows wrong. A day of the Tailwind build went on discovering it.
 
 What is actually there is better than what the spec claims, which makes the
 error more annoying rather than less: **`OrderingTask` exists** and is the right
-starting point for `drag-sequence` — it is already tap-first, which the drag
-ruling requires. It is also where OB found a hardwired dataset, so it needs work
-before it is promoted, and *that* is the sort of thing the audit must surface.
+starting point for `drag-sequence`'s DATA. **CORRECTED 2 Sep: I also wrote that
+it is already tap-first, which the drag ruling requires. It is not** —
+`Tasks.tsx:512` renders numeric rank boxes, so there is no drag and no tap-to-
+reorder to promote. **The interaction is new work.**
+
+**That is a FOURTH planning document wrong about this codebase, and this one is
+mine** — written into §1, the section about exactly this error, and copied into
+the plan, the brief and Lock Library's inbox before anyone checked it. I
+relayed it from a build report rather than running the grep the section
+demands. Found by the `drag-sequence` agent.
 
 **Recommendation:** §7.1's audit should carry an explicit default — **a claim
 that something is already built is treated as false until a grep names the file
