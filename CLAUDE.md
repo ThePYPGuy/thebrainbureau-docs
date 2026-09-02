@@ -913,6 +913,25 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**AN ADDITIVE COLUMN AND AN ADDITIVE FUNCTION PARAMETER ARE NOT THE SAME KIND
+OF ADDITIVE, and *additive* is the word doing the damage.** PostgREST resolves an
+RPC by the NAMES of the arguments in the body:
+
+  migration first, old code   sends 8 names, all parameters of the new
+                              function, the new one defaults. Fine.
+  deploy first, old function  sends 9 names against a function that has 8.
+                              Nothing matches, **PGRST202**, and
+                              `submitLiveAnswer` returns *your answer did not
+                              save* for EVERY answer in the room.
+
+**A column the old code does not select is invisible to it. A parameter the new
+code DOES send has to exist before that code runs.** So the deploy order is set
+by the DIRECTION OF THE DEPENDENCY, not by whether the change adds or removes —
+which is the third case under the add/remove rule above, and the one that reads
+as safe. `lib/server/live-play.ts:320` sends `p_points`; a default on the
+function parameter does not help, because the failure is name RESOLUTION, before
+any default applies.
+
 **`git add -A` IS WHAT MAKES A COLLISION EXPENSIVE. STAGE BY EXPLICIT PATH.**
 A subagent was sent into a worktree I believed was idle, and 36 seconds after it
 copied its file in, the session actually working there committed under it. It

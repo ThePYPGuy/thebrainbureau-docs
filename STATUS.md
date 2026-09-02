@@ -116,9 +116,9 @@ are dropping. `CLAUDE.md` carries the rule.
 
 **Before any push** run `git diff --stat origin/main..main --
 supabase/migrations/ content/`. Neither deploys itself, and both fail silently.
-**Migration 31 was the *safe in either order* case** — it replaces a function both
-versions call, `p_points` defaults, so applied first or deployed first nothing
-breaks. **The build then failed on a missing `@types/pngjs`**, which
+**Migration 31 was NOT *safe in either order*** — I wrote that; Quiz Maker
+corrected it. PostgREST matches an RPC by argument NAME, so deploying first sends
+nine names to an eight-parameter function: PGRST202, every answer fails. **The build then failed on a missing `@types/pngjs`**, which
 `deploy:check` cannot see: it reads the database, and the database was already
 correct. **`--prod` green while production serves a three-hour-old build is a
 state this project can reach**, and did.
