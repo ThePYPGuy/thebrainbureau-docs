@@ -91,7 +91,14 @@ sharing is what makes parallel work collide.
    the audit at the top of the first PR.
 2. **`LockInstance`** — the row shape, the config discriminated union, and the
    loader.
-3. **The engine wrapper**, which OWNS the series-wide behaviours: no lockouts,
+3. **The engine wrapper.** **Follow `tailwind:lib/engine/unlock.ts` rather than
+   invent a shape** — 76 lines plus an 84-line test, named in none of the four
+   planning documents and found by Lock Library's audit. It is already what
+   this item asks for: **one pure evaluator, two thin callers**, on the
+   principle that when the drawing and the enforcing disagree the gating model
+   is decoration. **Take its refusal default with it** — an unrecognised rule
+   keeps the phase SHUT, so an unparseable lock config must refuse rather than
+   accept. The wrapper OWNS the series-wide behaviours: no lockouts,
    no partial feedback, one hint phrased as method. **Make these the wrapper's
    job, not each type's.** Twenty independently written types will diverge.
 4. **Import as REPLACE, not merge.** Delete the Operation's instances and insert

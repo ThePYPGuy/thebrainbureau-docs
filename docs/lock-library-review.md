@@ -90,9 +90,18 @@ Contract item 6 says every solved instance posts a finding. Good. Nothing says
 the instance's own state survives a reload.
 
 Migration 37 created `agent_findings` AND `agent_board_state`, each with an
-index and RLS. **Neither had a writer.** Findings were fixed on 2 Sep; board
-state still has none — `grep -rn board_state lib/server/*.ts` returns nothing.
-A lock that renders and grades looks perfect until a child logs out.
+index and RLS, and **neither had a writer.** A lock that renders and grades
+looks perfect until a child logs out.
+
+**CORRECTED 2 Sep, and the correction is the more interesting half.** Both were
+fixed the same day: `tailwind:lib/server/board-state.ts` is a real reader and
+writer over a tested pure whitelist in `lib/engine/board.ts`. The sentence
+above was true of `main` and false of the project.
+
+**This document told you to distrust exactly this kind of claim, and then made
+one.** Lock Library caught it by applying §1's own rule — *a claim that
+something is built is false until a grep names the file* — to the document that
+taught it the rule. **Contract item 8 stands; its evidence has been overtaken.**
 
 **Recommendation:** contract item 7 — *persistence proven by a round trip:
 solve, reload, still solved.* A table nobody writes to is not a feature, and it
