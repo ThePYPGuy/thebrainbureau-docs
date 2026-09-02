@@ -313,6 +313,29 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### Prove a migration by ROLLBACK when the database is shared
+
+One local Postgres, nine worktrees. `db:reset` is denied and `migration up
+--local` fails on objects already applied as raw DDL — so the usual ways of
+finding out whether a migration WORKS are all closed.
+
+**Run it inside a transaction and roll back.** Every statement executes, every
+syntax error and constraint violation surfaces, and nothing persists;
+`schema_migrations` is untouched and the other eight worktrees never see it.
+Migration 43 was taken this way on 2026-09-02.
+
+**And put a POSITIVE CONTROL on any check that finds nothing.** *No lock-shaped
+table exists* was established with a query first shown to find `tasks`,
+`task_answers`, `agent_board_state` and `agent_findings`. **A query returning
+nothing and a query that cannot return anything are indistinguishable** until
+you make one return something.
+
+**Absence of an RLS policy can be the statement.** `lock_answers` gets a
+`service_role` grant and **no policy at all**, because writing one would imply
+somebody other than `service_role` is meant to read it. `lock_instances` gets a
+policy AND its grant, because it must be consulted. Say which you meant.
+
+
 ### A FRESH WORKTREE CANNOT TYPECHECK, and it looks like a code defect
 
     app/layout.tsx(94,50) TS2304: Cannot find name 'LayoutProps'

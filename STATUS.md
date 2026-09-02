@@ -57,9 +57,9 @@ Say so when you commit. Four collisions on 2026-08-25, two destroying work.
 
 | Stream | Branch | Status |
 |---|---|---|
-| Case File skin | `main` | Stages 1–2 done; 3 blocked on images — dormant |
+| Case File skin + Prime Directive | `main`, `operation-prime-directive` | both dormant; PD holds nothing `main` lacks |
 | Website redesign | `main` | **all three phases live** — no surface left on the old chrome |
-| Prime Directive | `operation-prime-directive` | dormant; holds nothing `main` lacks — §3 names the command |
+| Lock Library | `lock-library` in `../tbb-locks` | **wave 0 in build** — audit, `LockInstance`, migration 43. No lock types yet, by design |
 | Platform | `platform` in `../tbb-platform` | scoping and importer both merged to `main` |
 | Operation Tailwind | `tailwind` + `tailwind-support` | **built, ten of eleven** — Op Builder stood down 2 Sep. Upload, two merges, push: all Maciej's |
 | Docs | `docs` | own worktree; merges to `main` `--ff-only` |
