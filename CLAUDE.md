@@ -913,6 +913,33 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**WHEN A LAYOUT RESTACKS, THE FAULT IS IN WHAT THE OLD DIRECTION ASSUMED —
+not in what was added since.** The narrow block turned the sidebar from a column
+into a row correctly and never cleared two things only a COLUMN wants:
+`min-height: 100vh`, right for a column reaching the footer and catastrophic for
+a row, and a wrapped flex container's default `align-content: stretch`, which
+spread the links down that 100vh instead of sitting them at the top. A whole
+screen of navy before the first word, and **the even gaps read as headings that
+had failed to render** rather than as height. I had predicted the fault would be
+in the stamp, the back button and the resources section, because those were
+added after the breakpoints were written. Those three were the parts that were
+right.
+
+**A CENTRED CROP OF TEXT-BEARING ART CUTS MID-LINE.** A 1200x915 screenshot in a
+169px band with `object-fit: cover` throws away 208px from each end, so the
+first thing on the page was the bottom half of a line of terminal text — which
+**reads as a broken image, not as a crop.** `object-position: center top` keeps
+the header and the first instruction, and degrades in the right direction: a
+taller cover loses its footer rather than its subject. Invisible at 1280+, where
+the discarded band happened to fall between lines.
+
+**A CONTROLLED REACT FORM FILLED BEFORE HYDRATION SUBMITS NOTHING.** State stays
+empty, the post sends blanks, and the page sits on `/login` saying *missing
+email*. A visual capture doing that **photographs a login page, agrees with
+itself, reports self-diff 0, and commits it as the baseline for a dashboard** —
+the blank-screen baseline this harness already warns about, with a new cause.
+Any authenticated capture needs the wait proved before the baseline is trusted.
+
 **ERRORS ARE LOUD AND A PASS IS QUIET, so the half that DISCRIMINATES is the
 half the output eats.** Five checks on a new CHECK constraint: `psql`'s error
 text for the two REJECTION cases scrolled the ACCEPTANCE result off the top, and
