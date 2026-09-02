@@ -734,8 +734,23 @@ Generating Operation Tailwind's twelve props against Maciej's situation room,
 console and no dial. `sterna-live-feed` was the room with the feed shrunk to a
 monitor on the wall. `agent-colin` had no pigeon in it at all.
 
-**The nine documents escaped only because they are 4:3.** The shape difference
-was enough to break the copy; the shared shape was enough to complete it.
+**I wrote here that the nine documents escaped because they are 4:3. THEY DID
+NOT.** Verified by opening them on 2026-09-03: **four of the nine are the
+situation room over again** — `daylight-chart`, `ghost-pings-bulletin`,
+`field-guide-page` and `sun-clock-sheet`. `sun-clock-sheet.png` is the room's
+four wall clocks, the shelf of folders, the desk with its lamp, radio, mug and
+framed photo, and the console with its dish — with a small clipboard in the
+middle. A different aspect ratio **reduced** the copying; it did not stop it.
+
+**And the entry recording that was written from the same generation run that
+produced them**, by a session that had looked at the three 16:9 assets and not
+at the nine 4:3 ones. **A claim about a batch, made from a sample.**
+
+`field-guide-page.png` additionally has red string and pins painted into it,
+which §2 of the scene notes forbids outright: *no red string in the base art.*
+
+Cropping to the paper quad recovers a usable wall thumbnail. **The full-size
+document view of those four is still the room**, so they need regenerating.
 
 `--ref` is meant to carry the palette, the lighting and the pixel register.
 **When the reference and the target share an aspect ratio and a framing, it
