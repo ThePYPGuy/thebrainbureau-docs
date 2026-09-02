@@ -313,6 +313,35 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### A BREAK THAT DID NOT HAPPEN LOOKS EXACTLY LIKE A GUARD THAT WORKS
+
+The way to prove a guard is to break what it guards and watch it fail. **The
+way that goes wrong is that the BREAK silently fails and the run comes back
+green** — which is the result you were hoping for.
+
+On 2026-09-02 a falsification run reported every check passing. The python doing
+the breaking was a heredoc inside `wsl -e bash -ic`; the nested shell answered
+`bad substitution`, the file was never modified, and the guard passed **because
+there was nothing wrong with the code.** It failed as a credible pass rather
+than as an error.
+
+**So a negative test has two subjects: the guard, and the sabotage.** Prove the
+sabotage landed before you believe the guard:
+
+- write the break as a FILE with an assert that its anchor appears exactly once,
+  never as a heredoc through a nested shell
+- `grep` the file under test and confirm the damage is really in it, BEFORE the
+  run
+- and expect a specific failure count, not merely *some* failure — neutering one
+  assert should turn a known number of tests red
+
+**The same shape as a vacuity guard, arrived at from the other side.** *Zero
+locks across three activity files* is a true zero; *zero across zero files* is a
+broken scan, and **the count alone cannot tell them apart** — so carry the file
+count out of the scan and assert it too. A rule that finds nothing and a rule
+with nothing to find are indistinguishable until you make one of them speak.
+
+
 ### A queue entry that bundles independent work hides the small piece
 
 Maciej asked for a Students page on the teacher dashboard. It went into STATUS
