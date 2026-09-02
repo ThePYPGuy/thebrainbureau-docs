@@ -30,6 +30,14 @@ CHECKED THE SAME WAY.** Three kinds:
   the authority itself, and worth checking when the claim carries a legal or
   factual obligation.
 
+**THE TAILWIND HANDOFF DOCUMENTS ARE APPROVED SOURCE AS OF 2026-09-02.** Maciej
+has signed them off: clue documents, reference files, printables, credits,
+overview copy, asset manifest. **Do not audit them.** Checking approved source
+is a cost with no product on the other side of it, and the goal is the
+Operation live on the site. The repo remains its own authority — a document
+claiming a component exists is still settled with a grep — but that is reading
+the code, not doubting the author.
+
 **Do not ask anyone to reconcile two documents that were copied from each
 other.** A brief here asked whether printable R6 agreed with `CREDITS.txt`; R6
 was printed FROM it, so the comparison could only ever agree — and it did,
