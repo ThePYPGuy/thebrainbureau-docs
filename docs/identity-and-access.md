@@ -481,3 +481,50 @@ them. Where a school owns the namespace, every teacher in the building shares
 the child and only one of them can reset their PIN. **The namespace is
 school-wide and the permission is teacher-scoped**, which is the actual bug
 behind *only their own teacher can reset a PIN.*
+
+### The no-school path is a real path, not a fallback — confirmed 2 Sep
+
+Maciej has said `maciejborucki@googlemail.com` **is** a no-school account and is
+to keep working as one. So the backfill leaving its class and its three agents
+untouched is the correct permanent outcome, not a pending chore.
+
+**What that account cannot do today.** `candidateAgents` in `lib/server/agent.ts`
+collects two scopes: the school's namespace, and school-less agents belonging to
+named teachers. With no school and no class code there is no teacher to name, so
+the teacher list is empty, **no query runs, and no candidate is ever returned** —
+whatever the PIN. Its own comment says this is deliberate: matching a school-less
+codename globally would today let any school claim any unattached codename.
+
+**Which is exactly what the global index removes.** Once
+`unique (codename) where school_id is null` holds, a school-less codename names
+one agent and nothing else, so the third branch becomes safe to add rather than
+loose. **The index is not a tidiness change; it is the precondition for the
+no-school front door.** Three pieces, in order:
+
+1. the global partial index, replacing `agents_teacher_codename_key`
+2. a third branch in `candidateAgents` for the no-scope case
+3. **No school** offered at the front door, which no UI does yet
+
+Note that `candidateAgents` itself is written but **not deployed** — check with
+`git merge-base --is-ancestor $(git log -1 --format=%H -- lib/server/agent.ts) origin/main`.
+
+## Launching a session so it can be found
+
+**Claude must be started from INSIDE WSL, in the worktree.** `new-worktree.sh`
+says so at step 5, and it is right for a second reason it does not give: the
+session's ADDRESS is taken from where it connected. Start it anywhere else and
+the address names that place forever, whatever the session is retitled to and
+whatever worktree it goes on to work in.
+
+    cd ~/thebrainbureau
+    scripts/new-worktree.sh --role 'Name' <short> <branch>
+    # then, in a WSL terminal:
+    cd ~/tbb-<short> && claude
+    # then paste the opening prompt the script printed
+
+**Do not use the Claude Desktop folder picker against `\wsl.localhost\`.** The
+script's own words: such a session *can read files and can run neither npm nor
+git*. It survives by shelling out through `wsl -e bash -ic`, which is slower and
+which leaves its address pointing at the wrong worktree. Operation Builder is
+that case — launched in `tbb-quiz`, working in `tbb-tailwind`, addressed
+`tbb-quiz-44`, and unfindable by anyone looking for a tailwind name.
