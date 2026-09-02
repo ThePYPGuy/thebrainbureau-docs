@@ -13,6 +13,31 @@ specific to working on this repo from outside it.
 
 ## Read the spec before building
 
+**SAY WHICH KIND OF DOCUMENT YOU ARE HANDING SOMEONE, BECAUSE THEY ARE NOT
+CHECKED THE SAME WAY.** Three kinds:
+
+- **SOURCE** — the clue documents' fixed-facts table, the copy, the answers, the
+  prompt library. Nothing exists to check these against; they define what is
+  true. **Use them as given. Auditing them is pure waste.**
+- **DESCRIPTION OF THE CODE** — *this component already exists*, *reuse the
+  drag-to-sequence*. These go stale the moment anyone commits, and on
+  2026-09-02 they were wrong every time they were checked: the Tailwind handoff
+  claimed four reusable components and one was real; the bible's §4.1 had three
+  of seven wrong; the Lock Library spec claims `drag-sequence` and
+  `table-lookup` are built and neither is. **Verify with a grep before relying
+  on one.** It costs a command and has cost days when skipped.
+- **CLAIM ABOUT AN OUTSIDE AUTHORITY** — *this photo is CC BY*. Checkable against
+  the authority itself, and worth checking when the claim carries a legal or
+  factual obligation.
+
+**Do not ask anyone to reconcile two documents that were copied from each
+other.** A brief here asked whether printable R6 agreed with `CREDITS.txt`; R6
+was printed FROM it, so the comparison could only ever agree — and it did,
+while both were wrong about two licences. The check that worked went to the
+licence pages. **Agreement between copies is not evidence.** It also cost a
+session an afternoon writing a PDF text extractor to obtain the comparison,
+because this machine has no `pdftotext` and `sudo` needs a password.
+
 [`docs/`](docs/README.md) is the product specification, and it outranks the
 code. The README describes how this repo currently works; `docs/` describes
 what it is meant to become. The two deliberately disagree in places, and
@@ -1126,6 +1151,21 @@ new guard to what is AUTHORED, not to what is declared.** `text`, `choice`,
 they existed. A guard on *declared but unrendered* goes red on four pre-existing
 types before it ever catches a new one; a guard on *authored by a content file*
 is green today and turns red the instant anything uses one.
+
+**A CHECK CAN COUNT THE CLAIM INSTEAD OF THE THING.** `npm run skins` reported
+`situation-room` as **WORN while the skin had no CSS at all**. Verified in
+`scripts/skin-check.ts`: it reads `content/activities/*.json` and counts
+`theme.skin`, so *worn* means an activity DECLARES it and never that anything
+was drawn. The check is worth keeping — it just answers a narrower question
+than its wording implies, and the wording is the part that misleads.
+
+That was the FOURTH instance in one day of a guard agreeing with the bug it
+exists to catch: a 403 probe that passed because a failed sign-in answers 401;
+`matching` unit-proven, guard-proven and never drawn; a console authored as two
+tasks whose halves each passed their own tests while together leaking which half
+was wrong; and this. **The common shape is a check whose subject is the
+description rather than the artefact.** Ask what the check would still say if
+the artefact were deleted and only its declaration remained.
 
 **A CHECK THAT PASSES MAY BE ANSWERING A DIFFERENT QUESTION.** The mobile
 layout had a gap down the right AND too little margin on the left — one
