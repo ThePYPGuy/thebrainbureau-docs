@@ -313,6 +313,31 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### A VISUAL BASELINE COUPLED TO SHARED MUTABLE DATA IS NOT A BASELINE
+
+`/profile` failed its comparison on 2026-09-02 — not by differing, but by
+**changing size**, 2560x3828 to 2560x3924. No commit that evening touched the
+page. The cause was the **shared local database**: other sessions created
+deployments that day, `/profile` renders a child's missions, and the page grew
+by about one card.
+
+**Do not re-baseline.** Regenerating would bake that evening's test residue —
+including another session's DRAFT activity — into the committed standard. That is
+a baseline agreeing with itself perfectly while recording something that is not
+the product, which is the same shape as a previous render agreeing with itself
+while serving nothing.
+
+**The red is correct and it is reporting a real thing:** that this baseline is
+coupled to data nine worktrees can change. Leaving it red with the reason
+written down is the honest state.
+
+**And it is a constraint on the authenticated-capture work rather than a
+nuisance beside it.** Any capture of a signed-in surface renders whatever the
+shared stack happens to hold, so that work has to fix its own data — a seeded
+account whose contents no other session touches — or it inherits this on every
+page instead of one.
+
+
 ### A lookup with a FALLBACK fails by being plausible, not by being empty
 
 `BackLink` names each route in a table and falls back to the longest matching

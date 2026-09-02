@@ -181,7 +181,7 @@ this is the section that pays for the cap. Each description is its own session's
    Tailwind has left. ZIP rebuilt 2 Sep with the corrected pack. *(Maciej: `upload:resource` writes prod storage; push is disabled at the git level.)*
 1. **The Lock Library** — `docs/lock-library-plan.md` (waves, contract, operating model); `docs/lock-library-review.md` (the spec's defects).
 1. **A Students page above Classes** — one row per CHILD across all their classes, not per membership. **Depends on nothing.** *(WD, briefed 2 Sep.)*
-1. **The school gap, and `agents` RLS does not admit a class's teacher** — so the Students roll cannot READ a colleague's child in its own class. `docs/identity-and-access.md`. *(Schema.)*
+1. **Two RLS gaps: `agents` hides a colleague's child in your own class, `activities` hides your own DRAFT from you.** Plus the school gap. `docs/identity-and-access.md`. *(Schema.)*
 1. **Migrations interleave, so MERGE BEFORE THE NEXT PRODUCTION PUSH.** Prod 34;
    `main` 35, 38, 39, 41; `tailwind` 36, 37, 40, 42; `tailwind-support` none.
    Push after only one lands and the other's arrive numbered BELOW ones already

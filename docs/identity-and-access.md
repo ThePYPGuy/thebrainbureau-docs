@@ -508,6 +508,29 @@ no-school front door.** Three pieces, in order:
 Note that `candidateAgents` itself is written but **not deployed** — check with
 `git merge-base --is-ancestor $(git log -1 --format=%H -- lib/server/agent.ts) origin/main`.
 
+## A teacher cannot read a DRAFT activity they assigned themselves
+
+Second policy of the same family, found the same evening.
+`activities_read_published` admits `status = 'published'` only, so
+`deployments.select("id, activities(title)")` returns the title **undefined**
+for a teacher's own draft. **It already renders on the assignments page as
+"Unknown activity"** — confirmed by rendering it, not by reasoning about it.
+Pre-existing; one draft deployment exists on the local stack today.
+
+**The pattern across both:** a policy written for the common reader, which then
+excludes a reader who has an obvious right to the row — a colleague teaching
+the child, an author reading their own draft. **Neither fails loudly.** One
+returns fewer rows, the other returns a row with a hole in it.
+
+## What Students shows, corrected mid-build
+
+Maciej, 2 Sep: *a teacher can only see students registered to their own class
+or ACTIVITIES.* An earlier reading — mine — said class membership alone.
+
+**A child who joined with an activity code and is in no class would have been
+missing from a page whose whole purpose is checking nobody is missing.** Both
+sources are read and merged, and the column carries both.
+
 ## The RLS policies on `agents` and `class_members` do not line up
 
 Found by Website Designer on 2 Sep while writing the Students page, and it is
