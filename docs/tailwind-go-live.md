@@ -1,5 +1,38 @@
 # Getting Operation Tailwind live
 
+> ## STOP — ONE BLOCKER, ADDED 2 SEP
+>
+> **`tailwind` carries a grader that marks correct answers wrong on item 6.**
+> Do not run this sequence until the fix is on the branch being pushed.
+>
+> `validate.ts:486` compares `round1()`. The crosshair readout the child looks
+> at TRUNCATES — `sixFigure` and `gridReading` are both `Math.floor`. So a click
+> at 41.75 to 41.79 displays `417` above the child's finger and is graded 41.8.
+>
+> Measured against Tailwind's real answer, 10,000 clicks whose readout showed
+> the target reference:
+>
+>     ACCEPTED by the shipping grader                 2,500
+>     REFUSED though the readout said they were right 7,500   (75%)
+>
+> Only the lower-left quarter of the correct cell is accepted. **And the task's
+> own hint says "easting 41.7, northing 26.8"** — so a child following the hint
+> exactly has a one-in-four chance of being believed.
+>
+> Fixed at `0acba11` on `lock-library`, which cannot merge yet — it carries an
+> unfinished library. **The engine-only half is being cut onto its own branch
+> from `tailwind`**, which then merges alongside it. Add that merge to step 1.
+>
+> **`main` is unaffected**: it does not have this validator at all. `tailwind` is
+> the only branch carrying the defect into production.
+>
+> Found by an ACCEPTANCE case and findable by nothing else. Every refusal test
+> passed before and after — a grader one tenth out refuses wrong answers
+> perfectly well. **It surfaced because a reference instance asserted that a
+> correct click must be accepted**, which is the contract clause the spec never
+> had. The item was played in a browser and signed off with the bug in it.
+
+
 **Written for Maciej. Every step here is one only he can do** — push is disabled
 at the git level, and the uploads and the production import all write to
 production and stop to ask by design.
