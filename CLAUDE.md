@@ -913,6 +913,32 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**A TEST THAT SIMULATES AN ACTOR NEVER EXERCISES THE PATH THAT ACTOR USES.**
+`resetAgentPin` never cleared the rate-limit counter, and the reason it survived
+review is that its substance could not be called outside a Next request — so the
+natural test simulates the teacher by writing the PIN hash directly
+(`scripts/e2e-pin.ts:72-76` still does). **A simulated teacher never calls the
+thing that was missing.** The fix was to move the substance into a function
+taking its client as an argument, so a test can call what a teacher calls.
+Whenever a test sets up state by hand instead of going through the door, ask
+what lives behind that door.
+
+**A TEST CAN PASS VACUOUSLY AND READ AS A CLASSROOM GUARANTEE.** Two false
+greens, both found only by the mirror run:
+
+  - *the refusal message avoids the word "locked"* passed because under the
+    mirror there was no refusal, so no message, so nothing containing "lock". A
+    property OF A REFUSAL is an attack assertion however classroom-shaped it
+    reads.
+  - a test I specified — *a different child on the same IP still gets in during an
+    attack* — stayed GREEN with the key deliberately broken. Interleaving the
+    other child's successes meant they called `recordSuccess` on the shared key
+    every nine failures and **reset the attacker's count**. It read as *B is
+    unaffected*; what it showed was *B kept rescuing the attacker.*
+
+**Interleaving a legitimate actor into an attack test can neutralise the
+attack.** Run the attack to a real trip with nobody clearing it, THEN ask.
+
 **AN ADDITIVE COLUMN AND AN ADDITIVE FUNCTION PARAMETER ARE NOT THE SAME KIND
 OF ADDITIVE, and *additive* is the word doing the damage.** PostgREST resolves an
 RPC by the NAMES of the arguments in the body:
