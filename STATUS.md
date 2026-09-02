@@ -180,8 +180,10 @@ from `git log`; descriptions are each session's account of its own work.
    and **none of it is live**: `resetAgentPin` must clear the counter (none
    exists, and the cooldown precedes the PIN check, so 24h of waiting is the only
    way out); `limitKey` must carry **school_id**; join and login must key alike.
-1. **Migrations interleave** — prod 34; `platform` 35, 38, 39, 41; `tailwind`
-   36, 37, 40. Merge order is set by numbering, not readiness. *(Maciej.)*
+1. **Migrations interleave, so MERGE BOTH BRANCHES BEFORE THE NEXT
+   PRODUCTION PUSH.** Prod 34; `platform` 35, 38, 39, 41; `tailwind` 36, 37, 40.
+   Push after only one lands and the other's files arrive numbered BELOW ones
+   already applied. Merge both first and it is 35–41 in order. *(Maciej.)*
 1. **Operation Tailwind** — `docs/local/briefs/tailwind-build.md` is the
    brief and carries the rulings; `docs/components-built.md` says what the
    series bible claims is reusable and is not. *(Op Builder.)*
