@@ -964,6 +964,28 @@ greens, both found only by the mirror run:
 **Interleaving a legitimate actor into an attack test can neutralise the
 attack.** Run the attack to a real trip with nobody clearing it, THEN ask.
 
+**A CHECK THAT PASSES MAY BE ANSWERING A DIFFERENT QUESTION.** The mobile
+layout had a gap down the right AND too little margin on the left — one
+declaration, `padding-right` only, correct while the sidebar is flush and wrong
+once it stacks. The overflow check had passed honestly: `scrollWidth ==
+innerWidth`, nothing wider than the viewport, both true. **An overflow test
+cannot see an ASYMMETRY** — both sides were inside the page, one just further in.
+It was not broken and not lying. Before trusting a green check against a bug it
+missed, say out loud what question it actually asks.
+
+**`document.referrer` UNDER CLIENT-SIDE ROUTING IS THE ORIGINAL DOCUMENT'S
+REFERRER.** Next navigates without a document load, so walking classes -> class
+-> agent, every page reports the referrer of the FIRST one. A back control built
+on it says *All classes* from inside a class — and **would look correct on a hard
+refresh and only on a hard refresh, which is how it would have shipped if it had
+been checked the easiest way.** Record the route as it is visited, from a
+component that is on every page, and keep referrer only for a cold open.
+
+**A CONTROL THAT NAMES ITS DESTINATION HAS TO KNOW ITS DESTINATION.**
+`history.back()` is a DIRECTION, not a destination: it can leave the site or
+replay a redirect, and nothing it does can be printed on the button beforehand.
+If the label says where it goes, the label is a promise the mechanism must keep.
+
 **A CHECK CONSTRAINT IS A PERMISSION, NOT AN IMPLEMENTATION.** Adding `point`
 and `matching` to `tasks.task_type` made them LEGAL and not one of them
 PLAYABLE. **Adding a task type is at least four coordinated edits:**
