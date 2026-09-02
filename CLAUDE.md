@@ -913,6 +913,16 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**ERRORS ARE LOUD AND A PASS IS QUIET, so the half that DISCRIMINATES is the
+half the output eats.** Five checks on a new CHECK constraint: `psql`'s error
+text for the two REJECTION cases scrolled the ACCEPTANCE result off the top, and
+what remained on screen was four confident passes — **all of them refusals.** A
+constraint that refused everything would have produced exactly that view. The
+acceptance case had to be re-run alone to be read at all. Third instrument in
+one night to produce a confident partial view, after a truncated `sed` window
+and a `/proc` search that could not see its own subject. **Read the quiet result
+first; it is the one that is about to be buried.**
+
 **A WRONG READING THAT REACHES THE RIGHT CONCLUSION BY AN INVENTED MECHANISM
 SURVIVES EVERY CHECK THAT ONLY LOOKS AT CONCLUSIONS.** A session reported a
 comment as promising a `service_role` grant that was not there, then went to the
