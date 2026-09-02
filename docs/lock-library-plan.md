@@ -110,11 +110,30 @@ sharing is what makes parallel work collide.
    nobody uses is a type nobody has tested in anger. Scope it to what is
    AUTHORED, not what is declared: `npm run skins` reported `situation-room` as
    worn while the skin had no CSS at all.
-6. **The Lock Gallery** at `/dev/locks`, never linked publicly — the page that
-   renders every reference instance live.
+6. **The registry and ONE reference instance rendering.** **Decided 2 Sep: there
+   is ONE page, teacher-facing, with the dev extras behind a flag** — not a
+   private `/dev/locks` beside a public list. Two surfaces showing the same
+   twenty locks is another pair that must agree.
+
+   **The page belongs to Website Designer; the registry and the lock rendering
+   belong here.** It lives under `/dashboard/builder`, reached from a Builder
+   page offering *build your own case* and *build your own operation*. WD states
+   the fields it needs as the consumer; this library implements exactly those.
+   **The page renders the registry and never a hand-written list** — a list of
+   twenty descriptions is a claim about what is implemented, and today the
+   honest answer is five.
+
+   **THE DEV FLAG MUST NOT BECOME AN ANSWER PATH.** `loadLockInstances` and
+   `loadLockAnswer` read different tables and neither select list mentions the
+   other, so a caller wanting the public half cannot receive an answer even by
+   accident. **A `?dev` parameter is a view, never an authorisation** — adding an
+   answer-carrying query to a teacher-facing route would undo the split that is
+   the whole reason the answer has its own table. Showing a reference instance's
+   answer is harmless in itself; reaching it through the public loader is not.
 
 **Done when:** the audit is written, the wrapper enforces the three behaviours,
-a removed instance disappears on re-import, and the gallery renders one type.
+a removed instance disappears on re-import, and the registry renders one
+reference instance inside Website Designer's page.
 
 ---
 
@@ -158,7 +177,8 @@ Real code exists nearby; none of it is a library type yet.
 which the drag ruling requires; its dataset was hardwired and needs the fix OB
 made**) · `rank-order` · `sort-bins` · `branching-key`
 
-One subagent per type. Each ships its reference instance and its gallery entry.
+One subagent per type. Each ships its reference instance, which is what the
+teacher-facing page renders for that type.
 
 ---
 
