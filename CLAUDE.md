@@ -313,6 +313,64 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### A GUARD READING `content/` CANNOT FAIL ON THE STATE THE CHILD IS IN
+
+Two matching tasks handed the child their answers — every row sat beside its own
+partner. The content file was corrected and the tests went green. **The page
+was still wrong**, because a renderer reads `tasks.config` in postgres and the
+guard read `content/activities/*.json`. **A content fix is not live until it is
+imported.**
+
+The sharp version, which is Operation Builder's: the guard and its subject read
+**different sources, and the guard reads the wrong one.** It is not that it
+might miss a case — **it is structurally incapable of failing on the state a
+child is in**, and would have reported green forever.
+
+That is the mirror of *a guard must not share its subject's source*. Sharing the
+source makes a guard blind to a wrong source; using a different source makes it
+blind to the real one. **Ask which of the two a person actually meets.**
+
+**The instrument for this already exists and nobody had run it.** `deploy:check`
+compares `content_hash` against the row, so *file edited, not imported* is
+exactly what it reports. The lesson is not *write a database-mode guard* — it
+is *run the one that is already here*.
+
+**Practical rule: make the import part of the fix, not a step after it.** And
+when reporting a content fix as done, quote the ROW, not the file.
+
+
+### SENTRY: FILTER BY `environment:production` OR YOU ARE READING LAPTOPS
+
+Every dev server on every worktree reports into the same Sentry project as
+production. **The events are separable and the field is already there** — the
+Next.js SDK sets `environment` from `NODE_ENV` with nobody configuring it, so a
+local error arrives tagged `development`, with `server_name: DESKTOP-IR4OBVI`
+and a `localhost` url.
+
+**Searching without that filter reads nine laptops as an outage.** On
+2026-09-02 Doc Manager queried `firstSeen:-24h`, found a teacher-facing
+`TypeError` four events old, and reported a live crash nobody had noticed. It
+was a stale `.next` bundle on one dev server, and Website Designer disproved it
+from the repo before anyone opened the event: `git log -S` showed **one commit
+ever touched that identifier**, so no state of the repository had the import
+wrong. *Is not a function while the export exists* is a bundle, not a bug.
+
+**The instrument was fine. The query was the defect.** The field that would
+have settled it was on the event the whole time.
+
+For reference, the entire production picture on 2026-09-02 was ONE issue:
+*Error: The destination stream closed early*, `GET /dashboard`, 46 events, still
+firing, actionability super_low — consistent with a client disconnecting
+mid-stream.
+
+**And Sentry is where the child-facing errors went.** The `/terminal` hang that
+was recorded for hours as *unexplained, nothing logged* was three
+`ReferenceError`s sitting in Sentry the whole time — `isPhaseUnlocked`,
+`loadBoardState`, `board`, all temporal-dead-zone symptoms of the import cycle.
+**Nothing was logged because everything was captured.** Check Sentry before
+calling a fault unexplained.
+
+
 ### THE ENTIRE SUITE PASSED AND FOUR OF TEN ITEMS WERE BROKEN
 
 On 2026-09-02 Operation Tailwind was declared built at ten of eleven acceptance
