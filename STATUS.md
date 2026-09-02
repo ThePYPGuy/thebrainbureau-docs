@@ -61,7 +61,7 @@ Say so when you commit. Four collisions on 2026-08-25, two destroying work.
 | Website redesign | `main` | **all three phases live** — no surface left on the old chrome |
 | Prime Directive | `operation-prime-directive` | dormant; holds nothing `main` lacks — §3 names the command |
 | Platform | `platform` in `../tbb-platform` | scoping and importer both merged to `main` |
-| Operation Tailwind | `tailwind` in `../tbb-tailwind` | in build; **merges before `main` is pushed**, or migrations land out of order |
+| Operation Tailwind | `tailwind` + `tailwind-support` | **eleven of twelve built** — needs the resource upload, then both merges, then the push |
 | Docs | `docs` | own worktree; merges to `main` `--ff-only` |
 
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
@@ -177,8 +177,8 @@ this is the section that pays for the cap. Each description is its own session's
 1. **Many age bands and year groups per activity, not one.** `activities.age_band`
    is a single FK; needs a join table, and the importer must DELETE removed rows.
 1. **Codenames go globally unique with no school**, and `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide. `docs/identity-and-access.md`.
-1. **The ZIP is SUPPLIED, not built** — rebuilt 2 Sep with the corrected pack,
-   at `printables/operation-tailwind-printables.zip`. Upload with `upload:resource`.
+1. **UPLOAD THE FIVE PDFs AND THE ZIP, then merge both branches, then push** — all
+   Tailwind has left. ZIP rebuilt 2 Sep with the corrected pack. *(Maciej: `upload:resource` writes prod storage; push is disabled at the git level.)*
 1. **The Lock Library** — `docs/lock-library-plan.md` (waves, contract, operating model); `docs/lock-library-review.md` (the spec's defects).
 1. **The school gap** — capture it at signup verified against the email domain, an admin page to fix it after the fact, and a **Students page** above Classes. *(WD.)*
 1. **Migrations interleave, so MERGE BEFORE THE NEXT PRODUCTION PUSH.** Prod 34;
