@@ -1449,6 +1449,34 @@ is green today and turns red the instant anything uses one.
 was drawn. The check is worth keeping — it just answers a narrower question
 than its wording implies, and the wording is the part that misleads.
 
+**THE FIFTH INSTANCE WAS COMMITTED BY THE SESSION THAT WROTE THE RULE DOWN, ONE
+FILE LATER.** `npm run locks` was built specifically not to inherit the `skins`
+fault, and its contract-item-7 check verified that a reference instance
+**DECLARED** `accepts` and `refuses` — and never executed either. **It would have
+passed against a validator that refused everything**, which is the one thing
+that clause exists to catch. Both halves now run through `gradeLock`.
+
+**Knowing the rule does not prevent the error**, because the error is not
+ignorance — it is that a declaration is in front of you and the artefact is one
+call away. The only reliable form is to RUN the thing: an assertion that a
+config names an acceptance case is not the assertion that the acceptance case
+is accepted.
+
+### A LOCK MAY NOT SHOW ITS WORKING, AND A TASK MAY
+
+The engine's validators return `{ correct, fields }`, where `fields` says which
+pair matched and which group was wrong. **That is correct for a TASK** — an
+activity may show a child their working. **It is forbidden for a LOCK**, where
+the same detail tells a child which half of a 480-way answer missed.
+
+So the Lock Library's promotion layer is **the boundary where `fields` is
+dropped**, and every adapter returns a bare boolean. That is not tidying up a
+return type: it is the series rule *no partial feedback* being enforced by
+having nowhere to put it, rather than by asking twenty authors to remember.
+
+**Two things that look like one thing** — grading and explaining — and the lock
+contract wants only the first.
+
 That was the FOURTH instance in one day of a guard agreeing with the bug it
 exists to catch: a 403 probe that passed because a failed sign-in answers 401;
 `matching` unit-proven, guard-proven and never drawn; a console authored as two
