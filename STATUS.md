@@ -166,16 +166,16 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 
 ## 7. Recently completed
 
-**A window, not a record** — oldest entries fall off, and git holds the rest.
-This is the section that pays for the 250-line cap; §8 and §10 do not. Hashes
-from `git log`; descriptions are each session's account of its own work.
+**A window, not a record** — oldest entries fall off, git holds the rest, and
+this is the section that pays for the cap. Each description is its own session's.
 
 - `90772aa` — **50 commits live, and the first paid resource is in production storage.** `deploy:check --prod` found no drift either way; `--verify` found the PDF under its real label and nothing unclaimed beside it. **`supabase db push` applied nothing** — 32, 33 and 34 were already on production before the run, confirmed with `migration list --linked`, and nobody has said who put them there. *(WI ran it on Maciej's word.)*
 - `254ef63` + `d9009f8` + `ca03a46` — **teacher printables are served through a route that checks the `entitlements` table, and the admin client comes off the public page.** A private bucket, a streaming route (**a signed URL is a bearer token**), an upload script, and ten tests. `phases` got the anon grant migration 32 needed, proved against a draft phase in the table, so `/missions` runs on the ordinary client. **The 403 probe first passed without testing anything** — a failed sign-in answered 401, which reads like a refusal. *(WI, WD.)*
-- **Queue 1 shipped and is live** — `/join` rebuilt on one identity question, the homepage static behind `proxy.ts`, loading states in both faces, Signal Check's four playtest faults, speed-scaled points with a grace band and a top-three podium, the visual regression harness, and migration 31. Deployed 1 Sep at `26bcafe`; `/` went from `private, no-cache` MISS to **`public` HIT**. The lessons are in `CLAUDE.md`; git holds the rest.
 
 ## 8. Next up
 
+1. **Set a school on `maciejborucki@googlemail.com`** at `/dashboard/account` (live),
+   **then** re-run the backfill — it wrote 0 of 4 on 2 Sep, correctly refusing to invent one.
 1. **Codenames go globally unique with no school** — one index swap, making
    *No school* selectable. Decided 2 Sep, `docs/identity-and-access.md`. **And
    `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide.**
