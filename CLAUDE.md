@@ -913,6 +913,31 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**AN ELEMENT TALLER THAN THE VIEWPORT CAN NEVER STICK AT `top: 0`** — it never
+fits between the top of the screen and the bottom of its own box. 895px of
+column in a 900px viewport: **broken on his laptop, fine on mine**, and no
+amount of reading the CSS finds it. Cap it and let it scroll inside itself —
+`overflow` on the STICKY element is safe; only an ANCESTOR destroys sticky.
+Which was the actual cause here: `.dashBand { overflow: hidden }` gave it a
+clipped, non-scrolling container, measured as -783 with the rule and -30 with
+overflow forced visible.
+
+**AND SCROLLING PAST THE STICKY RANGE LOOKS LIKE FAILURE.** A 1143px scroll
+reported *does not hold* at -337; the element was 895px inside a 1653px
+container, so it holds for 758px and then travels with the container's end,
+which is what sticky IS. Measure inside the range.
+
+**`focus()` ON A HIDDEN ELEMENT DOES NOTHING AND DOES NOT FAIL.** The first
+link in a menu panel was `display: none` at that width, so focus never entered
+and nothing errored. **Assert where focus LANDED, never that the call was made.**
+
+**A SHARED CLASS BREAKS THE PAGE YOU ARE NOT LOOKING AT.** Painting a navy
+column on `.dashBand` put a 240px navy stripe down the CHILD'S `/profile`, which
+reuses that class and has no sidebar. The dashboard looked right, every other
+check passed, and **the page that broke was not the page being worked on** —
+caught only because `/profile` happens to be in the visual suite. Before styling
+a shared class, grep who else claims it.
+
 **A TEST THAT SIMULATES AN ACTOR NEVER EXERCISES THE PATH THAT ACTOR USES.**
 `resetAgentPin` never cleared the rate-limit counter, and the reason it survived
 review is that its substance could not be called outside a Next request — so the

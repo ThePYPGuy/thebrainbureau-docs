@@ -184,7 +184,7 @@ from `git log`; descriptions are each session's account of its own work.
    PRODUCTION PUSH.** Prod 34; `platform` 35, 38, 39, 41; `tailwind` 36, 37, 40.
    Push after only one lands and the other's files arrive numbered BELOW ones
    already applied. Merge both first and it is 35–41 in order. *(Maciej.)*
-1. **The dashboard shell** — navy top bar out, logo and sign-out into the sidebar, sticky made to hold, hamburger below the breakpoint. *(WD, briefed.)*
+1. **Authenticated visual captures.** Every teacher-facing surface is outside the harness, which needs a sign-in it does not have. A navy stripe on the child's `/profile` was caught only because that page happens to be in the suite; nothing that broke a dashboard would have been. **Its own piece of work, not a tail on another job** — a controlled React form filled before hydration submits nothing and photographs a login page at self-diff 0. *(WD, unqueued.)*
 1. **Operation Tailwind** — `docs/local/briefs/tailwind-build.md` carries the
    brief and the rulings; `docs/components-built.md` corrects the bible. *(Op Builder.)*
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. **Rotation took
