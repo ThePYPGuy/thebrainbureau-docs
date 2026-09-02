@@ -114,6 +114,37 @@ agree* assumes both were derived from one source. When one of them was derived
 from a document rather than from the thing itself, agreement is not evidence —
 **two documents copied from each other agree perfectly and can both be wrong.**
 
+## THE ARTWORK IS NOT WIRED IN — 13 of 16 images referenced by nothing
+
+Found 2 Sep when Maciej asked *why are the graphics and the room missing?*
+**It is not the room. The room is the visible corner of it.**
+
+    USED    maps/wall-map.png, map-a-banc-darguin.svg, map-b-walvis-bay.svg
+    unused  9 document props, 3 console props, scene/situation-room.png
+
+`content/activities/operation-tailwind.json` names only the three maps. The
+maps are in because they were built directly into `point` tasks during the
+build. **The twelve props were generated as a separate stream — with overlay
+quads measured for all twelve and slot geometry for the dish console — and the
+authoring step that attaches them to items never ran.**
+
+So every item renders as text, the console had no art behind its controls, and
+the board is a recoloured terminal. **Every piece of preparation is complete
+and nothing consumes it.**
+
+**The same shape as the rest of this file, at the largest scale in it:** a
+table with no writer, a route with no client, a guard reading the wrong file,
+and now an entire visual layer with no reference. Two halves individually
+correct and nothing joining them.
+
+**Why nobody caught it, including the verification:** items were checked for
+whether they ACCEPT a correct answer, and they do. A text-only panel that
+grades correctly passes every check anyone ran, including mine in a browser.
+**I read *it works* as *it is right*.** Maciej's question found it.
+
+**State: mechanically complete, visually bare.** That is a day of authoring,
+not a defect, and it is the honest description of where the Operation stands.
+
 ## What was never seen to work, recorded rather than smoothed over
 
 Operation Builder stood down on 2 Sep having written this down itself. **It is
