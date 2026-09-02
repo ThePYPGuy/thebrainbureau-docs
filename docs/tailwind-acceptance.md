@@ -114,6 +114,70 @@ agree* assumes both were derived from one source. When one of them was derived
 from a document rather than from the thing itself, agreement is not evidence —
 **two documents copied from each other agree perfectly and can both be wrong.**
 
+## THE ROOM IS BUILT — 3 Sep, overnight
+
+**The board is now the Situation Room.** The section below records what was
+wrong and why; this records what replaced it. Built by three agents in
+`~/tbb-tailwind`, **657 tests green**, every piece verified by looking at the
+rendered page rather than at a test.
+
+    scene       situation-room.png filling the surface
+    wall map    composited into the board interior, letterboxed, never stretched
+    documents   nine, pinned in the clear wall columns and above the console,
+                each cropped to its measured paper quad, click to open
+    document    the prop art with its text laid on the paper, rotated to match
+    console     dormant, correctly locked at 7 of 8 findings
+    flavour     six hotspots, one line then a second, seen state persisted
+    shelf       six Reference Files R1-R6, verbatim, opening off the spines
+
+### What the source material got wrong, all caught before it shipped
+
+**The scene notes:** the map ratio given as 0.855 is the DEGREE SPANS, not the
+image — `wall-map.png` is 1880x2080, so the real letterbox is ~12% of the
+board's height, not 4%. **The y compositing formula that follows is wrong by
+40px at the extremes and nearly right at the equator**, so checking it in the
+middle reads as agreement. The right clear-wall column starts at x 1250 while
+the board's drawn frame runs to ~1258, so built literally, items 4-6 overlapped
+the board edge. **All five flavour boxes run 18-23px onto the desk's front
+face** — the radio's cut off its aerial, the lamp's its shade.
+
+**`prop-quads.json`:** `angleDeg` is NOT the rotation. The tool describes the
+rectangle in a hull-edge basis and names corners by SCREEN position, and those
+agree only below 45 degrees — `scrambled-burst` and `trawler-log` are each 90
+degrees out. The art settles it: the trawler's log has ruled lines baked in at
+-33.5 degrees. **The brief told both agents to trust that field and was wrong.**
+`ranger-report`'s quad bounds two sheets and runs off the image at y 908.5 of
+896.
+
+**The artwork:** `situation-room.png` has eight rows of pure white across its
+bottom edge, invisible while it was a `cover` background. And **four of the nine
+document props are the situation room over again** — `daylight-chart`,
+`ghost-pings-bulletin`, `field-guide-page`, `sun-clock-sheet`. Cropping to the
+paper recovers a wall thumbnail; the full-size view of those four is still the
+room. **They need regenerating.** `field-guide-page.png` also has red string
+painted in, which the notes forbid outright.
+
+### Still open, and both are Maciej's
+
+- **Four props to regenerate**, above.
+- **Four documents cannot fit their text on their paper** at a readable size:
+  `krill-bulletin` needs 810px, `trawler-log` 860, `field-guide-page` 1150,
+  **`sun-clock-sheet` 1350** against a board giving 760. They currently show the
+  art with the text beneath it, which works and is not what the spec describes.
+  **Widening the room is a layout decision on his room.**
+
+### Filed, not fixed
+
+- **The hint button is unreachable on every Tailwind task.** All sixteen serve
+  `hasHint: true` and cost Intel; `HandlerHint` renders only in
+  `FixedNumericTask`, and Tailwind has none. Pre-existing.
+- **"Easier to read" is lost on every cold load, on every surface** —
+  `applyClearViewToDocument` is called only from the toggle, which renders on
+  two pages. Platform-wide, not Tailwind's.
+- **Reference File R2's worked example uses fix D's real reading and
+  longitude.** Transcribed unchanged because it is approved source, and named in
+  the leak test's comment rather than filtered silently.
+
 ## THE BOARD IS THE WRONG SHAPE — the specified mechanic was never built
 
 Maciej, 2 Sep, on being shown the room rendered behind the panel: *"the room is
