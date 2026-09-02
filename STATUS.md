@@ -176,10 +176,10 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **Rate limiting: three defects, a subagent on them.** `resetAgentPin` must
-   clear the counter (none exists, and the cooldown precedes the PIN check);
-   `limitKey` must carry **school_id**; join and login must key alike. **None is
-   live; none may merge until all three land.**
+1. **A student belongs to ONE teacher** — `agents.teacher_id` is `not null`,
+   so many classes are fine but only that teacher's. Same root as *only their own
+   teacher can reset a PIN*. Schema change, Maciej's scope.
+1. **The school gap** — capture it at signup verified against the email domain, an admin page to fix it after the fact, and a **Students page** above Classes. *(WD.)*
 1. **Migrations interleave, so MERGE BOTH BRANCHES BEFORE THE NEXT
    PRODUCTION PUSH.** Prod 34; `platform` 35, 38, 39, 41; `tailwind` 36, 37, 40.
    Push after only one lands and the other's files arrive numbered BELOW ones
