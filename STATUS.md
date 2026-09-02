@@ -176,9 +176,9 @@ from `git log`; descriptions are each session's account of its own work.
 
 ## 8. Next up
 
-1. **A student belongs to ONE teacher** — `agents.teacher_id` is `not null`,
-   so many classes are fine but only that teacher's. Same root as *only their own
-   teacher can reset a PIN*. Schema change, Maciej's scope.
+1. **Codenames go globally unique with no school** — one index swap, making
+   *No school* selectable. Decided 2 Sep, `docs/identity-and-access.md`. **And
+   `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide.**
 1. **The school gap** — capture it at signup verified against the email domain, an admin page to fix it after the fact, and a **Students page** above Classes. *(WD.)*
 1. **Migrations interleave, so MERGE BOTH BRANCHES BEFORE THE NEXT
    PRODUCTION PUSH.** Prod 34; `platform` 35, 38, 39, 41; `tailwind` 36, 37, 40.

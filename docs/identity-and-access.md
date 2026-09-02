@@ -440,3 +440,44 @@ Still to come behind those slots: the avatar system itself, and the store,
 which spends the Intel *balance* rather than lifetime earned — see
 [intel-and-clearance.md](intel-and-clearance.md). The dashboard shows lifetime
 Intel today because the balance does not exist yet.
+
+## Codenames outside a school — decided 2 Sep
+
+**Inside a school the school owns the namespace, and that is already built.**
+`agents_school_codename_key` is `unique (school_id, codename) where school_id is
+not null`, and the migration says why: *one child is one agent across every
+teacher in the building.* So a child joining a second teacher's class in the
+same school gets their EXISTING agent and their existing progress. **This is not
+a change we need to make; it is a change we need to make TRUE**, by giving
+teachers and their classes a `school_id`.
+
+**Outside a school, codenames become GLOBALLY unique.** One index swap:
+
+    -- was
+    unique (teacher_id, codename) where school_id is null
+    -- now
+    unique (codename) where school_id is null
+
+**That is what makes *No school* a real option at the front door.** A schoolless
+codename then resolves to exactly one agent, so a child can pick *No school*,
+type their codename and PIN, and be found — no class code, no remembered device,
+no ambiguity between two independent teachers who both have a DAVE.
+
+**Maciej's argument, which corrected mine:** this is simply how usernames work.
+*That name is taken, pick another* is met by children on Roblox before they meet
+it here, and a service saying a name is taken is not a leak worth designing
+around.
+
+**The one asymmetry, and why it is the right way round.** In a school a
+collision is LOCALLY RESOLVABLE — you can ask who the other DAVE is — and thirty
+children picking names in a five-minute window is exactly where a global
+refusal would sting. Outside one, the population is tutors and home educators
+with one or two children at a time, unhurried. **So the case that would hurt
+stays school-scoped and the case that can absorb it goes global.**
+
+**Consequence to fix alongside it:** `resetAgentPin` scopes by
+`agents.teacher_id`, which records who CREATED the child rather than who owns
+them. Where a school owns the namespace, every teacher in the building shares
+the child and only one of them can reset their PIN. **The namespace is
+school-wide and the permission is teacher-scoped**, which is the actual bug
+behind *only their own teacher can reset a PIN.*
