@@ -983,6 +983,27 @@ as safe. `lib/server/live-play.ts:320` sends `p_points`; a default on the
 function parameter does not help, because the failure is name RESOLUTION, before
 any default applies.
 
+**TWO COPIES THAT EMIT THE SAME MESSAGE MEAN YOU CANNOT TELL WHICH ONE RAN.**
+`scripts/deploy-check.ts` carries its OWN `projectRef()` (L81), `resolveTarget()`
+(L95) and api-keys `execFileSync` (L132) and never imports `target.ts`. A session
+edited `target.ts`, set the timeout to **1ms**, and `deploy:check --prod` still
+succeeded — then cleared the vite cache, suspecting that, and it succeeded again.
+**Every experiment was measuring a different file from the one being edited, and
+the duplicate's error text is identical, so the failure branch looked tested.**
+
+**A `console.error` MARKER IMMEDIATELY BEFORE THE CODE UNDER TEST IS THE CHEAPEST
+WAY TO PROVE THE FILE YOU EDITED IS THE FILE THAT RUNS.** The marker never
+printed. Reach for it the moment a change appears to have no effect — before
+blaming a cache, a build or the change itself.
+
+**WRITE DOWN A MEASUREMENT WITH ITS CONDITIONS OR IT WILL READ AS A REGRESSION.**
+The api-keys call was measured at **84s** by one session and **2.4s** by another
+on the same machine minutes later. Neither is wrong: **a COLD `npx` downloads the
+Supabase CLI first.** *The call takes 84 seconds* would be false for everyone
+with a warm cache and would look like something had broken. *A cold `npx` can
+take 84 seconds; warm it is under three* is the version that survives, and it is
+still the reason the budget is 180s rather than 90.
+
 **TELL A NEW SESSION WHAT A COMMIT MADE IN ITS FOLDER DOES, not just which
 folder is its own.** `scripts/new-worktree.sh` now prints an opening prompt
 carrying the line *commits you make land on `<branch>` because that is what this
