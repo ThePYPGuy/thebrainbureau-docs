@@ -20,8 +20,28 @@
 > exactly has a one-in-four chance of being believed.
 >
 > Fixed at `0acba11` on `lock-library`, which cannot merge yet — it carries an
-> unfinished library. **The engine-only half is being cut onto its own branch
-> from `tailwind`**, which then merges alongside it. Add that merge to step 1.
+> unfinished library. The engine-only half goes onto `fix-grid-exact`, cut from
+> `tailwind`, which then merges alongside it. Add that merge to step 1.
+>
+> ### THE BRANCH EXISTS AND IS EMPTY — DO NOT MERGE IT YET
+>
+> As of this writing `fix-grid-exact` is **identical to `tailwind`**:
+>
+>     git diff --name-only tailwind...fix-grid-exact   -> empty
+>     git log --oneline tailwind..fix-grid-exact       -> empty
+>     validate.ts:486                                  -> still round1(gx)
+>
+> **Merging it would succeed, change nothing, and ship the defect** — and it
+> would succeed cleanly, because there is nothing in it to conflict. A branch
+> named for a fix reads as a cleared blocker.
+>
+> **Verify before you merge it, with these two commands:**
+>
+>     git show fix-grid-exact:lib/engine/validate.ts | grep -c "round1(gx)"
+>     git diff --name-only tailwind...fix-grid-exact
+>
+> **0 and three engine files** means the fix is really on it. Anything else
+> means it is not, whatever the branch is called.
 >
 > **`main` is unaffected**: it does not have this validator at all. `tailwind` is
 > the only branch carrying the defect into production.
