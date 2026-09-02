@@ -313,6 +313,38 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### The local database, `schema_migrations` and the FILES all disagree
+
+Measured 2026-09-02, all three directions at once:
+
+    files on tailwind        35..42 complete
+    files on main            36 37 40 42 absent
+    local schema_migrations  36 37 40 42 absent
+    the local SCHEMA         every object from all four EXISTS
+
+Those four were applied as **raw DDL** rather than through the runner, so the
+objects are there and the ledger does not know it — the deliberate call, made
+twice, to avoid rewriting shared history from a branch.
+
+**Two consequences, and the second is the one people get backwards.**
+
+**A FRESH WORKTREE CANNOT RUN `migration up --local`.** It will fail on objects
+that already exist in the shared database — and the local Postgres is shared by
+every worktree. Read the schema before assuming a migration has not run.
+
+**PRODUCTION IS THE CLEAN CASE.** It has NONE of 35..42 applied, so after both
+branches merge, all eight files apply in order, first time, with nothing to
+interleave. **The local mess reads as though production is dangerous and it is
+not.** Say so plainly whenever the local state is described, or somebody will
+treat a deploy as risky for the wrong reason.
+
+**And the ordering rule is narrower than it looks.** 40 and 42 widen a CHECK
+constraint that gates the IMPORT, not the app — nothing the deployed code does
+sends a task type to the database. So the order that matters is *migration
+before `import -- --prod`*, not migration before deploy. Pushing code first is
+harmless; the new renderers simply have nothing to draw until content lands.
+
+
 ### A peer's name for a third party is not an address you can use
 
 The naming hazard is worse than *addresses rotate*. **The registry view DIFFERS

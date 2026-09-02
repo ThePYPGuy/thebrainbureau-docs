@@ -125,7 +125,11 @@ played end to end — a real click on the wall map returning *POSITION CONFIRMED
 and a `choice` completing a phase and posting `richest-feeding`. The other
 seven are proven by unit tests and by the fixed-facts script, **not by use.**
 
-**The console has never been DRAWN.** All 480 combinations are enumerated and
+**The console has never been DRAWN, and it is short against items 3 AND 5.**
+Doc Manager called it item 5 at stand-down and had said item 3 earlier; both
+are affected — **3** is *the console lights on findings* and **5** is *479
+refused identically*, and neither can be seen without drawing it.
+All 480 combinations are enumerated and
 graded — one accepted, 479 refused, one distinct refusal shape — and the thing
 has not appeared on a screen. That is stronger evidence than most UI ever
 gets, and it is not the same evidence. `matching` was unit-proven,
