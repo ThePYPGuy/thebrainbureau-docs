@@ -507,3 +507,32 @@ no-school front door.** Three pieces, in order:
 
 Note that `candidateAgents` itself is written but **not deployed** — check with
 `git merge-base --is-ancestor $(git log -1 --format=%H -- lib/server/agent.ts) origin/main`.
+
+## The RLS policies on `agents` and `class_members` do not line up
+
+Found by Website Designer on 2 Sep while writing the Students page, and it is
+**more serious than the warning it was given.**
+
+    class_members   readable when the CLASS is mine  (classes.teacher_id = auth.uid())
+    agents          readable when I CREATED the child (agents_own: teacher_id = auth.uid())
+
+**A teacher can read the membership row for a colleague's child in their own
+class and cannot read that child's agent row.** So the correct query — every
+child in my classes — **is not merely risky today, it is UNEXPRESSABLE**, and the
+naive `agents.teacher_id = me` is the only form that returns anything.
+
+Today both return identical rows, because no teacher on production has a
+school and so no class contains another teacher's child. **The moment a school
+exists this page will know somebody is in the class and be unable to say
+who** — and everything else built on cross-teacher identity meets the same wall.
+
+**What it needs:** a policy on `agents` admitting a teacher whose CLASS the
+agent belongs to, not only the teacher who created them. That is the RLS half
+of the same decision as `agents_school_codename_key` — the namespace was made
+school-wide and the read policy was not.
+
+**Until then the roll COUNTS what it cannot read and says so on the page**,
+rather than returning fewer rows. A page a teacher uses to check nobody is
+missing is the worst possible place to silently omit a child. The counter is
+zero everywhere today; **non-zero is the signal that the gap has become real.**
+

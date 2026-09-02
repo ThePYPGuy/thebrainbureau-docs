@@ -313,6 +313,24 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### A lookup with a FALLBACK fails by being plausible, not by being empty
+
+`BackLink` names each route in a table and falls back to the longest matching
+prefix. A page added without a table entry therefore **still renders a control**
+ — one labelled *Dashboard* that navigated to the Builder. **That is the exact
+defect the component was written to remove**, reintroduced within minutes of
+adding a page, by its author.
+
+An absent entry produced no error, no blank, and no obviously wrong label. It
+produced a **believable** one. Nothing in a test or a typecheck can see this,
+because the fallback is behaving exactly as designed.
+
+**So walk the route rather than reading the table.** And where a lookup governs
+something a person acts on, prefer a total map — `Record<Key, Value>` over a
+partial one with a default — so an unregistered key fails to COMPILE instead of
+resolving to something reasonable.
+
+
 ### A BREAK THAT DID NOT HAPPEN LOOKS EXACTLY LIKE A GUARD THAT WORKS
 
 The way to prove a guard is to break what it guards and watch it fail. **The
