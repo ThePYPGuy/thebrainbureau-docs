@@ -176,17 +176,17 @@ this is the section that pays for the cap. Each description is its own session's
 
 1. **Many age bands and year groups per activity, not one.** `activities.age_band`
    is a single FK; needs a join table, and the importer must DELETE removed rows.
-1. **Codenames go globally unique with no school**, and `resetAgentPin` scopes by
-   `teacher_id` while the namespace is school-wide. `docs/identity-and-access.md`.
-1. **Three of Tailwind's twelve acceptance items have no code at all** — board state, photo credits, the ZIP step. `docs/tailwind-acceptance.md`.
+1. **Codenames go globally unique with no school**, and `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide. `docs/identity-and-access.md`.
+1. **The ZIP deploy step is the last acceptance item with no code, and it is
+   UNOWNED** — Tailwind Support is closed. Prebuilt at deploy, never on request;
+   `upload-resource.ts` mentions zip in a comment only. `docs/tailwind-acceptance.md`.
 1. **The school gap** — capture it at signup verified against the email domain, an admin page to fix it after the fact, and a **Students page** above Classes. *(WD.)*
-1. **Migrations interleave, so MERGE BOTH BRANCHES BEFORE THE NEXT
-   PRODUCTION PUSH.** Prod 34; `platform` 35, 38, 39, 41; `tailwind` 36, 37, 40.
-   Push after only one lands and the other's files arrive numbered BELOW ones
-   already applied. Merge both first and it is 35–41 in order. *(Maciej.)*
+1. **Migrations interleave, so MERGE BEFORE THE NEXT PRODUCTION PUSH.** Prod 34;
+   `main` 35, 38, 39, 41; `tailwind` 36, 37, 40, 42; `tailwind-support` none.
+   Push after only one lands and the other's arrive numbered BELOW ones already
+   applied. Both merge clean — `git merge-tree --write-tree main <branch>`. *(Maciej.)*
 1. **Authenticated visual captures.** Every teacher-facing surface is outside the harness, which needs a sign-in it does not have. A navy stripe on the child's `/profile` was caught only because that page happens to be in the suite; nothing that broke a dashboard would have been. **Its own piece of work, not a tail on another job** — a controlled React form filled before hydration submits nothing and photographs a login page at self-diff 0. *(WD, unqueued.)*
-1. **Operation Tailwind** — `docs/local/briefs/tailwind-build.md` carries the
-   brief and the rulings; `docs/components-built.md` corrects the bible. *(Op Builder.)*
+1. **Operation Tailwind** — `docs/local/briefs/tailwind-build.md` carries the brief and the rulings. *(Op Builder.)*
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. **Rotation took
    the irreversibility out of it** — a code can be retired, so no decision here
    is frozen in a download. *(WI: table, route, write. WD: the page.)*
