@@ -280,6 +280,28 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### `state.ts` and `check.ts` import each other, and typecheck cannot see it
+
+Verified on `main` as well as `tailwind`, so this is everyone's: `state.ts:5`
+imports `reconcilePhases` from `./check`, and `check.ts:4` imports
+`loadSelectionRows` from `./state`.
+
+Adding ONE more import to `state.ts` tipped the cycle into a temporal-dead-zone
+`ReferenceError`. **Every symptom pointed away from the cause:**
+
+- `npm run typecheck` passed — a cycle is legal TypeScript
+- the page rendered `Loading` and stayed there, which reads as slow, not broken
+- the server logged nothing
+- **the response was a `200`**, because a `loading.tsx` boundary streams the
+  error after the status line has already gone out
+
+Splitting the value imports from the type imports cleared it. **The cycle is
+still there.** The next import added to either file may do the same, and will
+present the same way — as a slow page.
+
+Found by Operation Builder on 2026-09-02, after the fault had cost it real time.
+
+
 **A lint exemption keyed to a substring widens when you restyle, not when you
 edit the lint.** `check-tokens.ts` decides what is exempt with
 `sel.includes("[data-skin")` — a plain string test on the selector. On 31 August
