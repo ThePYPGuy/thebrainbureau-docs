@@ -1150,10 +1150,30 @@ from `supabase status`.
 **On sessions seeing each other: record the OBSERVATION, not a mechanism.** A
 WSL-native session and a Windows session did not appear in each other's
 `ListAgents`, and *pipe versus socket* is a tidy story that **does not fit all
-of it** — the WSL session saw two Windows peers early and none later. The
-process table answers what the registry cannot:
+of it** — the WSL session saw two Windows peers early and none later.
+
+**The process table is ASYMMETRIC and I misread it as an answer.**
 
     ls -l /proc/*/cwd | grep <worktree>
+
+**A HIT is real** — it found the WSL-native builder in `~/tbb-tailwind`. **A MISS
+proves nothing.** Every Windows-launched session on this machine has cwd
+`/mnt/c/Users/Admin/Claude's Folder` and reaches the repo through
+`wsl -e bash -ic 'cd /home/maciej/...'`, so a session that has been committing
+to a worktree all evening never appears under it. I concluded *nobody owns this
+work* from a miss, and the session that corrected me had committed to that repo
+an hour earlier from exactly such a process. **A cwd cannot distinguish a
+session working in one worktree from one working in another when both were
+launched from the same directory.**
+
+That is the *instrument could not have seen a presence* rule, applied to the
+check that replaced the thing it corrected, one hour after filing it.
+
+**When the question is who owns something, ASK. The sessions answer.** Two of
+three ruled themselves out in their own words, which is better evidence than a
+cwd and is the only kind available while registry names rotate per connection.
+And the honest recording is **unowned as far as anyone has claimed it** — which
+needs no instrument at all.
 
 **A branch level with `main` is a tree that looks innocuous to push from.**
 `signal-check` fast-forwarded to `main`, so `git log origin/main..signal-check`
