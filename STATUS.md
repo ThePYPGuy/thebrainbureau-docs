@@ -195,10 +195,8 @@ from `git log`; descriptions are each session's account of its own work.
 1. **A narrow-viewport pass on the two newest surfaces.** The catalogue tiles
    and the activity page **have never been rendered below 1280** — the breakpoints
    were written from the layout pass's rules, unobserved. *(WD, unqueued.)*
-1. **Run `sudo npx playwright install-deps chromium` once.** Without it
-   `check:visual` cannot run, so **a session cannot gate its own work**. And
-   **baselines cannot be made from Windows** — an unchanged page differs by
-   326,418 pixels across platforms, so only WI can regenerate them. *(Maciej.)*
+1. **Baselines cannot be made from Windows** — an unchanged page differs by
+   326,418 pixels across platforms. Regenerate them where they are checked.
 
 ## 9. Open decisions — waiting on Maciej
 
