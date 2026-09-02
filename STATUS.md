@@ -33,21 +33,23 @@ cheaper check is wrong.
 
 | Name | Owns | Worktree | Holding the tree? |
 |---|---|---|---|
-| **Operation Builder** | Prime Directive + the Case File skin | own, on `case-file` + PD | n/a |
+| **Operation Builder** | Operation Tailwind | `~/tbb-tailwind`, on `tailwind` | n/a |
 | **Website Infrastructure** | Platform, engine, scripts, checks | own, on `platform` | n/a |
 | **Quiz Maker** | Signal Check and the live modes | own, on `signal-check` | n/a |
 | **Website Designer** | The Bureau face — marketing site, both dashboards | **`main`'s tree** | yes |
 | **Doc Manager** | `STATUS.md`, `CLAUDE.md`, `docs/`. Not `scripts/docs-sync.mjs`, and **never `git push`** — publishing is the builder's whose code goes out | own, on `docs` | n/a — never in main's tree |
 
+**An ADDRESS is neither a title nor a worktree** — it comes from where a
+session connected, so it can say `tbb-quiz` while the work is in `tbb-tailwind`,
+and it moves on reconnect. `ListAgents` addresses, `list_sessions` titles.
+
 **Before your first write, run `git status --porcelain`.**
 
-- **Empty** — the tree is yours. Work, then commit only the paths you
-  authored, by name.
+- **Empty** — the tree is yours. Commit only the paths you authored, by name.
 - **Not empty** — stop. Do not edit, commit, stash, renormalise or switch
   branches. Say which files you found, and wait for the tree to clear.
 
-Say so when you commit. Four collisions on 2026-08-25, two destroying work;
-mechanics in `CLAUDE.md`.
+Say so when you commit. Four collisions on 2026-08-25, two destroying work.
 
 ## 2. Active work
 
@@ -57,8 +59,9 @@ mechanics in `CLAUDE.md`.
 |---|---|---|
 | Case File skin | `main` | Stages 1–2 done; 3 blocked on images — dormant |
 | Website redesign | `main` | **all three phases live** — no surface left on the old chrome |
-| Prime Directive | `operation-prime-directive` | **identical to `main`** at `cac3f44` |
+| Prime Directive | `operation-prime-directive` | dormant; holds nothing `main` lacks — §3 names the command |
 | Platform | `platform` in `../tbb-platform` | scoping and importer both merged to `main` |
+| Operation Tailwind | `tailwind` in `../tbb-tailwind` | in build; **merges before `main` is pushed**, or migrations land out of order |
 | Docs | `docs` | own worktree; merges to `main` `--ff-only` |
 
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the
@@ -68,14 +71,11 @@ mirror, not `origin`. The cycle, not a backlog, and not another session's to pus
 
 Live collisions only; standing hazards are in `CLAUDE.md`.
 
-- **A branch merge is a snapshot, not a subscription.** `operation-prime-directive`
-  is 15 behind. Run `git rev-list --left-right --count main...HEAD` before
-  judging how anything on a branch looks — never the last merge date.
+- **A branch merge is a snapshot, not a subscription.** Run `git rev-list --left-right --count main...HEAD` before judging any branch, never the last merge date.
 - **`"import"` globs now; `"import:training"` still does not.** `package.json:16`
   names three bank files by hand, so the bank refactor and every new bank collide
   there the way activities used to. Read both lines before assuming either —
   `"import"` runs `scripts/import-all.ts`, which walks both directories.
-- **`bb49a62` duplicates `5fda3d3`** — verified; cherry-pick residue is inference. Likely to conflict on merge.
 
 ## 4. Publish state
 
