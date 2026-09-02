@@ -964,6 +964,28 @@ greens, both found only by the mirror run:
 **Interleaving a legitimate actor into an attack test can neutralise the
 attack.** Run the attack to a real trip with nobody clearing it, THEN ask.
 
+**A CASE THE CODE IS STRUCTURED TO HANDLE, DISABLED AT THE CALL SITE — AND
+THIS IS THE SECOND INSTANCE.** `check.ts:90` reads
+`config.selectionId ?? "countries"`; **`check.ts:149`, one branch below, passes
+the literal `"countries"` and asserts `activity.dataset_id!` non-null.**
+`ordering` had the same option available and did not take it. Invisible since it
+was written, because the only activity that orders anything happens to have a
+dataset. First instance was `lockedReason(tier, false)`. **When one branch
+parameterises something and its neighbour hardcodes it, the neighbour is the
+bug** — the parameter's existence is the evidence.
+
+**AND THE FAILURE IS AN ERROR MESSAGE NAMING A STEP THE ACTIVITY DOES NOT HAVE.**
+An `ordering` task in an activity with no dataset returns *"Choose your targets
+first."* — to a child who has done nothing wrong, about a step that does not
+exist for them. **A message can be true of the code and impossible for the
+reader.** Ask what an error tells someone who cannot do the thing it asks.
+
+**A GUARD THAT REPORTS A STATE RATHER THAN FAILING EARNS ITS KEEP LATER.**
+`test:task-types` listed `choice` as *declared but not renderable* and stayed
+green, correctly, because nothing authored one. **Six of Tailwind's nine items
+need it, and that report is what turned the gap into a finding before a line of
+content was written** rather than after a child met a grey line.
+
 **A PROPERTY TEST FINDS EVERYTHING WITH THAT PROPERTY, NOT THE THING YOU
 MEANT.** Measuring the pinboard in a scene by scanning for cream pixels returned
 a board 87% of the frame wide — the ring binders, the mug, the framed photo and
