@@ -913,6 +913,26 @@ user-scoped client. Hand the same function an admin client and RLS is bypassed,
 leaving only its own `.eq` between one teacher and another's rows. Nothing in the
 type stops that.
 
+**A WRONG READING THAT REACHES THE RIGHT CONCLUSION BY AN INVENTED MECHANISM
+SURVIVES EVERY CHECK THAT ONLY LOOKS AT CONCLUSIONS.** A session reported a
+comment as promising a `service_role` grant that was not there, then went to the
+database, found `service_role` holding all four privileges, and **explained them
+away as Supabase defaults**. The conclusion — *no hole, the audit passes* — was
+correct. The mechanism was invented to fit an absence its own tooling had
+manufactured, and its verification checked the conclusion rather than the claim.
+**Being right is not evidence that you read correctly.**
+
+**A READ WINDOW DOES NOT ANNOUNCE THAT IT STOPPED.** `sed -n "15,110p"` on a
+116-line file returns 96 confident lines with no error, no marker, and nothing
+distinguishing *the file ends here* from *my window ends here* — and the grant
+was at 112. **Before reporting that something is ABSENT from a file, establish
+that you read to the end of it.** Sibling of *establish that your instrument
+could have seen a presence*: there the instrument looked in the wrong place;
+here it looked in the right place and stopped early, silently, in a way that
+reads as completeness.
+
+*(Submitted by the session that made the error, against itself, unprompted.)*
+
 **THREE SOURCES, AND TONIGHT ALL THREE DISAGREED. Files say what has been
 WRITTEN. `schema_migrations` says what has been RECORDED. Only the schema says
 what IS.** Verified: history held 35, 38, 39, 41 with **no 36 and no 37**, while
