@@ -71,10 +71,18 @@ wrong, and wrong in the same way, which is why they agree with each other:
   carries, which `operation-tailwind-reference-files.md:129` had already asked
   for in writing
 
-**So the site will deliberately not match R6 until R6 is reprinted.** A credit
-is a legal statement, and knowingly reproducing a wrong one to preserve
-agreement is the wrong trade. **Do not reconcile the site to the PDF.** If they
-still disagree, the PDF is the one that has not been fixed yet.
+**THE REPRINT WAS DECLINED ON 2 SEP, SO THE DIVERGENCE IS PERMANENT AND
+INTENTIONAL.** The site ships the corrected wording; R6 ships as printed.
+**Do not reconcile the site to the PDF, and do not queue the reprint again** —
+it was considered and declined, not overlooked. A credit is a legal statement,
+and knowingly reproducing a wrong one to preserve agreement is the wrong trade.
+
+Recorded so the decision is not re-litigated by someone finding the mismatch:
+two of the three differences are cosmetic — R6 overstates an obligation for the
+phytoplankton, and omits a version for the herring. The third is not: **CC BY
+2.0 requires naming the author, and R6 names none**, so that printed line is
+arguably short of its licence terms rather than merely loose. Maciej was told
+this and declined the reprint anyway, which is his to decide.
 
 The general form, worth carrying into the Lock Library: *paper and screen must
 agree* assumes both were derived from one source. When one of them was derived
