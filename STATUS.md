@@ -61,7 +61,7 @@ Say so when you commit. Four collisions on 2026-08-25, two destroying work.
 | Website redesign | `main` | **all three phases live** — no surface left on the old chrome |
 | Lock Library | `lock-library` in `../tbb-locks` | **wave 0 DONE** — registry, wrapper, replace-import, `npm run locks`, migration 43. Wave 1 next: five types by subagent |
 | Platform | `platform` in `../tbb-platform` | scoping and importer both merged to `main` |
-| Operation Tailwind | `tailwind` + `tailwind-support` | **mechanically complete, visually BARE** — 13 of 16 images wired to nothing. `docs/tailwind-acceptance.md` |
+| Operation Tailwind | `tailwind` + `tailwind-support` | **mechanics proven, BOARD IS THE WRONG SHAPE** — specified as clickable hotspots on the room, built as a list. `docs/tailwind-acceptance.md` |
 | Docs | `docs` | own worktree; merges to `main` `--ff-only` |
 
 **Doc commits ride to `origin` on the next code push** — `docs:sync` publishes the

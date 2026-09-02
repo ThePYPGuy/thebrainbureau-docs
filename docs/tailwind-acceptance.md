@@ -114,6 +114,61 @@ agree* assumes both were derived from one source. When one of them was derived
 from a document rather than from the thing itself, agreement is not evidence —
 **two documents copied from each other agree perfectly and can both be wrong.**
 
+## THE BOARD IS THE WRONG SHAPE — the specified mechanic was never built
+
+Maciej, 2 Sep, on being shown the room rendered behind the panel: *"the room is
+not a background behind the terminal. we want to be able to click on items in
+the room to reveal clues... you place clues on the wall and around the room. the
+student clicks on them and opens up the clue. this is a terminal on top of the
+image of the room."*
+
+**He is right and the handoff says so.** §5 of the build instructions:
+
+> **Nine document hotspots** pinned around the map — hover highlights, click
+> zooms to the document view (blank prop art + HTML text from the clue
+> documents doc + the item's input controls + one free hint button).
+
+Plus **five flavour hotspots** — mug, radio, lamp, DO-NOT-OPEN drawer, framed
+pigeon photo — each with a second line on repeat click. And board state was
+specified to persist `flavour-hotspot seen-flags`.
+
+**What was built is a numbered list of ten items on a flat panel**, with the
+room added behind it as wallpaper.
+
+### It explains three loose ends that had no explanation
+
+- **`seenFlavour` is in the board-state whitelist and nothing writes it.** It is
+  for flavour hotspots that were never built.
+- **Twelve props are wired to nothing.** They are the art for the zoom view.
+- **`prop-quads.json` measures overlay geometry** for HTML text over blank
+  paper — which only means anything inside a document view.
+
+Every one is a correctly built piece of the specified mechanic with nothing to
+attach to.
+
+### Why the acceptance checklist could not catch it
+
+**Nothing in the twelve items says *hotspot*.** Item 2 asks that all nine items
+be solvable in any order, and a numbered list satisfies that completely.
+
+**The tell was there and I read past it.** Item 11 — *all blank props carry HTML
+overlays only* — is only sensible if there is a zoom view to overlay them in. And
+the overview page, which I read and quoted the same evening, says the nine items
+*sit on the Situation Room wall... point-and-click-adventure style*. **I checked
+the build against a checklist instead of against the thing the checklist
+described.**
+
+### Scale, honestly
+
+**This is the board — the primary interface — not a day of authoring.** A scene
+with positioned hotspots, hover states, click-to-zoom, a document view, and
+flavour hotspots.
+
+**Everything underneath it is real and proven**: every validator and grader, the
+console at 480 enumerated, twelve props, their quads, the console slot geometry,
+findings, persistence, both inset maps and the wall map. **The shell is what is
+missing**, and it is the shell the Operation was described by from the start.
+
 ## THE ARTWORK IS NOT WIRED IN — 13 of 16 images referenced by nothing
 
 Found 2 Sep when Maciej asked *why are the graphics and the room missing?*
