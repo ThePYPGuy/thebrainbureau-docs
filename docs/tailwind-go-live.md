@@ -12,11 +12,23 @@ first three attempts at this went sideways today.
 
 ## The order, and why it is this order
 
-**Migrations must precede the CONTENT IMPORT, not the deploy.** Migrations 40
-and 42 widen a CHECK constraint that gates `import`, not the app — nothing the
-deployed code does sends a task type to the database. So pushing code before the
-migrations land is harmless: the new renderers simply have nothing to draw until
-content arrives.
+**MIGRATIONS BEFORE THE CODE PUSH.** This is a correction: an earlier version of
+this file put the push first, on the grounds that 40 and 42 gate the IMPORT
+rather than the app. That is true of 40 and 42 and **false of 41**.
+
+**Migration 41 is `auth_attempts`, and the PIN rate limiter on `main` needs it at
+RUN TIME.** `lib/server/rate-limit.ts` reads and upserts that table at three
+sites, has four bare `catch {}` blocks, logs nothing, and says so itself at line
+173: *never throws and never blocks on error*. **So deploying the code without
+the table gives you a limiter that silently does nothing** — and nothing anywhere
+would say so. Nothing regresses, because production has no limiter today either;
+what changes is that everything written down about the protection becomes true
+of the code and false of the system.
+
+Found by Website Designer, verified here rather than relayed.
+
+`supabase db push` sends migration FILES to production and does not need the
+code deployed, so migrations-first costs nothing and closes that window.
 
 **Both branches must merge before anything is pushed.** Production has none of
 35..42 applied. Push `main` alone and it applies 35, 38, 39, 41; `tailwind`'s 36,
@@ -42,15 +54,16 @@ overview page, the credits component and no migrations, and touches no file that
 
     git -C ~/thebrainbureau remote set-url --push origin https://github.com/ThePYPGuy/thebrainbureau.git && git -C ~/thebrainbureau remote -v
 
-## 3. Push — this deploys the code
-
-    cd ~/thebrainbureau && git push origin main
-
-## 4. Apply the migrations
+## 3. Apply the migrations FIRST
 
     cd ~/thebrainbureau && npx supabase db push
 
-Expect 35 through 42, in order, none already applied.
+Expect 35 through 42, in order, none already applied. **41 is the one with a
+deadline** — the PIN limiter is inert without it and says nothing.
+
+## 4. Push — this deploys the code
+
+    cd ~/thebrainbureau && git push origin main
 
 ## 5. Upload the five printables and the ZIP
 
@@ -81,7 +94,7 @@ only.
 
     cd ~/thebrainbureau && npm run import -- --prod
 
-This is the step the CHECK constraint gates, which is why it comes after 4.
+This is the step the CHECK constraint gates, which is why it comes after 3.
 
 ## 8. Check the deployed state against the repo
 
