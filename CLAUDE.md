@@ -317,7 +317,6 @@ rather than pushed with `supabase config push`.
 
     2 Sep 16:00  agent_findings      table, index, RLS  — and no writer
     2 Sep 16:05  agent_board_state   table, index, RLS  — and no writer
-    2 Sep 17:45  /api/board          route + server lib — and no client
 
 **Each layer was correct. Each was complete in isolation. Each stopped one layer
 below a human being.** No test failed, because every layer's tests test that
@@ -333,8 +332,30 @@ What each one cost, stated in terms of a child rather than a schema:
   solved**
 - board state never written — **a child logging out mid-Operation lost their pins,
   their arrow trail and their eliminated candidates**
-- the route never called — **the board saved and never came back**, which is the
-  same loss with an extra table in the way
+**AND THE COUNTER-EXAMPLE, WHICH MATTERS AS MUCH AS THE PATTERN.** `/api/board`
+has a route, a server library and **no client** — and that is a DECISION, not a
+third instance. Doc Manager called it a gap on the strength of the same grep
+and was wrong.
+
+Two facts settle it. **Every renderer already restores itself from
+`task.data.last`** — `point`, `choice`, `matching` and `console` each do it — so
+the board comes back today. And **no surface produces a board-state field at
+all**: grep `ghostsCleared`, `arrowTrail`, `seenFlavour` across `components/`
+and `app/` and nothing answers. A client posted now would write a pin in TWO
+places with no rule deciding which wins when they disagree — a longer fuse than
+the gap it closes, invisible until the two drift.
+
+**So the question is not *does a consumer exist* but *can you say why it does
+not yet*.** Scaffolding with a stated reason and a stated trigger is
+investment. Scaffolding with neither is the bug above.
+
+**And the proof that settled it is the model to copy.** Signed out through
+`/api/leave`, signed back in, clicked through from the assignment rather than
+by URL, and item 1 came back reading 41N 12W with the crosshair drawn — read
+off the rendered panel, never out of postgres. **Fix C staying blank is what
+made it a measurement**: a renderer defaulting to something plausible would
+have filled both, and *a restore that cannot be told apart from a default has
+proven nothing.*
 
 **THE CHECK: for every table, writer and route, name the thing ABOVE it that
 consumes it. If you cannot name one, it is not built — it is scaffolding that
