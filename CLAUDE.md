@@ -313,6 +313,38 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### A reference image at the SAME aspect ratio hands over the composition
+
+Generating Operation Tailwind's twelve props against Maciej's situation room,
+**all three 16:9 assets came back as the room itself.** `dish-console` had no
+console and no dial. `sterna-live-feed` was the room with the feed shrunk to a
+monitor on the wall. `agent-colin` had no pigeon in it at all.
+
+**The nine documents escaped only because they are 4:3.** The shape difference
+was enough to break the copy; the shared shape was enough to complete it.
+
+`--ref` is meant to carry the palette, the lighting and the pixel register.
+**When the reference and the target share an aspect ratio and a framing, it
+carries the composition too** " + D + u" and a prop that is a beautifully rendered copy of
+the room looks like a successful generation, not a failed one.
+
+The fix was to drop the reference entirely for those three. The style preamble
+already states the palette, the one-light-source rule and the pixel register
+explicitly, and the room itself was generated from that preamble with no
+reference at all " + D + u" **so the family survives without the composition being
+handed over.**
+
+**This will bite the Lock Library.** Sixteen archetype backgrounds exist, most
+of them 16:9, and every future Operation generates props against one of them.
+
+**The tell, which was in the data before anyone looked at the art:** two
+different props measured identical " + D + u" `dish-console` and `sterna-live-feed` both
+411x515 at fill 0.99. Two subjects cannot have the same measurements. Doc
+Manager read that line and moved past it; the defect was found later by looking
+at the pictures. **When a measurement is suspiciously equal across things that
+should differ, that IS the finding.**
+
+
 ### A join table re-imports by ADDING, unless you make it delete
 
 The four-edit rule for a new COLUMN on `activities` is elsewhere in this file.
