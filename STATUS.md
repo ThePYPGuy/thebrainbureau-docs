@@ -180,15 +180,15 @@ this is the section that pays for the cap. Each description is its own session's
 1. **UPLOAD THE FIVE PDFs AND THE ZIP, then merge both branches, then push** — all
    Tailwind has left. ZIP rebuilt 2 Sep with the corrected pack. *(Maciej: `upload:resource` writes prod storage; push is disabled at the git level.)*
 1. **The Lock Library** — `docs/lock-library-plan.md` (waves, contract, operating model); `docs/lock-library-review.md` (the spec's defects).
-1. **The school gap** — capture it at signup verified against the email domain, an admin page to fix it after the fact, and a **Students page** above Classes. *(WD.)*
+1. **A Students page above Classes** — one row per CHILD across all their classes, not per membership. **Depends on nothing.** *(WD, briefed 2 Sep.)*
+1. **The school gap** — capture at signup verified against the email domain, plus an admin page to fix it after. *(WD, needs schema work.)*
 1. **Migrations interleave, so MERGE BEFORE THE NEXT PRODUCTION PUSH.** Prod 34;
    `main` 35, 38, 39, 41; `tailwind` 36, 37, 40, 42; `tailwind-support` none.
    Push after only one lands and the other's arrive numbered BELOW ones already
    applied. Both merge clean — `git merge-tree --write-tree main <branch>`. *(Maciej.)*
 1. **Authenticated visual captures.** Every teacher-facing surface is outside the harness, which needs a sign-in it does not have. A navy stripe on the child's `/profile` was caught only because that page happens to be in the suite; nothing that broke a dashboard would have been. **Its own piece of work, not a tail on another job** — a controlled React form filled before hydration submits nothing and photographs a login page at self-diff 0. *(WD, unqueued.)*
-1. **Redemption: one `/redeem`, not a second signup.** Briefed. **Rotation took
-   the irreversibility out of it** — a code can be retired, so no decision here
-   is frozen in a download. *(WI: table, route, write. WD: the page.)*
+1. **Redemption: one `/redeem`, not a second signup.** Briefed. Rotation took the
+   irreversibility out — a code can be retired. *(WI: table, route. WD: page.)*
 1. **Queue 2 step 6 — prices and purchase routes.** *(WI, **with Maciej** — the
    only irreversible step, and not to be started on a peer's brief.)* Steps 1–5
    are done; `docs/local/briefs/queue-2.md` carries the rest.

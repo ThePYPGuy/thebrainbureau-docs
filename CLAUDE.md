@@ -313,6 +313,23 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### A queue entry that bundles independent work hides the small piece
+
+Maciej asked for a Students page on the teacher dashboard. It went into STATUS
+§8 inside one entry with two much larger things — school capture at signup, and
+an admin page to fix it afterwards. **Days later it was not built, and no branch
+had a `students` route at all.** Nobody declined it; it read as blocked on schema
+work it did not depend on.
+
+**One entry per independently shippable thing.** If two halves have different
+blockers, they are two entries — **the unblocked half inherits the blocked
+half's excuse otherwise.**
+
+Second queue defect in one day. The other: an entry saying *the `_note` says
+`prefix` is never rendered* got the wrong note fixed, because it named the
+symptom and not the FILE. **Name the file, and split the bundle.**
+
+
 ### Prove a migration by ROLLBACK when the database is shared
 
 One local Postgres, nine worktrees. `db:reset` is denied and `migration up
