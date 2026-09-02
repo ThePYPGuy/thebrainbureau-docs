@@ -1,65 +1,27 @@
 # Getting Operation Tailwind live
 
-> ## STOP — ONE BLOCKER, ADDED 2 SEP
+> ## The grid-exact blocker is CLEARED — verified 2 Sep
 >
-> **`tailwind` carries a grader that marks correct answers wrong on item 6.**
-> Do not run this sequence until the fix is on the branch being pushed.
+> `tailwind` shipped a grader that **refused 75% of correct clicks on item 6**:
+> `validate.ts` compared `round1()` while the crosshair readout the child looks
+> at TRUNCATES, so a click at 41.75 to 41.79 displayed `417` above their finger
+> and was graded 41.8. The task's own hint says *easting 41.7, northing 26.8*,
+> so a child following it exactly had a one-in-four chance of being believed.
 >
-> `validate.ts:486` compares `round1()`. The crosshair readout the child looks
-> at TRUNCATES — `sixFigure` and `gridReading` are both `Math.floor`. So a click
-> at 41.75 to 41.79 displays `417` above the child's finger and is graded 41.8.
+> **Fixed on `fix-grid-exact` at `060ccff`.** Verified here, not relayed:
 >
-> Measured against Tailwind's real answer, 10,000 clicks whose readout showed
-> the target reference:
+>     round1(gx) in validate.ts                0
+>     files vs tailwind                        point-space.ts, point.test.ts, validate.ts
+>     anything from lib/locks/                 none
+>     merges into main                         clean
 >
->     ACCEPTED by the shipping grader                 2,500
->     REFUSED though the readout said they were right 7,500   (75%)
+> **The branch was empty for a window and I nearly cleared it too early.** If
+> you ever need to re-check it, those first three lines are the test — a branch
+> named for a fix merges just as cleanly when it carries nothing.
 >
-> Only the lower-left quarter of the correct cell is accepted. **And the task's
-> own hint says "easting 41.7, northing 26.8"** — so a child following the hint
-> exactly has a one-in-four chance of being believed.
->
-> Fixed at `0acba11` on `lock-library`, which cannot merge yet — it carries an
-> unfinished library. The engine-only half goes onto `fix-grid-exact`, cut from
-> `tailwind`, which then merges alongside it. Add that merge to step 1.
->
-> ### THE BRANCH EXISTS AND IS EMPTY — DO NOT MERGE IT YET
->
-> As of this writing `fix-grid-exact` is **identical to `tailwind`**:
->
->     git diff --name-only tailwind...fix-grid-exact   -> empty
->     git log --oneline tailwind..fix-grid-exact       -> empty
->     validate.ts:486                                  -> still round1(gx)
->
-> **Merging it would succeed, change nothing, and ship the defect** — and it
-> would succeed cleanly, because there is nothing in it to conflict. A branch
-> named for a fix reads as a cleared blocker.
->
-> **Verify before you merge it, with these two commands:**
->
->     git show fix-grid-exact:lib/engine/validate.ts | grep -c "round1(gx)"
->     git diff --name-only tailwind...fix-grid-exact
->
-> **0 and three engine files** means the fix is really on it. Anything else
-> means it is not, whatever the branch is called.
->
-> **`main` is unaffected**: it does not have this validator at all. `tailwind` is
-> the only branch carrying the defect into production.
->
-> Found by an ACCEPTANCE case and findable by nothing else. Every refusal test
-> passed before and after — a grader one tenth out refuses wrong answers
-> perfectly well. **It surfaced because a reference instance asserted that a
-> correct click must be accepted**, which is the contract clause the spec never
-> had. The item was played in a browser and signed off with the bug in it.
-
-
-**Written for Maciej. Every step here is one only he can do** — push is disabled
-at the git level, and the uploads and the production import all write to
-production and stop to ask by design.
-
-**Run these from a plain WSL shell, not inside a Claude session.** Pasting a
-command into a session makes the session ask permission for it, which is how the
-first three attempts at this went sideways today.
+> Found by an ACCEPTANCE case and findable by nothing else: every refusal test
+> passed before and after, because a grader one tenth out refuses wrong answers
+> perfectly well. The item had been played in a browser and signed off.
 
 ---
 
@@ -95,13 +57,21 @@ local mess is not evidence of a deployment risk.
 
 ---
 
-## 1. Merge both branches — fast-forwards, verified clean
+## 1. Merge both branches — ordinary merges, not fast-forwards
 
-    cd ~/thebrainbureau && git merge --ff-only tailwind && git merge --ff-only tailwind-support && git log --oneline -1
+    cd ~/thebrainbureau && git merge --no-edit fix-grid-exact && git merge --no-edit tailwind-support && git log --oneline -1
 
-`tailwind` is 0 behind `main` and 36 ahead. `tailwind-support` carries the
-overview page, the credits component and no migrations, and touches no file that
-`tailwind` touches. `git merge-tree` reported no conflicts for either.
+**`fix-grid-exact` CONTAINS `tailwind`**, so merging it brings the Operation and
+the grader fix together — you do not merge `tailwind` separately.
+
+**An earlier version of this file said both were fast-forwards. That was true
+when it was written and I invalidated it myself**, with 22 docs commits to
+`main` afterwards. `--ff-only` would now fail on both. **A runbook that asserts
+a merge is a fast-forward goes stale the moment anyone commits to `main`** —
+including its author. What survives is that neither CONFLICTS, checked with
+`git merge-tree --write-tree main <branch>` against `main` as it stands now.
+
+Migrations after both land: 35 through 42, unbroken.
 
 ## 2. Restore the push remote
 
