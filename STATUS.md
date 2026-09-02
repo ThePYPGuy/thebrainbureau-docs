@@ -59,7 +59,7 @@ Say so when you commit. Four collisions on 2026-08-25, two destroying work.
 |---|---|---|
 | Case File skin + Prime Directive | `main`, `operation-prime-directive` | both dormant; PD holds nothing `main` lacks |
 | Website redesign | `main` | **all three phases live** — no surface left on the old chrome |
-| Lock Library | `lock-library` in `../tbb-locks` | **wave 0 in build** — audit, `LockInstance`, migration 43. No lock types yet, by design |
+| Lock Library | `lock-library` in `../tbb-locks` | **wave 0 DONE** — registry, wrapper, replace-import, `npm run locks`, migration 43. Wave 1 next: five types by subagent |
 | Platform | `platform` in `../tbb-platform` | scoping and importer both merged to `main` |
 | Operation Tailwind | `tailwind` + `tailwind-support` | **built, ten of eleven** — Op Builder stood down 2 Sep. Upload, two merges, push: all Maciej's |
 | Docs | `docs` | own worktree; merges to `main` `--ff-only` |
