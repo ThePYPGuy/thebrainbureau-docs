@@ -36,9 +36,21 @@ anyway. It costs everything on a code, **where there is no method to teach.**
 
 *A tolerance says near is worth something. On a code, near is worth everything.*
 
-**Open, Maciej's call.** Either suppress `offBy` when `config.keypad` is true, or
-move the task to the `keypad-code` lock type when the library lands. Prime
-Directive's seven are calculations and should be left alone.
+**DECIDED 2 Sep. Maciej: *"don't show off by when entering a code — that isn't
+what the off by mechanic was for — off by is to help students when they are
+calculating large numbers."*** Suppress it on code entry, keep it everywhere
+else. Prime Directive's seven are calculations and stay as they are.
+
+**He supplied the thing neither the code nor the analysis had: the mechanic's
+PURPOSE.** `validate.ts`'s header says what `offBy` DOES — *roughly how far off,
+never the target*. He said what it is FOR. **The gap between those two is the
+entire bug**: a behaviour correct on a calculation and wrong on a code, with
+nothing in the code able to tell which it was looking at.
+
+Two open questions for whoever writes it: whether `config.keypad` is the ONLY
+marker for code entry — he said *entering a code*, not *keypad true* — and
+whether the condition should key on the code or on the `exact` tolerance, since
+a code with a relative tolerance would leak the same way.
 
 ---
 

@@ -313,6 +313,30 @@ rather than pushed with `supabase config push`.
 
 ## Traps that do not announce themselves
 
+### WHAT A COMMENT SAYS A THING DOES IS NOT WHAT IT IS FOR
+
+`lib/engine/validate.ts` returns `offBy` — how far a wrong answer was from the
+right one — and its header explains it well: a child learns *roughly how far off,
+never the target*, which *distinguishes an arithmetic slip from a misunderstood
+method*. **Accurate, thoughtful, and it does not say what the mechanic is FOR.**
+
+Maciej supplied that: *off by is to help students when they are calculating
+large numbers.* With the purpose in hand the defect is obvious — on a
+CALCULATION the child could reach the answer anyway and *how far off* teaches;
+on a CODE there is nothing to calculate, so *how far off* plus their own guess
+**is** the answer. One published task was a 10,000-way code crackable in three
+or four submissions.
+
+**Nothing in the code could tell the two cases apart, and nothing in the comment
+asked it to.** The header described the behaviour faithfully and the behaviour
+was right in eleven places and wrong in one.
+
+**So when a mechanic behaves differently somewhere, ask what it is FOR before
+asking what it does.** A comment describing behaviour cannot tell you where the
+behaviour stops being appropriate — only the intent can, and the intent usually
+lives with the person who asked for it.
+
+
 ### ORDER IS INFORMATION, AND A KEY-NAME GUARD CANNOT SEE IT
 
 `assertNoAnswer` reads key NAMES, so it cannot see the ORDER of an array. A
