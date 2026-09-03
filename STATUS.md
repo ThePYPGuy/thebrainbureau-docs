@@ -59,7 +59,8 @@ Say so when you commit. Four collisions on 2026-08-25, two destroying work.
 |---|---|---|
 | Case File skin + Prime Directive | `main`, `operation-prime-directive` | both dormant; PD holds nothing `main` lacks |
 | Website redesign | `main` | **all three phases live** — no surface left on the old chrome |
-| Lock Library | `lock-library` in `../tbb-locks` | **wave 0 DONE** — registry, wrapper, replace-import, `npm run locks`, migration 43. Wave 1 next: five types by subagent |
+| Lock Library | merged to `main` at `227465d` | **DONE** — 20 types, 20 working examples, migration 43, 2131 tests. **Not pushed** |
+| Bureau Library | content on `docs`, plumbing on `platform` | **73 banks, 20 questions each** — one per curriculum goal, spread rookie/pro/expert. `docs/bureau-library.md` |
 | Platform | `platform` in `../tbb-platform` | scoping and importer both merged to `main` |
 | Operation Tailwind | `tailwind` + `tailwind-support` | **THE ROOM IS BUILT** — nine documents, six flavour props, six Reference Files, console gated. 4 props to regenerate. `docs/tailwind-acceptance.md` |
 | Docs | `docs` | own worktree; merges to `main` `--ff-only` |
@@ -100,9 +101,8 @@ file.)
 which commit is serving. **Fingerprint the served CSS** — a bundle holding
 `crtViewport` but no `.loginPanel` proves that commit is live, with no write.
 
-**`--prod` was clean at `26bcafe`**, 1 Sep: **31 migrations**, all in step.
-**Re-run it; do not read this as current.** `?` is not `DRIFT` — it means
-unconfirmable, and the answer is usually a re-import.
+**`--prod` was clean at `26bcafe`**, 1 Sep. **Re-run it; do not read this as
+current.** `?` is not `DRIFT` — it means unconfirmable; a re-import usually fixes it.
 
 **Sentry covers the whole app**, not only Signal Check — so the first unfamiliar
 error from an old surface is newly visible rather than new.
@@ -110,9 +110,8 @@ error from an old surface is newly visible rather than new.
 The `completion` gate is **verified locally, not on production** *[verify — none
 since 25 Aug]*: join a real code, watch the ending stay absent until the last lock.
 
-**Adding: migrate, import, re-check, push — the check gates the push. Removing:
-push first**, because the running code is the old code and still selects what you
-are dropping. `CLAUDE.md` carries the rule.
+**Adding: migrate, import, re-check, push — the check gates it. Removing: push
+first**, because the running code still selects what you are dropping. `CLAUDE.md`.
 
 **Before any push** run `git diff --stat origin/main..main --
 supabase/migrations/ content/`. Neither deploys itself, and both fail silently.
@@ -124,8 +123,7 @@ correct. **`--prod` green while production serves a three-hour-old build is a
 state this project can reach**, and did.
 
 **A range with more than one builder's code is Maciej's to push.** §1 names *the
-builder whose code goes out*, which answers nothing with two sessions in it —
-and only `main`'s tree reaches production, which is the tree WD works in.
+builder whose code goes out*, which answers nothing with two sessions in it.
 
 **A delegation Doc Manager records cannot authorise a push**, and both builders
 said so independently: §4 carries it only because Doc Manager's commit put it
@@ -177,27 +175,37 @@ this is the section that pays for the cap. Each description is its own session's
 1. **Many age bands and year groups per activity, not one.** `activities.age_band`
    is a single FK; needs a join table, and the importer must DELETE removed rows.
 1. **Codenames go globally unique with no school**, and `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide. `docs/identity-and-access.md`.
-1. **UPLOAD THE FIVE PDFs AND THE ZIP, then merge both branches, then push** — all
-   Tailwind has left. ZIP rebuilt 2 Sep with the corrected pack. *(Maciej: `upload:resource` writes prod storage; push is disabled at the git level.)*
+1. **Tailwind's six printables are unuploaded and the activity declares zero
+   resources**, so `--verify` can never cover them. *(Maciej: writes prod storage.)*
 1. **The Lock Library** — `docs/lock-library-plan.md` (waves, contract, operating model); `docs/lock-library-review.md` (the spec's defects).
 1. **Two RLS gaps: `agents` hides a colleague's child in your own class, `activities` hides your own DRAFT from you.** Plus the school gap. `docs/identity-and-access.md`. *(Schema.)*
-1. **Migrations interleave, so MERGE BEFORE THE NEXT PRODUCTION PUSH.** Prod 34;
-   `main` 35, 38, 39, 41; `tailwind` 36, 37, 40, 42; `tailwind-support` none.
-   Push after only one lands and the other's arrive numbered BELOW ones already
-   applied. Both merge clean — `git merge-tree --write-tree main <branch>`. *(Maciej.)*
-1. **Authenticated visual captures.** Every teacher-facing surface is outside the harness, which needs a sign-in it does not have. A navy stripe on the child's `/profile` was caught only because that page happens to be in the suite; nothing that broke a dashboard would have been. **Its own piece of work, not a tail on another job** — a controlled React form filled before hydration submits nothing and photographs a login page at self-diff 0. *(WD, unqueued.)*
+1. **A migration number is claimed before it is committed**, and the claimant may
+   have applied it to the shared local database — which makes the loser skip
+   silently on a green run. Check all seven worktrees AND `migration list --linked`
+   before taking one. *(Website Infrastructure, who collided on 40.)*
+1. **Authenticated visual captures.** Every teacher-facing surface is outside the
+   harness, which has no sign-in. A form filled before hydration submits nothing
+   and photographs the login page at self-diff 0. *(WD, unqueued.)*
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. Rotation took the
    irreversibility out — a code can be retired. *(WI: table, route. WD: page.)*
-1. **Queue 2 step 6 — prices and purchase routes.** *(WI, **with Maciej** — the
-   only irreversible step, and not to be started on a peer's brief.)* Steps 1–5
-   are done; `docs/local/briefs/queue-2.md` carries the rest.
-1. **A narrow-viewport pass on the two newest surfaces.** The catalogue tiles
-   and the activity page **have never been rendered below 1280** — the breakpoints
-   were written from the layout pass's rules, unobserved. *(WD, unqueued.)*
+1. **Queue 2 step 6 — prices and purchase routes.** Steps 1–5 done;
+   `docs/local/briefs/queue-2.md`. *(WI **with Maciej** — the irreversible step.)*
+1. **The catalogue tiles and activity page have never been rendered below 1280.**
+   Their breakpoints were written from rules, unobserved. *(WD, unqueued.)*
 1. **Baselines cannot be made from Windows** — an unchanged page differs by
    326,418 pixels across platforms. Regenerate them where they are checked.
 
 ## 9. Open decisions — waiting on Maciej
+
+1. **How is a Bureau bank distinguished from a teacher's own?** The importer
+   hardcodes `visibility: "private"` and status `draft` and wants an `--owner`, so
+   importing the 73 as they stand gives 73 private drafts owned by one teacher —
+   the opposite of a library. **Cheap now, expensive after 1,460 rows exist.**
+
+1. **Does a reversal count as an order leak on already-published content?**
+   `sort-bins` forbids two adjacent items sharing a target and the Tailwind console
+   would fail it, having been authored first. The exact reversal is being fixed
+   regardless; this is only about applying the STRICTER rule retroactively.
 
 1. **Two open questions on licensing** — `docs/licensing.md` has them, and
    neither blocks the redemption flow, which is the first build. **An open
@@ -205,11 +213,7 @@ this is the section that pays for the cap. Each description is its own session's
    agent for any unused codename. Parked under licensing: entitlements change
    what a code should guard.
 
-1. **DECIDED 2 Sep: yes, at 40, the teacher resets.** *(Was: may the platform ever tell a child to wait, and at what number?)* One decision, not two — the threshold is the half that can hurt somebody. Forty consecutive failures assumes a child asks the teacher long before; that is a typical child in a typical lesson, and **not obviously a child who is anxious, distracted or working alone**. WI raised it and is right that it is a judgement about children rather than attackers. `resetAgentPin` now genuinely clears it (`21f3c47`) — but **only the agent's OWN teacher can reset**, so the adult in the room has to be the RIGHT adult, and a second teacher at the same school cannot free the child. Pre-existing; it narrows the mitigation the threshold rests on. One constant either way.
-
 ## 10. Known silent failures
-
-- **Tailwind: console never drawn, six of nine items never opened, hard-navigation `Loading` unexplained.** `docs/tailwind-acceptance.md`.
 
 Open items. Standing traps are in `CLAUDE.md`; prune a row only when it is
 closed there or here, and **never to hit a line count** — that emptied this
@@ -228,17 +232,13 @@ table once. **Documentation does not fire at 11pm.**
 | **A diagnostic read outside the question it was built for** | `content-fingerprint.ts` answers *did anything other than the named file move during this import*, where ownership is irrelevant — so it never selected `owner_teacher_id`. Its output was then read as an inventory of platform content, where ownership is the only thing that matters. **Every value it printed was correct.** A slugless `training_sims` row was called an orphan and queued for deletion; it is Maciej's own draft quiz, made in the app on 25 August. Verifying it against production repeated the same omission and made the wrong claim more credible | **fixed** — the output now marks every row `platform` or `teacher <id>`, so that reading is refused rather than available |
 | `deploy:check` read only one direction | It compared repo files to the database and stopped. `checkActivities` already asked whether a row had no file behind it; `checkTraining` never did | **fixed** — one helper, unmatched rows report `?` rather than DRIFT, since DRIFT's remedy is *run the importer* and importing never removes a row |
 | A guard that closed the only recovery path | `alreadyDone` skipped `settleCompletion` whenever the task was already correct — protecting against a double-award the callee already refused, and in doing so shutting the door a stranded child would push on. **Fixed**, and the state is now repaired on load | **self-healing, not closed** — the two writes are still not atomic and cannot be made so from the client; it needs a Postgres function, and `check.ts` says so where it happens |
-| A repair that reads as a loss | The reconcile awards Intel, but `loadStudentState` had already read the agent row — so the phase opened with the old total beside it and the award looked like it had gone missing. Caught in testing; the agent is re-read only when something was repaired | **fixed** — a silent repair still has to be visible where it lands |
-| A failed import left rows it created | Positions were restored and creations were not — no transaction, so a run that died partway left rows nothing accounted for and no error naming them | **fixed** — one transaction, migrations 16–18, verified by forcing a failure midway |
 | A test that does not reproduce the reported bug | The first recovery test poisoned the *last* phase, so the failure landed after all seven had been renumbered: it caught the ordering corruption and stranded nothing, and would have passed against the broken importer for the wrong reason. Moving the fault to the first phase reproduced it exactly | prove the test fails against the original bug, not a neighbour |
 | Leak guards that cover only the activities they were written for | `e2e` passes while an untested activity ships its whole deduction. Prime Directive's served state is checked by hand, and it is the one that already shipped an answer in a caption | **fixed** — `scripts/test-answer-leak.ts` reads the directory and derives each forbidden value from the file, so a new activity is covered by construction rather than by being remembered |
 | One activity's fiction hardcoded for all | Every activity shows "⚠ ZERO HOUR" and completes on "VAULT SECURE". A workshop short-circuit case ends by securing the Value Vault, and it renders perfectly | **fixed** — `Mission.tsx` takes `expiredLabel` and `doneLabel` from the theme, defaulting to `⏱ TIME UP` and `COMPLETE`. The Zero Hour literals survive only in a comment recording why |
-| `npm run skins` counted the database, not the content files | It reported an archetype count from rows, so the file you were authoring — not imported yet — did not count, and a row whose file was gone still did. Wrong in the one moment the tool is used | **fixed** `2b6df67` — it reads `content/activities` |
-| New tables needed an explicit `service_role` grant | Without it reads failed as a permission error that reads like a missing row — the worst disguise, since it sends you hunting for data that is already there | **fixed** — `deploy:check` audits every table for the grant |
 | **Adding a column to `activities` is FOUR edits, and the guard compared TWO** | The migration, the payload in `import-activity.ts`, the `insert into activities (...)` list in `20260831000016`, **and its separate `on conflict do update set` list**. Miss the fourth and the column populates on first import, then silently stops updating; `content_hash` is in the update list, so **`deploy:check` reports the database matches the repo** while the value stays frozen | **Proven, and not from the report.** The session that found it says it measured `test:columns` passing all thirteen checks against the broken arrangement — that is prose in a source comment, at three removes, written by the session whose guard it indicts. **The diff settles it independently: `git show main:scripts/test-column-lists.ts` contains “on conflict do update” ZERO times**, so the old guard could not fire. Fixed on `tailwind` at `3f211c2` — *the importer had four column lists and the guard compared two* |
 | **Nothing verified that the drawn things rendered** | No script mentions `hotspot`, `facsimile`, `phaseIcon` or `data-icon`; sixteen hotspots across twelve plate forms and seven glyphs were checked by hand, once, by one session. Rename `.plateRows` or change a `data-icon` and `doctor`, `e2e`, `tsc` and 131 unit tests all still pass. The page renders — it renders *wrong* | **§8's visual regression check** is the only cover this work will ever have |
 | **A check that agrees with the bug it was written to catch** | Both fixes this session shipped with a check that passed for the wrong reason, each found only by deliberately breaking the thing it guarded. The import fixture passed against the *broken* importer until the fault was moved. The grant audit read a `pg_catalog` view that hides exactly the tables it was hunting — so it found nothing and reported clean, which is indistinguishable from finding nothing because nothing is wrong | **pattern, not a defect** — a guard is only proven by breaking its subject, and both were |
-| **A LIVE ANSWER ORACLE on published `operation-zero-hour`** | `enter-restore-code` is a keypad with answer `7285` and tolerance `exact`. `validate.ts:28-36` returns `offBy` **percent** on a miss and `app/api/check/route.ts:38` returns the whole outcome — so a guess plus its percentage IS the target. Measured: 1000 — 86.3% — 7299; 7299 — 0.2% — 7284.4. Three or four submissions against 10,000, and **no lockouts** is a series behaviour so nothing slows it. The code is assembled from four digits earned across four tasks, so **the oracle skips the Operation**. Eleven other tasks return `offBy` correctly — on a CALCULATION the child could derive the answer anyway and *how far off* teaches; on a CODE there is no method, so *near* is the answer. `docs/answer-integrity.md` | **open** · *(Maciej — suppress `offBy` when `config.keypad`, or move it to the `keypad-code` lock type)* |
+| **A LIVE ANSWER ORACLE on published `operation-zero-hour`** | `enter-restore-code` returned `offBy` percent on a miss and the route served the whole outcome, so a guess plus its percentage WAS the target: 1000 — 86.3% — 7299. The first fix keyed on `config.keypad`, which closed the vault and **left four other published tasks each handing over one digit of the same code in one probe** — the whole code in four probes without touching the vault | **fixed** `227465d` — TWO independent gates, magnitude and `keypad`. Proved independent by forcing the magnitude gate true and showing the keypad path still withholds, while a large calculation still gets its `offBy` — the axis Maciej named: *off by is to help students when they are calculating large numbers* |
 | **Signal Check's reveal is off by one, and it is live** | `revealFor` does `this.questions[position]` — a 0-based array indexed by a 1-based position — so the board shows the **next** question's answer, explanation and option labels. **The reported mis-scoring was never real** — that came from a harness reading canonical option order and skipping the per-player permutation. The header reads *QUESTION 2 OF 22* for the first question served. Found while staging a screenshot, isolated to one player and one answer, and verified against `session_questions` | **fixed and deployed** `9eb2071`. The constructor now refuses anything not renumbered, so the fault cannot return silently — it raises before a child joins |
 | **The scrubber redacts the debug id, so source maps never resolve** | `UUID_ANYWHERE` in `lib/live/telemetry.ts` matches Sentry's own `debug_meta.images[].debug_id`, which is a UUID by design. Sentry discards it — *invalid debug identifier* — and with nothing joining the served bundle to the uploaded map, every frame arrives minified. **The maps upload correctly and are never applied.** The earlier instance of this ate `trace_id` and `public_key` and was found because it caused a 400; this one produces no error at all | **fixed** `87a737e` — the scrubber now names the fields that can carry what a child wrote and leaves the envelope alone. A production payload carries an intact debug id matching an uploaded map, so *invalid debug identifier* cannot recur. **A mapped frame is still unseen** |
 | **Telemetry carries an identifier and nothing errors** | Sentry payloads are scrubbed at the client, so a regression in the scrubber sends codenames, guest nicknames or a game PIN to a third party while looking exactly like correct behaviour. Needs a guard that spells out its own patterns — one importing the scrubber's is a single gate, and empties when the scrubber breaks. `docs/identity-and-access.md` has the contract | **candidate** · Quiz Maker — before the first classroom session |

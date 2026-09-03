@@ -6,7 +6,7 @@ answer** — each hands the child something from which the answer follows.
 
 ---
 
-## 1. THE ORACLE — live on a published activity, awaiting a decision
+## 1. THE ORACLE — CLOSED 3 Sep at `227465d`, by two independent gates
 
 `operation-zero-hour` / `the-value-vault` / `enter-restore-code`. **Published.**
 
@@ -51,6 +51,42 @@ Two open questions for whoever writes it: whether `config.keypad` is the ONLY
 marker for code entry — he said *entering a code*, not *keypad true* — and
 whether the condition should key on the code or on the `exact` tolerance, since
 a code with a relative tolerance would leak the same way.
+
+### HOW IT WAS ACTUALLY CLOSED, and why it took two gates
+
+**Both fixes exist and both are needed.** `main` carried the narrow one keyed on
+`config.keypad`; `lock-library` carried the wide one keyed on MAGNITUDE. They
+were written independently, against the same defect, and **collided on the same
+lines of `withinTolerance` when the branches merged** — which is how the second
+one came to light at all.
+
+Neither alone is enough:
+
+    magnitude alone   `restoreCode` is 7285, well above the floor, so the
+                      magnitude gate CANNOT withhold it
+    keypad alone      four other published tasks carry one digit each and
+                      none of them sets `keypad`
+
+**And they were proved independent by falsification, not by reading.** Forcing
+`distanceIsSafe` to return `true` and re-probing:
+
+    large code, magnitude gate disabled
+      raw offBy            {"kind":"percent","value":86.3}
+      keypad gate applied  undefined      <- still withheld
+    large calculation      {"kind":"percent","value":100}   <- still helps
+
+So neither gate is the other wearing a second coat. **A second gate derived from
+the first gate's source is one gate**, and the only way to know which you have is
+to break one and watch the other.
+
+The last line matters as much as the first: the mechanic still works where
+Maciej said it was for. *Off by is to help students when they are calculating
+large numbers* — and it still does.
+
+**One behaviour changed beyond the leak.** The `exact` arm no longer returns an
+absolute distance when the expected value is zero. Measured across all published
+activities: **25 exact numeric fields, none answering zero**, so nothing live is
+affected. A future task answering zero will get no distance at all.
 
 ### THE FIX CLOSED THE SLOW ROUTE AND LEFT THE FAST ONE OPEN
 
@@ -126,6 +162,42 @@ assertion handed the config and the answer SEPARATELY, never deriving one from
 the other.
 
 ---
+
+### THE REVERSAL — the same leak, one step along, and it was PUBLISHED
+
+Fixing *offered in answer order* is not the same as fixing ORDER. Tailwind's
+console was corrected off answer order and then shipped offering its six route
+ids **in exact reverse**:
+
+    offered : farne -> benguela -> fix-d -> banc-darguin -> fix-b -> destination
+    answer  : farne -> fix-b -> banc-darguin -> fix-d -> benguela -> destination
+    offered positions within the answer: 0, 4, 3, 2, 1, 5
+
+`farne` is locked into slot 1 and `destination` is fixed last, so **the four
+movable items are precisely reversed**. *Try it backwards* is the second thing
+anyone tries after *try it as given*, and it takes the middle from 24
+possibilities to 1.
+
+**The assertion that caught the first leak did not catch this one**, because it
+asked *is the offered order the answer order* and the answer was no. A guard
+that names one bad arrangement blesses every other. Both are now asserted: not
+answer order, and not its reverse.
+
+**Open, and Maciej's:** `sort-bins` carries a stricter rule — no two adjacent
+items sharing a target — which this console would also fail. It was authored
+before that rule existed, so applying it retroactively fails correct work
+against a check invented afterwards. Recorded with its arithmetic in the test
+rather than enforced. **The reversal itself is being fixed regardless; only the
+stricter rule is the open question.**
+
+### And a test that expires
+
+`composite-finale`'s test pinned those six route ids in order, so **publishing
+Tailwind turned it red for a content edit rather than a defect**. Same shape as
+a parse test naming `dial-select` as an *unknown* type shortly before it became
+one. A test that pins content goes red when an author does their job, and the
+third time it happens somebody deletes the test instead of reading it. **Assert
+the shape an author may not break; leave the ordering to the author.**
 
 ## 3. THE HINT, which is paid for
 
