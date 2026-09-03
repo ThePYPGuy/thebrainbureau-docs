@@ -2666,8 +2666,40 @@ after a key rotation. It catches empty, truncated and `[SENSITIVE]` keys, and
 nothing beyond that. Know what a check actually claims before citing it as
 evidence that something is done.
 
-**Commissioning an activity — the shape that costs least.** Learned across
-Prime Directive, where most of the expense was avoidable:
+**Commissioning an activity — THESE ARE GATES, NOT ADVICE. They have already
+failed twice as advice.** Written after Prime Directive; **Tailwind followed
+none of them** and repeated the same failures at roughly 28 hours and 150
+commits, a fifth to a quarter of it second attempts. `docs/tailwind-retrospective.md`
+has the accounting.
+
+**That is the whole lesson: the missing thing was never knowledge.** The remedy
+was already in this file, in the repo, findable, and the people who most needed
+it were the ones who had not read it. Advice is followed by whoever already
+remembers it. **So each of these is now a precondition with something that
+cannot proceed until it is met:**
+
+- **No art is commissioned until a playthrough has happened.** Not "should be
+  played first" — art does not start. Maciej found five defects in one
+  playthrough that 569 tests and twelve acceptance items had all passed over,
+  and every one was in what a child sees rather than in what the engine grades.
+- **No build starts until the mockup and its measurements are transcribed into
+  `docs/`.** Tailwind's scene notes carried every measurement the eventual
+  rebuild needed and sat unread for **thirteen hours** in a folder outside the
+  repo. Material existing is not material arriving.
+- **Confirm the browser works before the first commit.** An entire evening's
+  verification was borrowed from another session because a pane reported
+  `innerWidth 0` and nobody had checked. Two minutes, at the start.
+
+**And the checklist itself is the wrong instrument for the question it keeps
+being asked.** Tailwind's board passed twelve acceptance items while being the
+wrong shape, because none of them said "hotspot" — and **a list that had said
+"hotspot" would have been written by somebody who already knew the answer.**
+A checklist tests *is this complete*; it structurally cannot test *is this the
+thing that was asked for*. Keep it for the first question. **Use a person at
+30% for the second.** Lengthening it produces a more expensive false green.
+
+The four points below are the original list, unchanged, and still right:
+
 
 1. **Ask for a playable-but-ugly version at about 30%.** Content and mechanics,
    default skin, no drawing. Play it. *Then* commission the look. The missing

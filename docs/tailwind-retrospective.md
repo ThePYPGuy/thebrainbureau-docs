@@ -1,9 +1,8 @@
 # Why Tailwind took so long, and what Encore should do differently
 
-Written 4 Sep at Maciej's request, from three retrospectives — Operation
-Builder (who built it), Lock Library, Website Infrastructure — plus direct
-verification of every load-bearing claim. Website Designer's had not arrived
-when this was written.
+Written 4 Sep at Maciej's request, from four retrospectives — Operation
+Builder (who built it), Lock Library, Website Infrastructure and Website
+Designer — plus direct verification of every load-bearing claim.
 
 **Operation Builder's account is the only first-hand history of the build.**
 Theirs was written from git rather than recall, because their context was
@@ -149,7 +148,76 @@ acceptance items had all passed over.
 
 ---
 
+## The surface, which none of the above touches
+
+Website Designer's account, and it identifies a whole category the other three
+miss — because they were all looking at the interior.
+
+**Their four discoveries, all the same shape:** an empty `resources` array; STATUS
+recording "unuploaded" for files that were already in the bucket; a comment
+saying "three Bureau banks" after an import made it 76; and `dashboard.ts`'s
+invariant proven against the code while eleven rows in the data already broke
+it. **Every one is a claim written down once, never re-verified against the
+thing it describes, carried forward as fact.**
+
+**None of them is an engine problem, so none is fixed by more lock types.**
+Their own framing: *pre-built rooms will make the engine faster to build; they
+will not stop the next Operation landing with no resources array, because that
+gap is a missing STEP in the handoff, not missing CONTENT.*
+
+**Confirmed live the same night.** Tailwind was published, playable, and
+verified clean by every check we ran — and invisible to the public, because
+`app/missions/page.tsx` is hardcoded and nobody added it. The database was never
+the problem, which is exactly why every database check passed.
+
+**Their proposed fix, and it is the highest-value item on this document: ONE
+COMMAND, RUN WHEN AN OPERATION LANDS**, that checks the surface-facing declared
+facts against reality rather than against what somebody wrote down. Does the
+declared `resources` array match the bucket. Does the subject match the shared
+constant. Are curriculum tags present. Is there a cover image. **And does this
+Operation appear where Operations appear.** Most of the pieces exist already as
+separate scripts; what is missing is one command producing one diff, instead of
+four people finding four gaps by hand over a night.
+
+**They also draw the sharpest line on coordination cost**, measured from their
+own seat: roughly **15–20% of the night's cross-session traffic was pure
+identity and routing overhead** — names rotating, "are you Doc Manager", a
+message sent to a session renamed twice. **Zero product value.** Roughly 10% was
+verification that caught something real — the `class_id` bug, the subject split,
+the migration collisions — *and every message of that was worth it.*
+
+> **Friction that exists because something is about to touch production, shared
+> data, or another session's in-flight work is worth paying every time, however
+> often it turns out to be a false alarm. Friction that exists because the
+> addressing scheme cannot tell two sessions apart is pure cost.** Fix the
+> second structurally. Do not try to talk anyone into asking fewer identity
+> questions — asking is what caught the mistakes.
+
+**One correction they make to this document's own reporting:** the Preview
+button was not a Tailwind cost. It is a new cross-cutting feature that would
+have cost the same on the first Operation ever built. Tailwind should not
+absorb it.
+
 ## What should exist before Encore starts, in order
+
+**0. ONE COMMAND THAT AUDITS A LANDED OPERATION AGAINST REALITY.** Website
+Designer's proposal, added after the rest of this list was drafted, and on the
+evidence it belongs above all of them: it is the only item that addresses the
+*surface* category, and it is the cheapest to build because most of the pieces
+already exist as separate scripts.
+
+It should answer, in one diff, for one Operation:
+
+    declared `resources` vs what is actually in the bucket
+    subject vs the shared vocabulary constant
+    curriculum tags present
+    cover image present
+    DOES IT APPEAR WHERE OPERATIONS APPEAR
+
+**That last line would have caught tonight's live failure**, where Tailwind was
+published, playable, verified clean by every check we ran, and absent from the
+public site because one page is hardcoded. Every database check passed because
+the database was never wrong.
 
 **1. The lock on-ramp.** Activity-schema slot, importer support, terminal
 dispatch. **Nothing else on this list matters until this exists** — Lock
