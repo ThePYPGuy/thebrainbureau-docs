@@ -60,7 +60,7 @@ Say so when you commit. Four collisions on 2026-08-25, two destroying work.
 | Case File skin + Prime Directive | `main`, `operation-prime-directive` | both dormant; PD holds nothing `main` lacks |
 | Website redesign | `main` | **all three phases live** — no surface left on the old chrome |
 | Lock Library | merged to `main` at `227465d` | **DONE** — 20 types, 20 working examples, migration 43, 2131 tests. **Not pushed** |
-| Bureau Library | content on `docs`, plumbing on `platform` | **73 banks, 20 questions each** — one per curriculum goal, spread rookie/pro/expert. `docs/bureau-library.md` |
+| Bureau Library | content committed `180fc54` on `docs`; plumbing on `platform` | **CONTENT DONE** — 73 banks, 1,460 questions, one per goal, rookie/pro/expert. `npm run bank:check` clean. **Import waits on two of Maciej's answers.** `docs/bureau-library.md` |
 | Platform | `platform` in `../tbb-platform` | scoping and importer both merged to `main` |
 | Operation Tailwind | `tailwind` + `tailwind-support` | **THE ROOM IS BUILT** — nine documents, six flavour props, six Reference Files, console gated. 4 props to regenerate. `docs/tailwind-acceptance.md` |
 | Docs | `docs` | own worktree; merges to `main` `--ff-only` |
@@ -197,10 +197,10 @@ this is the section that pays for the cap. Each description is its own session's
 
 ## 9. Open decisions — waiting on Maciej
 
-1. **How is a Bureau bank distinguished from a teacher's own?** The importer
-   hardcodes `visibility: "private"` and status `draft` and wants an `--owner`, so
-   importing the 73 as they stand gives 73 private drafts owned by one teacher —
-   the opposite of a library. **Cheap now, expensive after 1,460 rows exist.**
+1. **Bureau Library import: two questions, one argument each.** **(a)** How is a
+   Bureau bank marked — null owner, a Bureau account, or a flag? Proceeding on
+   published + public + no owner. **(b)** Year groups? Parseable from `.uk`; three
+   goals yield none. **I called this expensive; it is not** — the column is nullable.
 
 1. **Does a reversal count as an order leak on already-published content?**
    `sort-bins` forbids two adjacent items sharing a target and the Tailwind console
