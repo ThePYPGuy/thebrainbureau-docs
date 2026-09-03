@@ -177,12 +177,15 @@ this is the section that pays for the cap. Each description is its own session's
 1. **Codenames go globally unique with no school**, and `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide. `docs/identity-and-access.md`.
 1. **Tailwind's six printables are unuploaded and the activity declares zero
    resources**, so `--verify` can never cover them. *(Maciej: writes prod storage.)*
-1. **The Lock Library** — `docs/lock-library-plan.md` (waves, contract, operating model); `docs/lock-library-review.md` (the spec's defects).
+1. **Lock Library: renderers moving hourly — `/dev/locks` (public) is the live count, not this line.**
 1. **Two RLS gaps: `agents` hides a colleague's child in your own class, `activities` hides your own DRAFT from you.** Plus the school gap. `docs/identity-and-access.md`. *(Schema.)*
 1. **A migration number is claimed before it is committed**, and the claimant may
    have applied it to the shared local database — which makes the loser skip
    silently on a green run. Check all seven worktrees AND `migration list --linked`
-   before taking one. *(Website Infrastructure, who collided on 40.)*
+   before taking one. *(WI, who collided on 40; WD independently hit the same class.)*
+1. **Prod migrations 35, 38, 39, 41 confirmed applied** — `deploy:check --prod` run
+   independently by WD and Doc Manager, same result: **only 43 and the
+   `operation-tailwind` import remain.** *(Lock Library's; both await Maciej.)*
 1. **Authenticated visual captures.** Every teacher-facing surface is outside the
    harness, which has no sign-in. A form filled before hydration submits nothing
    and photographs the login page at self-diff 0. *(WD, unqueued.)*
@@ -197,15 +200,11 @@ this is the section that pays for the cap. Each description is its own session's
 
 ## 9. Open decisions — waiting on Maciej
 
-1. **Bureau Library import: two questions, one argument each.** **(a)** How is a
-   Bureau bank marked — null owner, a Bureau account, or a flag? Proceeding on
-   published + public + no owner. **(b)** Year groups? Parseable from `.uk`; three
-   goals yield none. **I called this expensive; it is not** — the column is nullable.
-
-1. **Does a reversal count as an order leak on already-published content?**
-   `sort-bins` forbids two adjacent items sharing a target and the Tailwind console
-   would fail it, having been authored first. The exact reversal is being fixed
-   regardless; this is only about applying the STRICTER rule retroactively.
+1. **DONE 3 Sep, Maciej approved — Bureau Library imported.** 71 banks, 1,420
+   questions, published, public, no owner, verified independently by WI and Doc
+   Manager. **New:** the 71 use `subject` `english-literacy`/`mathematics`/`science`;
+   5 pre-existing public banks use `English`/`Maths`/`Science`. `bank-search.ts`
+   filters by exact string, so "Science" gets 0 of 20 new banks. *(WI + WD.)*
 
 1. **Two open questions on licensing** — `docs/licensing.md` has them, and
    neither blocks the redemption flow, which is the first build. **An open

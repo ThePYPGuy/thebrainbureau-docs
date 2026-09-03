@@ -88,6 +88,13 @@ activity content, which already carries answers.
 - **Distractors are plausible errors**, never filler: the off-by-one, the wrong
   operation, the real childhood misconception.
 
+**`bank:check` IS NOW TWO-SIDED** (`7884bfb`), proving all four content-blind
+strategies in both directions — "always the longest" and "never the longest"
+both flag, and a control where the key is independent of length stays clean.
+The null-model fix is in `lib/banks/guessability.ts` with a test asserting z
+near zero on 400 questions where two options always tie for shortest, so the
+tie trap that nearly reached Maciej as a false defect cannot recur silently.
+
 ## THE LENGTH TELL, which every structural check passed
 
 Written down because it is the most useful thing this job produced, and because
@@ -221,11 +228,20 @@ shortened prompt gave up.
 +56% in literacy.
 
 **SHORTEST IS LOW, AND IT IS LEFT OPEN DELIBERATELY.** The correct answer is
-rarely the shortest option, so eliminating the shortest lifts a child from 25%
-to about 30% — **roughly 4.6 points, below the five-point actionable gate, but
-z=-5.6 and consistent across all three subjects.** It is **pre-existing**, not
-caused by the rewrite: it is the *"correct answers run long generally"* signal
-Website Infrastructure named at the outset.
+rarely the shortest option. z=-5.6, consistent across all three subjects, and
+**pre-existing** — it is the *"correct answers run long generally"* signal
+Website Infrastructure named at the outset, not something the rewrite caused.
+
+**The price of exploiting it is smaller than my own first estimate, and the
+correction is worth recording because it changes which read is safe to quote.**
+My number — eliminating the shortest lifts a child from 25% to about 30%,
+roughly 4.6 points — came from `1/n`. WI's tool, `lib/banks/guessability.ts`,
+measures **2.3 points, about 27.4%**, because avoiding a two-way tie for
+shortest leaves `k-2` options rather than `k-1`, and ties cluster at the short
+end — the exact mechanism behind the null-model warning below, arriving a
+second time from a different angle. **Both are below the five-point actionable
+gate; WI's is further below it.** The decision not to commission a fifth pass
+stands, and stands more firmly on the accurate number.
 
 **No fifth pass was commissioned for it.** Four have been spent, it is under the
 threshold, and a pass aimed at lengthening correct answers is precisely how the
