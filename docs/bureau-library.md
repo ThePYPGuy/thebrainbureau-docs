@@ -342,6 +342,24 @@ component; it is not the composition skill itself.
     npm run import:library -- <dir> --dry-run
     npm run import:library -- <dir> --status published --visibility public
 
+**A permanent link now exists, not just the title text — `skill_id`,
+migration 45, Maciej's ruling.** Every bank row was matched to its curriculum
+skill by joining on the title, because nothing else carried the id through the
+import. That worked, but rested on titles staying unique — and **they already
+were not**: `"Copy Source (copy)"` is shared by 4 rows, from double-copying a
+bank. The title join was correct for the 71 Bureau banks only because none of
+them happened to collide with a copy, not because titles are actually unique.
+`skill_id` closes that permanently: a foreign key to `curriculum_skills`,
+restricting rather than nulling on delete, so removing a skill while a
+published bank teaches it fails loudly instead of quietly cutting the link.
+
+**It proved itself on first use.** A coverage query — which curriculum goals
+have no bank — is now one query instead of a diff someone has to notice. Run
+the day it landed: 71 linked, 0 mislinked, and exactly the 2 goals with no bank
+are `english-literacy.reading-fluency.1` and `.2` — the two dropped on
+purpose. Verified independently against the database, not from the migration's
+own report.
+
 **Titles are not chosen, they are derived.** Each filename IS a curriculum skill
 id — `mathematics.geometry-properties-of-shapes.2.csv` is the skill
 `mathematics.geometry-properties-of-shapes.2` — so the title comes from

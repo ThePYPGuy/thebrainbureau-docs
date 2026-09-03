@@ -190,9 +190,9 @@ this is the section that pays for the cap. Each description is its own session's
    have applied it to the shared local database — which makes the loser skip
    silently on a green run. Check all seven worktrees AND `migration list --linked`
    before taking one. *(WI, who collided on 40; WD independently hit the same class.)*
-1. **Prod migrations 35, 38, 39, 41 confirmed applied** — `deploy:check --prod` run
-   independently by WD and Doc Manager, same result: **only 43 and the
-   `operation-tailwind` import remain.** *(Lock Library's; both await Maciej.)*
+1. **THE NEXT PRODUCTION PUSH, consolidated.** 35/38/39/41 applied; 43 (locks), 45
+   (`skill_id`) don't; Bureau Library waits for `platform` to merge. **Tailwind
+   import: WD refused a relayed "yes", correctly, and asks Maciej directly.**
 1. **Authenticated visual captures.** Every teacher-facing surface is outside the
    harness, which has no sign-in. A form filled before hydration submits nothing
    and photographs the login page at self-diff 0. *(WD, unqueued.)*
