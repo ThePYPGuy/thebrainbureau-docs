@@ -781,6 +781,49 @@ author's reasoning was careful, written down, and wrong — which is the whole
 reason someone who did not write it needs to read it.
 
 
+### STATUS ITSELF DECAYS, AND IT COST MACIEJ AN HOUR
+
+**The rule at the top of this file — never write a sentence asserting
+environment state, name the command that reveals it — was broken in STATUS by
+the person who maintains STATUS.**
+
+It carried *"Tailwind's six printables are unuploaded and the activity declares
+zero resources"* as a fact, through several rewrites, for most of a night.
+**Two of the three claims in that sentence were false.** The files had been
+uploaded the previous day and were sitting in the bucket; `upload:resource
+--verify --prod` reports them in one line and reported them the whole time.
+Maciej said *"I really thought the Tailwind printables were uploaded yesterday"*
+and he was right; the record was wrong.
+
+There were not six, either. There are five and a zip.
+
+**The failure was not the wrong number. It was that a checkable fact was
+written down as prose and then re-read as evidence.** Everything downstream
+inherited it: it was carried into a retrospective, quoted to two sessions, and
+used to plan work that did not need doing.
+
+**So the rule applies to this file and to STATUS with no exemption for the
+person writing them.** If a command can answer it, do not write the answer —
+write the command. `STATUS` may say *"run `upload:resource --verify --prod`"*;
+it may not say *"the printables are unuploaded."* The first stays true
+forever, the second was false within a day and nothing announced it.
+
+**And the same night produced the same shape one level down.** The preview
+route redirects a failure to `?preview_error=<message>` and the activity page
+never read `searchParams` at all — a diagnostic produced and nothing consuming
+it, so a failed preview was visually identical to a button that did nothing.
+**Every layer stops one short of a person**, again, and this time the layer
+that stopped short was the one built to explain the failure.
+
+**One more, offered because it is evidence rather than an anecdote:
+`scripts/test-task-types.ts` reads a constant out of `scripts/import-activity.ts`
+BY REGEX ON THE SOURCE TEXT**, because there is no shared module to import.
+Somebody already felt the missing vocabulary and built a workaround instead of
+the fix. **A workaround in the codebase is a receipt for unpaid debt, and it is
+findable** — worth grepping for them deliberately rather than waiting for the
+debt to be collected at the worst moment.
+
+
 ### A peer's name for a third party is not an address you can use
 
 The naming hazard is worse than *addresses rotate*. **The registry view DIFFERS
