@@ -185,7 +185,9 @@ gets a clean bill of health.
 Six goals came back flagged by the people writing against them. None is a defect
 in the banks; all are worth a decision.
 
-**Three goals have no year to sit in.**
+**Two goals have no year to sit in.** Their `uk` column does not open with a
+year band at all: it opens with a sentence saying the topic is not UK primary
+content.
 
 - `science.environmental-and-seasonal-change.1` — its `uk` column is not a year
   band at all, it is a note saying **this is not a KS2 topic**: KS1 content
@@ -196,9 +198,18 @@ in the banks; all are worth a decision.
 - `mathematics.probability-where-applicable-at-primary.1` — *"Not a named UK
   primary strand"*. Written to likelihood vocabulary and simple outcome sets.
   Tagged Y3-Y6 for now, which is honest rather than right.
-- `mathematics.algebra-at-primary-level.1` — no standalone Y3/Y4 statement
-  exists; it lives inside counting in multiples. A scheme-level construct rather
-  than a curriculum line.
+
+**And one goal is PLACED but is not a curriculum line.**
+`mathematics.algebra-at-primary-level.1` opens `Y3–Y4:`, so every parser places
+it correctly — but no standalone Y3/Y4 national curriculum statement exists
+behind it. It lives inside counting in multiples: a scheme-level construct
+wearing a year band.
+
+**I first wrote this up as a third UNPLACED goal. That was wrong**, and Website
+Infrastructure's parser contradicted it — two goals fail to open with a year,
+not three. The correction is worth more than the count: **a goal can carry a
+perfectly good year and still have nothing underneath it**, and a check that
+only asks *can this be placed in a year* will pass it every time.
 
 **One strand is misnamed.** `science.earth-and-space.1` **is not about space** —
 it is the Y3 Rocks unit: rocks, fossils, soils. The description is accurate; the
