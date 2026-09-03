@@ -654,6 +654,42 @@ before `import -- --prod`*, not migration before deploy. Pushing code first is
 harmless; the new renderers simply have nothing to draw until content lands.
 
 
+### A FRESHNESS CLAIM IS A SNAPSHOT. Three times in one day.
+
+**A migration number was claimed and then overtaken.** Website Infrastructure
+took 40 in the shared local database; another session had already applied a
+different migration under the same number, and the loser would have skipped
+silently on a green run had nobody checked `migration list --linked` first.
+
+**A test that pinned content order went red for a content edit, not a defect.**
+`composite-finale`'s test named the console's six route ids in the order the
+content happened to ship in. Publishing Tailwind reshuffled them, correctly,
+and the test could not tell a reshuffle from a leak " + D + u" it had encoded *this is
+the order* rather than *these are the constraints an order must satisfy*.
+
+**A fast-forward check ran against a stale local ref and reported clean.**
+`git merge-base --is-ancestor` is exact " + D + u" the bug was never in the git command,
+it was in what got handed to it. Website Infrastructure compared `platform`
+against the local `main` ref, which updates only when someone in `main`'s own
+worktree pulls. It read `48c87c6`; `origin/main` had moved eleven commits past
+that, live, while the comparison was being made. **Worktrees sharing a ref
+store is exactly what made the stale answer feel authoritative** " + D + u" the ref
+was real, current for something, just not for the trunk.
+
+**The shape underneath all three: a comparison is only as current as the thing
+it compared against, and nothing about a clean result says how long ago clean
+was measured.** A report of freshness decays between being made and being
+acted on; a check that verifies its own precondition at the moment it acts
+cannot.
+
+**So prefer a self-checking command over a status claim, wherever the gap
+between saying and doing is large enough to matter.** `git merge --ff-only`
+refuses on its own if the trunk has moved, rather than a session asserting
+*it was clean when I looked*. The freshness check moves from a report someone
+has to trust into an action that fails safely on its own if the world changed
+underneath it.
+
+
 ### A peer's name for a third party is not an address you can use
 
 The naming hazard is worse than *addresses rotate*. **The registry view DIFFERS
