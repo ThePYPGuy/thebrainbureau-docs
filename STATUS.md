@@ -190,8 +190,8 @@ this is the section that pays for the cap. Each description is its own session's
 1. **Many age bands and year groups per activity, not one.** `activities.age_band`
    is a single FK; needs a join table, and the importer must DELETE removed rows.
 1. **Codenames go globally unique with no school**, and `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide. `docs/identity-and-access.md`.
-1. **Tailwind's six printables are unuploaded and the activity declares zero
-   resources**, so `--verify` can never cover them. *(Maciej: writes prod storage.)*
+1. **Tailwind's printables were UPLOADED all along; this said otherwise, unchecked.**
+   Six sat unclaimed in the bucket; the gap was the `resources` array. Wired 3 Sep, awaits `import:one --prod`. *(Maciej's word, in WD's session.)*
 1. **Two RLS gaps: `agents` hides a colleague's child in your own class, `activities` hides your own DRAFT from you.** Plus the school gap. `docs/identity-and-access.md`. *(Schema.)*
 1. **A migration number is claimed before it is committed**, and the claimant may
    have applied it to the shared local database — which makes the loser skip

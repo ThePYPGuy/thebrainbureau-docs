@@ -624,6 +624,35 @@ session rather than from a filesystem.
 
 ### The local database, `schema_migrations` and the FILES all disagree
 
+**CLOSED 3 Sep. Kept because how it arose is the reusable part, and because it
+grew from three to five while people were describing it as three.**
+
+**It was two problems wearing one name, and nobody had measured which.** By the
+time it was fixed the ledger was missing 036, 037, 040, 042 AND 043 — but the
+first four were **applied and merely unrecorded**, while **043 had never been
+applied at all** (Lock Library was blocked by the classifier and correctly did
+not route around it). `repair --status applied` on all five would have written a
+true statement four times and a lie once, and the lie is the expensive one: it
+tells the runner to skip work nobody did, permanently and silently.
+
+**The fix, and the order matters:** repair the four that are genuinely applied,
+then run `migration up --local` ONCE — with the four recorded, the runner applies
+the fifth properly and records it itself, so nothing is hand-applied and the
+thing that caused the gap is not what closes it.
+
+**THE OUT-OF-ORDER GUARD LOOKS LIKE A REFUSAL AND IS NOT ONE.** `migration up
+--local` refused, because 043's timestamp precedes 044 and 045 which were
+already recorded. That guard is correct — it exists so a migration cannot land
+behind an already-applied one unnoticed — and the answer is `--include-all`,
+deliberately, not a workaround. **The next person to land a migration behind an
+already-recorded number will read that refusal as a broken tool.** It is not.
+
+**Closed is a DIFF, not a report.** `diff` between the migration filenames and
+the recorded versions is empty in both directions: every file has a row, every
+row has a file. Verified twice, by WI and by Doc Manager separately. The runner
+saying "up to date" was not the proof; the empty diff was.
+
+
 Measured 2026-09-02, all three directions at once:
 
     files on tailwind        35..42 complete
