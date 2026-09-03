@@ -163,11 +163,18 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 31 Aug. Still no CI, so that number ages the moment anybody commits.
 
 ## 7. Recently completed
+- `8bc68c5` — **Bureau Library imported (71 banks, 1,420 questions), and its
+  subject vocabulary unified same-day.** The importer took the curriculum table's
+  `english-literacy`/`mathematics`/`science` while three hardcoded placeholders
+  elsewhere already read `English`/`Maths`/`Science` — "Science" returned 1 bank,
+  "science" returned 20. **Maciej ruled plain English wins**; `lib/banks/subjects.ts`
+  is now the one source, an unmapped subject fatal rather than passed through.
+  Verified three ways: 20/35/21, summing to 76 exactly. **5 null-subject rows
+  filed as "pre-existing" were script-left fixtures, not content.** *(WI, WD, DM.)*
 
 **A window, not a record** — oldest entries fall off, git holds the rest, and
 this is the section that pays for the cap. Each description is its own session's.
 
-- `90772aa` — **50 commits live, and the first paid resource is in production storage.** `deploy:check --prod` found no drift either way; `--verify` found the PDF under its real label and nothing unclaimed beside it. **`supabase db push` applied nothing** — 32, 33 and 34 were already on production before the run, confirmed with `migration list --linked`, and nobody has said who put them there. *(WI ran it on Maciej's word.)*
 - `254ef63` + `d9009f8` + `ca03a46` — **teacher printables are served through a route that checks the `entitlements` table, and the admin client comes off the public page.** A private bucket, a streaming route (**a signed URL is a bearer token**), an upload script, and ten tests. `phases` got the anon grant migration 32 needed, proved against a draft phase in the table, so `/missions` runs on the ordinary client. **The 403 probe first passed without testing anything** — a failed sign-in answered 401, which reads like a refusal. *(WI, WD.)*
 
 ## 8. Next up
@@ -199,12 +206,6 @@ this is the section that pays for the cap. Each description is its own session's
    326,418 pixels across platforms. Regenerate them where they are checked.
 
 ## 9. Open decisions — waiting on Maciej
-
-1. **DONE 3 Sep, Maciej approved — Bureau Library imported.** 71 banks, 1,420
-   questions, published, public, no owner, verified independently by WI and Doc
-   Manager. **New:** the 71 use `subject` `english-literacy`/`mathematics`/`science`;
-   5 pre-existing public banks use `English`/`Maths`/`Science`. `bank-search.ts`
-   filters by exact string, so "Science" gets 0 of 20 new banks. *(WI + WD.)*
 
 1. **Two open questions on licensing** — `docs/licensing.md` has them, and
    neither blocks the redemption flow, which is the first build. **An open
