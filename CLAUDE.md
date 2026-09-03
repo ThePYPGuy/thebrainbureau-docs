@@ -735,6 +735,52 @@ of whenever someone last touched it. **The sharing is what makes the stale
 answer feel current, not a gap in the sharing.**
 
 
+### A TRUE FACT ABOUT A THING IS NOT A FACT ONLY THAT THING IS TRUE OF
+
+Preview mode needed to hide a teacher's own preview from their dashboard. A
+preview deployment carries no class, so the filter excluded deployments with a
+null `class_id`, and the reasoning was written out and checked: the one code
+path that creates a deployment, `assignActivityToClass`, always sets a real
+class. **That check was correct, and against the wrong thing.**
+
+    select count(*) from deployments where class_id is null;   ->  11
+
+Eleven real deployments already had no class — rate-limit, guest-agent and
+redeem fixtures predating the classes feature. The filter would have silently
+removed every one of them from the Assignments page and the dashboard. **Not an
+error anybody would see. A report that quietly comes up short.**
+
+**The invariant was verified against the CODE THAT CREATES NEW ROWS, and broken
+by the ROWS THAT ALREADY EXISTED.** Code review cannot see this. Only the data
+can answer it, and the query is one line.
+
+**The precise error, in the fixed file's own words: `class_id IS NULL` is a true
+fact about a preview deployment; it is not a fact ONLY a preview deployment is
+true of.** A necessary property was used as a sufficient one. Whenever a filter
+excludes on an ABSENCE — a null, a missing row, an empty field — ask what else
+in the table is already absent in the same way, and ask the database rather than
+the code.
+
+**The fix is a POSITIVE marker, not a shared negative.** `PREVIEW_CLASS_NAME =
+"__PREVIEW__"`, the same convention already used for `PREVIEW_CODENAME`,
+deliberately outside the namespace real values draw from. Exclude a thing that
+is only ever true of what you mean; never a blank you share with strangers.
+
+**And the SQL trap the fix then sidestepped, which would have recreated the same
+bug wearing new clothes.** `where class_name <> '__PREVIEW__'` silently drops
+every row whose `class_name` is itself null, because in SQL a comparison against
+NULL is neither true nor false. Filtering in JS instead — `d.class_name !==
+PREVIEW_CLASS_NAME` — keeps the null rows, which is what was wanted. **A
+three-valued logic quietly asserting a second invariant the function had no
+business asserting.**
+
+**Found by a third party, twice over.** Website Designer spotted it because they
+had built the surface those eleven rows appear on that same evening; Doc Manager
+and the author each re-ran the count independently before anything changed. The
+author's reasoning was careful, written down, and wrong — which is the whole
+reason someone who did not write it needs to read it.
+
+
 ### A peer's name for a third party is not an address you can use
 
 The naming hazard is worse than *addresses rotate*. **The registry view DIFFERS
