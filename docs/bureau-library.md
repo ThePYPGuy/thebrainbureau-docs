@@ -345,10 +345,15 @@ component; it is not the composition skill itself.
 **A permanent link now exists, not just the title text — `skill_id`,
 migration 45, Maciej's ruling.** Every bank row was matched to its curriculum
 skill by joining on the title, because nothing else carried the id through the
-import. That worked, but rested on titles staying unique — and **they already
-were not**: `"Copy Source (copy)"` is shared by 4 rows, from double-copying a
-bank. The title join was correct for the 71 Bureau banks only because none of
-them happened to collide with a copy, not because titles are actually unique.
+import. **The join was not ambiguous, but it was undefended.** `"Copy Source
+(copy)"` is shared by 4 rows, from double-copying a bank — and checked
+directly, none of the 4 collides with a curriculum skill text; structurally none
+can, since a copy's title always ends `(copy)` and no skill text does. **So the
+join was never actually ambiguous for a Bureau bank.** What it rested on was
+narrower and just as silent: nobody had EDITED a Bureau bank's title yet, and
+nothing would have reported it if they had. The copy feature is what proves
+titles are generated data rather than identifiers, even though it never
+collided with one.
 `skill_id` closes that permanently: a foreign key to `curriculum_skills`,
 restricting rather than nulling on delete, so removing a skill while a
 published bank teaches it fails loudly instead of quietly cutting the link.
