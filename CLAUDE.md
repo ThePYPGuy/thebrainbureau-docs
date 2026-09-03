@@ -664,30 +664,46 @@ silently on a green run had nobody checked `migration list --linked` first.
 **A test that pinned content order went red for a content edit, not a defect.**
 `composite-finale`'s test named the console's six route ids in the order the
 content happened to ship in. Publishing Tailwind reshuffled them, correctly,
-and the test could not tell a reshuffle from a leak " + D + u" it had encoded *this is
+and the test could not tell a reshuffle from a leak — it had encoded *this is
 the order* rather than *these are the constraints an order must satisfy*.
 
 **A fast-forward check ran against a stale local ref and reported clean.**
-`git merge-base --is-ancestor` is exact " + D + u" the bug was never in the git command,
+`git merge-base --is-ancestor` is exact — the bug was never in the git command,
 it was in what got handed to it. Website Infrastructure compared `platform`
 against the local `main` ref, which updates only when someone in `main`'s own
 worktree pulls. It read `48c87c6`; `origin/main` had moved eleven commits past
 that, live, while the comparison was being made. **Worktrees sharing a ref
-store is exactly what made the stale answer feel authoritative** " + D + u" the ref
+store is exactly what made the stale answer feel authoritative** — the ref
 was real, current for something, just not for the trunk.
 
 **The shape underneath all three: a comparison is only as current as the thing
 it compared against, and nothing about a clean result says how long ago clean
-was measured.** A report of freshness decays between being made and being
-acted on; a check that verifies its own precondition at the moment it acts
-cannot.
+was measured.**
 
-**So prefer a self-checking command over a status claim, wherever the gap
-between saying and doing is large enough to matter.** `git merge --ff-only`
-refuses on its own if the trunk has moved, rather than a session asserting
-*it was clean when I looked*. The freshness check moves from a report someone
-has to trust into an action that fails safely on its own if the world changed
-underneath it.
+**And re-verifying faster does not close the gap, because the gap is between
+the check and the act, not inside the check.** A session that re-runs the
+comparison a second time before acting has only moved where the race can
+happen, not removed it. **The fix is finding the precondition the ACTION ITSELF
+can enforce, so the check happens at the moment of acting rather than in a
+report made beforehand:**
+
+    fast-forward       `--ff-only` refuses if it stopped being true
+    migration number   only really claimed when the row lands in schema_migrations
+    content counts     pre-flight inside the run, not a plan computed earlier
+
+**A `--ff-only` refusal is INFORMATION, not a failure — it means re-sync, not
+retry.** Say that out loud to whoever runs it, or the first person to hit the
+refusal reads it as a broken instruction and goes looking for the `--force`
+equivalent, which is the one outcome the flag exists to prevent.
+
+**The worktree trap specifically, because it is counterintuitive in exactly
+the direction that produces confidence:** worktrees share a ref store, so
+`main` resolves from ANY worktree and looks authoritative — but it only
+advances when someone in `main`'s own worktree actually pulls, and when
+`main` is checked out somewhere that is not yours, it is nobody's job to.
+`origin/main` after a `fetch` is the trunk; the local `main` ref is a souvenir
+of whenever someone last touched it. **The sharing is what makes the stale
+answer feel current, not a gap in the sharing.**
 
 
 ### A peer's name for a third party is not an address you can use
@@ -790,20 +806,20 @@ document view of those four is still the room**, so they need regenerating.
 
 `--ref` is meant to carry the palette, the lighting and the pixel register.
 **When the reference and the target share an aspect ratio and a framing, it
-carries the composition too** " + D + u" and a prop that is a beautifully rendered copy of
+carries the composition too** — and a prop that is a beautifully rendered copy of
 the room looks like a successful generation, not a failed one.
 
 The fix was to drop the reference entirely for those three. The style preamble
 already states the palette, the one-light-source rule and the pixel register
 explicitly, and the room itself was generated from that preamble with no
-reference at all " + D + u" **so the family survives without the composition being
+reference at all — **so the family survives without the composition being
 handed over.**
 
 **This will bite the Lock Library.** Sixteen archetype backgrounds exist, most
 of them 16:9, and every future Operation generates props against one of them.
 
 **The tell, which was in the data before anyone looked at the art:** two
-different props measured identical " + D + u" `dish-console` and `sterna-live-feed` both
+different props measured identical — `dish-console` and `sterna-live-feed` both
 411x515 at fill 0.99. Two subjects cannot have the same measurements. Doc
 Manager read that line and moved past it; the defect was found later by looking
 at the pictures. **When a measurement is suspiciously equal across things that
