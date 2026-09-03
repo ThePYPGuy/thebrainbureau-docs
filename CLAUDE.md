@@ -185,6 +185,63 @@ Related: `npm run deploy:check -- --prod` answers the other half — whether a
 *database* matches the repo. Doctor is about this machine. Run it bare; it
 finds the production credentials itself.
 
+### The checks built on 4 Sep, and what each one actually claims
+
+Five landed in one night, out of the Tailwind retrospective. **Each exists
+because something passed every check that already existed.** Know what each
+claims before citing it — the shortest way to be wrong here is to run a green
+check that was never looking at your problem.
+
+    npm run audit:operation -- <slug>
+        ONE Operation against reality: resources both directions, curriculum
+        tags, cover present AND on disk, appears on /missions (FETCHED, not
+        grepped), appears on the teacher dashboard (a REAL login and render).
+        Needs a server you control; BASE_URL defaults to localhost:3000, and
+        another session's server on that port will silently answer instead.
+
+    npm run check:assets
+        Every image under public/ against every source file in app/,
+        components/, lib/, content/ and public/. NOT the same as doctor's
+        orphan check, which is folder-granularity, scoped to one path, and
+        would not have caught the Tailwind case at all.
+
+    npm run test:task-types
+        Dispatch and grading coverage. The regex that scraped a constant out
+        of another script's SOURCE TEXT is gone — retired, not weakened,
+        because lib/engine/task-types.ts made that failure impossible.
+
+    the constraint meta-check
+        Every CHECK-constraint vocabulary against its TypeScript source, BOTH
+        directions, read from the LIVE DATABASE rather than migration files —
+        because tasks_task_type_check is defined in two migrations and only
+        the database knows which is in force.
+
+    components/terminal/task-seam.test.tsx
+        Mounts each real authored task and requires controls a child can act
+        on, then sends that task's own answer through the real routing and
+        requires it to grade — and requires a SPOILED answer to be refused.
+        Deliberately does not count the submit button: item 5 drew "Verify
+        ranking" perfectly while drawing zero rows.
+
+**AND THE SHARPEST FINDING IS ABOUT THE CHECK THAT ALREADY EXISTED.**
+`upload:resource --verify` has reported bucket files *claimed by no activity*
+since 1 Sep — correct code, committed days before Tailwind's printables went
+missing from the page. **The gap was never a missing check. It was a check
+nobody ran.** So `audit:operation`'s value is only partly the new assertions:
+it is mostly that one command runs what four scripts already knew, instead of
+four people rediscovering four gaps by hand over a night.
+
+Worth stating because the instinct after a bad night is to write more checks,
+and at least one of tonight's problems needed nobody to write anything.
+
+**Three of the five found real, unplanted defects on their first run**: nine
+orphaned assets, live drift between the database and the type union, and nine
+independent gaps on Tailwind. **A sixth thing they found is a fact about the
+product**: `text`, `assembly` and `open` are declared task types with no
+dispatch case at all — a child meeting one sees "This task type isn't
+supported on the terminal yet." **Do not author those three.**
+
+
 ## Read STATUS.md before reporting on it
 
 **Open it. Do not report a section as missing something you have not looked
