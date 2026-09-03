@@ -184,18 +184,18 @@ this is the section that pays for the cap. Each description is its own session's
 1. **Codenames go globally unique with no school**, and `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide. `docs/identity-and-access.md`.
 1. **Tailwind's six printables are unuploaded and the activity declares zero
    resources**, so `--verify` can never cover them. *(Maciej: writes prod storage.)*
-1. **Lock Library: renderers moving hourly — `/dev/locks` (public) is the live count, not this line.**
+1. **Lock Library stopped 3 Sep, `11e2e69`.** 20 types render/grade on real, not
+   design-approved art; only `keypad-code` solved by a real answer. Two gaps:
+   `spot-difference` predates its image; `PointSpec` has no `alt` field.
 1. **Two RLS gaps: `agents` hides a colleague's child in your own class, `activities` hides your own DRAFT from you.** Plus the school gap. `docs/identity-and-access.md`. *(Schema.)*
 1. **A migration number is claimed before it is committed**, and the claimant may
    have applied it to the shared local database — which makes the loser skip
    silently on a green run. Check all seven worktrees AND `migration list --linked`
    before taking one. *(WI, who collided on 40; WD independently hit the same class.)*
-1. **THE NEXT PRODUCTION PUSH, consolidated.** 35/38/39/41 applied; 43 (locks), 45
-   (`skill_id`) don't; Bureau Library waits for `platform` to merge. **Tailwind
-   import: WD refused a relayed "yes", correctly, and asks Maciej directly.**
-1. **Authenticated visual captures.** Every teacher-facing surface is outside the
-   harness, which has no sign-in. A form filled before hydration submits nothing
-   and photographs the login page at self-diff 0. *(WD, unqueued.)*
+1. **Migrations 35/38/39/41/43 applied; only 45 (`skill_id`) remains.** Tailwind's
+   fix and 43 landed 3 Sep, direct from Maciej. Bureau Library awaits `docs` then
+   `platform` onto `main` (in progress).
+1. **DONE — authenticated captures, signed in.** 11 surfaces, 10 pass, `/profile` at its known drift only.
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. Rotation took the
    irreversibility out — a code can be retired. *(WI: table, route. WD: page.)*
 1. **Queue 2 step 6 — prices and purchase routes.** Steps 1–5 done;
