@@ -192,9 +192,11 @@ this is the section that pays for the cap. Each description is its own session's
    have applied it to the shared local database — which makes the loser skip
    silently on a green run. Check all seven worktrees AND `migration list --linked`
    before taking one. *(WI, who collided on 40; WD independently hit the same class.)*
-1. **Migrations 35/38/39/41/43 applied; only 45 (`skill_id`) remains.** Tailwind's
-   fix and 43 landed 3 Sep, direct from Maciej. Bureau Library awaits `docs` then
-   `platform` onto `main` (in progress).
+1. **`platform` merged into `main` at `1a237ad` — 3 Sep, verified independently
+   by Doc Manager: `lib/banks/subjects.ts` real, `English`/`Maths`/`Science`,
+   CLAUDE.md's earlier repair intact, `main` 28 ahead of `origin`, 0 behind.
+   **Migrations 44 (rookie/pro/expert) and 45 (`skill_id`) now on `main`, neither
+   applied to production.** 35/38/39/41/43 are. Nothing pushed — Maciej's.
 1. **DONE — authenticated captures, signed in.** 11 surfaces, 10 pass, `/profile` at its known drift only.
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. Rotation took the
    irreversibility out — a code can be retired. *(WI: table, route. WD: page.)*
@@ -207,11 +209,9 @@ this is the section that pays for the cap. Each description is its own session's
 
 ## 9. Open decisions — waiting on Maciej
 
-1. **Two open questions on licensing** — `docs/licensing.md` has them, and
-   neither blocks the redemption flow, which is the first build. **An open
-   deployment code admits anyone and always has** — `resolveAgent` creates an
-   agent for any unused codename. Parked under licensing: entitlements change
-   what a code should guard.
+1. **Two open questions on licensing, `docs/licensing.md`** — neither blocks
+   the redemption flow. **An open deployment code admits anyone and always has**
+   — `resolveAgent` creates an agent for any unused codename.
 
 ## 10. Known silent failures
 
