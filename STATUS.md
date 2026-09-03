@@ -175,7 +175,15 @@ written 31 Aug, corrected on the way in. **`npm run test` is green — 395/395, 
 **A window, not a record** — oldest entries fall off, git holds the rest, and
 this is the section that pays for the cap. Each description is its own session's.
 
-- `254ef63` + `d9009f8` + `ca03a46` — **teacher printables are served through a route that checks the `entitlements` table, and the admin client comes off the public page.** A private bucket, a streaming route (**a signed URL is a bearer token**), an upload script, and ten tests. `phases` got the anon grant migration 32 needed, proved against a draft phase in the table, so `/missions` runs on the ordinary client. **The 403 probe first passed without testing anything** — a failed sign-in answered 401, which reads like a refusal. *(WI, WD.)*
+- `1a237ad` — **PRODUCTION PUSH, 3 Sep, on Maciej's direct word at every write.**
+  Migrations 43/44/45 applied. `main` pushed, 28 commits. Bureau Library imported
+  `--prod`: 74 public banks (71 new + 3 pre-existing), verified three ways —
+  the script's own report, `deploy:check --prod` ("matches the repo"), and a fresh
+  query (71 banks carry `skill_id`, exactly the new ones). `/dashboard/builder/locks`
+  live, confirmed reachable (redirects to `/login` correctly, signed out). **Lock
+  Library stopped at `11e2e69`: 20 types render/grade on real, not design-approved
+  art; only `keypad-code` solved by a real answer. Two gaps, neither theirs:
+  `spot-difference` predates its image; `PointSpec` has no `alt` field.**
 
 ## 8. Next up
 
@@ -184,19 +192,11 @@ this is the section that pays for the cap. Each description is its own session's
 1. **Codenames go globally unique with no school**, and `resetAgentPin` scopes by `teacher_id` while the namespace is school-wide. `docs/identity-and-access.md`.
 1. **Tailwind's six printables are unuploaded and the activity declares zero
    resources**, so `--verify` can never cover them. *(Maciej: writes prod storage.)*
-1. **Lock Library stopped 3 Sep, `11e2e69`.** 20 types render/grade on real, not
-   design-approved art; only `keypad-code` solved by a real answer. Two gaps:
-   `spot-difference` predates its image; `PointSpec` has no `alt` field.
 1. **Two RLS gaps: `agents` hides a colleague's child in your own class, `activities` hides your own DRAFT from you.** Plus the school gap. `docs/identity-and-access.md`. *(Schema.)*
 1. **A migration number is claimed before it is committed**, and the claimant may
    have applied it to the shared local database — which makes the loser skip
    silently on a green run. Check all seven worktrees AND `migration list --linked`
    before taking one. *(WI, who collided on 40; WD independently hit the same class.)*
-1. **`platform` merged into `main` at `1a237ad` — 3 Sep, verified independently
-   by Doc Manager: `lib/banks/subjects.ts` real, `English`/`Maths`/`Science`,
-   CLAUDE.md's earlier repair intact, `main` 28 ahead of `origin`, 0 behind.
-   **Migrations 44 (rookie/pro/expert) and 45 (`skill_id`) now on `main`, neither
-   applied to production.** 35/38/39/41/43 are. Nothing pushed — Maciej's.
 1. **DONE — authenticated captures, signed in.** 11 surfaces, 10 pass, `/profile` at its known drift only.
 1. **Redemption: one `/redeem`, not a second signup.** Briefed. Rotation took the
    irreversibility out — a code can be retired. *(WI: table, route. WD: page.)*
