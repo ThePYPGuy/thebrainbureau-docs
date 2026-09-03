@@ -393,6 +393,84 @@ cost model, and a review-and-edit step that makes clear the teacher is
 accountable for what their class sees. No generated question should ever reach
 a child unreviewed.
 
+### What a question can and cannot be — measured 2026-09-03
+
+Written after authoring 1,460 questions against these modes. Each of these
+broke something real.
+
+**The three types, and what each is for.**
+
+- **`numeric` is the strongest and most underused.** The child types a number.
+  No distractors to write, nothing to give away, and `tolerance` supports honest
+  estimation. Maths scored **below chance** on every content-blind strategy for
+  exactly this reason: its answers are numbers, not sentences.
+- **`multiple_choice` carries all the risk** — every wrong option is a chance to
+  leak the right one.
+- **`short_text` is the truest test where the answer is genuinely one string**,
+  spelling especially. **If several wordings are equally right, it is the wrong
+  type.**
+
+**Hard constraints, each of which rejected real content.**
+
+- **There are no images.** Every shape, circuit, grid and chart must be
+  describable in words. If it cannot be asked without a picture, it cannot be
+  asked. (Images are specified below and not built.)
+- **Matching is case-insensitive**, so a distractor differing from the key only
+  by a capital letter IS the key. This silently destroys capitalisation
+  questions — *"On saturday morning..."* against *"On Saturday morning..."*.
+- **A key can collide with a position label.** An answer of `4` is unreadable
+  when an option's text is also `4`. **Neither row is wrong on its own; the
+  collision is fatal, and reading the file will never show it.**
+- **Two rows in a bank may not share a prompt.** Five questions all asking
+  *"Which spelling is correct?"* is rejected. Add the definition — it makes each
+  prompt distinct AND tests the word rather than four shapes.
+- **An accepted-answer list must not repeat itself case-insensitively.**
+  `the Earth|Earth|the earth` is one answer written twice.
+- **Comprehension carries its own passage**, since questions do not share a
+  text — and that passage competes with the options for the word budget above.
+
+**What cannot be assessed here at all.**
+
+- **Anything observed rather than answered.** Reading fluency is accuracy, pace
+  and expression *aloud*; no written question sees any of the three. **Two
+  fluency banks were written and then dropped on 2026-09-03** — a child can
+  score full marks and still read haltingly, and a fluent reader who was never
+  taught the vocabulary scores badly.
+- **Anything produced rather than chosen.** Composition can be tested as
+  editorial judgement about someone else's writing — paragraph order, register,
+  cohesion — but not as the ability to sustain a shape over 400 words. The
+  banks that remain are labelled with that limit rather than implying otherwise.
+- **Anything with several equally defensible answers.**
+
+**CHANCE IS THE TARGET, NOT A CEILING — the test must be two-sided.** A correct
+answer that is almost NEVER the longest is as exploitable as one that usually
+is: eliminate the longest and a child goes from 25% to 33%. *"The long one is
+never right"* is an easier rule to learn than *"the long one is usually right"*.
+An agent rewriting the comprehension banks caught its own first pass at **3.1%
+longest — zero of sixteen** — and tuned back to just under chance rather than
+leaving it, because **the remedy for the flagged defect manufactures its mirror
+image.** Aim for indistinguishable from chance; never minimise.
+
+**AND THE NULL MODEL IS NOT 1/n.** Counting *uniquely* longest against a flat
+1/n expectation is wrong, because a question whose two shortest options TIE can
+produce no uniquely-shortest option at all — it contributes to the expectation
+while being unable to contribute to the count. **Ties cluster at the short end**
+(maths options `12`, `24`, `36` are all length 2), so the error is largest
+exactly where somebody would act on it: an uncorrected run reported maths
+avoiding short answers at z=-6.4, a defect that does not exist. **A question
+contributes 1/n only if a unique extreme exists**, computed for longest and
+shortest independently. Counting ties at 1/n instead sidesteps this and models
+the child better — facing a two-way tie, they choose one of two, not one of four.
+
+**Before shipping a bank, measure what CHEATING scores.** `npm run bank:check`
+reports what a child scores using strategies that ignore the question —
+longest, shortest, first, last — against the chance rate for the options
+actually present. The first Bureau Library draft had the correct answer
+systematically longest in science and literacy: **a child who never read the
+question scored around 60%**, and **every one of those files passed every
+structural check.** Fix by lengthening the DISTRACTORS, never by trimming the
+correct answer.
+
 ### Images
 
 **Not built.** A question may carry one image, and each multiple_choice option
@@ -544,6 +622,25 @@ back for authoring rather than asking something further of them.
   it stays true for every future mode.
 - **Options are shuffled per run**, so replaying a bank cannot be beaten by
   remembering positions.
+- **A question must fit the answer window, and that is a WORD BUDGET.** Signal
+  Check puts one question in front of the whole class on a projector with a
+  window of 10-60s (`MIN_WINDOW_MS`/`MAX_WINDOW_MS`, `lib/live/engine.ts`), and
+  that window covers reading the prompt, reading the options, thinking and
+  answering. So: **prompt words plus all option words, 60 or fewer, aiming 45.**
+
+  **The explanation does not count** — it appears at the reveal, after the
+  window closes. Explanations should stay as rich as the teaching needs.
+
+  Measured 2026-09-03 across the Bureau Library's first draft: maths median 20
+  words on screen, science 46, literacy 45, and **254 of 1,460 questions over
+  60** — concentrated in six banks whose MEDIAN question exceeded it. Five of
+  those six were reading comprehension, because each question has to carry its
+  own passage rather than sharing one.
+
+  **Solo Practice is self-paced and forgives all of this. The tightest mode
+  binds**, the same way `question-types.ts` already argues for types: a question
+  that works in only one mode breaks the premise of the split.
+
 - **The review screen names the right answers, and only afterwards.** During
   play the same information is the answer key.
 - **Nothing a child typed goes on a shared screen.** A `short_text` answer is

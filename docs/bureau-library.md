@@ -21,7 +21,8 @@ is marked as such.
 **Twenty-five of the 73 already span two years** — `curriculum_skills.uk` reads
 `Y3-4` or `Y5-6` rather than a single year. So *Years 3 to 6* is encoded in WHICH
 goal you are looking at, not in a fourth axis on top of it. One bank per goal,
-20 questions each: **1,460 questions.**
+20 questions each: 1,460 questions. **Two were dropped on 3 Sep — see below —
+leaving 71 banks and 1,420 questions.**
 
 Count it yourself rather than trusting this number:
 
@@ -180,6 +181,65 @@ right — a quality report over whichever files happened to parse is how a bad s
 gets a clean bill of health.
 
 
+## ALIGNED TO THE TWO MODES THAT EXIST — 3 Sep
+
+Maciej: *"we only want questions that suit the platform we currently have. The
+question banks are only playable in two modes so need to be aligned to them."*
+
+**The TYPES were never the problem.** `lib/banks/question-types.ts` already
+settles them and says why — *every type must work in every mode, which is why
+ordering and matching are absent* — and all 1,460 questions used the three
+allowed types.
+
+**The problem was length, and Signal Check is what exposes it.** Live,
+whole-class, on a projector, with a hard window of 10-60s (`MIN_WINDOW_MS`,
+`MAX_WINDOW_MS`) that must cover reading the prompt, reading the options,
+thinking and answering. Solo Practice is self-paced and forgives it. **The
+tightest mode binds.**
+
+    before          median words on screen   over 60
+    mathematics             20                  9 of 660
+    science                 46                124 of 400
+    english-literacy        45                121 of 400
+
+**242 questions rewritten across ~40 banks; two banks deleted.** Every row is
+now inside the budget. Explanations were NOT shortened — they appear at the
+reveal, outside the window — and several were enriched to carry teaching a
+shortened prompt gave up.
+
+### The result, measured two ways that agree
+
+    subject             n  |  LONGEST act/exp    z  |  SHORTEST act/exp    z
+    english-literacy  287  |    61 / 62.2     -0.2  |    30 / 58.8     -4.3
+    mathematics       225  |    38 / 34.4     +0.7  |    15 / 29.0     -3.0
+    science           310  |    55 / 69.8     -2.0  |    48 / 64.6     -2.4
+    ALL               822  |   154 / 166.4    -1.1  |    93 / 152.3    -5.6
+
+`npm run bank:check` reports the same figures independently and passes the set.
+
+**LONGEST IS CLOSED** — on chance in every subject, from +70% in science and
++56% in literacy.
+
+**SHORTEST IS LOW, AND IT IS LEFT OPEN DELIBERATELY.** The correct answer is
+rarely the shortest option, so eliminating the shortest lifts a child from 25%
+to about 30% — **roughly 4.6 points, below the five-point actionable gate, but
+z=-5.6 and consistent across all three subjects.** It is **pre-existing**, not
+caused by the rewrite: it is the *"correct answers run long generally"* signal
+Website Infrastructure named at the outset.
+
+**No fifth pass was commissioned for it.** Four have been spent, it is under the
+threshold, and a pass aimed at lengthening correct answers is precisely how the
+LONGEST tell returns. It is recorded with its arithmetic so the next person
+decides with the number in front of them rather than rediscovering it.
+
+**Two defects were caught by the writers rather than by any check.** One found
+its own first pass at 3.1% longest — the inverted tell — and corrected back
+toward chance. Another found a pre-existing SHORTEST tell in
+`materials-and-their-properties.2` where the correct answer was shortest in 9 of
+16 rows and *"always pick the shortest"* scored about 58%; `bank:check` prints
+shortest and has never flagged on it, so that file would have shipped. It also
+found and removed a mains-electricity question, which the safety rule forbids.
+
 ## WHERE THE CURRICULUM ITSELF IS THE PROBLEM
 
 Six goals came back flagged by the people writing against them. None is a defect
@@ -230,14 +290,29 @@ comparison in twenty questions. A candidate for splitting.
 
 Said plainly here so nobody discovers it from a disappointing classroom.
 
-**Reading Fluency** is accuracy, pace and expression in the act of reading ALOUD.
-A written multiple-choice question observes none of the three. The two banks test
-*knowledge about* fluent reading — where punctuation asks for a pause, which word
-carries the stress, why a long embedded clause trips a first reading. That is
-real and teachable, but **a child can score full marks and still read haltingly,
-and a fluent reader who was never taught the vocabulary can score badly.** The
-real measure is a running record or a timed read-aloud, which the terminal
-cannot capture.
+**Reading Fluency — DROPPED 3 Sep on Maciej's instruction.** Fluency is accuracy,
+pace and expression in the act of reading ALOUD, and a written multiple-choice
+question observes none of the three. The two banks tested *knowledge about*
+fluent reading — where punctuation asks for a pause, which word carries the
+stress. Real and teachable, but **a child could score full marks and still read
+haltingly, and a fluent reader who was never taught the vocabulary scored
+badly.** The real measure is a running record or a timed read-aloud, which the
+terminal cannot capture, so the banks were removed rather than shipped under a
+name they could not honour.
+
+**So COVERAGE IS 71 OF 73 GOALS, deliberately.** Verified 3 Sep: exactly
+`english-literacy.reading-fluency.1` and `.2` have no bank, and no bank names a
+skill the curriculum does not have. **Anyone auditing coverage will find the
+gap, and it is not an oversight** — it is written here so nobody fills it back
+in by writing twenty more questions that measure the wrong thing.
+
+**The two goals stay in `curriculum_skills`.** They are real curriculum content
+that primary schools genuinely teach; it is this FORMAT that cannot observe
+them, not the curriculum that is wrong. Deleting the goals to make the coverage
+number tidy would hide a limitation of the platform inside a claim about the
+curriculum. Fluency belongs to a running record or a timed read-aloud, and if
+the platform ever gains a way to capture one, the goals are already there
+waiting.
 
 **Writing: Composition and Structure** genuinely assesses paragraph boundaries,
 ordering, topic sentences, register, precis and cohesion. It **cannot** assess

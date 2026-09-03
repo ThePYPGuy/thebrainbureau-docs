@@ -60,7 +60,7 @@ Say so when you commit. Four collisions on 2026-08-25, two destroying work.
 | Case File skin + Prime Directive | `main`, `operation-prime-directive` | both dormant; PD holds nothing `main` lacks |
 | Website redesign | `main` | **all three phases live** — no surface left on the old chrome |
 | Lock Library | merged to `main` at `227465d` | **DONE** — 20 types, 20 working examples, migration 43, 2131 tests. **Not pushed** |
-| Bureau Library | content committed `180fc54` on `docs`; plumbing on `platform` | **CONTENT DONE** — 73 banks, 1,460 questions, one per goal, rookie/pro/expert. `npm run bank:check` clean. **Import waits on two of Maciej's answers.** `docs/bureau-library.md` |
+| Bureau Library | content committed `180fc54` on `docs`; plumbing on `platform` | **71 banks, 1,420 questions**, one per goal, rookie/pro/expert. Fluency banks dropped (unassessable in writing); 242 questions being shortened to fit Signal Check's 60s projector window. **Import waits on Maciej's ownership call.** `docs/bureau-library.md` |
 | Platform | `platform` in `../tbb-platform` | scoping and importer both merged to `main` |
 | Operation Tailwind | `tailwind` + `tailwind-support` | **THE ROOM IS BUILT** — nine documents, six flavour props, six Reference Files, console gated. 4 props to regenerate. `docs/tailwind-acceptance.md` |
 | Docs | `docs` | own worktree; merges to `main` `--ff-only` |
